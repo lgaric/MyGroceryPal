@@ -18,7 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Controller.RegisterActivity"></activity>
+        <activity android:name=".Controller.RegisterActivity" />
+        <activity android:name=".Controller.PasswordRecoveryActivity" />
+        <activity android:name=".Core.BaseActivity"></activity>
     </application>
 
 </manifest>
