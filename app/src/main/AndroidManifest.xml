@@ -20,7 +20,9 @@
         </activity>
         <activity android:name=".Controller.RegisterActivity" />
         <activity android:name=".Controller.PasswordRecoveryActivity" />
-        <activity android:name=".Core.BaseActivity"></activity>
+        <activity android:name=".Core.BaseActivity" />
+        <activity android:name=".Controller.DelivererMainActivity" />
+        <activity android:name=".Controller.MenuActivity"></activity>
     </application>
 
 </manifest>

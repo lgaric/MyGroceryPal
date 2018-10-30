@@ -19,6 +19,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void Login(View view) {
+        ShowActivity(DelivererMainActivity.class);
     }
 
     public void ShowRegister(View view) {
