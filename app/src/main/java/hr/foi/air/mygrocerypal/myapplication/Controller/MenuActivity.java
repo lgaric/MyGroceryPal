@@ -3,6 +3,8 @@ package hr.foi.air.mygrocerypal.myapplication.Controller;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import hr.foi.air.mygrocerypal.myapplication.R;
+
 public class MenuActivity extends AppCompatActivity {
 
     @Override
