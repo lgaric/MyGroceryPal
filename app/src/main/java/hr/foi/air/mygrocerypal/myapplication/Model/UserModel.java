@@ -1,6 +1,5 @@
 package hr.foi.air.mygrocerypal.myapplication.Model;
 
-import java.util.Date;
 
 public class UserModel {
     private String first_name;
@@ -8,14 +7,13 @@ public class UserModel {
     private String username;
     private String email;
     private String password;
-    private String salt;
+    private String salt="testSALT";
     private String town;
     private String address;
     private String phone_number;
-    private Date birth_date;
-    private boolean activated = false;
+    private String birth_date;
 
-    public UserModel(String first_name, String last_name, String username, String email, String password, String town, String address, String phone_number, Date birth_date) {
+    public UserModel(String first_name, String last_name, String username, String email, String password, String town, String address, String phone_number, String birth_date) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.username = username;
@@ -99,19 +97,11 @@ public class UserModel {
         this.phone_number = phone_number;
     }
 
-    public Date getBirth_date() {
+    public String getBirth_date() {
         return birth_date;
     }
 
-    public void setBirth_date(Date birth_date) {
+    public void setBirth_date(String birth_date) {
         this.birth_date = birth_date;
-    }
-
-    public boolean isActivated() {
-        return activated;
-    }
-
-    public void setActivated(boolean activated) {
-        this.activated = activated;
     }
 }
