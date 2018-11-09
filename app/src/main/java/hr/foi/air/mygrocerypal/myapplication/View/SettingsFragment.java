@@ -12,10 +12,10 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MenuFragment extends Fragment {
+public class SettingsFragment extends Fragment {
 
 
-    public MenuFragment() {
+    public SettingsFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class MenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu, container, false);
+        return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
 }

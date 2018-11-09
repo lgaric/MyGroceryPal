@@ -2,6 +2,9 @@ package hr.foi.air.mygrocerypal.myapplication.View;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +15,10 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DelivererMainFragment extends Fragment {
+public class DelivererFragment extends Fragment {
 
 
-    public DelivererMainFragment() {
+    public DelivererFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +27,11 @@ public class DelivererMainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_deliverer_main, container, false);
+        return inflater.inflate(R.layout.fragment_deliverer, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
 }
