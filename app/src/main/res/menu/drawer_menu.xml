@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/navigation_deliverer"
+            android:icon="@drawable/ic_directions_car_black_24dp"
+            android:title="Dostavljač" />
+        <item
+            android:id="@+id/navigation_client"
+            android:icon="@drawable/ic_add_shopping_cart_black_24dp"
+            android:title="Naručitelj" />
+        <item
+            android:id="@+id/navigation_statistics"
+            android:icon="@drawable/ic_trending_up_black_24dp"
+            android:title="Statistika" />
+        <item
+            android:id="@+id/navigation_settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="Postavke" />
+        <item
+            android:id="@+id/navigation_pay"
+            android:icon="@drawable/ic_credit_card_black_24dp"
+            android:title="Uplati" />
+
+    </group>
+    <item android:title="Dodatno">
+        <menu>
+            <item
+                android:id="@+id/navigation_logout"
+                android:icon="@drawable/ic_power_settings_new_black_24dp"
+                android:title="Odjavi se" />
+        </menu>
+    </item>
+
+</menu>

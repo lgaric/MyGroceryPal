@@ -2,7 +2,6 @@ package hr.foi.air.mygrocerypal.myapplication.Controller;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -15,7 +14,6 @@ import com.google.firebase.auth.FirebaseAuthException;
 
 import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
-import hr.foi.air.mygrocerypal.myapplication.View.LoginFragment;
 
 public class LoginActivity extends BaseActivity {
 
@@ -51,7 +49,9 @@ public class LoginActivity extends BaseActivity {
                         if(task.isSuccessful())
                         {
                             if(mAuth.getCurrentUser().isEmailVerified()) {
-                                ShowActivity(DelivererMainActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                LoginActivity.this.startActivity(intent);
+//                                ShowActivity(MainActivity.class);
                             }
                             else {
                                 showToast("Email nije verificiran");

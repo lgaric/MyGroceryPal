@@ -7,6 +7,28 @@
     <string name="prijava">Prijava</string>
     <string name="MyGroceryPal">MyGroceryPal"</string>
     <string name="registerUser">Registriraj se!</string>
+    <string name="test_button">Test database</string>
+    <string name="store_image">Store image</string>
+    <string name="preferences">Preferences</string>
+    <string name="title_activity_discount_details">Discount details</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="removal_question">Do you wish to remove this item?</string>
+
+    <string name="username">Username</string>
+    <string name="load_data_from">Load data from web service by default?</string>
+    <string name="app_lang_pref">Language preference</string>
+
+    <string name="navigation_drawer_open">Open drawer</string>
+    <string name="navigation_drawer_close">Close drawer</string>
+
+    <string name="nav_header_title">MyGroceryPal</string>
+    <string name="nav_header_info">imeprezime@foi.hr</string>
+
+    <string name="menu_list">List view</string>
+    <string name="menu_map">Map view</string>
+    <string name="menu_about">About app</string>
+    <string name="action_settings">Settings</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
