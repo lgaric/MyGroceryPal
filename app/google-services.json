@@ -1,0 +1,167 @@
+{
+  "project_info": {
+    "project_number": "1058420345982",
+    "firebase_url": "https://mygrocerypal-63fbd.firebaseio.com",
+    "project_id": "mygrocerypal-63fbd",
+    "storage_bucket": "mygrocerypal-63fbd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058420345982:android:3d0b1099be3c4b49",
+        "android_client_info": {
+          "package_name": "com.example.bozo.auth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058420345982-pej6lqo0f3v27pmudvel5igp6ud8eisi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bozo.auth",
+            "certificate_hash": "5ef3c78363109ab841467d848ab493c70168b86c"
+          }
+        },
+        {
+          "client_id": "1058420345982-rq9f0g2hgbk6m2c8nsepel9art4i5685.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bozo.auth",
+            "certificate_hash": "400bf5dc72ad3691a5d4344915cd373d8d8ffe9a"
+          }
+        },
+        {
+          "client_id": "1058420345982-e6dma9k87kcmf16i2mp6pkr1slebl1iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiJEvR2ABEi3x9JNbS0J2Ncu23YE2Hoto"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058420345982-e6dma9k87kcmf16i2mp6pkr1slebl1iq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058420345982:android:aa2100a1a8237085",
+        "android_client_info": {
+          "package_name": "com.example.bozo.firebasetest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058420345982-5phpc8r6dmt7phhu89e0d854jt7pkirq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bozo.firebasetest",
+            "certificate_hash": "5ef3c78363109ab841467d848ab493c70168b86c"
+          }
+        },
+        {
+          "client_id": "1058420345982-e6dma9k87kcmf16i2mp6pkr1slebl1iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiJEvR2ABEi3x9JNbS0J2Ncu23YE2Hoto"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058420345982-e6dma9k87kcmf16i2mp6pkr1slebl1iq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058420345982:android:21dc4b20ebf2198c",
+        "android_client_info": {
+          "package_name": "hr.foi.air.mygrocerypal.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058420345982-1m8ttpi92b0mcb23qlo76460ffda8aaq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hr.foi.air.mygrocerypal.myapplication",
+            "certificate_hash": "47ccc703a97246619136fcbaef7784517a59e144"
+          }
+        },
+        {
+          "client_id": "1058420345982-s80n096k3tivo2m9hvqm7ej3s96btrho.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hr.foi.air.mygrocerypal.myapplication",
+            "certificate_hash": "5ef3c78363109ab841467d848ab493c70168b86c"
+          }
+        },
+        {
+          "client_id": "1058420345982-b6cvuetc3t6fduev1s2gsqdr7e6j63r3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hr.foi.air.mygrocerypal.myapplication",
+            "certificate_hash": "400bf5dc72ad3691a5d4344915cd373d8d8ffe9a"
+          }
+        },
+        {
+          "client_id": "1058420345982-e6dma9k87kcmf16i2mp6pkr1slebl1iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiJEvR2ABEi3x9JNbS0J2Ncu23YE2Hoto"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058420345982-e6dma9k87kcmf16i2mp6pkr1slebl1iq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
