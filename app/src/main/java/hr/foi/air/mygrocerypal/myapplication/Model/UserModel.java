@@ -12,6 +12,9 @@ public class UserModel {
     private String address;
     private String phone_number;
     private String birth_date;
+    private boolean activated;
+
+    public UserModel(){}
 
     public UserModel(String first_name, String last_name, String username, String email, String password, String town, String address, String phone_number, String birth_date) {
         this.first_name = first_name;
