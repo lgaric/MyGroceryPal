@@ -1,11 +1,11 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
+import hr.foi.air.mygrocerypal.myapplication.View.LoginActivity;
 
 public class PasswordRecoveryActivity extends BaseActivity {
 

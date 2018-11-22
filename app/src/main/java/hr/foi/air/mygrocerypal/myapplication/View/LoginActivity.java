@@ -1,4 +1,4 @@
-package hr.foi.air.mygrocerypal.myapplication.Controller;
+package hr.foi.air.mygrocerypal.myapplication.View;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -13,6 +13,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 
+import hr.foi.air.mygrocerypal.myapplication.Controller.LoginController;
+import hr.foi.air.mygrocerypal.myapplication.Controller.LoginListener;
+import hr.foi.air.mygrocerypal.myapplication.Controller.MainActivity;
+import hr.foi.air.mygrocerypal.myapplication.Controller.PasswordRecoveryActivity;
+import hr.foi.air.mygrocerypal.myapplication.Controller.RegisterActivity;
 import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
