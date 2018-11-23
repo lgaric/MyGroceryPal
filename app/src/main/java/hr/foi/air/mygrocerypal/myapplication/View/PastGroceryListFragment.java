@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.GroceryListAdapter;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
@@ -45,8 +46,8 @@ public class PastGroceryListFragment extends Fragment implements GroceryListList
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
             //NAPRAVI ADAPTER I POSTAVI GA
-            //GroceryListAdapter groceryListAdapter = new GroceryListAdapter(groceryList);
-            //recyclerView.setAdapter(groceryListAdapter);
+            GroceryListAdapter groceryListAdapter = new GroceryListAdapter(groceryList);
+            recyclerView.setAdapter(groceryListAdapter);
         }
     }
 }

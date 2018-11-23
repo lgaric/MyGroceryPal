@@ -55,8 +55,8 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
     private void loadFragment(String className){
         FragmentTransaction mFragmentTransaction = getChildFragmentManager().beginTransaction();
 
-        //if(className == "PastGroceryListFragment")
-        //    mFragmentTransaction.replace(R.id.show_grocery, new PastGroceryListFragment());
+        if(className == "PastGroceryListFragment")
+            mFragmentTransaction.replace(R.id.show_grocery, new PastGroceryListFragment());
         //else
         //mFragmentTransaction.replace(R.id.grocerylist_clientContainer, VECINA KLASA ZA AKTUALNE GROCERY LISTE);
 
