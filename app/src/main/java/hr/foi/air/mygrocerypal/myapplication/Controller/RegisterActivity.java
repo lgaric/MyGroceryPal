@@ -62,8 +62,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         dateOfBirthTxt = (TextView) findViewById(R.id.dateOfBirthRegistration);
         contactTxt = (EditText) findViewById(R.id.contactRegistration);
 
-
-
         registerBtn = (Button) findViewById(R.id.buttonRegister);
         registerBtn.setOnClickListener(this);
         backToLoginBtn = (Button) findViewById(R.id.buttonBackToLogin);

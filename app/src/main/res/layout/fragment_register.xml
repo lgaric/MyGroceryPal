@@ -7,7 +7,6 @@
     android:background="#0E314F"
     tools:context=".View.RegisterFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -306,7 +305,6 @@
                 android:layout_marginEnd="50dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/button_blue_background"
-                android:onClick="ShowLogin"
                 android:text="Povratak na prijavu"
                 android:textColor="@color/white" />
 
