@@ -1,18 +1,29 @@
 package hr.foi.air.mygrocerypal.myapplication.Model;
 
+import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
+
 public class GroceryListsModel {
+    private String grocerylist_key;
     private String commision;
     private String delivery_address;
     private String delivery_town;
     private String end_date;
     private String start_date;
-    private String status;
+    private GroceryListStatus status;
     private String store_name;
     private String total_price;
     private String user_accepted_id;
     private String user_accepted_name;
     private String user_id;
     private String username;
+
+    public void setGrocerylist_key(String grocerylist_key) {
+        this.grocerylist_key = grocerylist_key;
+    }
+
+    public String getGrocerylist_key() {
+        return grocerylist_key;
+    }
 
     public String getCommision() {
         return commision;
@@ -54,11 +65,11 @@ public class GroceryListsModel {
         this.start_date = start_date;
     }
 
-    public String getStatus() {
+    public GroceryListStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(GroceryListStatus status) {
         this.status = status;
     }
 

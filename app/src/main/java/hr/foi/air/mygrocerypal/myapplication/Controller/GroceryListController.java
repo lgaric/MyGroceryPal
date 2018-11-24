@@ -30,7 +30,7 @@ public class GroceryListController {
     }
 
     //OVU METODA SE MOŽE KORISTITI I ZA AKTIVNE GROCERYLISTE
-    public void loadGroceryLists(GroceryListStatus status) {
+    public void loadGroceryLists(final GroceryListStatus status) {
         if (status == null)
             return;
 
@@ -47,10 +47,14 @@ public class GroceryListController {
 
                 for (DataSnapshot temp : dataSnapshot.getChildren()) {
                     GroceryListsModel model = temp.getValue(GroceryListsModel.class);
+                    model.setGrocerylist_key(temp.getKey());
                     groceryList.add(model);
                 }
 
-                groceryListListener.groceryListReceived(groceryList);
+                if(groceryList != null)
+                    groceryListListener.groceryListReceived(FilterList(groceryList, status));
+                else
+                    groceryListListener.groceryListReceived(null);
             }
 
             @Override
@@ -58,6 +62,16 @@ public class GroceryListController {
 
             }
         });
+    }
+
+    private ArrayList<GroceryListsModel> FilterList(ArrayList<GroceryListsModel> groceryListsModels, GroceryListStatus status){
+        ArrayList<GroceryListsModel> temp = new ArrayList<>();
+
+        for(int i = 0; i < groceryListsModels.size(); i++)
+            if(groceryListsModels.get(i).getStatus() == status)
+                temp.add(groceryListsModels.get(i));
+
+        return temp;
     }
 
 }
