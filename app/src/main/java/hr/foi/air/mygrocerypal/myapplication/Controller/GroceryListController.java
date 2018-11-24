@@ -29,6 +29,7 @@ public class GroceryListController {
         loadGroceryLists(GroceryListStatus.FINISHED);
     }
 
+    //OVU METODA SE MOŽE KORISTITI I ZA AKTIVNE GROCERYLISTE
     public void loadGroceryLists(GroceryListStatus status) {
         if (status == null)
             return;

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- OVDJE SE PRIKAZUJE POPIS GROCERYLISTA -->
+<!-- OVDJE SE PRIKAZUJE POPIS GROCERYLISTA
+ VECO SAMO TREBA DODATI OVU SLICNU KOMPONENTU ALI NJEGOVA TREBA IMATI
+  FLOATING BUTTON ONAJ + ZA NOVI GROCEY LIST-->
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"

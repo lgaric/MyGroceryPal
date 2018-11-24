@@ -35,6 +35,7 @@ public class PastGroceryListFragment extends Fragment implements GroceryListList
         pastGroceryListController = new GroceryListController(this);
     }
 
+    //IMPLEMENTACIJA INTERFACE GroceryListListener
     @Override
     public void groceryListReceived(ArrayList<GroceryListsModel> groceryList) {
 
