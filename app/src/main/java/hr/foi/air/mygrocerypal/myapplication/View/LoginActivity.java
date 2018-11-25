@@ -8,9 +8,6 @@ import android.widget.Toast;
 
 import hr.foi.air.mygrocerypal.myapplication.Controller.LoginController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.LoginListener;
-import hr.foi.air.mygrocerypal.myapplication.Controller.MainActivity;
-import hr.foi.air.mygrocerypal.myapplication.Controller.PasswordRecoveryController;
-import hr.foi.air.mygrocerypal.myapplication.Controller.RegisterActivity;
 import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
@@ -27,6 +24,8 @@ public class LoginActivity extends BaseActivity implements LoginListener {
         password = (EditText) findViewById(R.id.passwordLogin);
 
         loginController = new LoginController(this);
+
+        // TODO Ukloniti kompoziciju prema Controlleru!
     }
 
     public void Login(View view){

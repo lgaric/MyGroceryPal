@@ -1,4 +1,4 @@
-package hr.foi.air.mygrocerypal.myapplication.Controller;
+package hr.foi.air.mygrocerypal.myapplication.View;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -33,7 +33,6 @@ import java.util.regex.Pattern;
 import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
-import hr.foi.air.mygrocerypal.myapplication.View.LoginActivity;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$");
