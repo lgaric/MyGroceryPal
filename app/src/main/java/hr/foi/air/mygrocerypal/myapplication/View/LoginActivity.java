@@ -1,23 +1,13 @@
 package hr.foi.air.mygrocerypal.myapplication.View;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
-
 import hr.foi.air.mygrocerypal.myapplication.Controller.LoginController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.LoginListener;
-import hr.foi.air.mygrocerypal.myapplication.Controller.MainActivity;
-import hr.foi.air.mygrocerypal.myapplication.Controller.PasswordRecoveryActivity;
-import hr.foi.air.mygrocerypal.myapplication.Controller.RegisterActivity;
 import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
@@ -34,6 +24,8 @@ public class LoginActivity extends BaseActivity implements LoginListener {
         password = (EditText) findViewById(R.id.passwordLogin);
 
         loginController = new LoginController(this);
+
+        // TODO Ukloniti kompoziciju prema Controlleru!
     }
 
     public void Login(View view){
@@ -44,7 +36,7 @@ public class LoginActivity extends BaseActivity implements LoginListener {
         ShowActivity(RegisterActivity.class);
     }
 
-    public void ShowRecoveryPassword(View view) {
+        public void ShowRecoveryPassword(View view) {
         ShowActivity(PasswordRecoveryActivity.class);
     }
 
