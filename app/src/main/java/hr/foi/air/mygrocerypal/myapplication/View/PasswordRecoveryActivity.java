@@ -1,6 +1,5 @@
-package hr.foi.air.mygrocerypal.myapplication.Controller;
+package hr.foi.air.mygrocerypal.myapplication.View;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Patterns;
@@ -14,20 +13,24 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import hr.foi.air.mygrocerypal.myapplication.Controller.PasswordRecoveryController;
+import hr.foi.air.mygrocerypal.myapplication.Controller.PasswordRecoveryListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
 import hr.foi.air.mygrocerypal.myapplication.View.LoginActivity;
 
-public class PasswordRecoveryActivity extends BaseActivity/* implements View.OnClickListener*/ {
+public class PasswordRecoveryActivity extends BaseActivity implements PasswordRecoveryListener {
     private ProgressBar progressBar;
     private EditText userEmail;
     private Button buttonRecoveryPassword, showLogin;
     FirebaseAuth firebaseAuth;
+    private PasswordRecoveryController passwordRecoveryController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_recovery);
+        passwordRecoveryController = new PasswordRecoveryController(this);
 
         buttonRecoveryPassword = findViewById(R.id.buttonRecoveryPassword);
         showLogin = findViewById(R.id.buttonShowLogin);
@@ -39,25 +42,8 @@ public class PasswordRecoveryActivity extends BaseActivity/* implements View.OnC
         buttonRecoveryPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(validateEmail(userEmail)){
-                    progressBar.setVisibility(View.VISIBLE);
-                    firebaseAuth.sendPasswordResetEmail(userEmail.getText().toString())
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    progressBar.setVisibility(View.GONE);
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(PasswordRecoveryActivity.this, "Link za promjenu lozinke je poslan. Provjerite email!", Toast.LENGTH_LONG).show();
-                                        ShowActivity(LoginActivity.class);
-                                    }
-                                    else{
-                                        Toast.makeText(PasswordRecoveryActivity.this, "Došlo je do greške, provjerite ispravnost email-a!", Toast.LENGTH_LONG).show();
-                                    }
-                                }
-                            });
-                }else{
-                    Toast.makeText(PasswordRecoveryActivity.this, "Unesite ispravnu email adresu!", Toast.LENGTH_LONG).show();
-                }
+                progressBar.setVisibility(View.VISIBLE);
+                passwordRecoveryController.sendRecoveryMail(userEmail.getText().toString());
             }
         });
 
@@ -68,17 +54,20 @@ public class PasswordRecoveryActivity extends BaseActivity/* implements View.OnC
             }
         });
 
-
     }
 
-    private boolean validateEmail(EditText emailTxt){
-        String email = emailTxt.getText().toString().trim();
 
-        if(email == null){
-            return false;
-        } else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            return false;
-        }else return true;
+    @Override
+    public void onRecoverySuccess(String message) {
+        Toast.makeText(PasswordRecoveryActivity.this, message, Toast.LENGTH_LONG).show();
+        ShowActivity(LoginActivity.class);
+    }
+
+    @Override
+    public void onRecoveryFail(String message) {
+        Toast.makeText(PasswordRecoveryActivity.this, message, Toast.LENGTH_LONG).show();
+        progressBar.setVisibility(View.GONE);
+
     }
 
 
@@ -92,11 +81,11 @@ public class PasswordRecoveryActivity extends BaseActivity/* implements View.OnC
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
-                                    Toast.makeText(PasswordRecoveryActivity.this, "Link za promjenu lozinke je poslan. Provjerite email!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(PasswordRecoveryController.this, "Link za promjenu lozinke je poslan. Provjerite email!", Toast.LENGTH_LONG).show();
                                     ShowActivity(LoginActivity.class);
                                 }
                                 else{
-                                    Toast.makeText(PasswordRecoveryActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(PasswordRecoveryController.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             }
                         });

@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Controller.RegisterActivity" />
-        <activity android:name=".Controller.PasswordRecoveryActivity" />
+        <activity android:name=".View.PasswordRecoveryActivity" />
         <activity android:name=".Core.BaseActivity" />
         <activity android:name=".Controller.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
