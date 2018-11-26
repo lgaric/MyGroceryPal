@@ -8,10 +8,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.GroceryListDetailsAdapter;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListProductsController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListProductsListener;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListUserController;
@@ -28,6 +30,7 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
     private TextView textView;
     private TextView textView2;
     private TextView textView3;
+    private ListView listView;
 
 
 
@@ -48,21 +51,25 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 //        productsController.loadGroceryProductsLists(id);
-        textView = view.findViewById(R.id.textOfItemsGroceryDetails);
+//        textView = view.findViewById(R.id.textOfItemsGroceryDetails);
         textView2 = view.findViewById(R.id.firstnameGroceryDetails);
         textView3 = view.findViewById(R.id.lastnameGroceryDetails);
+        listView = view.findViewById(R.id.listOfItemsGroceryDetails);
     }
 
     @Override
     public void groceryListProductsReceived(ArrayList<GroceryListProductsModel> groceryListProducts) {
 //        Toast.makeText(getActivity(), groceryListProducts.size(), Toast.LENGTH_LONG).show();
+        GroceryListDetailsAdapter adapter = new GroceryListDetailsAdapter(this.getContext(), groceryListProducts);
+        listView.setAdapter(adapter);
 
-        if(groceryListProducts != null){
-            textView.append("\n");
-            for (int i = 0; i<groceryListProducts.size(); i++){
-                textView.append(getString(R.string.tab) + groceryListProducts.get(i).getName() + "\n");
-            }
-        }
+
+//        if(groceryListProducts != null){
+//            textView.append("\n");
+//            for (int i = 0; i<groceryListProducts.size(); i++){
+//                textView.append(getString(R.string.tab) + groceryListProducts.get(i).getName() + "\n");
+//            }
+//        }
     }
 
     @Override
