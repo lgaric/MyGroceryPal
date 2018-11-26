@@ -47,6 +47,7 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListHolder> 
     @Override
     public void onBindViewHolder(@NonNull GroceryListHolder groceryListHolder, int i) {
         groceryListHolder.bind(groceryListsModels.get(i), this.clickListener);
+
     }
 
     @Override

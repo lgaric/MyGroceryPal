@@ -2,17 +2,16 @@ package hr.foi.air.mygrocerypal.myapplication.Model;
 
 
 public class UserModel {
+    private String userUID;
     private String first_name;
     private String last_name;
     private String username;
     private String email;
     private String password;
-    private String salt="testSALT";
     private String town;
     private String address;
     private String phone_number;
     private String birth_date;
-    private boolean activated;
 
     public UserModel(){}
 
@@ -26,6 +25,14 @@ public class UserModel {
         this.address = address;
         this.phone_number = phone_number;
         this.birth_date = birth_date;
+    }
+
+    public String getUserUID() {
+        return userUID;
+    }
+
+    public void setUserUID(String userUID) {
+        this.userUID = userUID;
     }
 
     public String getFirst_name() {
@@ -68,13 +75,6 @@ public class UserModel {
         this.password = password;
     }
 
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
 
     public String getTown() {
         return town;

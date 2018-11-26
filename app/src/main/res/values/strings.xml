@@ -41,4 +41,5 @@
         <item>Mandarine</item>
         <item>Lubenice</item>
     </string-array>
+    <string name="tab">\u0009</string>
 </resources>

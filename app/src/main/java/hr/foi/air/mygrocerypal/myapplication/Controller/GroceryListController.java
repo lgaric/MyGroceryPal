@@ -49,7 +49,7 @@ public class GroceryListController {
                     model.setGrocerylist_key(temp.getKey());
                     groceryList.add(model);
                 }
-
+                
                 groceryListListener.groceryListReceived(filterList(groceryList, status));
             }
 

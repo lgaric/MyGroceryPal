@@ -1,16 +1,29 @@
 package hr.foi.air.mygrocerypal.myapplication.Model;
 
 public class GroceryListProductsModel {
-    private String bought;
+    private String grocery_list_key;
+    private int bought;
     private String name;
-    private String price;
-    private String quantity;
+    private double price;
+    private int quantity;
 
-    public String getBought() {
+   public GroceryListProductsModel(){
+
+   }
+
+    public String getGrocery_list_key() {
+        return grocery_list_key;
+    }
+
+    public void setGrocery_list_key(String grocery_list_key) {
+        this.grocery_list_key = grocery_list_key;
+    }
+
+    public int getBought() {
         return bought;
     }
 
-    public void setBought(String bought) {
+    public void setBought(int bought) {
         this.bought = bought;
     }
 
@@ -22,19 +35,19 @@ public class GroceryListProductsModel {
         this.name = name;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 }
