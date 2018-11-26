@@ -33,10 +33,10 @@ public class LoginActivity extends BaseActivity implements LoginListener {
     }
 
     public void ShowRegister(View view) {
-        ShowActivity(RegisterActivity.class);
+        ShowActivity(RegistrationActivity.class);
     }
 
-        public void ShowRecoveryPassword(View view) {
+    public void ShowRecoveryPassword(View view) {
         ShowActivity(PasswordRecoveryActivity.class);
     }
 

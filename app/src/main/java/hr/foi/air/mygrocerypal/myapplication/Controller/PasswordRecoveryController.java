@@ -58,30 +58,4 @@ public class PasswordRecoveryController {
         }else return true;
     }
 
-
-/*
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.buttonRecoveryPassword:
-                firebaseAuth.sendPasswordResetEmail(userEmail.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    Toast.makeText(PasswordRecoveryController.this, "Link za promjenu lozinke je poslan. Provjerite email!", Toast.LENGTH_LONG).show();
-                                    ShowActivity(LoginActivity.class);
-                                }
-                                else{
-                                    Toast.makeText(PasswordRecoveryController.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
-
-                break;
-            case R.id.buttonShowLogin:
-                ShowActivity(LoginActivity.class);
-                break;
-        }
-    }*/
 }

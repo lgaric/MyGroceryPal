@@ -12,7 +12,6 @@ public class UserModel {
     private String address;
     private String phone_number;
     private String birth_date;
-    private boolean activated;
 
     public UserModel(){}
 

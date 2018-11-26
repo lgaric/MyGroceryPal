@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#0E314F"
-    tools:context=".View.RegisterFragment">
+    android:background="#0E314F">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -107,6 +106,7 @@
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/change_border_on_focus"
                 android:gravity="center_vertical"
+                android:inputType="text"
                 android:paddingLeft="10sp"
                 android:textColor="#0E314F"
                 android:textCursorDrawable="@drawable/cursor_color"
@@ -176,6 +176,7 @@
                 android:background="@drawable/change_border_on_focus"
                 android:gravity="center_vertical"
                 android:paddingLeft="10sp"
+                android:inputType="text"
                 android:textColor="#0E314F"
                 android:textCursorDrawable="@drawable/cursor_color"
                 android:textSize="17sp" />
@@ -311,5 +312,15 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:visibility="gone"/>
 
 </FrameLayout>

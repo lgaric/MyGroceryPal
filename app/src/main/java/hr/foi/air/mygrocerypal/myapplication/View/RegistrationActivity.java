@@ -1,6 +1,8 @@
 package hr.foi.air.mygrocerypal.myapplication.View;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,26 +33,31 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Calendar;
 import java.util.regex.Pattern;
 
+import hr.foi.air.mygrocerypal.myapplication.Controller.RegistrationController;
+import hr.foi.air.mygrocerypal.myapplication.Controller.RegistrationListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
-public class RegisterActivity extends BaseActivity implements View.OnClickListener {
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$");
+public class RegistrationActivity extends BaseActivity implements RegistrationListener {
 
+    private ProgressBar progressBar;
     private TextView dateOfBirthTxt;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private EditText emailTxt, passwordTxt, userNameTxt, firstNameTxt, lastNameTxt, adressTxt, townTxt, contactTxt, retypedPasswordTxt;
     private Button registerBtn, backToLoginBtn;
 
-    private FirebaseAuth mAuth;
-    private FirebaseDatabase mDatabase;
+    private RegistrationController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        controller = new RegistrationController(this);
+        // TODO Ukloniti kompoziciju prema controlleru!
+
+        progressBar = findViewById(R.id.progressBar);
         firstNameTxt = (EditText) findViewById(R.id.firstnameRegistration);
         lastNameTxt = (EditText) findViewById(R.id.lastnameRegistration);
         userNameTxt = (EditText) findViewById(R.id.usernameRegistration);
@@ -62,9 +70,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         contactTxt = (EditText) findViewById(R.id.contactRegistration);
 
         registerBtn = (Button) findViewById(R.id.buttonRegister);
-        registerBtn.setOnClickListener(this);
         backToLoginBtn = (Button) findViewById(R.id.buttonBackToLogin);
-        backToLoginBtn.setOnClickListener(this);
 
         dateOfBirthTxt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +81,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 int day = calendar.get(Calendar.DAY_OF_MONTH);
 
                 DatePickerDialog dialog = new DatePickerDialog(
-                        RegisterActivity.this,
+                        RegistrationActivity.this,
                         android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                         mDateSetListener,
                         year, month, day);
@@ -93,182 +99,86 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             }
         };
 
-        emailTxt.addTextChangedListener(new TextWatcher(){
-
+        emailTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                validateEmail();
-            }
-        });
-
-        passwordTxt.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                validatePassword();
-            }
-        });
-
-        retypedPasswordTxt.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                validateRetypedPassword();
-            }
-        });
-    }
-
-    private void registerUser(){
-        final String firstName = firstNameTxt.getText().toString().trim();
-        final String lastName = lastNameTxt.getText().toString().trim();
-        final String username = userNameTxt.getText().toString().trim();
-        final String pass = passwordTxt.getText().toString().trim();
-        final String email = emailTxt.getText().toString().trim();
-        final String adress = adressTxt.getText().toString().trim();
-        final String town = townTxt.getText().toString().trim();
-        final String contact = contactTxt.getText().toString().trim();
-        final String dateOfBirth = dateOfBirthTxt.getText().toString().trim();
-
-        if(mAuth == null)
-            mAuth = FirebaseAuth.getInstance();
-
-        if(mDatabase == null)
-            mDatabase = FirebaseDatabase.getInstance();
-
-
-        Query query = mDatabase.getReference().child("users").orderByChild("username").equalTo(username);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //username exists
-                if(dataSnapshot.getChildrenCount() > 0) {
-                    showToastRegistration("Korisničko ime je već u upotrebi!");
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(emailTxt.getText().toString().trim().length() > 0){
+                        boolean validationSuccess = controller.validateEmail(emailTxt.getText().toString().trim());
+                        if(!validationSuccess) emailTxt.setError("Molimo unesite ispravnu email adresu!");
+                    }else {
+                        emailTxt.setError("Obavezno polje!");
+                    }
                 }
-                else{
-                    mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                final String uId = mAuth.getCurrentUser().getUid();
-                                final UserModel newUser = new UserModel(firstName, lastName, username, email, pass, town, adress, contact, dateOfBirth);
-                                mDatabase.getReference().child("users").child(uId).setValue(newUser);
-                                mAuth.getCurrentUser().sendEmailVerification();
-                                mAuth.signOut();
-                                showToastRegistration("Registracija uspješna. Molimo potvrdite email!");
-                            }
-                            else if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                                showToastRegistration("Već postoji račun s navedenom email adresom!");
-                            }
-                            else{
-                                showToastRegistration("Greška prilikom registracije!");
-                            }
-                        }
-                    });
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
-    }
 
-    private boolean validateEmail(){
-        String email = emailTxt.getText().toString().trim();
+        passwordTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    if (passwordTxt.getText().toString().trim().length() > 0) {
+                        boolean validationSuccess = controller.validatePassword(passwordTxt.getText().toString().trim());
+                        if (!validationSuccess)
+                            passwordTxt.setError("Minimalno 6 slova i jedan specijalni znak!");
+                    } else {
+                        passwordTxt.setError("Obavezno polje!");
+                    }
+                }
+            }
+        });
 
-        if(email == null){
-            emailTxt.setError("Obavezno polje!");
-            return false;
-        } else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            emailTxt.setError("Unesite ispravnu email adresu!");
-            return false;
-        }else return true;
-    }
+        retypedPasswordTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(retypedPasswordTxt.getText().toString().trim().length() > 0){
+                        boolean validationSuccess = controller.validateRetypedPassword(passwordTxt.getText().toString().trim(), retypedPasswordTxt.getText().toString().trim());
+                        if(!validationSuccess) retypedPasswordTxt.setError("Lozinke ne odgovaraju!");
+                    }else{
+                        retypedPasswordTxt.setError("Obavezno polje!");
+                    }
+                }
+            }
+        });
 
-    private boolean validatePassword(){
-        String password = passwordTxt.getText().toString().trim();
 
-        if(password == null){
-            passwordTxt.setError("Obavezno polje!");
-            return false;
-        }else if (!PASSWORD_PATTERN.matcher(password).matches()){
-            passwordTxt.setError("Minimalno 6 znakova i jedno specijalno slovo!");
-            return false;
-        }else return true;
-    }
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                controller.validateInputAndRegisterUserIfInputCorrect(
+                        firstNameTxt.getText().toString().trim(), lastNameTxt.getText().toString().trim(),
+                        userNameTxt.getText().toString().trim(), passwordTxt.getText().toString().trim(),
+                        retypedPasswordTxt.getText().toString().trim(), emailTxt.getText().toString().trim(),
+                        adressTxt.getText().toString().trim(), townTxt.getText().toString().trim(),
+                        contactTxt.getText().toString().trim(), dateOfBirthTxt.getText().toString().trim());
+                }
+        });
 
-    private boolean validateRetypedPassword(){
-        String firstPassword = passwordTxt.getText().toString().trim();
-        String secondPassword = retypedPasswordTxt.getText().toString().trim();
-        if(!firstPassword.equals(secondPassword)){
-            retypedPasswordTxt.setError("Lozinke ne odgovaraju!");
-            return false;
-        }else return true;
-    }
-
-    private boolean validateInput(){
-        if(firstNameTxt.getText().toString().trim().length() > 0 &&
-                lastNameTxt.getText().toString().trim().length() > 0 &&
-                userNameTxt.getText().toString().trim().length() > 0 &&
-                townTxt.getText().toString().trim().length() > 0 &&
-                adressTxt.getText().toString().trim().length() > 0 &&
-                contactTxt.getText().toString().trim().length() > 0 &&
-                dateOfBirthTxt.getText().toString().trim().length() > 0){
-            return true;
-        } else return false;
-    }
-
-    private void showToastRegistration(String message){
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        backToLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowActivity(LoginActivity.class);
+            }
+        });
     }
 
     @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.buttonRegister:
-                if(validateEmail() && validatePassword() && validateRetypedPassword() && validateInput()){
-                    registerUser();
-                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                }
-                else if (!validateInput()){
-                    showToastRegistration("Sva polja su obavezna!");
-                }else{
-                    showToastRegistration("Molimo ispravno popunite sva polja!");
-                }
-                break;
-            case R.id.buttonBackToLogin:
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                break;
-        }
+    public void onRegistrationSuccess(String message) {
+        progressBar.setVisibility(View.GONE);
+        ShowActivity(LoginActivity.class);
+        showToastRegistration(message);
+    }
+
+    @Override
+    public void onRegistrationFail(String message) {
+        progressBar.setVisibility(View.GONE);
+        showToastRegistration(message);
+
+    }
+
+    public void showToastRegistration(String message){
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
