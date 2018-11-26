@@ -37,8 +37,7 @@ public class GroceryListController {
         if (firebaseDatabase == null)
             firebaseDatabase = FirebaseDatabase.getInstance();
 
-        Query query = firebaseDatabase.getReference().child(GROCERYLISTNODE)
-                .orderByChild(STATUSATTRIBUTE).equalTo(GroceryListStatus.CREATED.toString());
+        Query query = firebaseDatabase.getReference().child(GROCERYLISTNODE);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -50,11 +49,8 @@ public class GroceryListController {
                     model.setGrocerylist_key(temp.getKey());
                     groceryList.add(model);
                 }
-
-                if(groceryList != null)
-                    groceryListListener.groceryListReceived(FilterList(groceryList, status));
-                else
-                    groceryListListener.groceryListReceived(null);
+                
+                groceryListListener.groceryListReceived(filterList(groceryList, status));
             }
 
             @Override
@@ -64,12 +60,21 @@ public class GroceryListController {
         });
     }
 
-    private ArrayList<GroceryListsModel> FilterList(ArrayList<GroceryListsModel> groceryListsModels, GroceryListStatus status){
+    private ArrayList<GroceryListsModel> filterList(ArrayList<GroceryListsModel> groceryListsModels, GroceryListStatus status){
         ArrayList<GroceryListsModel> temp = new ArrayList<>();
 
-        for(int i = 0; i < groceryListsModels.size(); i++)
-            if(groceryListsModels.get(i).getStatus() == status)
-                temp.add(groceryListsModels.get(i));
+        if(status == GroceryListStatus.ACCEPTED) {
+            for (int i = 0; i < groceryListsModels.size(); i++) {
+                if (groceryListsModels.get(i).getStatus() != GroceryListStatus.FINISHED)
+                    temp.add(groceryListsModels.get(i));
+            }
+        }
+        else{
+            for (int i = 0; i < groceryListsModels.size(); i++) {
+                if (groceryListsModels.get(i).getStatus() == GroceryListStatus.FINISHED)
+                    temp.add(groceryListsModels.get(i));
+            }
+        }
 
         return temp;
     }
