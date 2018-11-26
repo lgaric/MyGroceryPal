@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import hr.foi.air.mygrocerypal.myapplication.Controller.ClickListener;
+import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.ClickListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 

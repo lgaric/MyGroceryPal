@@ -9,9 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
-import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
+import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListUserListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
 public class GroceryListUserController {

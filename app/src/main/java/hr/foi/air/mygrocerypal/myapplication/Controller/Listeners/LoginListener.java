@@ -1,4 +1,4 @@
-package hr.foi.air.mygrocerypal.myapplication.Controller;
+package hr.foi.air.mygrocerypal.myapplication.Controller.Listeners;
 
 public interface LoginListener {
     public void onStatusFailed(String message);

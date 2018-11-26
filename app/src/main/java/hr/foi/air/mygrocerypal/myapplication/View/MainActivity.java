@@ -113,7 +113,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.navigation_client:
                 mDrawer.closeDrawer(GravityCompat.START);
-                Toast.makeText(this, "Pritisnuli ste naručitelja", Toast.LENGTH_LONG).show();
+                mFragmentTransaction.replace(R.id.fragment_container, new ClientGroceryListFragment());
+                mFragmentTransaction.commit();
                 break;
             case R.id.navigation_pay:
                 mDrawer.closeDrawer(GravityCompat.START);

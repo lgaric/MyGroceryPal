@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.GroceryListDetailsAdapter;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListProductsController;
-import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListProductsListener;
+import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListProductsListener;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListUserController;
-import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListUserListener;
+import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListUserListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
