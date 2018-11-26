@@ -4,16 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
-import hr.foi.air.mygrocerypal.myapplication.Core.Temp;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
@@ -73,18 +70,16 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
     }
 
     private void loadFragmentDetails(GroceryListsModel groceryListsModel){
-//        Bundle bundle = new Bundle();
-//        bundle.putString("groceryListKey",groceryListsModel.getGrocerylist_key());
-        Temp.groceryListsModel = groceryListsModel;
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("GROCERY_LIST_MODEL", groceryListsModel);
         FragmentTransaction mFragmentTransaction = getChildFragmentManager().beginTransaction();
         ShowGroceryListDetailsFragment fragment = new ShowGroceryListDetailsFragment();
-//        fragment.setArguments(bundle);
+        fragment.setArguments(bundle);
         mFragmentTransaction.replace(R.id.show_grocery, fragment);
         mFragmentTransaction.commit();
     }
 
     public void showGroceryListDetails(GroceryListsModel groceryListsModel){
-//        Toast.makeText(getActivity(), groceryListsModel.getGrocerylist_key(), Toast.LENGTH_LONG).show()
         loadFragmentDetails(groceryListsModel);
     }
 

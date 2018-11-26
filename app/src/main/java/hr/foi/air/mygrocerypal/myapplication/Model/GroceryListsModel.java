@@ -1,8 +1,10 @@
 package hr.foi.air.mygrocerypal.myapplication.Model;
 
+import java.io.Serializable;
+
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
 
-public class GroceryListsModel {
+public class GroceryListsModel implements Serializable {
     private String grocerylist_key;
     private String commision;
     private String delivery_address;

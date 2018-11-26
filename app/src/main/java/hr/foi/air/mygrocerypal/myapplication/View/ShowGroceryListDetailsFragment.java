@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -17,18 +16,15 @@ import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListProductsContr
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListProductsListener;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListUserController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListUserListener;
-import hr.foi.air.mygrocerypal.myapplication.Core.Temp;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
+import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ShowGroceryListDetailsFragment extends Fragment implements GroceryListProductsListener, GroceryListUserListener {
     private GroceryListProductsController productsController;
     private GroceryListUserController userController;
-    private String id;
+    private GroceryListsModel groceryListsModel;
     private TextView textView;
     private TextView textView2;
     private TextView textView3;
@@ -38,12 +34,10 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
-//        id = getArguments().getString("groceryListKey");
-//        Temp.groceryListsModel.getGrocerylist_key();
-        productsController =  new GroceryListProductsController(this, Temp.groceryListsModel.getGrocerylist_key());
-        userController = new GroceryListUserController(this, Temp.groceryListsModel.getUser_accepted_id());
+        groceryListsModel = (GroceryListsModel)getArguments().getSerializable("GROCERY_LIST_MODEL");
+        productsController =  new GroceryListProductsController(this, groceryListsModel.getGrocerylist_key());
+        userController = new GroceryListUserController(this, groceryListsModel.getUser_accepted_id());
 
         return inflater.inflate(R.layout.fragment_show_grocery_list_details, container, false);
 
@@ -77,7 +71,6 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
         if (groceryListUser != null){
             textView2.append(groceryListUser.getFirst_name());
             textView3.append(groceryListUser.getLast_name());
-
         }
 
 
