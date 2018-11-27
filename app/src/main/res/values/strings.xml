@@ -43,4 +43,5 @@
         <item>Lubenice</item>
     </string-array>
     <string name="tab">\u0009</string>
+    <string name="lokacijsko_trazenje">Lokacijsko traženje</string>
 </resources>
