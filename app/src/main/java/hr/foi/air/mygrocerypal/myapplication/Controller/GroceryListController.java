@@ -2,6 +2,7 @@ package hr.foi.air.mygrocerypal.myapplication.Controller;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,7 +28,6 @@ public class GroceryListController {
 
     public GroceryListController(Fragment fragment){
         groceryListListener = (GroceryListListener)fragment;
-        loadGroceryLists(GroceryListStatus.FINISHED);
     }
 
     //OVU METODA SE MOŽE KORISTITI I ZA AKTIVNE GROCERYLISTE
@@ -35,7 +35,7 @@ public class GroceryListController {
         if (status == null)
             return;
 
-        if (firebaseDatabase == null)
+        if(firebaseDatabase == null)
             firebaseDatabase = FirebaseDatabase.getInstance();
 
         Query query = firebaseDatabase.getReference().child(GROCERYLISTNODE);
@@ -50,7 +50,7 @@ public class GroceryListController {
                     model.setGrocerylist_key(temp.getKey());
                     groceryList.add(model);
                 }
-                
+                Log.d("TEST", Integer.toString(groceryList.size()));
                 groceryListListener.groceryListReceived(filterList(groceryList, status));
             }
 

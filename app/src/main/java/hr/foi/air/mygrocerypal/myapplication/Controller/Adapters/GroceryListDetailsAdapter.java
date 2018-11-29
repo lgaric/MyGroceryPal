@@ -14,9 +14,15 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class GroceryListDetailsAdapter extends ArrayAdapter<GroceryListProductsModel> {
 
+    private static String BOUGHT = "Kupljeno: ";
+    private static String QUANTITY = "Količina: ";
+    private static String PRICE = "Cijena: ";
+    private static String TOTALPRICE = "Ukupna cijena: ";
+    private static String CURRENCY = "kn";
+
     private static class GroceryListDetailsHolder {
-        public String key_of_product;
-        TextView name, bought, price, quantity;
+         String key_of_product;
+         TextView name, bought, price, quantity, totalPrice;
     }
 
     public GroceryListDetailsAdapter(Context context, ArrayList<GroceryListProductsModel> groceryProducts){
@@ -37,6 +43,7 @@ public class GroceryListDetailsAdapter extends ArrayAdapter<GroceryListProductsM
             viewHolder.bought = convertView.findViewById(R.id.bought);
             viewHolder.price = convertView.findViewById(R.id.price);
             viewHolder.quantity = convertView.findViewById(R.id.qunatity);
+            viewHolder.totalPrice = convertView.findViewById(R.id.totalprice);
 
             convertView.setTag(viewHolder);
         }
@@ -46,9 +53,10 @@ public class GroceryListDetailsAdapter extends ArrayAdapter<GroceryListProductsM
 
         viewHolder.key_of_product = product.getGrocery_list_key();
         viewHolder.name.setText(product.getName());
-        viewHolder.bought.setText(Integer.toString(product.getBought()));
-        viewHolder.price.setText(Double.toString(product.getPrice()));
-        viewHolder.quantity.setText(Integer.toString(product.getQuantity()));
+        viewHolder.bought.setText(BOUGHT + Integer.toString(product.getBought()));
+        viewHolder.price.setText(PRICE + Double.toString(product.getPrice()) + CURRENCY);
+        viewHolder.quantity.setText(QUANTITY + Integer.toString(product.getQuantity()));
+        viewHolder.totalPrice.setText(TOTALPRICE + Double.toString(product.getPrice() * product.getQuantity()) + CURRENCY);
 
         return convertView;
     }

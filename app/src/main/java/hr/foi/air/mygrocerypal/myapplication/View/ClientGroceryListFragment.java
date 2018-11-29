@@ -1,5 +1,7 @@
 package hr.foi.air.mygrocerypal.myapplication.View;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.firebase.database.collection.LLRBNode;
+
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
@@ -17,6 +21,11 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 public class ClientGroceryListFragment extends Fragment implements View.OnClickListener {
 
     private Button activeGrocerylistBtn, pastGroceryListBtn;
+    /*
+    0 -> AKTUALNI GROCERYLISTS
+    1 -> PROŠLI GROCERYLISTS
+     */
+    int flag = 0;
 
     @Nullable
     @Override
@@ -42,10 +51,16 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.active_client_btn:
-                loadFragment(GroceryListStatus.ACCEPTED);
+                if(flag != 0) {
+                    flag = 0;
+                    loadFragment(GroceryListStatus.ACCEPTED);
+                }
                 break;
             case R.id.past_client_btn:
-                loadFragment(GroceryListStatus.FINISHED);
+                if(flag != 1){
+                    flag = 1;
+                    loadFragment(GroceryListStatus.FINISHED);
+                }
                 break;
         }
     }
@@ -80,7 +95,15 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
     }
 
     public void showGroceryListDetails(GroceryListsModel groceryListsModel){
+        flag = -1;
         loadFragmentDetails(groceryListsModel);
+    }
+
+    public void refresh(boolean past){
+        if(!past)
+            loadFragment(GroceryListStatus.FINISHED);
+        else
+            loadFragment(GroceryListStatus.ACCEPTED);
     }
 
 }
