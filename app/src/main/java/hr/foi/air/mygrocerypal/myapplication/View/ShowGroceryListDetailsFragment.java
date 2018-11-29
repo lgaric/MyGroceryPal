@@ -58,6 +58,9 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        //LINEARLAYOUT
+        colorOfHeaderGroceryDetails = view.findViewById(R.id.colorOfHeaderGroceryDetails);
+
         //EDITTEXT
         storeNametxt = view.findViewById(R.id.storenameGroceryDetails);
         firstNametxt = view.findViewById(R.id.firstnameGroceryDetails);
@@ -71,6 +74,7 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
         //BUTTON
         againCommitbtn = view.findViewById(R.id.againCommitbtn);
 
+        setHeaderColor(colorOfHeaderGroceryDetails);
         setButtonText(againCommitbtn);
         setGroceryListDetailsHeader();
     }
@@ -86,13 +90,13 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
             buttonText.setText("POTRVRDI");
     }
 
-    private void setHeaderColor(){
+    private void setHeaderColor(LinearLayout layout){
         if(groceryListsModel.getStatus() == GroceryListStatus.ACCEPTED)
-            colorOfHeaderGroceryDetails.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            layout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         else if(groceryListsModel.getStatus() == GroceryListStatus.FINISHED)
-            colorOfHeaderGroceryDetails.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            layout.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
         else
-            colorOfHeaderGroceryDetails.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+            layout.setBackgroundColor(getResources().getColor(R.color.colorAccent));
     }
 
     @Override

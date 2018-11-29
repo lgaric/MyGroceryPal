@@ -1,94 +1,84 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/card_view"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="0dp"
-    android:layout_marginTop="5dp"
-    android:foreground="?android:selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
-    app:cardBackgroundColor="@color/white">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-
-    <LinearLayout
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="4dp"
+        android:foreground="?android:selectableItemBackground"
+        android:layout_margin="3dp">
 
-        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
+            android:id="@+id/colorOfHeaderGroceryDetails"
+            android:layout_width="8dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"/>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            app:cardCornerRadius="0dp"
-            app:cardElevation="4dp"
-            android:foreground="?android:selectableItemBackground"
-            android:layout_margin="3dp">
+            android:orientation="vertical"
+            android:paddingLeft="12dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingLeft="5dp">
+            <TextView
+                android:id="@+id/storenameGroceryDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="false"
+                android:text="Trgovina: "
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
-                    <TextView
-                        android:id="@+id/storenameGroceryDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textIsSelectable="false"
-                        android:text="Trgovina: "
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            <TextView
+                android:id="@+id/priceGroceryDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="false"
+                android:text="Cijena: "
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
-                    <TextView
-                        android:id="@+id/priceGroceryDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textIsSelectable="false"
-                        android:text="Cijena: "
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/commisionGroceryDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="false"
+                android:text="Provizija: "
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
-                    <TextView
-                        android:id="@+id/commisionGroceryDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textIsSelectable="false"
-                        android:text="Provizija: "
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/firstnameGroceryDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="false"
+                android:text="Dobavljač : "
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
-                    <TextView
-                        android:id="@+id/firstnameGroceryDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textIsSelectable="false"
-                        android:text="Dobavljač : "
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+            <TextView
+                android:id="@+id/contactGroceryDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="false"
+                android:text="Kontakt : "
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
-                    <TextView
-                        android:id="@+id/contactGroceryDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textIsSelectable="false"
-                        android:text="Kontakt : "
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
-                </LinearLayout>
-        </android.support.v7.widget.CardView>
+    <ListView
+        android:layout_marginTop="10dp"
+        android:paddingLeft="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listOfItemsGroceryDetails"
+        ></ListView>
 
-        <ListView
-            android:layout_marginTop="10dp"
-            android:paddingLeft="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/listOfItemsGroceryDetails"
-            ></ListView>
-
-        <Button
-            android:text="PONOVI"
-            android:id="@+id/againCommitbtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
+    <Button
+        android:text="PONOVI"
+        android:id="@+id/againCommitbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package hr.foi.air.mygrocerypal.myapplication.Controller.Adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,20 +27,8 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListHolder> 
     @NonNull
     @Override
     public GroceryListHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view;
-
-        if(groceryListsModels.get(i).getStatus() == GroceryListStatus.FINISHED) {
-            view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.grocerylist_item_finished, viewGroup, false);
-        }
-        else if(groceryListsModels.get(i).getStatus() == GroceryListStatus.ACCEPTED){
-            view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.grocerylist_item_accepted, viewGroup, false);
-        }
-        else{
-            view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.grocerylist_item_created, viewGroup, false);
-        }
+        View view = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.grocerylist_item_created, viewGroup, false);
 
         return new GroceryListHolder(view);
     }
