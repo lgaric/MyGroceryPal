@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import hr.foi.air.mygrocerypal.myapplication.Controller.CreateNewGroceryListController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.StoresListener;
+import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
@@ -29,15 +33,47 @@ public class CreateNewGroceryListFragment extends Fragment implements StoresList
     private  ArrayList<StoresModel> storesArray;
     private String selectedStore;
 
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
+    private EditText address, town;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_create_new_grocerylist, container, false);
+        final View view = inflater.inflate(R.layout.fragment_create_new_grocerylist, container, false);
 
         TextView labelForStore = view.findViewById(R.id.labelForStore);
 
         spinnerStores = view.findViewById(R.id.spinnerStores);
+        address = view.findViewById(R.id.address);
+        town = view.findViewById(R.id.town);
+        address.setText(CurrentUser.currentUser.getAddress());
+        town.setText(CurrentUser.currentUser.getTown());
+        address.setEnabled(false);
+        town.setEnabled(false);
+        radioGroup = view.findViewById(R.id.rgroup);
 
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                radioButton = view.findViewById(checkedId);
+
+                if(radioButton.getText().equals("Moja adresa")){
+                    address.setEnabled(false);
+                    town.setEnabled(false);
+                    address.setText(CurrentUser.currentUser.getAddress());
+                    town.setText(CurrentUser.currentUser.getTown());
+                }
+                else{
+                    address.setEnabled(true);
+                    town.setEnabled(true);
+                    address.getText().clear();
+                    town.getText().clear();
+                    address.setHint("Upišite drugu adresu");
+                    town.setHint("Upišite grad");
+                }
+            }
+        });
 
         return view;
     }
@@ -78,10 +114,5 @@ public class CreateNewGroceryListFragment extends Fragment implements StoresList
 
     }
 
-    private View.OnClickListener clickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
 
-        }
-    };
 }
