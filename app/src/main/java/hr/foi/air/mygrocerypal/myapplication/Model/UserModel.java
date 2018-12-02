@@ -12,10 +12,14 @@ public class UserModel {
     private String address;
     private String phone_number;
     private String birth_date;
+    private String longitude;
+    private String latitude;
+    private String range;
 
     public UserModel(){}
 
-    public UserModel(String first_name, String last_name, String username, String email, String password, String town, String address, String phone_number, String birth_date) {
+    public UserModel(String first_name, String last_name, String username, String email, String password, String town,
+                     String address, String phone_number, String birth_date, String longitude, String latitude, String range) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.username = username;
@@ -25,6 +29,33 @@ public class UserModel {
         this.address = address;
         this.phone_number = phone_number;
         this.birth_date = birth_date;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.range = range;
+    }
+
+    public String getRange() {
+        return range;
+    }
+
+    public void setRange(String range) {
+        this.range = range;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
     public String getUserUID() {

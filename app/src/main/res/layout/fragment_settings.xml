@@ -37,4 +37,22 @@
         android:layout_marginTop="20dp"
         android:gravity="center"/>
 
+    <SeekBar
+        android:id="@+id/groceryListRange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/txtAdresa"
+        android:hint="Adresa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/btnIspisLokacije"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="ISPISI LOKACIJU"/>
+
 </LinearLayout>

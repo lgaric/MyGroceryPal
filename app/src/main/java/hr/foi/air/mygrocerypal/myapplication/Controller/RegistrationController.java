@@ -40,6 +40,9 @@ public class RegistrationController {
         final String town = townTxt;
         final String contact = contactTxt;
         final String dateOfBirth = dateOfBirthTxt;
+        final String longitude = "50";
+        final String latitude = "20";
+        final String range = "20";
 
         if(mAuth == null)
             mAuth = FirebaseAuth.getInstance();
@@ -62,7 +65,7 @@ public class RegistrationController {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 final String uId = mAuth.getCurrentUser().getUid();
-                                final UserModel newUser = new UserModel(firstName, lastName, username, email, pass, town, address, contact, dateOfBirth);
+                                final UserModel newUser = new UserModel(firstName, lastName, username, email, pass, town, address, contact, dateOfBirth, longitude, latitude, range);
                                 mDatabase.getReference().child("users").child(uId).setValue(newUser);
                                 mAuth.getCurrentUser().sendEmailVerification();
                                 mAuth.signOut();
