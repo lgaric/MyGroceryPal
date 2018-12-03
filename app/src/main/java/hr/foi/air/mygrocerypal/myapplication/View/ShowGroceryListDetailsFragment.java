@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.GroceryListDetailsAdapter;
+import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.GroceryListDetailsV2;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListProductsController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListProductsListener;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListUserController;
@@ -39,7 +43,7 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
     private TextView commisiontxt;
     private TextView phoneNumbertxt;
 
-    private ListView listView;
+    private RecyclerView recyclerView;
 
     private Button againCommitbtn;
 
@@ -69,7 +73,7 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
         phoneNumbertxt = view.findViewById(R.id.contactGroceryDetails);
 
         //LISTVIEW
-        listView = view.findViewById(R.id.listOfItemsGroceryDetails);
+        recyclerView = view.findViewById(R.id.listOfItemsGroceryDetails);
 
         //BUTTON
         againCommitbtn = view.findViewById(R.id.againCommitbtn);
@@ -101,8 +105,14 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
 
     @Override
     public void groceryListProductsReceived(ArrayList<GroceryListProductsModel> groceryListProducts) {
-        GroceryListDetailsAdapter adapter = new GroceryListDetailsAdapter(this.getContext(), groceryListProducts);
-        listView.setAdapter(adapter);
+        if(groceryListProducts != null) {
+            groceryListsModel.setProductsModels(groceryListProducts);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+            GroceryListDetailsV2 v2 = new GroceryListDetailsV2(groceryListsModel);
+            recyclerView.setAdapter(v2);
+        }
+
     }
 
     @Override

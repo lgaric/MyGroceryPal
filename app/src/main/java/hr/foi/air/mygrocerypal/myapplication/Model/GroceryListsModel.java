@@ -1,6 +1,7 @@
 package hr.foi.air.mygrocerypal.myapplication.Model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
 
@@ -18,6 +19,7 @@ public class GroceryListsModel implements Serializable {
     private String user_accepted_name;
     private String user_id;
     private String username;
+    private List<GroceryListProductsModel> productsModels;
 
     public void setGrocerylist_key(String grocerylist_key) {
         this.grocerylist_key = grocerylist_key;
@@ -121,5 +123,13 @@ public class GroceryListsModel implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public List<GroceryListProductsModel> getProductsModels() {
+        return productsModels;
+    }
+
+    public void setProductsModels(List<GroceryListProductsModel> productsModels) {
+        this.productsModels = productsModels;
     }
 }
