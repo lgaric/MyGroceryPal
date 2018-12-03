@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -27,6 +28,7 @@ import hr.foi.air.mygrocerypal.myapplication.Controller.CreateNewGroceryListCont
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.StoresListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
+import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
@@ -41,7 +43,8 @@ public class CreateNewGroceryListFragment extends Fragment implements StoresList
     private RadioGroup radioGroup;
     private RadioButton radioButton;
     private EditText address, town, commision;
-    private TextView startDate;
+    private TextView startDate, totalPriceAmount;
+    private Button btnAddProducts, btnConfirm;
     private DatePickerDialog.OnDateSetListener dateSetListener;
 
     @Nullable
@@ -49,7 +52,9 @@ public class CreateNewGroceryListFragment extends Fragment implements StoresList
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_create_new_grocerylist, container, false);
 
-        TextView labelForStore = view.findViewById(R.id.labelForStore);
+        totalPriceAmount = view.findViewById(R.id.TotalPriceAmount);
+        btnAddProducts = view.findViewById(R.id.btnAddProducts);
+        btnConfirm = view.findViewById(R.id.btnConfirm);
         commision = view.findViewById(R.id.commision);
         startDate = view.findViewById(R.id.startDate);
         spinnerStores = view.findViewById(R.id.spinnerStores);
