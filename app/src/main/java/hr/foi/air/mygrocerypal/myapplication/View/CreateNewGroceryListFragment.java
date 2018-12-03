@@ -23,11 +23,14 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import hr.foi.air.mygrocerypal.myapplication.Controller.CreateNewGroceryListController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.StoresListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
+import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
+import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
@@ -38,6 +41,10 @@ public class CreateNewGroceryListFragment extends Fragment implements StoresList
     private Spinner spinnerStores;
     //private static final String[] stores = {"Konzum", "Lidl", "Kaufland"};
     private  ArrayList<StoresModel> storesArray;
+    private GroceryListsModel groceryListsModel;
+    private List<GroceryListProductsModel> groceryListProductsModels;
+
+
     private String selectedStore;
 
     private RadioGroup radioGroup;
@@ -51,6 +58,23 @@ public class CreateNewGroceryListFragment extends Fragment implements StoresList
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_create_new_grocerylist, container, false);
+
+        //ovo je privremeno hardkodirano dok se ne spoje fragmenti
+
+        groceryListProductsModels = new ArrayList<>();
+
+        GroceryListProductsModel model = new GroceryListProductsModel();
+        model.setBought(0);
+        model.setName("Mortadela PIK 150g");
+        model.setPrice(7.99);
+        model.setQuantity(2);
+        model.setProduct_key("testKey");
+        groceryListProductsModels.add(model);
+        model.setProduct_key("testKey2");
+        groceryListProductsModels.add(model);
+
+
+        //do tud
 
         totalPriceAmount = view.findViewById(R.id.TotalPriceAmount);
         btnAddProducts = view.findViewById(R.id.btnAddProducts);
@@ -113,6 +137,18 @@ public class CreateNewGroceryListFragment extends Fragment implements StoresList
                 startDate.setText(date);
             }
         };
+
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                boolean entered = checkData();
+                if(entered){
+                    createGroceryList();
+                    createNewGroceryListController.saveGL_withProducts(groceryListsModel, groceryListProductsModels);
+                }
+            }
+        });
         return view;
     }
 
@@ -150,6 +186,68 @@ public class CreateNewGroceryListFragment extends Fragment implements StoresList
             });
         }
 
+    }
+
+    public boolean checkData(){
+
+        boolean entered = true;
+        if(isNullOrBlank(selectedStore)){
+            showToast("Odaberite dućan!");
+            entered = false;
+
+        }
+        if(isNullOrBlank(address.getText().toString())){
+            showToast("Odaberite adresu!");
+            entered = false;
+        }
+        if(isNullOrBlank(town.getText().toString())){
+            showToast("Odaberite grad!");
+            entered = false;
+        }
+        if(isNullOrBlank(startDate.toString())){
+            showToast("Odaberite početni datum prikazivanja!");
+            entered = false;
+        }
+        if(isNullOrBlank(commision.getText().toString())){
+            showToast("Odaberite proviziju!");
+            entered = false;
+        }
+        if(groceryListProductsModels != null){
+            if(groceryListProductsModels.size() < 1){
+                showToast("Morate odabrati barem jedan proizvod!");
+                entered = false;
+            }
+        }
+        else{
+            showToast("Lista proizvoda nije primljena!");
+            entered = false;
+        }
+
+
+        return  entered;
+    }
+
+    private boolean isNullOrBlank(String s)
+    {
+        return (s == null || s.trim().equals(""));
+    }
+
+    public void createGroceryList(){
+        groceryListsModel = new GroceryListsModel(
+                commision.getText().toString(),
+                address.getText().toString(), town.getText().toString(),
+                "-",
+                startDate.getText().toString(),
+                GroceryListStatus.CREATED,
+                selectedStore,
+                totalPriceAmount.getText().toString(),
+                CurrentUser.currentUser.getUserUID());
+
+
+    }
+
+    public void showToast(String message){
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
 

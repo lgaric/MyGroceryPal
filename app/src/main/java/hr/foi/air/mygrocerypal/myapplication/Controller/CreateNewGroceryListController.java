@@ -6,18 +6,26 @@ import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.StoresListener;
+import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
+import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
 
 public class CreateNewGroceryListController {
 
     private static final String STORESNODE  = "stores";
+    private static final String GROCERYLISTSNODE  = "grocerylists";
+    private static final String GROCERYLISTPRODUCTSNODE  = "grocerylistproducts";
 
     private StoresListener storesListener;
     private FirebaseDatabase firebaseDatabase;
@@ -51,4 +59,45 @@ public class CreateNewGroceryListController {
             }
         });
     }
+
+    public void saveGL_withProducts(GroceryListsModel groceryListsModel, List<GroceryListProductsModel> groceryListProductsModels){
+
+        if (firebaseDatabase == null)
+            firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference ref = firebaseDatabase.getReference().child(GROCERYLISTSNODE);
+        DatabaseReference pushRef = ref.push();
+        pushRef.setValue(groceryListsModel);
+        String generated_GL_key = pushRef.getKey();
+
+
+        Log.d("generated_GL_key", generated_GL_key);
+
+        if(!isNullOrBlank(generated_GL_key)){
+            /*for (GroceryListProductsModel product: groceryListProductsModels) {
+                product.setGrocery_list_key(generated_GL_key);
+            }*/
+
+            //Upis proizvoda za taj GL u firebase
+            if (firebaseDatabase == null)
+                firebaseDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference refProducts = firebaseDatabase.getReference().child(GROCERYLISTPRODUCTSNODE);
+            Map<String, GroceryListProductsModel> map = new HashMap<>();
+
+
+        }
+        else{
+            //TO DO
+            //javi fragmentu da nije upisano u bazu
+        }
+
+
+
+    }
+
+    private boolean isNullOrBlank(String s)
+    {
+        return (s == null || s.trim().equals(""));
+    }
+    
+    
 }
