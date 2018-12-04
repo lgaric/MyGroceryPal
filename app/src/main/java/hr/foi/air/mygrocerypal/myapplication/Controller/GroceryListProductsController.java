@@ -54,19 +54,4 @@ public class GroceryListProductsController {
             }
         });
     }
-
-
 }
-
-
-//                for (DataSnapshot temp : dataSnapshot.getChildren()) {
-//                    GroceryListProductsModel model = new GroceryListProductsModel();
-//                    model.setBought(temp.child(groceryListId).getValue(GroceryListProductsModel.class).getBought());
-//                    model.setName(temp.child(groceryListId).getValue(GroceryListProductsModel.class).getName());
-//                    model.setPrice(temp.child(groceryListId).getValue(GroceryListProductsModel.class).getPrice());
-//                    model.setQuantity(temp.child(groceryListId).getValue(GroceryListProductsModel.class).getQuantity());
-//                    groceryListProducts.add(model.getBought());
-//                    groceryListProducts.add(model.getName());
-//                    groceryListProducts.add(model.getPrice());
-//                    groceryListProducts.add(model.getQuantity());
-//                    ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, groceryListProducts);

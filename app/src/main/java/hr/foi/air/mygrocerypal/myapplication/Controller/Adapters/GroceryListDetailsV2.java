@@ -27,7 +27,7 @@ public class GroceryListDetailsV2 extends RecyclerView.Adapter<GroceryListDetail
     public GroceryListDetailsHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = null;
 
-        if(groceryList.getStatus() != GroceryListStatus.FINISHED) {
+        if(groceryList.getStatus() == GroceryListStatus.ACCEPTED) {
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.grocerylistdetails_item_buttons, viewGroup, false);
         }

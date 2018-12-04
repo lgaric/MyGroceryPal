@@ -16,7 +16,8 @@ public class GroceryListDetailsAdapter extends ArrayAdapter<GroceryListProductsM
 
     private static String BOUGHT = "Kupljeno: ";
     private static String QUANTITY = "Količina: ";
-    private static String PRICE = "Cijena: ";
+    private static String PRICE = "Cijena proizvoda: ";
+    private static String CURRENTPRICE = "Trenutna cijena: ";
     private static String TOTALPRICE = "Ukupna cijena: ";
     private static String CURRENCY = "kn";
 
@@ -44,6 +45,7 @@ public class GroceryListDetailsAdapter extends ArrayAdapter<GroceryListProductsM
             viewHolder.price = convertView.findViewById(R.id.price);
             viewHolder.quantity = convertView.findViewById(R.id.qunatity);
             viewHolder.totalPrice = convertView.findViewById(R.id.totalprice);
+//            viewHolder.currentPrice = convertView.findViewById(R.id.currentprice);
 
             convertView.setTag(viewHolder);
         }
@@ -56,7 +58,8 @@ public class GroceryListDetailsAdapter extends ArrayAdapter<GroceryListProductsM
         viewHolder.bought.setText(BOUGHT + Integer.toString(product.getBought()));
         viewHolder.price.setText(PRICE + Double.toString(product.getPrice()) + CURRENCY);
         viewHolder.quantity.setText(QUANTITY + Integer.toString(product.getQuantity()));
-        viewHolder.totalPrice.setText(TOTALPRICE + Double.toString(product.getPrice() * product.getQuantity()) + CURRENCY);
+//        viewHolder.currentPrice.setText(CURRENTPRICE + String.format("%.2f", product.getPrice() * product.getBought()) + CURRENCY);
+        viewHolder.totalPrice.setText(TOTALPRICE + String.format("%.2f", product.getPrice() * product.getQuantity()) + CURRENCY);
 
         return convertView;
     }

@@ -34,6 +34,7 @@
         android:layout_height="wrap_content"
         android:textSize="10dp"/>
 
+
     <TextView
         android:id="@+id/totalprice"
         tools:text="15.69"

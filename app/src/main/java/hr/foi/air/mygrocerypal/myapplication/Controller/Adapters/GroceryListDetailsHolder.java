@@ -17,12 +17,13 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
 
     private static String BOUGHT = "Kupljeno: ";
     private static String QUANTITY = "Količina: ";
-    private static String PRICE = "Cijena: ";
+    private static String PRICE = "Cijena proizvoda: ";
+    private static String CURRENTPRICE = "Trenutna cijena: ";
     private static String TOTALPRICE = "Ukupna cijena: ";
-    private static String CURRENCY = "kn";
+    private static String CURRENCY = " kn";
 
     private GroceryListProductsModel model;
-    private TextView nameOfProduct, bought, quantity, price, totalPrice;
+    private TextView nameOfProduct, bought, quantity, price, totalPrice, currentPrice;
     private Button upBought, downBought;
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
@@ -34,6 +35,7 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
                     if(model.getBought() < model.getQuantity()){
                         model.setBought(model.getBought() + 1);
                         bought.setText(BOUGHT + Integer.toString(model.getBought()));
+                        currentPrice.setText(CURRENTPRICE + String.format("%.2f", model.getBought() * model.getPrice()) + CURRENCY);
                     }
 
                     Log.d("GROCERYDETAILSHOLDERUP", "GUMB UP: " + model.getGrocery_list_key());
@@ -44,6 +46,7 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
                     if(model.getBought() > 0){
                         model.setBought(model.getBought() - 1);
                         bought.setText(BOUGHT + Integer.toString(model.getBought()));
+                        currentPrice.setText(CURRENTPRICE + String.format("%.2f", model.getBought() * model.getPrice()) + CURRENCY);
                     }
 
                     Log.d("GROCERYDETAILSHOLDERUP", "GUMB DOWN: " + model.getGrocery_list_key());
@@ -66,13 +69,18 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
         this.quantity = itemView.findViewById(R.id.qunatity);
         this.totalPrice = itemView.findViewById(R.id.totalprice);
 
-        if(groceryModel.getStatus() != GroceryListStatus.FINISHED) {
+
+        if(groceryModel.getStatus() == GroceryListStatus.ACCEPTED) {
             this.upBought = itemView.findViewById(R.id.upBought);
             this.downBought = itemView.findViewById(R.id.downBought);
+
+            this.currentPrice = itemView.findViewById(R.id.currentprice);
 
             this.upBought.setOnClickListener(clickListener);
             this.downBought.setOnClickListener(clickListener);
         }
+
+
     }
 
     public void bind(GroceryListProductsModel model){
@@ -82,6 +90,10 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
         this.bought.setText(BOUGHT + Integer.toString(model.getBought()));
         this.price.setText(PRICE + Double.toString(model.getPrice()) + CURRENCY);
         this.quantity.setText(QUANTITY + Integer.toString(model.getQuantity()));
-        this.totalPrice.setText(TOTALPRICE + Double.toString(model.getPrice() * model.getQuantity()) + CURRENCY);
+
+        if (this.currentPrice != null){
+            this.currentPrice.setText(CURRENTPRICE + String.format("%.2f", model.getPrice() * model.getBought()) + CURRENCY);
+        }
+        this.totalPrice.setText(TOTALPRICE + String.format("%.2f", model.getPrice() * model.getQuantity()) + CURRENCY);
     }
 }
