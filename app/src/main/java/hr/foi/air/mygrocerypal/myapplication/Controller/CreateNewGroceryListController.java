@@ -71,17 +71,32 @@ public class CreateNewGroceryListController {
 
 
         Log.d("generated_GL_key", generated_GL_key);
+        String product_key = "";
+        List<String> tempList = new ArrayList<>();
+        DatabaseReference refproducts;
 
         if(!isNullOrBlank(generated_GL_key)){
-            /*for (GroceryListProductsModel product: groceryListProductsModels) {
-                product.setGrocery_list_key(generated_GL_key);
-            }*/
-
-            //Upis proizvoda za taj GL u firebase
             if (firebaseDatabase == null)
                 firebaseDatabase = FirebaseDatabase.getInstance();
-            DatabaseReference refProducts = firebaseDatabase.getReference().child(GROCERYLISTPRODUCTSNODE);
-            Map<String, GroceryListProductsModel> map = new HashMap<>();
+            for (GroceryListProductsModel product: groceryListProductsModels) {
+                //product.setGrocery_list_key(generated_GL_key);
+                product_key = product.getProduct_key();
+                tempList.add(Integer.toString(product.getBought()));
+                tempList.add(product.getName());
+                tempList.add(Double.toString(product.getPrice()));
+                tempList.add(Integer.toString(product.getQuantity()));
+                DatabaseReference refProducts = firebaseDatabase.getReference().child(GROCERYLISTPRODUCTSNODE).child(generated_GL_key).child(product_key);
+                refProducts.setValue(tempList);
+
+                tempList.clear();
+            }
+
+            //Upis proizvoda za taj GL u firebase
+
+
+
+
+
 
 
         }

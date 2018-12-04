@@ -64,14 +64,19 @@ public class CreateNewGroceryListFragment extends Fragment implements StoresList
         groceryListProductsModels = new ArrayList<>();
 
         GroceryListProductsModel model = new GroceryListProductsModel();
+        GroceryListProductsModel model2= new GroceryListProductsModel();
         model.setBought(0);
         model.setName("Mortadela PIK 150g");
         model.setPrice(7.99);
         model.setQuantity(2);
-        model.setProduct_key("testKey");
+        model.setProduct_key("testKey1");
         groceryListProductsModels.add(model);
-        model.setProduct_key("testKey2");
-        groceryListProductsModels.add(model);
+        model2.setProduct_key("testKey2");
+        model2.setBought(0);
+        model2.setName("Kupus");
+        model2.setPrice(5);
+        model2.setQuantity(2);
+        groceryListProductsModels.add(model2);
 
 
         //do tud

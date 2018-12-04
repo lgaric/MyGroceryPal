@@ -69,12 +69,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:background="@drawable/edittext_light_blue"
                 android:hint="alternativna adresa" />
+
             <EditText
                 android:id="@+id/town"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:background="@drawable/edittext_light_blue"
+                android:layout_marginTop="5dp"
                 android:hint="alternativni grad" />
             <TextView
                 android:id="@+id/labelForStartDate"
@@ -88,8 +92,9 @@
                 android:id="@+id/startDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:paddingTop="5dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:background="@drawable/edittext_light_blue"
                 android:hint="Odaberite datum" />
             <TextView
                 android:id="@+id/labelCommision"
@@ -98,6 +103,7 @@
                 android:textIsSelectable="false"
                 android:padding="5dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+
                 android:text="Provizija" />
 
             <EditText
@@ -106,7 +112,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="number"
-                android:hint="Cijeli iznos u kunama"/>
+                android:background="@drawable/edittext_light_blue"
+                android:hint="KN"/>
             <TextView
                 android:id="@+id/labelProducts"
                 android:layout_width="match_parent"
@@ -147,7 +154,9 @@
                     android:layout_height="wrap_content"
                     android:textIsSelectable="false"
                     android:padding="5dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:background="@drawable/edittext_light_blue"
+                    android:textColor="@color/design_default_color_primary_dark"/>
             </LinearLayout>
             <Button
                 android:id="@+id/btnAddProducts"
