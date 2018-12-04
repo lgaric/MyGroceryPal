@@ -1,16 +1,9 @@
 package hr.foi.air.mygrocerypal.myapplication.View;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -19,24 +12,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.Calendar;
-import java.util.regex.Pattern;
 
 import hr.foi.air.mygrocerypal.myapplication.Controller.RegistrationController;
-import hr.foi.air.mygrocerypal.myapplication.Controller.RegistrationListener;
+import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.RegistrationListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
-import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class RegistrationActivity extends BaseActivity implements RegistrationListener {
@@ -55,7 +35,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
         setContentView(R.layout.activity_register);
 
         controller = new RegistrationController(this);
-        // TODO Ukloniti kompoziciju prema controlleru!
 
         progressBar = findViewById(R.id.progressBar);
         firstNameTxt = (EditText) findViewById(R.id.firstnameRegistration);

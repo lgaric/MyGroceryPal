@@ -1,4 +1,4 @@
-package hr.foi.air.mygrocerypal.myapplication.Controller;
+package hr.foi.air.mygrocerypal.myapplication.Controller.Listeners;
 
 public interface RegistrationListener {
     public void onRegistrationSuccess(String message);

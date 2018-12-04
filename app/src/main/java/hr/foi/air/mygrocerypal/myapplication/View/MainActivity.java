@@ -106,17 +106,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mFragmentTransaction.commit();
                 break;
             case R.id.navigation_settings:
-                mDrawer.closeDrawer(GravityCompat.START);/*
+                mDrawer.closeDrawer(GravityCompat.START);
                 SettingsFragment mSettingsFragment = new SettingsFragment();
                 mFragmentTransaction.replace(R.id.fragment_container, mSettingsFragment);
-                mFragmentTransaction.commit();*/
-
-                Bundle bundle = new Bundle();
-                bundle.putString("storeId", "store_id_1");
-
-                SelectProductsFragment selectProductsFragment = new SelectProductsFragment();
-                selectProductsFragment.setArguments(bundle);
-                mFragmentTransaction.replace(R.id.fragment_container, selectProductsFragment);
                 mFragmentTransaction.commit();
                 break;
             case R.id.navigation_client:

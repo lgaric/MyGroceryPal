@@ -1,22 +1,14 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Patterns;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
-import hr.foi.air.mygrocerypal.myapplication.R;
-import hr.foi.air.mygrocerypal.myapplication.View.LoginActivity;
+import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.PasswordRecoveryListener;
 
 public class PasswordRecoveryController {
     FirebaseAuth firebaseAuth;

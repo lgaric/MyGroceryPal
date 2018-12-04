@@ -19,7 +19,6 @@ import hr.foi.air.mygrocerypal.myapplication.Model.ProductsModel;
 
 public class SelectProductsController {
     private static final String PRODUCTSNODE  = "products";
-    public ArrayList<GroceryListProductsModel> groceryListOfProducts = new ArrayList<>();
 
     private SelectProductsListener selectProductsListener;
     private FirebaseDatabase firebaseDatabase;
@@ -35,6 +34,7 @@ public class SelectProductsController {
         if(firebaseDatabase == null)
             firebaseDatabase = FirebaseDatabase.getInstance();
 
+        
         Query query = firebaseDatabase.getReference().child(PRODUCTSNODE).orderByChild("store_name").equalTo(storeName);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -58,22 +58,4 @@ public class SelectProductsController {
         });
     }
 
-    public void addToProductsList(ProductsModel product, String productQuantity){
-        GroceryListProductsModel newProduct = new GroceryListProductsModel();
-        newProduct.setName(product.getName());
-
-
-        newProduct.setPrice(product.getCurrent_price());
-        newProduct.setQuantity(Integer.parseInt(productQuantity));
-        groceryListOfProducts.add(newProduct);
-    }
-
-    public void removeFromProductsList(ProductsModel product){
-        groceryListOfProducts.remove(product.getName());
-        groceryListOfProducts.remove(product);
-    }
-
-    public ArrayList<GroceryListProductsModel> getGroceryListProducts(){
-        return groceryListOfProducts;
-    }
 }
