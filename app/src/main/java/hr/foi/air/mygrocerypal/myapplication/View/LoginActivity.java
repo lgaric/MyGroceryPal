@@ -24,8 +24,6 @@ public class LoginActivity extends BaseActivity implements LoginListener {
         password = (EditText) findViewById(R.id.passwordLogin);
 
         loginController = new LoginController(this);
-
-        // TODO Ukloniti kompoziciju prema Controlleru!
     }
 
     public void Login(View view){
@@ -48,5 +46,8 @@ public class LoginActivity extends BaseActivity implements LoginListener {
     @Override
     public void onStatusSuccess() {
         startActivity(new Intent(this, MainActivity.class));
+        this.finish();
     }
+
+
 }
