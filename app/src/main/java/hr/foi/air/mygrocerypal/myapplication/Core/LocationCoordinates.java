@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import hr.foi.air.mygrocerypal.AddressListener;
 import hr.foi.air.mygrocerypal.GetAddressFromLocation;
@@ -29,7 +30,6 @@ public class LocationCoordinates extends Fragment  implements LocationListener, 
     private Button btnStartUpdates;
     private TextView txtLocationResult;
     private TextView txtFullAddress;
-    private SeekBar seekBarRange;
     private EditText txtAdresa;
     private Button ispisLokacijaBtn;
     private GetCurrentLocation currentLocationInstance;
@@ -41,7 +41,7 @@ public class LocationCoordinates extends Fragment  implements LocationListener, 
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.btn_start_location_updates:
-                    startLocationButtonClick();
+                    getDeviceLocation();
                     break;
                 case R.id.btnIspisLokacije:
                     getLocationBasedOnAddress();
@@ -55,6 +55,7 @@ public class LocationCoordinates extends Fragment  implements LocationListener, 
     private void getLocationBasedOnAddress() {
         if(mCurrentLocation == null)
         {
+            Toast.makeText(getContext(), "Jos nije dobivena lokacija", Toast.LENGTH_SHORT).show();
             return;
         }
         if(getAddress == null)
@@ -68,9 +69,10 @@ public class LocationCoordinates extends Fragment  implements LocationListener, 
 
     // metoda za pokretanje geolociranja uredaja
 
-    private void startLocationButtonClick() {
+    private void getDeviceLocation() {
         if(currentLocationInstance == null)
         {
+            Toast.makeText(getContext(), "Lokacija se trazi nakon odobrenih svih zahtjeva uredaja", Toast.LENGTH_SHORT).show();
             GetCurrentLocation currentLocation = new GetCurrentLocation();
             currentLocation.init(getActivity(), this);
             currentLocation.startLocationButtonClick();
@@ -123,15 +125,10 @@ public class LocationCoordinates extends Fragment  implements LocationListener, 
         if (location != null) {
             mCurrentLocation = location;
             Location userLocation = new Location("");
-            userLocation.setLongitude(Double.parseDouble(CurrentUser.currentUser.getLongitude()));
-            userLocation.setLatitude(Double.parseDouble(CurrentUser.currentUser.getLatitude()));
+            userLocation.setLongitude(CurrentUser.currentUser.getLongitude());
+            userLocation.setLatitude(CurrentUser.currentUser.getLatitude());
 
             final float udaljenostMetri = location.distanceTo(userLocation);
-
-            txtLocationResult.setText(
-                    "Lat: " + location.getLatitude() + ", " +
-                            "Lng: " + location.getLongitude() + " udaljenost: " + udaljenostMetri + " metara"
-            );
         }
     }
 

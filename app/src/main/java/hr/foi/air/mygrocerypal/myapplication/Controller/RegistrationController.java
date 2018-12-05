@@ -1,7 +1,9 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
 import android.content.Context;
+import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.util.Patterns;
 import android.widget.Toast;
 
@@ -18,6 +20,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Pattern;
 
+import hr.foi.air.mygrocerypal.GetLocationFromAddress;
+import hr.foi.air.mygrocerypal.LocationListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
 public class RegistrationController {
@@ -27,7 +31,9 @@ public class RegistrationController {
     private FirebaseDatabase mDatabase;
     private RegistrationListener listener;
 
-    public RegistrationController(Context context) { listener = (RegistrationListener) context; }
+    public RegistrationController(Context context) {
+        listener = (RegistrationListener) context;
+    }
 
     public void registerUser(String firstNameTxt, String lastNameTxt, String userNameTxt, String passwordTxt,
                              String emailTxt, String addressTxt, String townTxt, String contactTxt, String dateOfBirthTxt){
@@ -40,9 +46,9 @@ public class RegistrationController {
         final String town = townTxt;
         final String contact = contactTxt;
         final String dateOfBirth = dateOfBirthTxt;
-        final String longitude = "50";
-        final String latitude = "20";
-        final String range = "20";
+        final Double longitude = 20.0;
+        final Double latitude = 20.0;
+        final Double range = 20.0;
 
         if(mAuth == null)
             mAuth = FirebaseAuth.getInstance();
@@ -65,7 +71,8 @@ public class RegistrationController {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 final String uId = mAuth.getCurrentUser().getUid();
-                                final UserModel newUser = new UserModel(firstName, lastName, username, email, pass, town, address, contact, dateOfBirth, longitude, latitude, range);
+                                final UserModel newUser = new UserModel(firstName, lastName, username, email, pass, town, address, contact, dateOfBirth,
+                                        longitude, latitude, range);
                                 mDatabase.getReference().child("users").child(uId).setValue(newUser);
                                 mAuth.getCurrentUser().sendEmailVerification();
                                 mAuth.signOut();
