@@ -13,7 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
+import hr.foi.air.mygrocerypal.myapplication.Core.LocationCoordinates;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
-
-
     }
 
     @Override
@@ -108,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.navigation_settings:
                 mDrawer.closeDrawer(GravityCompat.START);
                 SettingsFragment mSettingsFragment = new SettingsFragment();
-                mFragmentTransaction.replace(R.id.fragment_container, mSettingsFragment);
+                mFragmentTransaction.replace(R.id.fragment_container, new LocationCoordinates());
                 mFragmentTransaction.commit();
                 break;
             case R.id.navigation_client:

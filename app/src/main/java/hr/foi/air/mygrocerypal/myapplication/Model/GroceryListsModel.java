@@ -30,6 +30,22 @@ public class GroceryListsModel implements Serializable {
         this.grocerylist_key = grocerylist_key;
     }
 
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
     public String getGrocerylist_key() {
         return grocerylist_key;
     }

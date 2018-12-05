@@ -1,8 +1,11 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
 import android.content.Context;
+import android.location.Location;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.util.Patterns;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -18,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.regex.Pattern;
 
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.RegistrationListener;
+import hr.foi.air.mygrocerypal.LocationListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
 public class RegistrationController {
@@ -27,10 +31,24 @@ public class RegistrationController {
     private FirebaseDatabase mDatabase;
     private RegistrationListener listener;
 
-    public RegistrationController(Context context) { listener = (RegistrationListener) context; }
+    public RegistrationController(Context context) {
+        listener = (RegistrationListener) context;
+    }
 
-    public void registerUser(final String firstNameTxt, final String lastNameTxt, final String userNameTxt, final String passwordTxt,
-                             final String emailTxt, final String addressTxt, final String townTxt, final String contactTxt, final String dateOfBirthTxt){
+    public void registerUser(String firstNameTxt, String lastNameTxt, String userNameTxt, String passwordTxt,
+                             String emailTxt, String addressTxt, String townTxt, String contactTxt, String dateOfBirthTxt){
+        final String firstName = firstNameTxt;
+        final String lastName = lastNameTxt;
+        final String username = userNameTxt;
+        final String pass = passwordTxt;
+        final String email = emailTxt;
+        final String address = addressTxt;
+        final String town = townTxt;
+        final String contact = contactTxt;
+        final String dateOfBirth = dateOfBirthTxt;
+        final Double longitude = 20.0;
+        final Double latitude = 20.0;
+        final Double range = 20.0;
 
         if(mAuth == null)
             mAuth = FirebaseAuth.getInstance();
@@ -52,7 +70,8 @@ public class RegistrationController {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 final String uId = mAuth.getCurrentUser().getUid();
-                                final UserModel newUser = new UserModel(firstNameTxt, lastNameTxt, userNameTxt, emailTxt, passwordTxt, townTxt, addressTxt, contactTxt, dateOfBirthTxt);
+                                final UserModel newUser = new UserModel(firstName, lastName, username, email, pass, town, address, contact, dateOfBirth,
+                                        longitude, latitude, range);
                                 mDatabase.getReference().child("users").child(uId).setValue(newUser);
                                 mAuth.getCurrentUser().sendEmailVerification();
                                 mAuth.signOut();
