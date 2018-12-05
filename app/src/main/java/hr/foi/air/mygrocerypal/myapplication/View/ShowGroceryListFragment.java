@@ -21,6 +21,7 @@ import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.GroceryListAdap
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
+import hr.foi.air.mygrocerypal.myapplication.Core.LocationCoordinates;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
@@ -34,7 +35,11 @@ public class ShowGroceryListFragment extends Fragment implements GroceryListList
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Toast.makeText(getActivity(), "FLOATINGBUTTON", Toast.LENGTH_LONG).show();
+            CreateNewGroceryListFragment createNewGroceryListFragment = new CreateNewGroceryListFragment();
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, createNewGroceryListFragment)
+                    .addToBackStack(null)
+                    .commit();
         }
     };
 

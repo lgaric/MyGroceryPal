@@ -27,8 +27,6 @@ public class PasswordRecoveryActivity extends BaseActivity implements PasswordRe
         setContentView(R.layout.activity_password_recovery);
         passwordRecoveryController = new PasswordRecoveryController(this);
 
-        // TODO - Izbrisati kompoziciju prema Controlleru!
-
         buttonRecoveryPassword = findViewById(R.id.buttonRecoveryPassword);
         showLogin = findViewById(R.id.buttonShowLogin);
         progressBar = findViewById(R.id.progressBar);

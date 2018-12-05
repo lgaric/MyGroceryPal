@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">MyGroceryPal</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="zaboravljenaLozinka">Zaboravljena lozinka?</string>
     <string name="registracija">Nemate račun? Registrirajte se</string>
     <string name="prijava">Prijava</string>
@@ -32,7 +31,6 @@
     <string name="progressBar">Progress Bar</string>
 
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string-array name="groceryListExamples">
         <item>Kruške</item>

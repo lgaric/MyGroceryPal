@@ -1,5 +1,6 @@
 package hr.foi.air.mygrocerypal.myapplication.View;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -50,8 +51,7 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
         recyclerView = view.findViewById(R.id.recycler_view);
         addProductsToGroceryList = view.findViewById(R.id.addProductsToGroceryList);
 
-        GroceryListsModel groceryListsModel = (GroceryListsModel)getArguments().getSerializable("GROCERY_LIST_MODEL");
-        selectProductsController.loadGroceryLists(groceryListsModel.getStore_name());
+        selectProductsController.loadGroceryLists(getArguments().getString("store_name"));
 
         addProductsToGroceryList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +63,7 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
 
                 //ukoliko ne postoji prethodni fragment ne čini ništa!
                 if(getFragmentManager().getBackStackEntryCount() > 0){
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, intent);
+                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
                     getFragmentManager().popBackStack();
                     Toast.makeText(getContext(), "Dodali ste " + listOfProducts.size() + " proizvoda!", Toast.LENGTH_LONG).show();
                 }
