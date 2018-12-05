@@ -125,9 +125,10 @@
 
             <!-- OVDJE IDE LISTA PROIZVODA-->
 
-            <ListView
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_products"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

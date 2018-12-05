@@ -12,11 +12,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.StoresListener;
+import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.AddGroceryListListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
@@ -27,11 +25,11 @@ public class CreateNewGroceryListController {
     private static final String GROCERYLISTSNODE  = "grocerylists";
     private static final String GROCERYLISTPRODUCTSNODE  = "grocerylistproducts";
 
-    private StoresListener storesListener;
+    private AddGroceryListListener addGroceryListListener;
     private FirebaseDatabase firebaseDatabase;
 
     public CreateNewGroceryListController(Fragment fragment){
-        storesListener = (StoresListener) fragment;
+        addGroceryListListener = (AddGroceryListListener) fragment;
     }
 
     public void getAllStores(){
@@ -49,7 +47,7 @@ public class CreateNewGroceryListController {
                     stores.add(storesModel);
                 }
 
-                storesListener.storesReceived(stores);
+                addGroceryListListener.storesReceived(stores);
                 Log.d("getAllStores", "sizeStores" + Integer.toString(stores.size()));
             }
 
@@ -73,8 +71,8 @@ public class CreateNewGroceryListController {
         Log.d("generated_GL_key", generated_GL_key);
         String product_key = "";
         List<String> tempList = new ArrayList<>();
-        DatabaseReference refproducts;
 
+        //Upis proizvoda za taj GL u firebase
         if(!isNullOrBlank(generated_GL_key)){
             if (firebaseDatabase == null)
                 firebaseDatabase = FirebaseDatabase.getInstance();
@@ -90,19 +88,11 @@ public class CreateNewGroceryListController {
 
                 tempList.clear();
             }
-
-            //Upis proizvoda za taj GL u firebase
-
-
-
-
-
-
+            addGroceryListListener.groceryListAddedToDatabase(true, "Uspješno kreirano!");
 
         }
         else{
-            //TO DO
-            //javi fragmentu da nije upisano u bazu
+            addGroceryListListener.groceryListAddedToDatabase(true, "Greška prilikom upisa!");
         }
 
 
