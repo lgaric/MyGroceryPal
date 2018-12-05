@@ -1,11 +1,9 @@
 package hr.foi.air.mygrocerypal.myapplication.Model;
 
-import java.util.ArrayList;
-
 public class StoresModel {
-    private String storeId;
     private String name;
-    public ArrayList<ProductsModel> listOfProducts;
+
+    private String store_id;
 
     public String getName() {
         return name;
@@ -15,13 +13,11 @@ public class StoresModel {
         this.name = name;
     }
 
-    public String getStoreId() {
-        return storeId;
+    public String getStore_id() {
+        return store_id;
     }
 
-    public void setStoreId(String storeId) {
-        this.storeId = storeId;
+    public void setStore_id(String store_id) {
+        this.store_id = store_id;
     }
-
-
 }

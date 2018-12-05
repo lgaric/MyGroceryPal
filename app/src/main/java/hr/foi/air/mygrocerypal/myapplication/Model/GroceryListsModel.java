@@ -26,6 +26,20 @@ public class GroceryListsModel implements Serializable {
         productsModels = new ArrayList<>();
     }
 
+    //Konstruktor za dodavanje novog GL-a u CreateNewGroceryListController
+    public GroceryListsModel(String commision, String delivery_address, String delivery_town, String end_date, String start_date,
+                             GroceryListStatus status, String store_name, String total_price, String user_id) {
+        this.commision = commision;
+        this.delivery_address = delivery_address;
+        this.delivery_town = delivery_town;
+        this.end_date = end_date;
+        this.start_date = start_date;
+        this.status = status;
+        this.store_name = store_name;
+        this.total_price = total_price;
+        this.user_id = user_id;
+    }
+
     public void setGrocerylist_key(String grocerylist_key) {
         this.grocerylist_key = grocerylist_key;
     }
