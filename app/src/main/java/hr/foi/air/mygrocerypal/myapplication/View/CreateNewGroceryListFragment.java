@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -39,7 +38,6 @@ import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
-import hr.foi.air.mygrocerypal.myapplication.Model.ProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
@@ -47,7 +45,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
     private CreateNewGroceryListController createNewGroceryListController;
 
-    private String storeName;
+    private String selectedStoreName;
     private GroceryListsModel groceryListsModel;
     private List<GroceryListProductsModel> groceryListProductsModels;
     private ProductsListAdapter productsListAdapter;
@@ -131,8 +129,8 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 SelectProductsFragment selectProductsFragment = new SelectProductsFragment();
                 Bundle bundle = new Bundle();
 
-                storeName = spinnerStores.getSelectedItem().toString();
-                bundle.putString("store_name", storeName);
+                selectedStoreName = spinnerStores.getSelectedItem().toString();
+                bundle.putString("store_name", selectedStoreName);
                 selectProductsFragment.setArguments(bundle);
                 selectProductsFragment.setTargetFragment(CreateNewGroceryListFragment.this, 1);
                 getActivity().getSupportFragmentManager().beginTransaction()
@@ -169,12 +167,23 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
+
         if(requestCode==1 && resultCode==Activity.RESULT_OK){
             groceryListProductsModels = (List<GroceryListProductsModel>) data.getSerializableExtra("groceryListOfProducts");
-            productsListReceived(groceryListProductsModels);
+
         }
 
     }
+
+    public void onStart() {
+
+        super.onStart();
+        if(groceryListProductsModels != null){
+            productsListReceived(groceryListProductsModels);
+        }
+    }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
@@ -199,13 +208,13 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
             spinnerStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    /*if(groceryListProductsModels != null && groceryListProductsModels.size() > 0 && storeName != spinnerStores.getSelectedItem().toString()){
+                    /*if(groceryListProductsModels != null && groceryListProductsModels.size() > 0 && selectedStoreName != spinnerStores.getSelectedItem().toString()){
                         showDialogOnStoreChanged();
                     }
                     else{
-                        selectedStore = parent.getItemAtPosition(position).toString();
+                        selectedStoreName = parent.getItemAtPosition(position).toString();
                     }*/
-
+                    selectedStoreName = parent.getItemAtPosition(position).toString();
                 }
 
                 @Override
@@ -240,7 +249,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     public boolean checkData(){
 
         boolean entered = true;
-        if(isNullOrBlank(storeName)){
+        if(isNullOrBlank(selectedStoreName)){
             showToast("Odaberite dućan!");
             entered = false;
 
@@ -288,7 +297,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 "-",
                 startDate.getText().toString(),
                 GroceryListStatus.CREATED,
-                storeName,
+                selectedStoreName,
                 totalPriceAmount.getText().toString(),
                 CurrentUser.currentUser.getUserUID());
 

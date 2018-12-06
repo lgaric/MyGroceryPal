@@ -58,12 +58,12 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
             public void onClick(View v) {
                 List<GroceryListProductsModel> listOfProducts = selectProductsAdapter.getListOfProducts();
 
-                Intent intent = new Intent(getContext(), SelectProductsFragment.class);
-                intent.putExtra("groceryListOfProducts", (Serializable) listOfProducts);
-
                 //ukoliko ne postoji prethodni fragment ne čini ništa!
                 if(getFragmentManager().getBackStackEntryCount() > 0){
+                    Intent intent = new Intent(getContext(), SelectProductsFragment.class);
+                    intent.putExtra("groceryListOfProducts", (Serializable) listOfProducts);
                     getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
+
                     getFragmentManager().popBackStack();
                     Toast.makeText(getContext(), "Dodali ste " + listOfProducts.size() + " proizvoda!", Toast.LENGTH_LONG).show();
                 }
