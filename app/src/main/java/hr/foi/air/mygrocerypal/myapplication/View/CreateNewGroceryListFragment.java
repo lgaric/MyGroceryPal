@@ -27,8 +27,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.ProductsListAdapter;
@@ -41,7 +43,7 @@ import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
-public class CreateNewGroceryListFragment extends Fragment implements AddGroceryListListener {
+public class CreateNewGroceryListFragment extends Fragment implements AddGroceryListListener, View.OnClickListener {
 
     private CreateNewGroceryListController createNewGroceryListController;
 
@@ -49,8 +51,9 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     private GroceryListsModel groceryListsModel;
     private List<GroceryListProductsModel> groceryListProductsModels;
     private ProductsListAdapter productsListAdapter;
+    boolean sended = false;
+    int positionInSpinner;
 
-    private DatePickerDialog.OnDateSetListener dateSetListener;
 
     //widgets
     private RadioGroup radioGroup;
@@ -61,12 +64,12 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     private Spinner spinnerStores;
     private RecyclerView recyclerView;
 
-
+    private View.OnClickListener onClickListener;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_create_new_grocerylist, container, false);
+        View view = inflater.inflate(R.layout.fragment_create_new_grocerylist, container, false);
 
         totalPriceAmount = view.findViewById(R.id.TotalPriceAmount);
         btnAddProducts = view.findViewById(R.id.btnAddProducts);
@@ -83,83 +86,11 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         town.setEnabled(false);
         radioGroup = view.findViewById(R.id.rgroup);
 
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                radioButton = view.findViewById(checkedId);
+        radioGroup.setOnCheckedChangeListener(onCheckedChangeListener);
+        btnAddProducts.setOnClickListener(this);
+        btnConfirm.setOnClickListener(this);
+        spinnerStores.setOnItemSelectedListener(onItemSelectedListener);
 
-                if(radioButton.getText().equals("Moja adresa")){
-                    address.setEnabled(false);
-                    town.setEnabled(false);
-                    address.setText(CurrentUser.currentUser.getAddress());
-                    town.setText(CurrentUser.currentUser.getTown());
-                }
-                else{
-                    address.setEnabled(true);
-                    town.setEnabled(true);
-                    address.getText().clear();
-                    town.getText().clear();
-                    address.setHint("Upišite drugu adresu");
-                    town.setHint("Upišite grad");
-                }
-            }
-        });
-
-        startDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                int year = calendar.get(Calendar.YEAR);
-                int month = calendar.get(Calendar.MONTH);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        getActivity(),
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        dateSetListener,
-                        year, month, day);
-                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                datePickerDialog.show();
-            }
-        });
-
-        btnAddProducts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SelectProductsFragment selectProductsFragment = new SelectProductsFragment();
-                Bundle bundle = new Bundle();
-
-                selectedStoreName = spinnerStores.getSelectedItem().toString();
-                bundle.putString("store_name", selectedStoreName);
-                selectProductsFragment.setArguments(bundle);
-                selectProductsFragment.setTargetFragment(CreateNewGroceryListFragment.this, 1);
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, selectProductsFragment)
-                        .addToBackStack(null)
-                        .commit();
-
-            }
-        });
-
-        dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String date = dayOfMonth + "/" + (month + 1) + "/" + year;
-                startDate.setText(date);
-            }
-        };
-
-        btnConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                boolean entered = checkData();
-                if(entered){
-                    createGroceryList();
-                    createNewGroceryListController.saveGL_withProducts(groceryListsModel, groceryListProductsModels);
-                }
-            }
-        });
 
         return view;
     }
@@ -181,6 +112,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         if(groceryListProductsModels != null){
             productsListReceived(groceryListProductsModels);
         }
+
     }
 
 
@@ -188,11 +120,63 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
+        startDate.setText(getDate());
         createNewGroceryListController = new CreateNewGroceryListController(this);
+
         createNewGroceryListController.getAllStores();
 
 
     }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+
+            case R.id.btnAddProducts:
+                SelectProductsFragment selectProductsFragment = new SelectProductsFragment();
+                Bundle bundle = new Bundle();
+
+                selectedStoreName = spinnerStores.getSelectedItem().toString();
+                bundle.putString("store_name", selectedStoreName);
+                selectProductsFragment.setArguments(bundle);
+                selectProductsFragment.setTargetFragment(CreateNewGroceryListFragment.this, 1);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, selectProductsFragment)
+                        .addToBackStack(null)
+                        .commit();
+                sended = true;
+                break;
+            case R.id.btnConfirm:
+                boolean entered = checkData();
+                if(entered){
+                    createGroceryList();
+                    createNewGroceryListController.saveGL_withProducts(groceryListsModel, groceryListProductsModels);
+                }
+                break;
+        }
+    }
+
+    RadioGroup.OnCheckedChangeListener onCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+            radioButton = radioGroup.findViewById(checkedId);
+
+            if(radioButton.getText().equals("Moja adresa")){
+                address.setEnabled(false);
+                town.setEnabled(false);
+                address.setText(CurrentUser.currentUser.getAddress());
+                town.setText(CurrentUser.currentUser.getTown());
+            }
+            else{
+                address.setEnabled(true);
+                town.setEnabled(true);
+                address.getText().clear();
+                town.getText().clear();
+                address.setHint("Upišite drugu adresu");
+                town.setHint("Upišite grad");
+            }
+        }
+    };
 
 
     @Override
@@ -205,26 +189,35 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, storeNames);
             spinnerStores.setAdapter(adapter);
-            spinnerStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    /*if(groceryListProductsModels != null && groceryListProductsModels.size() > 0 && selectedStoreName != spinnerStores.getSelectedItem().toString()){
-                        showDialogOnStoreChanged();
-                    }
-                    else{
-                        selectedStoreName = parent.getItemAtPosition(position).toString();
-                    }*/
-                    selectedStoreName = parent.getItemAtPosition(position).toString();
-                }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
         }
 
     }
+    AdapterView.OnItemSelectedListener onItemSelectedListener= new AdapterView.OnItemSelectedListener(){
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            if(sended){
+                spinnerStores.setSelection(positionInSpinner);
+
+                /*if(!selectedStoreName.equals(spinnerStores.getSelectedItem().toString()))
+                    showDialogOnStoreChanged();*/
+
+            }
+            else{
+                selectedStoreName = parent.getItemAtPosition(position).toString();
+                positionInSpinner = parent.getSelectedItemPosition();
+            }
+            //selectedStoreName = parent.getItemAtPosition(position).toString();
+            //positionInSpinner = parent.getSelectedItemPosition();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
 
     @Override
     public void productsListReceived(List<GroceryListProductsModel> productsList) {
@@ -316,8 +309,22 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 .setPositiveButton("Da", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        groceryListProductsModels.clear();
+                        if(productsListAdapter != null && groceryListProductsModels != null){
+                            groceryListProductsModels.clear();
+                            productsListReceived(groceryListProductsModels);
+                            sended = false;
+                        }
+
                     }
                 }).create().show();
     }
+
+    private String getDate(){
+        Date today = Calendar.getInstance().getTime();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String todayString = formatter.format(today);
+        return todayString;
+    }
+
+
 }
