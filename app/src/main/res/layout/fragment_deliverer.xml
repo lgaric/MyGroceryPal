@@ -1,17 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical" android:layout_width="match_parent"
-android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-<!--<android.support.v7.widget.RecyclerView-->
-    <!--android:id="@+id/main_recycler"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:entries="@array/groceryListExamples"/>-->
-
-  <ListView
+  <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:entries="@array/groceryListExamples">
+      android:layout_height="50dp"
+      android:gravity="center">
 
-  </ListView>
+    <Button
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:text="AKTIVNI"
+        android:id="@+id/active_deliverer_btn"/>
+
+    <Button
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:text="PRIHVAĆENI"
+        android:id="@+id/accepted_deliverer_btn"/>
+
+    <Button
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:text="IGNORIRANI"
+        android:id="@+id/ignored_client_btn"/>
+
+  </LinearLayout>
+
+  <FrameLayout
+      android:id="@+id/show_grocery_lists"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
+
 </LinearLayout>

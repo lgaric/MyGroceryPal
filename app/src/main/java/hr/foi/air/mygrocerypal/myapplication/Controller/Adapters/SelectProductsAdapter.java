@@ -127,7 +127,7 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
         private void addSelectedProductToGroceryList(){
             product = new GroceryListProductsModel();
             product.setName(productsModel.getName());
-            product.setPrice(productsModel.getCurrent_price());
+            //product.setPrice(productsModel.getCurrent_price());
             product.setQuantity(1);
             product.setBought(0);
             product.setProduct_key(productsModel.getProduct_key());
@@ -143,7 +143,7 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
             this.listOfProducts = listOfProducts;
             this.productsModel = product;
             this.productName.setText(product.getName());
-            this.productPrice.setText(Double.toString(product.getCurrent_price()));
+            //this.productPrice.setText(Double.toString(product.getCurrent_price()));
         }
 
     }
