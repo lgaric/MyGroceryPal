@@ -52,6 +52,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     private List<GroceryListProductsModel> groceryListProductsModels;
     private ProductsListAdapter productsListAdapter;
     boolean sended = false;
+    boolean firstEntry = false;
     int positionInSpinner;
 
 
@@ -101,7 +102,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
         if(requestCode==1 && resultCode==Activity.RESULT_OK){
             groceryListProductsModels = (List<GroceryListProductsModel>) data.getSerializableExtra("groceryListOfProducts");
-
+            firstEntry = true;
         }
 
     }
@@ -111,6 +112,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         super.onStart();
         if(groceryListProductsModels != null){
             productsListReceived(groceryListProductsModels);
+
         }
 
     }
@@ -197,19 +199,17 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            if(sended){
+            if(!firstEntry && sended && selectedStoreName != null && parent.getItemAtPosition(position) != null && (!selectedStoreName.equals(parent.getItemAtPosition(position).toString())))
+                showDialogOnStoreChanged();
+            if(sended && firstEntry){
                 spinnerStores.setSelection(positionInSpinner);
-
-                /*if(!selectedStoreName.equals(spinnerStores.getSelectedItem().toString()))
-                    showDialogOnStoreChanged();*/
-
+                firstEntry = false;
             }
             else{
                 selectedStoreName = parent.getItemAtPosition(position).toString();
                 positionInSpinner = parent.getSelectedItemPosition();
             }
-            //selectedStoreName = parent.getItemAtPosition(position).toString();
-            //positionInSpinner = parent.getSelectedItemPosition();
+
         }
 
         @Override
