@@ -2,11 +2,7 @@ package hr.foi.air.mygrocerypal.myapplication.View;
 
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
-import hr.foi.air.mygrocerypal.myapplication.Controller.ActiveDelivererFragment;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class DelivererFragment extends Fragment {
