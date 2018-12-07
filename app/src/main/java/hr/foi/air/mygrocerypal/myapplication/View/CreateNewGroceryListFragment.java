@@ -54,6 +54,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     boolean sended = false;
     boolean firstEntry = false;
     int positionInSpinner;
+    int flag = 0;
 
 
     //widgets
@@ -199,15 +200,25 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            if(!firstEntry && sended && selectedStoreName != null && parent.getItemAtPosition(position) != null && (!selectedStoreName.equals(parent.getItemAtPosition(position).toString())))
+            if(!firstEntry && sended && selectedStoreName != null && parent.getItemAtPosition(position) != null && (!selectedStoreName.equals(parent.getItemAtPosition(position).toString()))){
                 showDialogOnStoreChanged();
+                if(sended){
+                    spinnerStores.setSelection(positionInSpinner);//ako je u dialogbox odabran NE
+                    flag = 1;
+                }
+            }
             if(sended && firstEntry){
                 spinnerStores.setSelection(positionInSpinner);
                 firstEntry = false;
             }
             else{
-                selectedStoreName = parent.getItemAtPosition(position).toString();
-                positionInSpinner = parent.getSelectedItemPosition();
+                if(flag == 0){
+                    selectedStoreName = parent.getItemAtPosition(position).toString();
+                    positionInSpinner = parent.getSelectedItemPosition();
+                }
+                else{
+                    flag = 0;
+                }
             }
 
         }
@@ -313,6 +324,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                             groceryListProductsModels.clear();
                             productsListReceived(groceryListProductsModels);
                             sended = false;
+
                         }
 
                     }
