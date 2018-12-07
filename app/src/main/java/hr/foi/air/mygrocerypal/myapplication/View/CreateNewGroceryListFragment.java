@@ -224,7 +224,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         if(productsList != null){
             recyclerView.setAdapter(null);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            productsListAdapter = new ProductsListAdapter(productsList);
+            productsListAdapter = new ProductsListAdapter(productsList, totalPriceAmount);
             recyclerView.setAdapter(productsListAdapter);
         }
     }

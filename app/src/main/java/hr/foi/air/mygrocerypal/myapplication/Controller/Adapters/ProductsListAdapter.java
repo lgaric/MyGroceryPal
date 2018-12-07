@@ -17,9 +17,20 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapter.ProductsListHolder> {
 
     private List<GroceryListProductsModel> listOfProducts;
+    TextView totalTextView;
 
-    public  ProductsListAdapter(List<GroceryListProductsModel> productsList){
+    public  ProductsListAdapter(List<GroceryListProductsModel> productsList, TextView total){
         listOfProducts = productsList;
+        totalTextView = total;
+        calculateTotalAmount();
+    }
+
+    private void calculateTotalAmount(){
+        double totalAmount = 0;
+        for (GroceryListProductsModel product: listOfProducts) {
+            totalAmount += product.getPrice() * product.getQuantity();
+        }
+        totalTextView.setText(Double.toString(totalAmount));
     }
 
     @NonNull
@@ -78,6 +89,7 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
                         productQuantity.setText(Integer.toString(product.getQuantity()));
 
                     }
+                    calculateTotalAmount();
                 }
             });
 
@@ -95,6 +107,7 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
                             productQuantity.setText("0");
                         }
                     }
+                    calculateTotalAmount();
                 }
             });
 
@@ -104,6 +117,7 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
                     listOfProducts.remove(product);//izbrisao iz liste
                     notifyItemRemoved(getAdapterPosition());
                     notifyItemRangeChanged(getAdapterPosition(),listOfProducts.size());
+                    calculateTotalAmount();
                 }
             });
 
@@ -122,6 +136,8 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
                         product = null;
                     }else if(Integer.parseInt(productQuantity.getText().toString()) > 0 && product != null)
                         product.setQuantity(Integer.parseInt(productQuantity.getText().toString()));
+
+                    calculateTotalAmount();
                 }
             });
         }
