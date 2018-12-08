@@ -88,8 +88,6 @@ public class CreateNewGroceryListController {
             addGroceryListListener.groceryListAddedToDatabase(true, "Greška prilikom upisa!");
         }
 
-
-
     }
 
     private boolean isNullOrBlank(String s)

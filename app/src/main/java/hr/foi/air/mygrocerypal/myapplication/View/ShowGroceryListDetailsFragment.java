@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.GroceryListDetailsV2;
+import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.GroceryListDetailsAdapter;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListProductsController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListUserController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListProductsListener;
@@ -113,7 +113,7 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
             groceryListsModel.setProductsModels(groceryListProducts);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-            GroceryListDetailsV2 v2 = new GroceryListDetailsV2(groceryListsModel);
+            GroceryListDetailsAdapter v2 = new GroceryListDetailsAdapter(groceryListsModel);
             recyclerView.setAdapter(v2);
         }
 

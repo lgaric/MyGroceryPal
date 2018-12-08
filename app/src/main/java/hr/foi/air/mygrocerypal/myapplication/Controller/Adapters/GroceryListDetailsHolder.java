@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;

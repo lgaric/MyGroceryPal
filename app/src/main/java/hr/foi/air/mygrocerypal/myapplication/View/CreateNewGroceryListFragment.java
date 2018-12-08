@@ -26,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,7 +49,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
     private String selectedStoreName;
     private GroceryListsModel groceryListsModel;
-    private List<GroceryListProductsModel> groceryListProductsModels;
+    private List<GroceryListProductsModel> groceryListProductsModels = new ArrayList<>();
     private ProductsListAdapter productsListAdapter;
     boolean sended = false;
     boolean firstEntry = false;
@@ -64,8 +65,6 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     private Button btnAddProducts, btnConfirm;
     private Spinner spinnerStores;
     private RecyclerView recyclerView;
-
-    private View.OnClickListener onClickListener;
 
     @Nullable
     @Override
@@ -111,13 +110,12 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     public void onStart() {
 
         super.onStart();
-        if(groceryListProductsModels != null){
+        if(groceryListProductsModels.size() > 0){
             productsListReceived(groceryListProductsModels);
             labelProducts.setVisibility(View.VISIBLE);
         }else{
             labelProducts.setVisibility(View.GONE);
         }
-
     }
 
 
@@ -129,8 +127,6 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         createNewGroceryListController = new CreateNewGroceryListController(this);
 
         createNewGroceryListController.getAllStores();
-
-
     }
 
     @Override
@@ -143,6 +139,8 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 hideKeyboard(btnAddProducts);
                 selectedStoreName = spinnerStores.getSelectedItem().toString();
                 bundle.putString("store_name", selectedStoreName);
+                if(groceryListProductsModels.size() > 0)
+                    bundle.putSerializable("list_of_products", (Serializable)groceryListProductsModels);
                 selectProductsFragment.setArguments(bundle);
                 selectProductsFragment.setTargetFragment(CreateNewGroceryListFragment.this, 1);
                 getActivity().getSupportFragmentManager().beginTransaction()
@@ -209,8 +207,13 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            //Ako je fragment već kreiran, ako su dohvaćeni podaci o proizvodima i ako je dućan jednak odabranom itemu u spinneru
             if(!firstEntry && sended && selectedStoreName != null && parent.getItemAtPosition(position) != null && (!selectedStoreName.equals(parent.getItemAtPosition(position).toString()))){
-                showDialogOnStoreChanged();
+                if(productsListAdapter.getItemCount() > 0)
+                    showDialogOnStoreChanged(true);
+                else
+                    showDialogOnStoreChanged(false);
                 if(sended){
                     spinnerStores.setSelection(positionInSpinner);//ako je u dialogbox odabran NE
                     flag = 1;
@@ -332,23 +335,30 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
     }
 
-    public void showDialogOnStoreChanged(){
-        new AlertDialog.Builder(getActivity())
-                .setTitle("Promjena dućana")
-                .setMessage("Mijenjanje dućana briše listu proizvoda. Jeste li sigurni da želite promijeniti dućan?")
-                .setNegativeButton("Ne", null)
-                .setPositiveButton("Da", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(productsListAdapter != null && groceryListProductsModels != null){
-                            groceryListProductsModels.clear();
-                            productsListReceived(groceryListProductsModels);
-                            sended = false;
+    public void showDialogOnStoreChanged(boolean flag){
+        if(flag) {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle("Promjena dućana")
+                    .setMessage("Mijenjanje dućana briše listu proizvoda. Jeste li sigurni da želite promijeniti dućan?")
+                    .setNegativeButton("Ne", null)
+                    .setPositiveButton("Da", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            if (productsListAdapter != null && groceryListProductsModels != null) {
+                                groceryListProductsModels.clear();
+                                productsListReceived(groceryListProductsModels);
+                                sended = false;
+
+                            }
 
                         }
-
-                    }
-                }).create().show();
+                    }).create().show();
+        }
+        else{
+            groceryListProductsModels.clear();
+            productsListReceived(groceryListProductsModels);
+            sended = false;
+        }
     }
 
     private String getDate(){
