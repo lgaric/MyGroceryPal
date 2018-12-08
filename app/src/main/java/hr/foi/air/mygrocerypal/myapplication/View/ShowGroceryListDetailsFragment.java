@@ -13,16 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.GroceryListDetailsAdapter;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.GroceryListDetailsV2;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListProductsController;
-import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListProductsListener;
 import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListUserController;
+import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListProductsListener;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListUserListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;

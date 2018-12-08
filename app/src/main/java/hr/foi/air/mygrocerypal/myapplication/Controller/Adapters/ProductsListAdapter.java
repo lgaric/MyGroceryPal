@@ -30,7 +30,12 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
         for (GroceryListProductsModel product: listOfProducts) {
             totalAmount += product.getPrice() * product.getQuantity();
         }
-        totalTextView.setText(Double.toString(totalAmount));
+        totalTextView.setText(roundToTwoDecimalPlaces(totalAmount));
+    }
+
+    private String roundToTwoDecimalPlaces(double value){
+        double roundedValue = Math.round(value*100)/100.00;
+        return Double.toString(roundedValue);
     }
 
     @NonNull

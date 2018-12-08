@@ -2,11 +2,9 @@ package hr.foi.air.mygrocerypal.myapplication.View;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,19 +14,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,7 +39,6 @@ import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
-import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class CreateNewGroceryListFragment extends Fragment implements AddGroceryListListener, View.OnClickListener {
@@ -145,7 +139,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
             case R.id.btnAddProducts:
                 SelectProductsFragment selectProductsFragment = new SelectProductsFragment();
                 Bundle bundle = new Bundle();
-
+                hideKeyboard(btnAddProducts);
                 selectedStoreName = spinnerStores.getSelectedItem().toString();
                 bundle.putString("store_name", selectedStoreName);
                 selectProductsFragment.setArguments(bundle);
@@ -155,15 +149,22 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                         .addToBackStack(null)
                         .commit();
                 sended = true;
+
                 break;
             case R.id.btnConfirm:
                 boolean entered = checkData();
+                hideKeyboard(btnConfirm);
                 if(entered){
                     createGroceryList();
                     createNewGroceryListController.saveGL_withProducts(groceryListsModel, groceryListProductsModels);
                 }
                 break;
         }
+    }
+
+    private void hideKeyboard(Button button){
+        InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(button.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
     }
 
     RadioGroup.OnCheckedChangeListener onCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {

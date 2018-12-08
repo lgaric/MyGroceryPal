@@ -70,6 +70,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:background="@drawable/edittext_light_blue"
+                android:inputType="textCapSentences"
                 android:hint="alternativna adresa" />
 
             <EditText
@@ -79,6 +80,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:background="@drawable/edittext_light_blue"
                 android:layout_marginTop="5dp"
+                android:inputType="textCapWords"
                 android:hint="alternativni grad" />
             <TextView
                 android:id="@+id/labelForStartDate"
@@ -112,6 +114,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="number"
+                android:imeOptions="actionDone"
                 android:background="@drawable/edittext_light_blue"
                 android:hint="KN"/>
             <TextView

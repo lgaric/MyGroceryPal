@@ -18,7 +18,6 @@ import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.AddGroceryList
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
-import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
 public class CreateNewGroceryListController {
 
