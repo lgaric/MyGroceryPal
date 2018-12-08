@@ -12,11 +12,11 @@ import android.widget.Toast;
 import java.util.List;
 import java.util.Locale;
 
-public class GetLocationFromAddress {
+public class LocationBasedOnAddress {
 
     private LocationListener locationListener;
 
-    public GetLocationFromAddress(Fragment fragment) {
+    public LocationBasedOnAddress(Fragment fragment) {
         locationListener = (LocationListener) fragment;
     }
 
@@ -25,39 +25,27 @@ public class GetLocationFromAddress {
      * @param address
      * @param context
      */
-    public void getLocationBasedOnAddress(String address, Context context)
-    {
+    public Location GetLocation(String address, Context context) {
         String errorMessage = "";
-        if(address.isEmpty())
-        {
-            errorMessage = "Adresa nije unesena";
-            setErrorMessage(errorMessage);
-            return;
+        if(address.isEmpty()) {
+            return null;
         }
 
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         try{
             List<Address> addresses = geocoder.getFromLocationName(address, 1);
-            if(addresses.size() > 0)
-            {
-                Location location = new Location("");
+            if(addresses.size() > 0) {
 
-                location.setLatitude(addresses.get(0).getLatitude());
-                location.setLongitude(addresses.get(0).getLongitude());
-
-                locationListener.locationReceived(location);
+                Location receivedLocation = new Location("");
+                receivedLocation.setLatitude(addresses.get(0).getLatitude());
+                receivedLocation.setLongitude(addresses.get(0).getLongitude());
+                return receivedLocation;
             }
         }
         catch(Exception e){
             errorMessage = "Nije moguce pronaci adresu";
             Log.e("Lokacija", errorMessage);
-
-            setErrorMessage(errorMessage);
         }
-    }
-
-    private void setErrorMessage(String errorMessage)
-    {
-        locationListener.locationNotReceived(errorMessage);
+        return null;
     }
 }

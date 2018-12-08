@@ -13,24 +13,26 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class GetAddressFromLocation {
+public class AddressBasedOnLocation {
 
-    public GetAddressFromLocation(Activity activity, Fragment fragment) {
-        this.addressListener = (AddressListener) fragment;
+    public AddressBasedOnLocation(Activity activity, Fragment fragment) {
+        this.locationListener = (LocationListener) fragment;
         this.activity = activity;
     }
 
-    private AddressListener addressListener;
+    private LocationListener locationListener;
     private Activity activity;
     private final String TAG = "Geolociranje";
+    private StringBuilder fullAddress;
 
     /**
      * Metoda za dobivanje tocne adrese u obliku stringa na temelju geolokacije
      * @param location
      */
-    public void GetAddress(final Location location)
+    public String GetAddress(final Location location)
     {
         List<Address> addresses = null;
+        fullAddress = new StringBuilder();
         Geocoder geocoder = new Geocoder(activity.getApplicationContext(), Locale.getDefault());
         String errorMessage = "";
         try {
@@ -38,35 +40,26 @@ public class GetAddressFromLocation {
         } catch (IOException ioException) {
             errorMessage = "Problemi s mrezom / IO problemi";
             Log.e(TAG, errorMessage, ioException);
-            setErrorMessage(errorMessage);
+            return null;
         } catch (IllegalArgumentException illegalArgumentException) {
             errorMessage = "Nedozovljene vrijednosti geografske sirine i duzine";
-            Log.e(TAG, errorMessage + ". " +
-                    "Geografska sirina = " + location.getLatitude() +
-                    ", Geografska duzina = " +
-                    location.getLongitude(), illegalArgumentException);
-            setErrorMessage(errorMessage);
+            Log.e(TAG, errorMessage, illegalArgumentException);
+            return null;
         }
 
         if (addresses == null || addresses.size()  == 0) {
             if (errorMessage.isEmpty()) {
                 errorMessage = "Adresa na temelju parametara nije pronadena";
                 Log.e(TAG, errorMessage);
-                setErrorMessage(errorMessage);
+                return null;
             }
         } else {
             Address address = addresses.get(0);
-            StringBuilder fullAddress = new StringBuilder();
 
             for(int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
                 fullAddress.append(address.getAddressLine(i)).append("\n");
             }
-            addressListener.addressReceived(fullAddress.toString());
         }
-    }
-
-    private void setErrorMessage(String errorMessage)
-    {
-        addressListener.addressNotReceived(errorMessage);
+        return fullAddress.toString();
     }
 }

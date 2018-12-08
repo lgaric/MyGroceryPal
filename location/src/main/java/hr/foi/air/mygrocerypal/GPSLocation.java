@@ -48,14 +48,15 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class GetCurrentLocation {
+public class GPSLocation {
 
     private static final String TAG = "Geolocating";
-    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 10000;
-    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
+    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 60000;
+    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 30000;
     private static final int REQUEST_CHECK_SETTINGS = 100;
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -69,15 +70,19 @@ public class GetCurrentLocation {
     private LocationListener locationListener;
     private String errorMessage;
 
+    public GPSLocation(Activity activity, Fragment fragment) {
+        this.mCurrentActivity = activity;
+        locationListener = (LocationListener) fragment;
+        init();
+    }
+
     /**
      * Metoda inicijaliziranja potrebnih API-ja za geolociranje
      */
-    public void init(Activity activity, Fragment fragment) {
-        this.mCurrentActivity = activity;
+    private void init() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(mCurrentActivity);
         mSettingsClient = LocationServices.getSettingsClient(mCurrentActivity);
 
-        locationListener = (LocationListener) fragment;
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
@@ -102,7 +107,7 @@ public class GetCurrentLocation {
     /**
      * Metoda kojom geolociramo uredaj
      */
-    public void startLocationUpdates() {
+    private void startLocationUpdates() {
         mSettingsClient
                 .checkLocationSettings(mLocationSettingsRequest)
                 .addOnSuccessListener(mCurrentActivity, new OnSuccessListener<LocationSettingsResponse>() {
@@ -171,6 +176,6 @@ public class GetCurrentLocation {
 
     private void setErrorMessage(String errorMessage)
     {
-        locationListener.locationNotReceived(errorMessage);
+        locationListener.dataNotReceived(errorMessage);
     }
 }

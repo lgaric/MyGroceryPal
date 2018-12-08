@@ -13,27 +13,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import hr.foi.air.mygrocerypal.AddressListener;
-import hr.foi.air.mygrocerypal.GetAddressFromLocation;
-import hr.foi.air.mygrocerypal.GetCurrentLocation;
+import hr.foi.air.mygrocerypal.AddressBasedOnLocation;
+import hr.foi.air.mygrocerypal.GPSLocation;
 import hr.foi.air.mygrocerypal.LocationListener;
 import hr.foi.air.mygrocerypal.myapplication.BuildConfig;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 
-public class LocationCoordinates extends Fragment  implements LocationListener, AddressListener {
+public class LocationCoordinates extends Fragment  implements LocationListener{
 
     private Button btnStartUpdates;
     private TextView txtLocationResult;
     private TextView txtFullAddress;
     private EditText txtAdresa;
     private Button ispisLokacijaBtn;
-    private GetCurrentLocation currentLocationInstance;
-    private GetAddressFromLocation getAddress;
+    private GPSLocation currentLocationInstance;
+    private AddressBasedOnLocation getAddress;
     private Location mCurrentLocation;
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
@@ -53,28 +51,20 @@ public class LocationCoordinates extends Fragment  implements LocationListener, 
     // metoda za pokretanje dohvata adrese na temelju dobivene adrese geolociranjem - napravljeno za testiranje
 
     private void getLocationBasedOnAddress() {
-        if(mCurrentLocation == null)
-        {
+        if(mCurrentLocation == null) {
             Toast.makeText(getContext(), "Jos nije dobivena lokacija", Toast.LENGTH_SHORT).show();
             return;
         }
         if(getAddress == null)
-        {
-            getAddress = new GetAddressFromLocation(getActivity(), this);
-            getAddress.GetAddress(mCurrentLocation);
-        } else {
-            getAddress.GetAddress(mCurrentLocation);
-        }
+            getAddress = new AddressBasedOnLocation(getActivity(), this);
+        txtFullAddress.setText(getAddress.GetAddress(mCurrentLocation));
     }
 
     // metoda za pokretanje geolociranja uredaja
 
     private void getDeviceLocation() {
-        if(currentLocationInstance == null)
-        {
-            Toast.makeText(getContext(), "Lokacija se trazi nakon odobrenih svih zahtjeva uredaja", Toast.LENGTH_SHORT).show();
-            GetCurrentLocation currentLocation = new GetCurrentLocation();
-            currentLocation.init(getActivity(), this);
+        if(currentLocationInstance == null) {
+            GPSLocation currentLocation = new GPSLocation(getActivity(), this);
             currentLocation.startLocationButtonClick();
         } else {
             currentLocationInstance.startLocationButtonClick();
@@ -121,32 +111,25 @@ public class LocationCoordinates extends Fragment  implements LocationListener, 
     // Metode iz interfacea u kodu ispod
 
     @Override
-    public void locationReceived(Location location) {
+    public Location locationReceived(Location location) {
         if (location != null) {
             mCurrentLocation = location;
             Location userLocation = new Location("");
             userLocation.setLongitude(CurrentUser.currentUser.getLongitude());
             userLocation.setLatitude(CurrentUser.currentUser.getLatitude());
-
             final float udaljenostMetri = location.distanceTo(userLocation);
+
+            return mCurrentLocation;
         }
+        return null;
     }
 
     @Override
-    public void locationNotReceived(String errorMessage) {
+    public String dataNotReceived(String errorMessage) {
         if(errorMessage == "openSettings")
         {
             openSettings();
         }
-    }
-
-    @Override
-    public void addressReceived(String fullAddress) {
-        txtFullAddress.setText(fullAddress);
-    }
-
-    @Override
-    public void addressNotReceived(String errorMessage) {
-
+        return errorMessage;
     }
 }
