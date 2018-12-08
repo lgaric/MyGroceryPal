@@ -122,6 +122,7 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
                     listOfProducts.remove(product);//izbrisao iz liste
                     notifyItemRemoved(getAdapterPosition());
                     notifyItemRangeChanged(getAdapterPosition(),listOfProducts.size());
+
                     calculateTotalAmount();
                 }
             });

@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,13 +21,11 @@ import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.SelectProductsA
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.SelectProductsListener;
 import hr.foi.air.mygrocerypal.myapplication.Controller.SelectProductsController;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
-import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.ProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
-import static android.app.Activity.RESULT_OK;
-
 public class SelectProductsFragment extends Fragment implements SelectProductsListener{
+    private List<GroceryListProductsModel> allreadyAddedProducts = new ArrayList<>();
     private Button addProductsToGroceryList;
     private SelectProductsController selectProductsController;
     private RecyclerView recyclerView;
@@ -52,6 +49,7 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
         addProductsToGroceryList = view.findViewById(R.id.addProductsToGroceryList);
 
         selectProductsController.loadGroceryLists(getArguments().getString("store_name"));
+        allreadyAddedProducts = (List<GroceryListProductsModel>)getArguments().getSerializable("list_of_products");
 
         addProductsToGroceryList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,11 +61,8 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
                     Intent intent = new Intent(getContext(), SelectProductsFragment.class);
                     intent.putExtra("groceryListOfProducts", (Serializable) listOfProducts);
                     getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
-
                     getFragmentManager().popBackStack();
-                    Toast.makeText(getContext(), "Dodali ste " + listOfProducts.size() + " proizvoda!", Toast.LENGTH_LONG).show();
                 }
-                Toast.makeText(getContext(), "Dodali ste " + listOfProducts.size() + " proizvoda!", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -77,9 +72,17 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
         if(productsList != null){
             recyclerView.setAdapter(null);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            selectProductsAdapter = new SelectProductsAdapter(productsList);
+
+            InitializeAdapter(productsList);
             recyclerView.setAdapter(selectProductsAdapter);
         }
+    }
+
+    private void InitializeAdapter(ArrayList<ProductsModel> productsList){
+        if(allreadyAddedProducts == null)
+            selectProductsAdapter = new SelectProductsAdapter(productsList);
+        else
+            selectProductsAdapter = new SelectProductsAdapter(productsList, allreadyAddedProducts);
     }
 
 }
