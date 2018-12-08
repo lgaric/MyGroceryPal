@@ -17,9 +17,7 @@ public class GroceryListsModel implements Serializable {
     private String store_name;
     private String total_price;
     private String user_accepted_id;
-    private String user_accepted_name;
     private String user_id;
-    private String username;
     private Double longitude;
     private Double latitude;
 
@@ -31,7 +29,8 @@ public class GroceryListsModel implements Serializable {
 
     //Konstruktor za dodavanje novog GL-a u CreateNewGroceryListController
     public GroceryListsModel(String commision, String delivery_address, String delivery_town, String end_date, String start_date,
-                             GroceryListStatus status, String store_name, String total_price, String user_id) {
+                             GroceryListStatus status, String store_name, String total_price, String user_id, String user_accepted_id,
+                            Double longitude, Double latitude) {
         this.commision = commision;
         this.delivery_address = delivery_address;
         this.delivery_town = delivery_town;
@@ -41,6 +40,9 @@ public class GroceryListsModel implements Serializable {
         this.store_name = store_name;
         this.total_price = total_price;
         this.user_id = user_id;
+        this.user_accepted_id = user_accepted_id;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 
     public void setGrocerylist_key(String grocerylist_key) {
@@ -139,28 +141,12 @@ public class GroceryListsModel implements Serializable {
         this.user_accepted_id = user_accepted_id;
     }
 
-    public String getUser_accepted_name() {
-        return user_accepted_name;
-    }
-
-    public void setUser_accepted_name(String user_accepted_name) {
-        this.user_accepted_name = user_accepted_name;
-    }
-
     public String getUser_id() {
         return user_id;
     }
 
     public void setUser_id(String user_id) {
         this.user_id = user_id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public List<GroceryListProductsModel> getProductsModels() {

@@ -94,6 +94,7 @@ public class LoginController {
                     listener.onStatusFailed(checkErrorCode(null));
                 else {
                     CurrentUser.currentUser = temp;
+                    CurrentUser.currentUser.setUserUID(dataSnapshot.getKey());
                     listener.onStatusSuccess();
                 }
             }

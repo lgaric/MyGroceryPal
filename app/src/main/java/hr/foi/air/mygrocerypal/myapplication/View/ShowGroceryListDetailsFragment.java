@@ -36,6 +36,7 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
     private GroceryListsModel groceryListsModel;
 
     private LinearLayout colorOfHeaderGroceryDetails;
+    private boolean groceryListAccepted = true;
 
     private TextView storeNametxt;
     private TextView firstNametxt;
@@ -81,6 +82,11 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
         setHeaderColor(colorOfHeaderGroceryDetails);
         setButtonText(againCommitbtn);
         setGroceryListDetailsHeader();
+
+        if(!groceryListAccepted){
+            firstNametxt.append("-");
+            phoneNumbertxt.append("-");
+        }
     }
 
     private void setGroceryListDetailsHeader(){
@@ -91,7 +97,7 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
 
     private void setButtonText(Button buttonText){
         if(groceryListsModel.getStatus() != GroceryListStatus.FINISHED)
-            buttonText.setText("POTRVRDI");
+            buttonText.setText("POTVRDI");
     }
 
     private void setHeaderColor(LinearLayout layout){
@@ -116,10 +122,12 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
     }
 
     @Override
-    public void groceryListUserReceived(UserModel groceryListUser) {
+    public void groceryListUserReceived(@Nullable UserModel groceryListUser) {
         if (groceryListUser != null){
             firstNametxt.append(groceryListUser.getFirst_name() + " " + groceryListUser.getLast_name());
             phoneNumbertxt.append(groceryListUser.getPhone_number());
+        }else{
+            groceryListAccepted = false;
         }
     }
 }

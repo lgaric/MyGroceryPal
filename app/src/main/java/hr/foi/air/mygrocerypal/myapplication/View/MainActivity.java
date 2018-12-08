@@ -12,12 +12,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Core.LocationCoordinates;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
     private Toolbar mToolbar;
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -58,6 +61,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
+        addUserInformationToNavigation(mNavigationView);
+    }
+
+    private void addUserInformationToNavigation(NavigationView mNavigationView){
+        View headerView = mNavigationView.getHeaderView(0);
+        TextView username = (TextView) headerView.findViewById(R.id.nav_header_username);
+        TextView email = (TextView) headerView.findViewById(R.id.nav_header_email);
+        username.setText(CurrentUser.currentUser.getFirst_name() + " " + CurrentUser.currentUser.getLast_name());
+        email.setText(CurrentUser.currentUser.getEmail());
     }
 
     @Override

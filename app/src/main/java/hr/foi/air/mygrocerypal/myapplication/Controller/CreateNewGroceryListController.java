@@ -18,12 +18,15 @@ import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.AddGroceryList
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
+import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
 public class CreateNewGroceryListController {
 
     private static final String STORESNODE  = "stores";
     private static final String GROCERYLISTSNODE  = "grocerylists";
     private static final String GROCERYLISTPRODUCTSNODE  = "grocerylistproducts";
+    private static final String USERSNODE  = "users";
+
 
     private AddGroceryListListener addGroceryListListener;
     private FirebaseDatabase firebaseDatabase;
@@ -69,24 +72,15 @@ public class CreateNewGroceryListController {
 
 
         Log.d("generated_GL_key", generated_GL_key);
-        String product_key = "";
-        List<String> tempList = new ArrayList<>();
 
         //Upis proizvoda za taj GL u firebase
         if(!isNullOrBlank(generated_GL_key)){
             if (firebaseDatabase == null)
                 firebaseDatabase = FirebaseDatabase.getInstance();
             for (GroceryListProductsModel product: groceryListProductsModels) {
-                //product.setGrocery_list_key(generated_GL_key);
-                product_key = product.getProduct_key();
-                tempList.add(Integer.toString(product.getBought()));
-                tempList.add(product.getName());
-                tempList.add(Double.toString(product.getPrice()));
-                tempList.add(Integer.toString(product.getQuantity()));
-                DatabaseReference refProducts = firebaseDatabase.getReference().child(GROCERYLISTPRODUCTSNODE).child(generated_GL_key).child(product_key);
-                refProducts.setValue(tempList);
-
-                tempList.clear();
+                DatabaseReference refProducts = firebaseDatabase.getReference().child(GROCERYLISTPRODUCTSNODE).child(generated_GL_key).child(product.getProduct_key());
+                product.setProduct_key(null);
+                refProducts.setValue(product);
             }
             addGroceryListListener.groceryListAddedToDatabase(true, "Uspješno kreirano!");
 
@@ -103,6 +97,5 @@ public class CreateNewGroceryListController {
     {
         return (s == null || s.trim().equals(""));
     }
-    
-    
+
 }

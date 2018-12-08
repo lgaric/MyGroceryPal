@@ -22,7 +22,11 @@ public class GroceryListUserController {
 
     public GroceryListUserController(Fragment fragment, String userKey) {
         groceryListUserListener = (GroceryListUserListener) fragment;
-        loadGroceryProductsLists(userKey);
+        if(userKey.equals("-")){
+            groceryListUserListener.groceryListUserReceived(null);
+        }else{
+            loadGroceryProductsLists(userKey);
+        }
     }
 
     //OVU METODA SE MOŽE KORISTITI I ZA AKTIVNE GROCERYLISTE
