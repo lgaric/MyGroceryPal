@@ -25,6 +25,7 @@ public class GroceryListController {
 
     private GroceryListListener groceryListListener;
     private FirebaseDatabase firebaseDatabase;
+    GroceryListController groceryListController;
 
     public GroceryListController(Fragment fragment){
         groceryListListener = (GroceryListListener)fragment;

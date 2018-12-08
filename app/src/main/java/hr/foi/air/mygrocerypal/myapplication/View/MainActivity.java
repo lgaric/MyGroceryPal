@@ -1,8 +1,13 @@
 package hr.foi.air.mygrocerypal.myapplication.View;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -20,7 +25,7 @@ import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Core.LocationCoordinates;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener {
     private Toolbar mToolbar;
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -46,10 +51,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //        navigationView.setNavigationItemSelectedListener(this);
 
         DelivererFragment mDelivererFragment = new DelivererFragment();
-        mFragmentManager = getSupportFragmentManager();
-        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.replace(R.id.fragment_container, mDelivererFragment);
-        mFragmentTransaction.commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, mDelivererFragment)
+                .commit();
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -59,9 +63,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawer.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
+
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         mNavigationView.setNavigationItemSelectedListener(this);
         addUserInformationToNavigation(mNavigationView);
+
+        //Hamburger and back button
+        getSupportFragmentManager().addOnBackStackChangedListener(this);
+        mToolbar.setNavigationOnClickListener(navigationClick);
+    }
+
+    @Override
+    public void onBackStackChanged() {
+        mDrawerToggle.setDrawerIndicatorEnabled(getSupportFragmentManager().getBackStackEntryCount() == 0);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(getSupportFragmentManager().getBackStackEntryCount() > 0);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     private void addUserInformationToNavigation(NavigationView mNavigationView){
@@ -77,7 +105,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else if(getFragmentManager().getBackStackEntryCount() != 0){
+            getFragmentManager().popBackStack();
+        } else{
             super.onBackPressed();
         }
     }
@@ -106,25 +136,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
         mFragmentManager = getSupportFragmentManager();
-        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        //FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         switch (id) {
             //Handle click on static options
             case R.id.navigation_deliverer:
                 mDrawer.closeDrawer(GravityCompat.START);
                 DelivererFragment mDelivererFragment = new DelivererFragment();
-                mFragmentTransaction.replace(R.id.fragment_container, mDelivererFragment);
-                mFragmentTransaction.commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, mDelivererFragment)
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case R.id.navigation_settings:
                 mDrawer.closeDrawer(GravityCompat.START);
                 SettingsFragment mSettingsFragment = new SettingsFragment();
-                mFragmentTransaction.replace(R.id.fragment_container, new LocationCoordinates());
-                mFragmentTransaction.commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new LocationCoordinates())
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case R.id.navigation_client:
                 mDrawer.closeDrawer(GravityCompat.START);
-                mFragmentTransaction.replace(R.id.fragment_container, new ClientGroceryListFragment());
-                mFragmentTransaction.commit();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new ClientGroceryListFragment())
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case R.id.navigation_pay:
                 mDrawer.closeDrawer(GravityCompat.START);
@@ -136,7 +172,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.navigation_logout:
                 mDrawer.closeDrawer(GravityCompat.START);
-                Toast.makeText(this, "Nemojte se odjavljivati još!", Toast.LENGTH_LONG).show();
+                CurrentUser.currentUser = null;
+                startActivity(new Intent(this, LoginActivity.class));
+                this.finish();
                 break;
             //Handle clicks on other (dynamicaly added drawer) items
             default:
@@ -145,5 +183,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return true;
     }
+
+    // Hamburger and back button
+    View.OnClickListener navigationClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                mDrawer.openDrawer(GravityCompat.START);
+            }
+            else{
+                onBackPressed();
+            }
+        }
+    };
+
+
 }
 
