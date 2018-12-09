@@ -14,6 +14,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.LoginListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
@@ -94,7 +97,8 @@ public class LoginController {
                     listener.onStatusFailed(checkErrorCode(null));
                 else {
                     CurrentUser.currentUser = temp;
-                    listener.onStatusSuccess();
+                    CurrentUser.currentUser.setUserUID(dataSnapshot.getKey());
+                    getUserIgnoredLists(dataSnapshot.getKey());
                 }
             }
 
@@ -104,5 +108,29 @@ public class LoginController {
             }
         });
 
+    }
+
+    private void getUserIgnoredLists(String userUID) {
+        DatabaseReference reference = mDatabase.getReference().child("userignoredlists").child(userUID);
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() == null)
+                    listener.onStatusSuccess();
+
+                List<String> ingoredLists = new ArrayList<>();
+                for (DataSnapshot temp : dataSnapshot.getChildren())
+                    ingoredLists.add(temp.getValue(String.class));
+
+                CurrentUser.currentUser.setIgnoredLists(ingoredLists);
+                listener.onStatusSuccess();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

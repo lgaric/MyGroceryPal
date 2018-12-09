@@ -1,6 +1,8 @@
 package hr.foi.air.mygrocerypal.myapplication.Model;
 
 
+import java.util.List;
+
 public class UserModel {
     private String userUID;
     private String first_name;
@@ -15,6 +17,7 @@ public class UserModel {
     private Double longitude;
     private Double latitude;
     private Double range;
+    List<String> ignoredLists;
 
     public UserModel(){}
 
@@ -137,5 +140,13 @@ public class UserModel {
 
     public void setBirth_date(String birth_date) {
         this.birth_date = birth_date;
+    }
+
+    public List<String> getIgnoredLists() {
+        return ignoredLists;
+    }
+
+    public void setIgnoredLists(List<String> ignoredLists) {
+        this.ignoredLists = ignoredLists;
     }
 }
