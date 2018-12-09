@@ -98,7 +98,6 @@ public class LoginController {
                 else {
                     CurrentUser.currentUser = temp;
                     CurrentUser.currentUser.setUserUID(dataSnapshot.getKey());
-                    listener.onStatusSuccess();
                     getUserIgnoredLists(dataSnapshot.getKey());
                 }
             }
