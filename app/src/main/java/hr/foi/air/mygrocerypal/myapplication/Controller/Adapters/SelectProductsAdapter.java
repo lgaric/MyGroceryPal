@@ -131,7 +131,6 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
             this.listOfProducts = listOfProducts;
             this.productsModel = product;
             this.productName.setText(product.getName());
-            this.productPrice.setText(Double.toString(product.getCurrent_price()));
         }
 
         public void bind(ProductsModel product, List<GroceryListProductsModel> listOfProducts, int productQuantity){
