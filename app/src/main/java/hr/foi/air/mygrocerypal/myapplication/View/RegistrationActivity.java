@@ -12,14 +12,53 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import hr.foi.air.mygrocerypal.myapplication.Controller.RegistrationController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.RegistrationListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
+import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
+import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 
 public class RegistrationActivity extends BaseActivity implements RegistrationListener {
+
+    ArrayList<String> cities = new ArrayList<>();
+    SpinnerDialog spinnerDialog;
+    Button btnCities;
+
+    public void initCities(){
+        String json = null;
+        try {
+            InputStream is = getAssets().open("CroatianCities.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+            JSONArray jsonArray = new JSONArray(json);
+
+            for (int i = 0; i<jsonArray.length(); i++){
+                JSONObject obj = jsonArray.getJSONObject(i);
+                cities.add(obj.getString("mjesto"));
+            }
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        catch (JSONException e){
+        e.printStackTrace();
+        }
+    }
+
+
 
     private ProgressBar progressBar;
     private TextView dateOfBirthTxt;
@@ -34,6 +73,22 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        initCities();
+        spinnerDialog = new SpinnerDialog(RegistrationActivity.this, cities, "Odaberite grad");
+        spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
+            @Override
+            public void onClick(String item, int position) {
+                Toast.makeText(RegistrationActivity.this, "Selected: " + item, Toast.LENGTH_LONG).show();
+            }
+        });
+        btnCities = (Button) findViewById(R.id.btnCity);
+        btnCities.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinnerDialog.showSpinerDialog();
+            }
+        });
+
         controller = new RegistrationController(this);
 
         progressBar = findViewById(R.id.progressBar);
@@ -44,7 +99,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
         retypedPasswordTxt = (EditText) findViewById(R.id.repeatPasswordRegistration);
         emailTxt = (EditText) findViewById(R.id.emailRegistration);
         adressTxt = (EditText) findViewById(R.id.addressRegistration);
-        townTxt = (EditText) findViewById(R.id.townRegistration);
+//        townTxt = (EditText) findViewById(R.id.townRegistration);
         dateOfBirthTxt = (TextView) findViewById(R.id.dateOfBirthRegistration);
         contactTxt = (EditText) findViewById(R.id.contactRegistration);
 

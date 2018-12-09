@@ -217,20 +217,11 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/townRegistration"
+            <Button
                 android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/change_border_on_focus"
-                android:gravity="center_vertical"
-                android:inputType="textCapWords"
-                android:paddingLeft="10sp"
-                android:textColor="#0E314F"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="17sp" />
+                android:layout_height="wrap_content"
+                android:id="@+id/btnCity"
+                android:text="Odaberite grad"/>
 
             <TextView
                 android:layout_width="match_parent"
