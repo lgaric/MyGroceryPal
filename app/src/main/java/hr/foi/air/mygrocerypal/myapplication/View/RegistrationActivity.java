@@ -32,7 +32,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
 
     ArrayList<String> cities = new ArrayList<>();
     SpinnerDialog spinnerDialog;
-    Button btnCities;
 
     public void initCities(){
         String json = null;
@@ -61,7 +60,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
 
 
     private ProgressBar progressBar;
-    private TextView dateOfBirthTxt;
+    private TextView dateOfBirthTxt, txtCities;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private EditText emailTxt, passwordTxt, userNameTxt, firstNameTxt, lastNameTxt, adressTxt, townTxt, contactTxt, retypedPasswordTxt;
     private Button registerBtn, backToLoginBtn;
@@ -73,21 +72,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        initCities();
-        spinnerDialog = new SpinnerDialog(RegistrationActivity.this, cities, "Odaberite grad");
-        spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
-            @Override
-            public void onClick(String item, int position) {
-                Toast.makeText(RegistrationActivity.this, "Selected: " + item, Toast.LENGTH_LONG).show();
-            }
-        });
-        btnCities = (Button) findViewById(R.id.btnCity);
-        btnCities.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                spinnerDialog.showSpinerDialog();
-            }
-        });
+
 
         controller = new RegistrationController(this);
 
@@ -99,12 +84,31 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
         retypedPasswordTxt = (EditText) findViewById(R.id.repeatPasswordRegistration);
         emailTxt = (EditText) findViewById(R.id.emailRegistration);
         adressTxt = (EditText) findViewById(R.id.addressRegistration);
-//        townTxt = (EditText) findViewById(R.id.townRegistration);
+//        townTxt = (EditText) findViewById(R.id.txtCity);
         dateOfBirthTxt = (TextView) findViewById(R.id.dateOfBirthRegistration);
         contactTxt = (EditText) findViewById(R.id.contactRegistration);
 
+        txtCities = (TextView) findViewById(R.id.txtCity);
+
         registerBtn = (Button) findViewById(R.id.buttonRegister);
         backToLoginBtn = (Button) findViewById(R.id.buttonBackToLogin);
+
+        initCities();
+        spinnerDialog = new SpinnerDialog(RegistrationActivity.this, cities, "Odaberite grad");
+        spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
+            @Override
+            public void onClick(String item, int position) {
+                Toast.makeText(RegistrationActivity.this, "Selected: " + item, Toast.LENGTH_LONG).show();
+                txtCities.setText(item);
+            }
+        });
+
+        txtCities.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinnerDialog.showSpinerDialog();
+            }
+        });
 
         dateOfBirthTxt.setOnClickListener(new View.OnClickListener() {
             @Override
