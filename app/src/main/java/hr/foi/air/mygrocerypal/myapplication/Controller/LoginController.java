@@ -121,7 +121,7 @@ public class LoginController {
 
                 List<String> ingoredLists = new ArrayList<>();
                 for (DataSnapshot temp : dataSnapshot.getChildren())
-                    ingoredLists.add(temp.getValue(String.class));
+                    ingoredLists.add(temp.getKey());
 
                 CurrentUser.currentUser.setIgnoredLists(ingoredLists);
                 listener.onStatusSuccess();
