@@ -148,6 +148,7 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
             });
         }
 
+        //Riješiti kako pristupam product.getName() nakon kreiranja novog producta koji nema ništa
         private void addSelectedProductToGroceryList(){
             product = new GroceryListProductsModel();
             product.setName(product.getName());

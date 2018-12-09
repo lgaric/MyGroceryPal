@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -92,8 +93,33 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         btnConfirm.setOnClickListener(this);
         spinnerStores.setOnItemSelectedListener(onItemSelectedListener);
 
-
+        //PONOVI
+        /*if(getArguments() != null){
+            groceryListsModel = (GroceryListsModel)getArguments().getSerializable("repeatGL");
+            groceryListProductsModels = groceryListsModel.getProductsModels();
+        }*/
         return view;
+    }
+
+
+    //PONOVI
+    private void fillDataonRepeatGL(){
+
+        Adapter adapter = spinnerStores.getAdapter();
+        for (int i = 0; i < adapter.getCount(); i++){
+            if(adapter.getItem(i).toString().equals(groceryListsModel.getStore_name())){
+                spinnerStores.setSelection(i);
+                break;
+            }
+        }
+        commision.setText(groceryListsModel.getCommision());
+        if(CurrentUser.currentUser.getAddress().equals(groceryListsModel.getDelivery_address()) && CurrentUser.currentUser.getTown().equals(groceryListsModel.getDelivery_town())){
+            radioGroup.check(R.id.radioButton);
+        }
+        else{
+            radioGroup.check(R.id.radioButton2);
+        }
+
     }
 
 
@@ -127,6 +153,11 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         createNewGroceryListController = new CreateNewGroceryListController(this);
 
         createNewGroceryListController.getAllStores();
+
+        //PONOVI
+        /*if(groceryListsModel != null){
+            fillDataonRepeatGL();
+        }*/
     }
 
     @Override
@@ -184,6 +215,12 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 town.getText().clear();
                 address.setHint("Upišite drugu adresu");
                 town.setHint("Upišite grad");
+
+                //PONOVI
+                /*if(groceryListsModel != null){
+                    address.setText(groceryListsModel.getDelivery_address());
+                    town.setText(groceryListsModel.getDelivery_town());
+                }*/
             }
         }
     };
