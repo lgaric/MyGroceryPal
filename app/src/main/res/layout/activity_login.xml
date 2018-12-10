@@ -15,8 +15,7 @@
         android:layout_marginEnd="5sp"
         android:layout_marginBottom="40sp"
         android:background="@drawable/shape_linear_layout"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="match_parent"
@@ -29,7 +28,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/alegreya_sans_sc_thin"
             android:gravity="center"
-            android:text="@string/MyGroceryPal"
+            android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="50sp" />
 
@@ -42,7 +41,7 @@
             android:layout_marginEnd="50dp"
             android:background="@drawable/button_white_background"
             android:gravity="center"
-            android:hint="Korisničko ime"
+            android:hint="@string/username"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp" />
 
@@ -56,7 +55,7 @@
             android:layout_marginEnd="50dp"
             android:background="@drawable/button_white_background"
             android:gravity="center"
-            android:hint="Lozinka"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp"/>
@@ -69,7 +68,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="50dp"
             android:background="@drawable/button_blue_background"
-            android:text="@string/prijava"
+            android:text="@string/login"
             android:textColor="@color/white"
             android:onClick="Login"/>
 
@@ -81,7 +80,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="50dp"
             android:textAlignment="center"
-            android:text="@string/zaboravljenaLozinka"
+            android:text="@string/forgotPassword"
             android:onClick="ShowRecoveryPassword"
             android:textColor="@color/white"/>
 
@@ -92,7 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/registracija"
+        android:text="@string/registrationOnLogin"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="11dp"

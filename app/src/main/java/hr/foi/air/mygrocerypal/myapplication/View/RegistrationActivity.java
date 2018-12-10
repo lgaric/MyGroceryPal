@@ -72,7 +72,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        getSupportActionBar().setTitle("Registacija");
+        getSupportActionBar().setTitle(R.string.register);
 
 
 

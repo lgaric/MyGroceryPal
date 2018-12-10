@@ -16,12 +16,12 @@
         <Button
             android:id="@+id/buttonBackToLogin"
             style="@style/MyButton"
-            android:text="Povratak"/>
+            android:text="@string/back"/>
 
         <Button
             android:id="@+id/buttonRegister"
             style="@style/MyButton"
-            android:text="@string/registerUser"/>
+            android:text="@string/register"/>
 
     </LinearLayout>
     
@@ -42,57 +42,58 @@
             <EditText
                 android:id="@+id/firstnameRegistration"
                 style="@style/MyEditText"
-                android:hint="Ime"/>
+                android:hint="@string/firstname"/>
 
             <EditText
                 android:id="@+id/lastnameRegistration"
-                android:hint="Prezime"
+                android:hint="@string/lastname"
                 style="@style/MyEditText" />
 
             <EditText
                 android:id="@+id/usernameRegistration"
                 style="@style/MyEditText"
-                android:hint="Korisnicko ime" />
+                android:hint="@string/username" />
 
             <EditText
                 android:id="@+id/passwordRegistration"
                 style="@style/MyEditText"
-                android:hint="Lozinka"
+                android:hint="@string/password"
                 android:inputType="textPassword" />
 
             <EditText
                 android:id="@+id/repeatPasswordRegistration"
                 style="@style/MyEditText"
-                android:hint="Ponovljena lozinka"
+                android:hint="@string/repeatPassword"
                 android:inputType="textPassword" />
 
             <EditText
                 android:id="@+id/emailRegistration"
                 style="@style/MyEditText"
-                android:hint="Email"
+                android:hint="@string/email"
                 android:inputType="textEmailAddress"/>
 
             <EditText
                 android:id="@+id/addressRegistration"
                 style="@style/MyEditText"
-                android:hint="Adresa" />
+                android:hint="@string/address" />
 
             <TextView
                 android:id="@+id/txtCity"
                 style="@style/MyEditText"
-                android:hint="Odaberite grad" />
+                android:hint="@string/city" />
 
             <TextView
                 android:id="@+id/dateOfBirthRegistration"
                 style="@style/MyEditText"
-                android:hint="Datum rođenja"
+                android:hint="@string/birthDate"
                 android:inputType="date" />
 
             <EditText
                 android:id="@+id/contactRegistration"
                 style="@style/MyEditText"
-                android:hint="Kontakt"
+                android:hint="@string/contact"
                 android:inputType="number"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="20dp"></View>
