@@ -2,7 +2,7 @@
     <string name="app_name">MyGroceryPal</string>
 
     <string name="forgotPassword">Zaboravljena lozinka?</string>
-    <string name="registrationOnLogin">Nemate račun? Registrirajte se</string>
+    <string name="registrationOnLogin">Nemate račun? Registrirajte se!</string>
     <string name="login">Prijava</string>
     <string name="register">Registriraj se!</string>
     <string name="firstname">Ime</string>
@@ -22,24 +22,26 @@
     <string name="ignoredCaps">IGNORIRANI</string>
     <string name="acceptedCaps">PRIHVAĆENI</string>
     <string name="printLocation">ISPISI LOKACIJU</string>
-    <string name="storeSemicolon">Trgovina: </string>
+    <string name="storeSemicolon">"Trgovina: "</string>
     <string name="store">Trgovina</string>
-    <string name="commison">Provizija: </string>
-    <string name="delivererSemicolon">Dobavljač: </string>
+    <string name="commison">"Provizija: "</string>
+    <string name="delivererSemicolon">"Dobavljač: "</string>
     <string name="deliverer">Dobavljač</string>
-    <string name="price">Cijena: </string>
+    <string name="price">"Cijena: "</string>
     <string name="client">Naručitelj</string>
     <string name="more">Dodatno</string>
     <string name="pay">Uplati</string>
     <string name="statistics">Statistika</string>
     <string name="logout">Odjavi se</string>
-    <string name="boughtSemicolon">Kupljeno: </string>
+    <string name="boughtSemicolon">"Kupljeno: "</string>
+    <string name="contactSemicolon">"Kontakt: "</string>
 
 
 
-    <string name="test_button">Test database</string>
-    <string name="store_image">Store image</string>
-    <string name="preferences">Preferences</string>
+    <string name="test_button" translatable="false">Test database</string>
+    <string name="store_image" translatable="false">Store image</string>
+    <string name="preferences" translatable="false">Preferences</string>
+    <string name="app_lang_pref" translatable="false">Jezik</string>
 
 
     <string name="cancel">Odustani</string>
@@ -50,15 +52,15 @@
     <string name="navigation_drawer_open">Otvoren drawer</string>
     <string name="navigation_drawer_close">Zatvoren drawer</string>
 
-    <string name="nav_header_info">imeprezime@foi.hr</string>
+    <string name="nav_header_info" translatable="false">imeprezime@foi.hr</string>
 
 
     <string name="menu_about">O aplikaciji</string>
     <string name="action_settings">Postavke</string>
-    <string name="progressBar">Progress Bar</string>
+    <string name="progressBar" translatable="false">Progress Bar</string>
 
 
     <string name="searchLocation">Lokacijsko traženje</string>
 
-    <string name="tab">\u0009</string>
+    <string name="tab" translatable="false">\u0009</string>
 </resources>
