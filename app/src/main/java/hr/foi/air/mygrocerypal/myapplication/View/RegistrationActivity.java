@@ -1,5 +1,6 @@
 package hr.foi.air.mygrocerypal.myapplication.View;
 
+import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -71,6 +72,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        getSupportActionBar().setTitle("Registacija");
 
 
 

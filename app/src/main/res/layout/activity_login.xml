@@ -43,7 +43,7 @@
             android:background="@drawable/button_white_background"
             android:gravity="center"
             android:hint="Korisničko ime"
-            android:textColor="@color/gray"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp" />
 
 
@@ -58,7 +58,7 @@
             android:gravity="center"
             android:hint="Lozinka"
             android:inputType="textPassword"
-            android:textColor="@color/gray"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp"/>
 
         <Button
