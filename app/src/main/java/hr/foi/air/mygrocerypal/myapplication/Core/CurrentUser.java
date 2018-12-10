@@ -1,7 +1,10 @@
 package hr.foi.air.mygrocerypal.myapplication.Core;
 
+import android.location.Location;
+
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
 public class CurrentUser {
     public static UserModel currentUser;
+    public static Location gpsLocation;
 }

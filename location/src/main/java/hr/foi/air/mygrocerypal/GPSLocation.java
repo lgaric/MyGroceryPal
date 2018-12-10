@@ -55,8 +55,8 @@ import java.util.Locale;
 public class GPSLocation {
 
     private static final String TAG = "Geolocating";
-    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 60000;
-    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 30000;
+    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 120000;
+    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 120000;
     private static final int REQUEST_CHECK_SETTINGS = 100;
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -70,9 +70,9 @@ public class GPSLocation {
     private LocationListener locationListener;
     private String errorMessage;
 
-    public GPSLocation(Activity activity, Fragment fragment) {
+    public GPSLocation(Activity activity, LocationListener locationListener) {
         this.mCurrentActivity = activity;
-        locationListener = (LocationListener) fragment;
+        this.locationListener = locationListener;
         init();
     }
 
@@ -107,7 +107,7 @@ public class GPSLocation {
     /**
      * Metoda kojom geolociramo uredaj
      */
-    private void startLocationUpdates() {
+    public void startLocationUpdates() {
         mSettingsClient
                 .checkLocationSettings(mLocationSettingsRequest)
                 .addOnSuccessListener(mCurrentActivity, new OnSuccessListener<LocationSettingsResponse>() {

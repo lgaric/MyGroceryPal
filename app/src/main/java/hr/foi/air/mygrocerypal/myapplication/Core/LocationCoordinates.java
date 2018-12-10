@@ -23,7 +23,7 @@ import hr.foi.air.mygrocerypal.myapplication.BuildConfig;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 
-public class LocationCoordinates extends Fragment  implements LocationListener{
+public class LocationCoordinates extends Fragment {
 
     private Button btnStartUpdates;
     private TextView txtLocationResult;
@@ -110,6 +110,7 @@ public class LocationCoordinates extends Fragment  implements LocationListener{
 
     // Metode iz interfacea u kodu ispod
 
+    /*
     @Override
     public Location locationReceived(Location location) {
         if (location != null) {
@@ -132,4 +133,6 @@ public class LocationCoordinates extends Fragment  implements LocationListener{
         }
         return errorMessage;
     }
+
+    */
 }

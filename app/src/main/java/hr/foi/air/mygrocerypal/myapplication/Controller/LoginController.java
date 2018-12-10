@@ -116,9 +116,6 @@ public class LoginController {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() == null)
-                    listener.onStatusSuccess();
-
                 List<String> ingoredLists = new ArrayList<>();
                 for (DataSnapshot temp : dataSnapshot.getChildren())
                     ingoredLists.add(temp.getValue(String.class));
