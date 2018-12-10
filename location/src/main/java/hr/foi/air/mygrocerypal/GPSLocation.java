@@ -118,7 +118,7 @@ public class GPSLocation {
                         mFusedLocationClient.requestLocationUpdates(mLocationRequest,
                                 mLocationCallback, Looper.myLooper());
 
-                        locationListener.locationReceived(mCurrentLocation);
+                        //locationListener.locationReceived(mCurrentLocation);
                     }
                 })
                 .addOnFailureListener(mCurrentActivity, new OnFailureListener() {

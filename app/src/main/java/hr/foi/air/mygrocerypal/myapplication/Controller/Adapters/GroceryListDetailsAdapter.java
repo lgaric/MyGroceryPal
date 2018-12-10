@@ -13,9 +13,11 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 public class GroceryListDetailsAdapter extends RecyclerView.Adapter<GroceryListDetailsHolder>  {
 
     GroceryListsModel groceryList;
+    boolean deliverer;
 
-    public GroceryListDetailsAdapter(GroceryListsModel groceryList){
+    public GroceryListDetailsAdapter(GroceryListsModel groceryList, boolean deliverer){
         this.groceryList = groceryList;
+        this.deliverer = deliverer;
     }
 
     @NonNull
@@ -23,11 +25,15 @@ public class GroceryListDetailsAdapter extends RecyclerView.Adapter<GroceryListD
     public GroceryListDetailsHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view;
 
-        if(groceryList.getStatus() == GroceryListStatus.ACCEPTED) {
-            view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.grocerylistdetails_item_buttons, viewGroup, false);
-        }
-        else{
+        if(!deliverer) {
+            if (groceryList.getStatus() == GroceryListStatus.ACCEPTED) {
+                view = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.grocerylistdetails_item_buttons, viewGroup, false);
+            } else {
+                view = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.listview_association, viewGroup, false);
+            }
+        }else {
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.listview_association, viewGroup, false);
         }

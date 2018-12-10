@@ -39,7 +39,7 @@ public class LocationCoordinates extends Fragment {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.btn_start_location_updates:
-                    getDeviceLocation();
+                    //getDeviceLocation();
                     break;
                 case R.id.btnIspisLokacije:
                     getLocationBasedOnAddress();
@@ -62,6 +62,7 @@ public class LocationCoordinates extends Fragment {
 
     // metoda za pokretanje geolociranja uredaja
 
+    /*
     private void getDeviceLocation() {
         if(currentLocationInstance == null) {
             GPSLocation currentLocation = new GPSLocation(getActivity(), this);
@@ -70,6 +71,7 @@ public class LocationCoordinates extends Fragment {
             currentLocationInstance.startLocationButtonClick();
         }
     }
+    */
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

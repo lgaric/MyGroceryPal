@@ -16,21 +16,29 @@ import android.widget.CompoundButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import hr.foi.air.mygrocerypal.GPSLocation;
 import hr.foi.air.mygrocerypal.LocationListener;
+import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.DelivererGLAdapter;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.GroceryListAdapter;
 import hr.foi.air.mygrocerypal.myapplication.Controller.DelivererActiveGroceryListController;
+import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListProductsController;
+import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListUserController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.ClickListener;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListListener;
+import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListOperationListener;
+import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListProductsListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
+import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListOperation;
+import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
-public class ActiveDelivererFragment extends Fragment implements GroceryListListener, ClickListener, LocationListener {
+public class ActiveDelivererFragment extends Fragment implements GroceryListListener, LocationListener, GroceryListOperationListener{
 
     SeekBar seekBar;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -90,8 +98,10 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
         controller = new DelivererActiveGroceryListController(this);
         controller.loadAllActiveGroceryLists();
 
-        gpsLocation = new GPSLocation(getActivity(), this);
-        gpsLocation.startLocationUpdates();
+        if(gpsLocation == null) {
+            gpsLocation = new GPSLocation(getActivity(), this);
+            gpsLocation.startLocationUpdates();
+        }
 
         return view;
     }
@@ -156,6 +166,25 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
         return temporery;
     }
 
+    private void setRecyclerView(ArrayList<GroceryListsModel> groceryList){
+        if(groceryList != null) {
+            recyclerView.setAdapter(null);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            DelivererGLAdapter adapter = new DelivererGLAdapter(groceryList, this,0);
+            recyclerView.setAdapter(adapter);
+        }
+    }
+
+    private void showGroceryListDetails(GroceryListsModel groceryListsModel){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("GROCERY_LIST_MODEL", groceryListsModel);
+        ShowGroceryListDetailsFragment fragment = new ShowGroceryListDetailsFragment();
+        fragment.setArguments(bundle);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
 
     @Override
     public void groceryListReceived(ArrayList<GroceryListsModel> groceryList) {
@@ -164,20 +193,6 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
             showFilteredList(Integer.parseInt(radius.getText().toString().trim()));
             swipeRefreshLayout.setRefreshing(false);
         }
-    }
-
-    private void setRecyclerView(ArrayList<GroceryListsModel> groceryList){
-        if(groceryList != null) {
-            recyclerView.setAdapter(null);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            GroceryListAdapter adapter = new GroceryListAdapter(groceryList, this);
-            recyclerView.setAdapter(adapter);
-        }
-    }
-
-    @Override
-    public void onItemSelect(GroceryListsModel groceryListsModel) {
-
     }
 
     @Override
@@ -191,5 +206,18 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
     @Override
     public void dataNotReceived(String errorMessage) {
         Log.d("GPSLOCATION", errorMessage);
+    }
+
+    @Override
+    public void buttonPressedOnGroceryList(GroceryListsModel groceryListsModel, GroceryListOperation operation) {
+        switch (operation){
+            case ACCEPT:
+                break;
+            case IGNORE:
+                break;
+            case DETAILS:
+                showGroceryListDetails(groceryListsModel);
+                break;
+        }
     }
 }
