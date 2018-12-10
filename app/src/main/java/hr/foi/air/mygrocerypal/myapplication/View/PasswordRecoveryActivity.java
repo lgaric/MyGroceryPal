@@ -29,7 +29,7 @@ public class PasswordRecoveryActivity extends BaseActivity implements PasswordRe
 
         buttonRecoveryPassword = findViewById(R.id.buttonRecoveryPassword);
         showLogin = findViewById(R.id.buttonShowLogin);
-        progressBar = findViewById(R.id.progressBar);
+//        progressBar = findViewById(R.id.progressBar);
 
         userEmail =(EditText) findViewById(R.id.emailRecoveryPassword);
         firebaseAuth = FirebaseAuth.getInstance();

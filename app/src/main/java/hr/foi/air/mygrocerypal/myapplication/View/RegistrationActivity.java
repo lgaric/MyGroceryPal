@@ -78,7 +78,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
 
         controller = new RegistrationController(this);
 
-        progressBar = findViewById(R.id.progressBar);
+//        progressBar = findViewById(R.id.progressBar);
         firstNameTxt = (EditText) findViewById(R.id.firstnameRegistration);
         lastNameTxt = (EditText) findViewById(R.id.lastnameRegistration);
         userNameTxt = (EditText) findViewById(R.id.usernameRegistration);
@@ -96,7 +96,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
         backToLoginBtn = (Button) findViewById(R.id.buttonBackToLogin);
 
         initCities();
-        spinnerDialog = new SpinnerDialog(RegistrationActivity.this, cities, "Odaberite grad");
+        spinnerDialog = new SpinnerDialog(RegistrationActivity.this, cities, "Odaberite grad", R.style.DialogAnimations_SmileWindow , "Zatvori");
         spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
             @Override
             public void onClick(String item, int position) {
