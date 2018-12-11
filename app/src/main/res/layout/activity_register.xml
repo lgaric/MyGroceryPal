@@ -1,325 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#0E314F">
+    android:background="@color/colorPrimaryDark">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttons"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/buttonBackToLogin"
+            style="@style/MyButton"
+            android:text="@string/back"/>
+
+        <Button
+            android:id="@+id/buttonRegister"
+            style="@style/MyButton"
+            android:text="@string/register"/>
+
+    </LinearLayout>
+    
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/buttons"
+        android:background="@drawable/shape_linear_layout"
+        android:layout_margin="10dp"
         android:fillViewport="true">
-
+        
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="5sp"
-            android:layout_marginTop="5sp"
-            android:layout_marginEnd="5sp"
-            android:layout_marginBottom="40sp"
-            android:background="@drawable/shape_linear_layout"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#0E314F"
-                android:fontFamily="@font/alegreya_sans_sc_thin"
-                android:gravity="center"
-                android:padding="10sp"
-                android:text="Registracija"
-                android:textColor="@color/white"
-                android:textSize="25sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/alegreya_sans_sc_thin"
-                android:paddingLeft="25dp"
-                android:text="Ime"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/firstnameRegistration"
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/change_border_on_focus"
-                android:gravity="center_vertical"
-                android:inputType="textCapWords"
-                android:paddingLeft="10sp"
-                android:textColor="#0E314F"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="17sp" />
-
-
-            <TextView
-                style="@style/MatchParent"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/alegreya_sans_sc_thin"
-                android:paddingLeft="25dp"
-                android:text="Prezime"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                style="@style/MyEditText"
+                android:hint="@string/firstname"/>
 
             <EditText
                 android:id="@+id/lastnameRegistration"
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/change_border_on_focus"
-                android:gravity="center_vertical"
-                android:inputType="textCapWords"
-                android:paddingLeft="10sp"
-                android:textColor="#0E314F"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/alegreya_sans_sc_thin"
-                android:paddingLeft="25dp"
-                android:text="Korisničko ime"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:hint="@string/lastname"
+                style="@style/MyEditText" />
 
             <EditText
                 android:id="@+id/usernameRegistration"
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/change_border_on_focus"
-                android:gravity="center_vertical"
-                android:inputType="text"
-                android:paddingLeft="10sp"
-                android:textColor="#0E314F"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/alegreya_sans_sc_thin"
-                android:paddingLeft="25dp"
-                android:text="Lozinka"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                style="@style/MyEditText"
+                android:hint="@string/username" />
 
             <EditText
                 android:id="@+id/passwordRegistration"
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/change_border_on_focus"
-                android:gravity="center_vertical"
-                android:hint="Lozinka"
-                android:inputType="textPassword"
-                android:paddingLeft="10sp"
-                android:textColor="#0E314F"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="17sp" />
+                style="@style/MyEditText"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
 
             <EditText
                 android:id="@+id/repeatPasswordRegistration"
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/change_border_on_focus"
-                android:gravity="center_vertical"
-                android:hint="Ponovljena lozinka"
-                android:inputType="textPassword"
-                android:paddingLeft="10sp"
-                android:textColor="#0E314F"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/alegreya_sans_sc_thin"
-                android:paddingLeft="25dp"
-                android:text="Email"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                style="@style/MyEditText"
+                android:hint="@string/repeatPassword"
+                android:inputType="textPassword" />
 
             <EditText
                 android:id="@+id/emailRegistration"
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/change_border_on_focus"
-                android:gravity="center_vertical"
-                android:paddingLeft="10sp"
-                android:inputType="text"
-                android:textColor="#0E314F"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/alegreya_sans_sc_thin"
-                android:paddingLeft="25dp"
-                android:text="Adresa"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                style="@style/MyEditText"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"/>
 
             <EditText
                 android:id="@+id/addressRegistration"
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/change_border_on_focus"
-                android:gravity="center_vertical"
-                android:inputType="textCapSentences"
-                android:paddingLeft="10sp"
-                android:textColor="#0E314F"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="17sp" />
+                style="@style/MyEditText"
+                android:hint="@string/address" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/alegreya_sans_sc_thin"
-                android:paddingLeft="25dp"
-                android:text="Grad"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/townRegistration"
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/change_border_on_focus"
-                android:gravity="center_vertical"
-                android:inputType="textCapWords"
-                android:paddingLeft="10sp"
-                android:textColor="#0E314F"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/alegreya_sans_sc_thin"
-                android:paddingLeft="25dp"
-                android:text="Datum rođenja"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                android:id="@+id/txtCity"
+                style="@style/MyEditText"
+                android:hint="@string/city" />
 
             <TextView
                 android:id="@+id/dateOfBirthRegistration"
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/change_border_on_focus"
-                android:gravity="center"
-                android:hint="Odaberite datum"
-                android:inputType="date"
-                android:paddingLeft="10sp"
-                android:textColor="#999999"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:fontFamily="@font/alegreya_sans_sc_thin"
-                android:paddingLeft="25dp"
-                android:text="Kontakt"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:textStyle="bold" />
+                style="@style/MyEditText"
+                android:hint="@string/birthDate"
+                android:inputType="date" />
 
             <EditText
                 android:id="@+id/contactRegistration"
+                style="@style/MyEditText"
+                android:hint="@string/contact"
+                android:inputType="number"/>
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                android:background="@drawable/change_border_on_focus"
-                android:gravity="center_vertical"
-                android:inputType="number"
-                android:paddingLeft="10sp"
-                android:textColor="#0E314F"
-                android:textCursorDrawable="@drawable/cursor_color"
-                android:textSize="17sp" />
-
-            <Button
-                android:id="@+id/buttonRegister"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="50dp"
-                android:background="@drawable/button_blue_background"
-                android:text="@string/registerUser"
-                android:textColor="@color/white" />
-
-            <Button
-                android:id="@+id/buttonBackToLogin"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="50dp"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/button_blue_background"
-                android:text="Povratak na prijavu"
-                android:textColor="@color/white" />
-
+                android:layout_height="20dp"></View>
 
         </LinearLayout>
+
     </ScrollView>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:visibility="gone"/>
-
-</FrameLayout>
+</RelativeLayout>

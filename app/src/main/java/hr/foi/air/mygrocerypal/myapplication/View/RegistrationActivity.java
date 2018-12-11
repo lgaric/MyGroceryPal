@@ -1,5 +1,6 @@
 package hr.foi.air.mygrocerypal.myapplication.View;
 
+import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,17 +13,55 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import hr.foi.air.mygrocerypal.myapplication.Controller.RegistrationController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.RegistrationListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
+import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
+import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 
 public class RegistrationActivity extends BaseActivity implements RegistrationListener {
 
+    ArrayList<String> cities = new ArrayList<>();
+    SpinnerDialog spinnerDialog;
+
+    public void initCities(){
+        String json = null;
+        try {
+            InputStream is = getAssets().open("CroatianCities.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+            JSONArray jsonArray = new JSONArray(json);
+
+            for (int i = 0; i<jsonArray.length(); i++){
+                JSONObject obj = jsonArray.getJSONObject(i);
+                cities.add(obj.getString("mjesto"));
+            }
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        catch (JSONException e){
+        e.printStackTrace();
+        }
+    }
+
+
+
     private ProgressBar progressBar;
-    private TextView dateOfBirthTxt;
+    private TextView dateOfBirthTxt, txtCities;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private EditText emailTxt, passwordTxt, userNameTxt, firstNameTxt, lastNameTxt, adressTxt, townTxt, contactTxt, retypedPasswordTxt;
     private Button registerBtn, backToLoginBtn;
@@ -33,10 +72,13 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        getSupportActionBar().setTitle(R.string.register);
+
+
 
         controller = new RegistrationController(this);
 
-        progressBar = findViewById(R.id.progressBar);
+//        progressBar = findViewById(R.id.progressBar);
         firstNameTxt = (EditText) findViewById(R.id.firstnameRegistration);
         lastNameTxt = (EditText) findViewById(R.id.lastnameRegistration);
         userNameTxt = (EditText) findViewById(R.id.usernameRegistration);
@@ -44,12 +86,31 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
         retypedPasswordTxt = (EditText) findViewById(R.id.repeatPasswordRegistration);
         emailTxt = (EditText) findViewById(R.id.emailRegistration);
         adressTxt = (EditText) findViewById(R.id.addressRegistration);
-        townTxt = (EditText) findViewById(R.id.townRegistration);
+//        townTxt = (EditText) findViewById(R.id.txtCity);
         dateOfBirthTxt = (TextView) findViewById(R.id.dateOfBirthRegistration);
         contactTxt = (EditText) findViewById(R.id.contactRegistration);
 
+        txtCities = (TextView) findViewById(R.id.txtCity);
+
         registerBtn = (Button) findViewById(R.id.buttonRegister);
         backToLoginBtn = (Button) findViewById(R.id.buttonBackToLogin);
+
+        initCities();
+        spinnerDialog = new SpinnerDialog(RegistrationActivity.this, cities, "Odaberite grad", R.style.DialogAnimations_SmileWindow , "Zatvori");
+        spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
+            @Override
+            public void onClick(String item, int position) {
+                Toast.makeText(RegistrationActivity.this, "Selected: " + item, Toast.LENGTH_LONG).show();
+                txtCities.setText(item);
+            }
+        });
+
+        txtCities.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinnerDialog.showSpinerDialog();
+            }
+        });
 
         dateOfBirthTxt.setOnClickListener(new View.OnClickListener() {
             @Override

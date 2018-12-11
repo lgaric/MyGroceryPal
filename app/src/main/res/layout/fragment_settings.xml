@@ -6,11 +6,6 @@
     android:orientation="vertical"
     tools:context=".View.SettingsFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Ovdje ce biti postavke, molimo za strpljenje!" />
 
     <Button
         android:id="@+id/btn_start_location_updates"
@@ -18,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:gravity="center"
-        android:text="@string/lokacijsko_trazenje"/>
+        android:text="@string/searchLocation"/>
 
     <TextView
         android:id="@+id/location_result"
@@ -43,7 +38,7 @@
 
     <EditText
         android:id="@+id/txtAdresa"
-        android:hint="Adresa"
+        android:hint="@string/address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -52,6 +47,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="ISPISI LOKACIJU"/>
+        android:text="@string/printLocation"/>
 
 </LinearLayout>

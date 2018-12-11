@@ -29,6 +29,9 @@ import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class ShowGroceryListDetailsFragment extends Fragment implements GroceryListProductsListener, GroceryListUserListener {
+
+    private static String CURRENCY = " kn";
+
     private GroceryListProductsController productsController;
     private GroceryListUserController userController;
     private GroceryListsModel groceryListsModel;
@@ -89,8 +92,8 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
 
     private void setGroceryListDetailsHeader(){
         storeNametxt.append(groceryListsModel.getStore_name());
-        totalPricetxt.append(groceryListsModel.getTotal_price());
-        commisiontxt.append(groceryListsModel.getCommision());
+        totalPricetxt.append(groceryListsModel.getTotal_price() + CURRENCY);
+        commisiontxt.append(groceryListsModel.getCommision() + CURRENCY);
     }
 
     private void setButtonText(Button buttonText){

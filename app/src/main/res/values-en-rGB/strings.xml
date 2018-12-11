@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MyGroceryPal</string>
+    <string name="forgotPassword">Forgot password?</string>
+    <string name="registrationOnLogin">Don\'t have account? Register!</string>
+    <string name="login">Login</string>
+    <string name="register">Register!</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="repeatPassword">Repeat password</string>
+    <string name="address">Address</string>
+    <string name="city">Town</string>
+    <string name="birthDate">Date of birth</string>
+    <string name="contact">Contact</string>
+    <string name="contactSemicolon">"Contact: "</string>
+    <string name="back">Back</string>
+    <string name="send">Send</string>
+    <string name="pleaseInsertEmail">Please, enter your e-mail!</string>
+    <string name="activeCaps">ACTIVE</string>
+    <string name="pastCaps">PAST</string>
+    <string name="ignoredCaps">IGNORED</string>
+    <string name="acceptedCaps">ACCEPTED</string>
+    <string name="printLocation" translatable="false">PRINT LOCATION</string>
+    <string name="storeSemicolon" translatable="false">"Store: "</string>
+    <string name="store" translatable="false">Store</string>
+    <string name="commison" translatable="false">"Commision: "</string>
+    <string name="delivererSemicolon" translatable="false">"Deliverer: "</string>
+    <string name="deliverer" translatable="false">Deliverer</string>
+    <string name="price" translatable="false">"Price: "</string>
+    <string name="client" translatable="false">Client</string>
+    <string name="more">More</string>
+    <string name="pay" translatable="false">Pay</string>
+    <string name="statistics" translatable="false">Statistics</string>
+    <string name="logout" translatable="false">Logout</string>
+    <string name="boughtSemicolon">"Bought: "</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="username" translatable="false">Username</string>
+    <string name="navigation_drawer_open" translatable="false">Open drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close drawer</string>
+    <string name="menu_about">About app</string>
+    <string name="action_settings">Settings</string>
+    <string name="searchLocation" translatable="false">Search location</string>
+</resources>

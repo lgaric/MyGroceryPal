@@ -24,13 +24,13 @@ POTREBNO JE SAMO MJENJATI FRAGMENT KOJI SE POZIVA U FRAMELAYOUT KOMPONENTI-->
             <Button
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:text="AKTIVNI"
+                android:text="@string/activeCaps"
                 android:id="@+id/active_client_btn"/>
 
             <Button
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:text="PROŠLI"
+                android:text="@string/pastCaps"
                 android:id="@+id/past_client_btn"/>
 
         </LinearLayout>
