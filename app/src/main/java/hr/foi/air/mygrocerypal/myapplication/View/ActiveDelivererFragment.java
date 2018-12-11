@@ -39,7 +39,6 @@ import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class ActiveDelivererFragment extends Fragment implements GroceryListListener, LocationListener, GroceryListOperationListener{
-
     SeekBar seekBar;
     SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView recyclerView;
@@ -51,6 +50,11 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
     DelivererActiveGroceryListController controller;
 
     ArrayList<GroceryListsModel> allActiveGroceryList;
+
+    //SAVESTATE
+    boolean visited;
+    boolean switchValue; //GPS ON/OFF
+    int radiusSliderValue; //RADIUJS NA SLIDERU
 
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
@@ -81,6 +85,14 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
         }
     };
 
+    private CompoundButton.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(gpsSwitch.isChecked())
+                turnOnGps();
+        }
+    };
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -94,22 +106,27 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
 
         seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
         swipeRefreshLayout.setOnRefreshListener(refreshListener);
+        gpsSwitch.setOnClickListener(clickListener);
 
-        controller = new DelivererActiveGroceryListController(this);
-        controller.loadAllActiveGroceryLists();
-
-        if(gpsLocation == null) {
-            gpsLocation = new GPSLocation(getActivity(), this);
-            gpsLocation.startLocationUpdates();
+        if (controller == null) {
+            controller = new DelivererActiveGroceryListController(this);
+            controller.loadAllActiveGroceryLists();
         }
 
         return view;
     }
 
+    public void turnOnGps(){
+        if (gpsLocation == null) {
+            gpsLocation = new GPSLocation(getActivity(), this);
+            gpsLocation.startLocationButtonClick();
+        }
+    }
+
+    /**
+     * osvježi recycleview
+     */
     private void refreshRecyclerView(){
-
-        Log.d("refreshRecyclerView", Integer.toString(android.os.Process.getThreadPriority(android.os.Process.myTid())));
-
         if(controller != null)
             controller.loadAllActiveGroceryLists();
     }
@@ -166,6 +183,10 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
         return temporery;
     }
 
+    /**
+     * postavi adapter za recycleview
+     * @param groceryList
+     */
     private void setRecyclerView(ArrayList<GroceryListsModel> groceryList){
         if(groceryList != null) {
             recyclerView.setAdapter(null);
@@ -175,6 +196,10 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
         }
     }
 
+    /**
+     * Prikaži detalje groceryliste
+     * @param groceryListsModel
+     */
     private void showGroceryListDetails(GroceryListsModel groceryListsModel){
         Bundle bundle = new Bundle();
         bundle.putSerializable("GROCERY_LIST_MODEL", groceryListsModel);
@@ -187,6 +212,36 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+
+        this.visited = true;
+        this.switchValue = gpsSwitch.isChecked();
+        this.radiusSliderValue = Integer.parseInt(radius.getText().toString());
+    }
+
+    /**
+     * ako je fragment već prije bio ućitan vrati njegove vrijednosti
+     */
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        Log.d(this.getClass().getName(), "onActivityCreated");
+
+        if(visited){
+            gpsSwitch.setChecked(this.switchValue);
+            seekBar.setProgress(this.radiusSliderValue);
+        }
+    }
+
+
+
+
+
+    //IMPLEMENTACIJA INTERFEJSA
+
+    @Override
     public void groceryListReceived(ArrayList<GroceryListsModel> groceryList) {
         if(groceryList != null){
             allActiveGroceryList = groceryList;
@@ -195,6 +250,10 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
         }
     }
 
+    /**
+     * Postavljanje vrijednosti atributa gpsLocation u CurrentUser klasi
+     * @param location
+     */
     @Override
     public void locationReceived(Location location) {
         if(location != null) {
@@ -203,9 +262,15 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
         }
     }
 
+    /**
+     * Ako korisnik ne prihvati dozvolu za ukljucivanjem GPS, stavi switch na off
+     * @param errorMessage
+     */
     @Override
     public void dataNotReceived(String errorMessage) {
-        Log.d("GPSLOCATION", errorMessage);
+        Log.d("GPSERROR", errorMessage);
+        if(gpsSwitch.isChecked())
+            gpsSwitch.setChecked(false);
     }
 
     @Override
@@ -220,4 +285,6 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
                 break;
         }
     }
+
+
 }

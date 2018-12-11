@@ -124,26 +124,28 @@ public class GPSLocation {
                 .addOnFailureListener(mCurrentActivity, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        int statusCode = ((ApiException) e).getStatusCode();
-                        switch (statusCode) {
-                            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                                errorMessage = "Nisu ispunjeni lokacijski zahtjevi aplikacije";
-                                Log.i(TAG, errorMessage);
-                                try {
-                                    ResolvableApiException rae = (ResolvableApiException) e;
-                                    rae.startResolutionForResult(mCurrentActivity, REQUEST_CHECK_SETTINGS);
-                                } catch (IntentSender.SendIntentException sie) {
-                                    errorMessage = "Ne ispunjavanje zahtjeva";
-                                    Log.i(TAG, errorMessage + sie);
-                                }
-                                break;
-                            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                                errorMessage = "Potrebno je namjestiti lokacijske postavke aplikacije";
-                                Log.e(TAG, errorMessage);
 
-                                Toast.makeText(mCurrentActivity, errorMessage, Toast.LENGTH_LONG).show();
-                        }
-                        setErrorMessage(errorMessage);
+                            int statusCode = ((ApiException) e).getStatusCode();
+                            switch (statusCode) {
+                                case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                    errorMessage = "Nisu ispunjeni lokacijski zahtjevi aplikacije";
+                                    Log.i(TAG, errorMessage);
+                                    try {
+                                        ResolvableApiException rae = (ResolvableApiException) e;
+                                        rae.startResolutionForResult(mCurrentActivity, REQUEST_CHECK_SETTINGS);
+                                    } catch (IntentSender.SendIntentException sie) {
+                                        errorMessage = "Ne ispunjavanje zahtjeva";
+                                        Log.i(TAG, errorMessage + sie);
+                                    }
+                                    break;
+                                case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                                    errorMessage = "Potrebno je namjestiti lokacijske postavke aplikacije";
+                                    Log.e(TAG, errorMessage);
+
+                                    Toast.makeText(mCurrentActivity, errorMessage, Toast.LENGTH_LONG).show();
+                            }
+                            setErrorMessage(errorMessage);
+
                     }
                 });
     }
