@@ -1,9 +1,12 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -61,6 +64,59 @@ public class DelivererActiveGroceryListController {
         });
     }
 
+    String temporary = "";
+
+    public String acceptGroceryList(final String groceryListID)
+    {
+        if(firebaseDatabase == null)
+            firebaseDatabase = FirebaseDatabase.getInstance();
+
+        String status = checkGroceryListStatus(groceryListID);
+        String message = "";
+
+        if(status.equals("null")) {
+            message = "Greška u dohvatu podataka";
+            return message;
+        } else if(status.equals(GroceryListStatus.ACCEPTED) || status.equals(GroceryListStatus.FINISHED)) {
+            message = "Kupovna lista je već prihvaćena";
+            return message;
+        }
+
+        try{
+            DatabaseReference db = firebaseDatabase.getReference();
+            db.child(GROCERYLISTNODE).child(groceryListID).child(GROCERYLISTSTATUS).setValue(GroceryListStatus.ACCEPTED);
+            db.child(GROCERYLISTNODE).child(groceryListID).child("user_accepted_id").setValue(CurrentUser.currentUser.getUserUID());
+            message = "Prihvaćen odabir";
+            return message;
+        }catch(Exception e) {
+            Log.e(getClass().toString(), e.getMessage());
+            message = "Greška prilikom prihvaćanja narudžbe";
+        }
+        return message;
+    }
+
+    private String checkGroceryListStatus(final String groceryListID)
+    {
+        if(firebaseDatabase == null)
+            firebaseDatabase = FirebaseDatabase.getInstance();
+
+        Query query = firebaseDatabase.getReference().child(GROCERYLISTNODE)
+                .child(groceryListID).child(GROCERYLISTSTATUS);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                temporary = dataSnapshot.getValue().toString();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                temporary = "";
+            }
+        });
+        return  temporary;
+
+    }
+
     private ArrayList<GroceryListsModel> filterIgnoredLists(ArrayList<GroceryListsModel> allActiveLists){
 
         ArrayList<GroceryListsModel> validLists = new ArrayList<>();
@@ -111,5 +167,5 @@ public class DelivererActiveGroceryListController {
     //TODO
     //ZATIM GLEDAJ UDALJENOST IZMEDU GROCERYLISTA I KORISNIKA
     //   a) AKO KORISNIK NEMA UKLJUCEN GPS GLEDAJ LATITUDE I LANGITUTDE IZ KLASE CURRENTUSER
-    //   b) AKO IMA UKLJUCENO GLEDAJ OD HRVOJA
+    //   b) AKO IMA UKLJUCENO GLEDAJ OD HRVOJA :-]
 }

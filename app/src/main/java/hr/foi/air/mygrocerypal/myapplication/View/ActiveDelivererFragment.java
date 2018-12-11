@@ -138,13 +138,13 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
      */
     private void showFilteredList(int radius){
         if(allActiveGroceryList != null){
-            ArrayList<GroceryListsModel> temporery;
+            ArrayList<GroceryListsModel> temporary;
             if(CurrentUser.gpsLocation != null && gpsSwitch.isChecked())
-                temporery = filterListUsingDistance(radius, CurrentUser.gpsLocation);
+                temporary = filterListUsingDistance(radius, CurrentUser.gpsLocation);
             else
-                temporery = filterListUsingDistance(radius, getLocation(CurrentUser.currentUser.getLatitude(),
+                temporary = filterListUsingDistance(radius, getLocation(CurrentUser.currentUser.getLatitude(),
                         CurrentUser.currentUser.getLongitude(), "USERLOCATION"));
-            setRecyclerView(temporery);
+            setRecyclerView(temporary);
         }
     }
 
@@ -277,6 +277,9 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
     public void buttonPressedOnGroceryList(GroceryListsModel groceryListsModel, GroceryListOperation operation) {
         switch (operation){
             case ACCEPT:
+                String acceptGroceryListsResult = controller.acceptGroceryList(groceryListsModel.getGrocerylist_key());
+                Toast.makeText(getActivity(), acceptGroceryListsResult, Toast.LENGTH_SHORT).show();
+                refreshRecyclerView();
                 break;
             case IGNORE:
                 break;
