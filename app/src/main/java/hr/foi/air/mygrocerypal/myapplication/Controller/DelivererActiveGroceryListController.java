@@ -2,7 +2,6 @@ package hr.foi.air.mygrocerypal.myapplication.Controller;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListListener;
+import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListStatusListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
@@ -26,14 +26,16 @@ public class DelivererActiveGroceryListController {
     static final String GROCERYLISTNODE  = "grocerylists";
     static final String GROCERYLISTSTATUS = "status";
 
-    GroceryListListener listener;
+    GroceryListListener groceryListListener;
+    GroceryListStatusListener groceryListStatusListener;
     FirebaseDatabase firebaseDatabase;
 
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     Date currentDate = new Date();
 
     public DelivererActiveGroceryListController(GroceryListListener listListener){
-        listener = listListener;
+        groceryListListener = listListener;
+        groceryListStatusListener = (GroceryListStatusListener) listListener;
     }
 
     public void loadAllActiveGroceryLists() {
@@ -54,7 +56,7 @@ public class DelivererActiveGroceryListController {
                     model.setGrocerylist_key(temp.getKey());
                     groceryList.add(model);
                 }
-                listener.groceryListReceived(filterIgnoredLists(groceryList));
+                groceryListListener.groceryListReceived(filterIgnoredLists(groceryList));
             }
 
             @Override
@@ -64,20 +66,14 @@ public class DelivererActiveGroceryListController {
         });
     }
 
-    String temporary = "";
-
-    public String acceptGroceryList(final String groceryListID)
+    public String acceptGroceryList(final String groceryListID, final String groceryListStatus)
     {
         if(firebaseDatabase == null)
             firebaseDatabase = FirebaseDatabase.getInstance();
 
-        String status = checkGroceryListStatus(groceryListID);
         String message = "";
-
-        if(status.equals("null")) {
-            message = "Greška u dohvatu podataka";
-            return message;
-        } else if(status.equals(GroceryListStatus.ACCEPTED) || status.equals(GroceryListStatus.FINISHED)) {
+        if(groceryListStatus.valueOf(groceryListStatus).equals(GroceryListStatus.ACCEPTED)
+                || groceryListStatus.valueOf(groceryListStatus).equals(GroceryListStatus.FINISHED)) {
             message = "Kupovna lista je već prihvaćena";
             return message;
         }
@@ -95,8 +91,9 @@ public class DelivererActiveGroceryListController {
         return message;
     }
 
-    private String checkGroceryListStatus(final String groceryListID)
-    {
+
+    public void checkGroceryListStatus(final String groceryListID) {
+
         if(firebaseDatabase == null)
             firebaseDatabase = FirebaseDatabase.getInstance();
 
@@ -106,14 +103,13 @@ public class DelivererActiveGroceryListController {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                temporary = dataSnapshot.getValue().toString();
+                groceryListStatusListener.GroceryListStatusReceived(groceryListID, dataSnapshot.getValue().toString());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                temporary = "";
+                groceryListStatusListener.GroceryListStatusReceived(groceryListID, "");
             }
         });
-        return  temporary;
 
     }
 

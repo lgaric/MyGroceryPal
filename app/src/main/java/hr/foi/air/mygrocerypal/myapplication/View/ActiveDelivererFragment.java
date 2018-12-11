@@ -32,13 +32,15 @@ import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.ClickListener;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListListener;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListOperationListener;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListProductsListener;
+import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListStatusListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListOperation;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
-public class ActiveDelivererFragment extends Fragment implements GroceryListListener, LocationListener, GroceryListOperationListener{
+public class ActiveDelivererFragment extends Fragment implements GroceryListListener, LocationListener,
+        GroceryListOperationListener, GroceryListStatusListener {
     SeekBar seekBar;
     SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView recyclerView;
@@ -54,7 +56,7 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
     //SAVESTATE
     boolean visited;
     boolean switchValue; //GPS ON/OFF
-    int radiusSliderValue; //RADIUJS NA SLIDERU
+    int radiusSliderValue; //RADIJUS NA SLIDERU
 
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
@@ -277,9 +279,7 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
     public void buttonPressedOnGroceryList(GroceryListsModel groceryListsModel, GroceryListOperation operation) {
         switch (operation){
             case ACCEPT:
-                String acceptGroceryListsResult = controller.acceptGroceryList(groceryListsModel.getGrocerylist_key());
-                Toast.makeText(getActivity(), acceptGroceryListsResult, Toast.LENGTH_SHORT).show();
-                refreshRecyclerView();
+                controller.checkGroceryListStatus(groceryListsModel.getGrocerylist_key());
                 break;
             case IGNORE:
                 break;
@@ -290,4 +290,14 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
     }
 
 
+    @Override
+    public void GroceryListStatusReceived(String groceryListID, String groceryListStatus) {
+        if(groceryListStatus.equals("")) {
+            Toast.makeText(getActivity(), "Pogreška prilikom dohvata Grocery List ID-a", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String acceptGroceryListsResult = controller.acceptGroceryList(groceryListID, groceryListStatus);
+        Toast.makeText(getActivity(), acceptGroceryListsResult, Toast.LENGTH_SHORT).show();
+        refreshRecyclerView();
+    }
 }
