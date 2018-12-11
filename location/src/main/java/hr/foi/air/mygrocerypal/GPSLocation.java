@@ -55,8 +55,8 @@ import java.util.Locale;
 public class GPSLocation {
 
     private static final String TAG = "Geolocating";
-    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 60000;
-    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 30000;
+    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 120000;
+    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 120000;
     private static final int REQUEST_CHECK_SETTINGS = 100;
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -70,9 +70,9 @@ public class GPSLocation {
     private LocationListener locationListener;
     private String errorMessage;
 
-    public GPSLocation(Activity activity, Fragment fragment) {
+    public GPSLocation(Activity activity, LocationListener locationListener) {
         this.mCurrentActivity = activity;
-        locationListener = (LocationListener) fragment;
+        this.locationListener = locationListener;
         init();
     }
 
@@ -107,7 +107,7 @@ public class GPSLocation {
     /**
      * Metoda kojom geolociramo uredaj
      */
-    private void startLocationUpdates() {
+    public void startLocationUpdates() {
         mSettingsClient
                 .checkLocationSettings(mLocationSettingsRequest)
                 .addOnSuccessListener(mCurrentActivity, new OnSuccessListener<LocationSettingsResponse>() {
@@ -115,35 +115,39 @@ public class GPSLocation {
                     @Override
                     public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
                         Log.i(TAG, "Svi zahtjevi za dohvat lokacije su zadovoljeni.");
-                        mFusedLocationClient.requestLocationUpdates(mLocationRequest,
-                                mLocationCallback, Looper.myLooper());
 
-                        locationListener.locationReceived(mCurrentLocation);
+                        if(!mRequestingLocationUpdates) {
+                            mFusedLocationClient.requestLocationUpdates(mLocationRequest,
+                                    mLocationCallback, Looper.myLooper());
+                            mRequestingLocationUpdates = true;
+                        }
                     }
                 })
                 .addOnFailureListener(mCurrentActivity, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        int statusCode = ((ApiException) e).getStatusCode();
-                        switch (statusCode) {
-                            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                                errorMessage = "Nisu ispunjeni lokacijski zahtjevi aplikacije";
-                                Log.i(TAG, errorMessage);
-                                try {
-                                    ResolvableApiException rae = (ResolvableApiException) e;
-                                    rae.startResolutionForResult(mCurrentActivity, REQUEST_CHECK_SETTINGS);
-                                } catch (IntentSender.SendIntentException sie) {
-                                    errorMessage = "Ne ispunjavanje zahtjeva";
-                                    Log.i(TAG, errorMessage + sie);
-                                }
-                                break;
-                            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                                errorMessage = "Potrebno je namjestiti lokacijske postavke aplikacije";
-                                Log.e(TAG, errorMessage);
 
-                                Toast.makeText(mCurrentActivity, errorMessage, Toast.LENGTH_LONG).show();
-                        }
-                        setErrorMessage(errorMessage);
+                            int statusCode = ((ApiException) e).getStatusCode();
+                            switch (statusCode) {
+                                case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                    errorMessage = "Nisu ispunjeni lokacijski zahtjevi aplikacije";
+                                    Log.i(TAG, errorMessage);
+                                    try {
+                                        ResolvableApiException rae = (ResolvableApiException) e;
+                                        rae.startResolutionForResult(mCurrentActivity, REQUEST_CHECK_SETTINGS);
+                                    } catch (IntentSender.SendIntentException sie) {
+                                        errorMessage = "Ne ispunjavanje zahtjeva";
+                                        Log.i(TAG, errorMessage + sie);
+                                    }
+                                    break;
+                                case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                                    errorMessage = "Potrebno je namjestiti lokacijske postavke aplikacije";
+                                    Log.e(TAG, errorMessage);
+
+                                    Toast.makeText(mCurrentActivity, errorMessage, Toast.LENGTH_LONG).show();
+                            }
+                            setErrorMessage(errorMessage);
+
                     }
                 });
     }
@@ -157,7 +161,6 @@ public class GPSLocation {
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-                        mRequestingLocationUpdates = true;
                         startLocationUpdates();
                     }
                     @Override

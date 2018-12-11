@@ -23,7 +23,7 @@ import hr.foi.air.mygrocerypal.myapplication.BuildConfig;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 
-public class LocationCoordinates extends Fragment  implements LocationListener{
+public class LocationCoordinates extends Fragment {
 
     private Button btnStartUpdates;
     private TextView txtLocationResult;
@@ -39,7 +39,7 @@ public class LocationCoordinates extends Fragment  implements LocationListener{
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.btn_start_location_updates:
-                    getDeviceLocation();
+                    //getDeviceLocation();
                     break;
                 case R.id.btnIspisLokacije:
                     getLocationBasedOnAddress();
@@ -62,6 +62,7 @@ public class LocationCoordinates extends Fragment  implements LocationListener{
 
     // metoda za pokretanje geolociranja uredaja
 
+    /*
     private void getDeviceLocation() {
         if(currentLocationInstance == null) {
             GPSLocation currentLocation = new GPSLocation(getActivity(), this);
@@ -70,6 +71,7 @@ public class LocationCoordinates extends Fragment  implements LocationListener{
             currentLocationInstance.startLocationButtonClick();
         }
     }
+    */
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -110,6 +112,7 @@ public class LocationCoordinates extends Fragment  implements LocationListener{
 
     // Metode iz interfacea u kodu ispod
 
+    /*
     @Override
     public Location locationReceived(Location location) {
         if (location != null) {
@@ -132,4 +135,6 @@ public class LocationCoordinates extends Fragment  implements LocationListener{
         }
         return errorMessage;
     }
+
+    */
 }

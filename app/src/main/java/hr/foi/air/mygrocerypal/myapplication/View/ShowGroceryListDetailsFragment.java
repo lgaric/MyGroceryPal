@@ -116,7 +116,7 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
             groceryListsModel.setProductsModels(groceryListProducts);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-            GroceryListDetailsAdapter v2 = new GroceryListDetailsAdapter(groceryListsModel);
+            GroceryListDetailsAdapter v2 = new GroceryListDetailsAdapter(groceryListsModel, false);
             recyclerView.setAdapter(v2);
         }
 
