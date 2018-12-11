@@ -41,6 +41,7 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class ActiveDelivererFragment extends Fragment implements GroceryListListener, LocationListener,
         GroceryListOperationListener, GroceryListStatusListener {
+
     SeekBar seekBar;
     SwipeRefreshLayout swipeRefreshLayout;
     RecyclerView recyclerView;
@@ -52,11 +53,6 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
     DelivererActiveGroceryListController controller;
 
     ArrayList<GroceryListsModel> allActiveGroceryList;
-
-    //SAVESTATE
-    boolean visited;
-    boolean switchValue; //GPS ON/OFF
-    int radiusSliderValue; //RADIJUS NA SLIDERU
 
     private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
@@ -114,6 +110,8 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
             controller = new DelivererActiveGroceryListController(this);
             controller.loadAllActiveGroceryLists();
         }
+        else
+            controller.loadAllActiveGroceryLists();
 
         return view;
     }
@@ -123,6 +121,8 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
             gpsLocation = new GPSLocation(getActivity(), this);
             gpsLocation.startLocationButtonClick();
         }
+        else
+            gpsLocation.startLocationButtonClick();
     }
 
     /**
@@ -213,29 +213,7 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
                 .commit();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
 
-        this.visited = true;
-        this.switchValue = gpsSwitch.isChecked();
-        this.radiusSliderValue = Integer.parseInt(radius.getText().toString());
-    }
-
-    /**
-     * ako je fragment već prije bio ućitan vrati njegove vrijednosti
-     */
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        Log.d(this.getClass().getName(), "onActivityCreated");
-
-        if(visited){
-            gpsSwitch.setChecked(this.switchValue);
-            seekBar.setProgress(this.radiusSliderValue);
-        }
-    }
 
 
 
@@ -291,7 +269,7 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
 
 
     @Override
-    public void GroceryListStatusReceived(String groceryListID, String groceryListStatus) {
+    public void groceryListStatusReceived(String groceryListID, String groceryListStatus) {
         if(groceryListStatus.equals("")) {
             Toast.makeText(getActivity(), "Pogreška prilikom dohvata Grocery List ID-a", Toast.LENGTH_SHORT).show();
             return;

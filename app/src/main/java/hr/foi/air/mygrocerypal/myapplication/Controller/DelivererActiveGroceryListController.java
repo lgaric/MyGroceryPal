@@ -72,8 +72,8 @@ public class DelivererActiveGroceryListController {
             firebaseDatabase = FirebaseDatabase.getInstance();
 
         String message = "";
-        if(groceryListStatus.valueOf(groceryListStatus).equals(GroceryListStatus.ACCEPTED)
-                || groceryListStatus.valueOf(groceryListStatus).equals(GroceryListStatus.FINISHED)) {
+        if(GroceryListStatus.valueOf(groceryListStatus).equals(GroceryListStatus.ACCEPTED)
+                || GroceryListStatus.valueOf(groceryListStatus).equals(GroceryListStatus.FINISHED)) {
             message = "Kupovna lista je već prihvaćena";
             return message;
         }
@@ -103,11 +103,11 @@ public class DelivererActiveGroceryListController {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                groceryListStatusListener.GroceryListStatusReceived(groceryListID, dataSnapshot.getValue().toString());
+                groceryListStatusListener.groceryListStatusReceived(groceryListID, dataSnapshot.getValue().toString());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                groceryListStatusListener.GroceryListStatusReceived(groceryListID, "");
+                groceryListStatusListener.groceryListStatusReceived(groceryListID, "");
             }
         });
 

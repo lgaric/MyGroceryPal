@@ -115,10 +115,12 @@ public class GPSLocation {
                     @Override
                     public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
                         Log.i(TAG, "Svi zahtjevi za dohvat lokacije su zadovoljeni.");
-                        mFusedLocationClient.requestLocationUpdates(mLocationRequest,
-                                mLocationCallback, Looper.myLooper());
 
-                        //locationListener.locationReceived(mCurrentLocation);
+                        if(!mRequestingLocationUpdates) {
+                            mFusedLocationClient.requestLocationUpdates(mLocationRequest,
+                                    mLocationCallback, Looper.myLooper());
+                            mRequestingLocationUpdates = true;
+                        }
                     }
                 })
                 .addOnFailureListener(mCurrentActivity, new OnFailureListener() {
@@ -159,7 +161,6 @@ public class GPSLocation {
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-                        mRequestingLocationUpdates = true;
                         startLocationUpdates();
                     }
                     @Override
