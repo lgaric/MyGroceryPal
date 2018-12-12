@@ -69,6 +69,7 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
     public class ProductsListHolder extends RecyclerView.ViewHolder {
 
         public GroceryListProductsModel product;
+
         public TextView productName;
         public ImageButton increaseGroceryAmount, decreaseGroceryAmount, deleteProduct;
         public EditText productQuantity;
@@ -148,7 +149,7 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
             });
         }
 
-        //Riješiti kako pristupam product.getName() nakon kreiranja novog producta koji nema ništa
+
         private void addSelectedProductToGroceryList(){
             product = new GroceryListProductsModel();
             product.setName(product.getName());
@@ -166,6 +167,7 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
         public void bind(GroceryListProductsModel product, List<GroceryListProductsModel> listOfProducts){
             this.listOfProducts = listOfProducts;
             this.product = product;
+
             this.productName.setText(product.getName());
             this.productQuantity.setText(Integer.toString(product.getQuantity()));
         }
