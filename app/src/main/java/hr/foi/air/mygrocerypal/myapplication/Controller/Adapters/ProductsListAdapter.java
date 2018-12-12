@@ -16,7 +16,7 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapter.ProductsListHolder> {
 
-    private List<GroceryListProductsModel> listOfProducts;//ne brišem iz liste
+    private List<GroceryListProductsModel> listOfProducts;
     TextView totalTextView;
 
     public  ProductsListAdapter(List<GroceryListProductsModel> productsList, TextView total){
