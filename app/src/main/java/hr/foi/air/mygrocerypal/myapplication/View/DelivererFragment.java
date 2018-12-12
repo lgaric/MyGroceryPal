@@ -19,17 +19,16 @@ public class DelivererFragment extends Fragment {
     Button ignored;
 
     FrameLayout groceryLists;
+    ActiveDelivererFragment activeDelivererFragment;
 
     int flag = 1;
-
-    ActiveDelivererFragment activeDelivererFragment;
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.active_deliverer_btn: //flag = 1
-                    if(flag != 1) {
+                    if(flag != 1){
                         flag = 1;
                         showGroceryLists(activeDelivererFragment);
                     }
@@ -37,6 +36,10 @@ public class DelivererFragment extends Fragment {
                 case R.id.accepted_deliverer_btn: //flag = 2
                     break;
                 case R.id.ignored_client_btn: //flag = 3
+                    if(flag != 3){
+                        flag = 3;
+                        showGroceryLists(new IgnoredDelivererFragment());
+                    }
                     break;
                 default:
                     Log.d("CLICKDELIVERERFRAGMENT", "PRITISNUT JE: " + Integer.toString(v.getId()));
@@ -59,12 +62,11 @@ public class DelivererFragment extends Fragment {
         accepted.setOnClickListener(clickListener);
         ignored.setOnClickListener(clickListener);
 
-
         if(activeDelivererFragment == null)
             activeDelivererFragment = new ActiveDelivererFragment();
-        showGroceryLists(activeDelivererFragment);
+        showGroceryLists(new ActiveDelivererFragment());
 
-        return inflater.inflate(R.layout.fragment_deliverer, container, false);
+        return view;
     }
 
     public void showGroceryLists(Fragment fragment){
