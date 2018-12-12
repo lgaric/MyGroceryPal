@@ -19,6 +19,7 @@ public class DelivererFragment extends Fragment {
     Button ignored;
 
     FrameLayout groceryLists;
+    ActiveDelivererFragment activeDelivererFragment;
 
     int flag = 1;
 
@@ -29,7 +30,7 @@ public class DelivererFragment extends Fragment {
                 case R.id.active_deliverer_btn: //flag = 1
                     if(flag != 1){
                         flag = 1;
-                        showGroceryLists(new ActiveDelivererFragment());
+                        showGroceryLists(activeDelivererFragment);
                     }
                     break;
                 case R.id.accepted_deliverer_btn: //flag = 2
@@ -61,6 +62,8 @@ public class DelivererFragment extends Fragment {
         accepted.setOnClickListener(clickListener);
         ignored.setOnClickListener(clickListener);
 
+        if(activeDelivererFragment == null)
+            activeDelivererFragment = new ActiveDelivererFragment();
         showGroceryLists(new ActiveDelivererFragment());
 
         return view;
