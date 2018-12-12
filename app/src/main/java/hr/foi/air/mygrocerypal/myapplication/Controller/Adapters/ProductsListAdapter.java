@@ -87,15 +87,13 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
             increaseGroceryAmount.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(product == null){
-                        addSelectedProductToGroceryList();
-                        productQuantity.setText(Integer.toString(product.getQuantity()));
-                    }else{
-                        product.setQuantity(product.getQuantity() + 1);
-                        productQuantity.setText(Integer.toString(product.getQuantity()));
+                  if(product != null){
+                      product.setQuantity(product.getQuantity() + 1);
+                      productQuantity.setText(Integer.toString(product.getQuantity()));
 
-                    }
-                    calculateTotalAmount();
+                      calculateTotalAmount();
+                  }
+
                 }
             });
 
@@ -103,14 +101,9 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
                 @Override
                 public void onClick(View v) {
                     if(product != null){
-                        if(product.getQuantity() > 1){
+                        if(product.getQuantity() >= 1){
                             product.setQuantity(product.getQuantity() - 1);
                             productQuantity.setText(Integer.toString(product.getQuantity()));
-                        }
-                        else{
-                            listOfProducts.remove(product);
-                            product = null;
-                            productQuantity.setText("0");
                         }
                     }
                     calculateTotalAmount();
@@ -134,13 +127,11 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
                     //ako korisnik izbrise sve iz EditTexta
                     if(isEmpty(productQuantity)){
                         if(product != null){
-                            listOfProducts.remove(product);
-                            product = null;
+                            product.setQuantity(0);
                         }
                         productQuantity.setText("0");
                     }else if (Integer.parseInt(productQuantity.getText().toString()) == 0 && product != null){
-                        listOfProducts.remove(product);
-                        product = null;
+                        product.setQuantity(0);
                     }else if(Integer.parseInt(productQuantity.getText().toString()) > 0 && product != null)
                         product.setQuantity(Integer.parseInt(productQuantity.getText().toString()));
 
@@ -149,15 +140,6 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
             });
         }
 
-
-        private void addSelectedProductToGroceryList(){
-            product = new GroceryListProductsModel();
-            product.setName(product.getName());
-            product.setQuantity(1);
-            product.setBought(0);
-            product.setProduct_key(product.getProduct_key());
-            listOfProducts.add(product);
-        }
 
         private boolean isEmpty(EditText editText){
             if(editText.getText().toString().trim().length() > 0) return false;

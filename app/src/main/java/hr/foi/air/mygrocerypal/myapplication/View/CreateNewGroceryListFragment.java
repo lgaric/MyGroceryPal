@@ -192,6 +192,18 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         }
     }
 
+    private void checkProductsQuantity(){
+        if(groceryListProductsModels != null){
+            int size = groceryListProductsModels.size();
+            for(int i = 0; i < size; i++){
+                if(groceryListProductsModels.get(i).getQuantity() == 0){
+                    groceryListProductsModels.remove(i);
+                    size --;
+                }
+            }
+        }
+    }
+
     private void hideKeyboard(Button button){
         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(button.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
@@ -323,6 +335,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
             showToast("Odaberite proviziju!");
             entered = false;
         }
+        checkProductsQuantity();//ako je količina 0 briše iz liste
         if(groceryListProductsModels != null){
             if(groceryListProductsModels.size() < 1){
                 showToast("Morate odabrati barem jedan proizvod!");
