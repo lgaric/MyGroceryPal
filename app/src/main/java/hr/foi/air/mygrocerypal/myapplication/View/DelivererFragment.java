@@ -27,13 +27,18 @@ public class DelivererFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.active_deliverer_btn: //flag = 1
-                    if(flag != 1)
+                    if(flag != 1){
                         flag = 1;
                         showGroceryLists(new ActiveDelivererFragment());
+                    }
                     break;
                 case R.id.accepted_deliverer_btn: //flag = 2
                     break;
                 case R.id.ignored_client_btn: //flag = 3
+                    if(flag != 3){
+                        flag = 3;
+                        showGroceryLists(new IgnoredDelivererFragment());
+                    }
                     break;
                 default:
                     Log.d("CLICKDELIVERERFRAGMENT", "PRITISNUT JE: " + Integer.toString(v.getId()));
@@ -58,7 +63,7 @@ public class DelivererFragment extends Fragment {
 
         showGroceryLists(new ActiveDelivererFragment());
 
-        return inflater.inflate(R.layout.fragment_deliverer, container, false);
+        return view;
     }
 
     public void showGroceryLists(Fragment fragment){
