@@ -54,6 +54,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     private ProductsListAdapter productsListAdapter;
     boolean sended = false;
     boolean firstEntry = false;
+    boolean repeat = false;
     int positionInSpinner;
     int flag = 0;
 
@@ -94,10 +95,11 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         spinnerStores.setOnItemSelectedListener(onItemSelectedListener);
 
         //PONOVI
-        /*if(getArguments() != null){
+        if(getArguments() != null){
             groceryListsModel = (GroceryListsModel)getArguments().getSerializable("repeatGL");
             groceryListProductsModels = groceryListsModel.getProductsModels();
-        }*/
+            repeat = true;
+        }
         return view;
     }
 
@@ -142,6 +144,8 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         }else{
             labelProducts.setVisibility(View.GONE);
         }
+
+
     }
 
 
@@ -154,10 +158,6 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
         createNewGroceryListController.getAllStores();
 
-        //PONOVI
-        /*if(groceryListsModel != null){
-            fillDataonRepeatGL();
-        }*/
     }
 
     @Override
@@ -217,10 +217,10 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 town.setHint("Upišite grad");
 
                 //PONOVI
-                /*if(groceryListsModel != null){
+                if(groceryListsModel != null){
                     address.setText(groceryListsModel.getDelivery_address());
                     town.setText(groceryListsModel.getDelivery_town());
-                }*/
+                }
             }
         }
     };
@@ -236,6 +236,11 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, storeNames);
             spinnerStores.setAdapter(adapter);
+
+            //PONOVI
+            if(repeat && groceryListsModel != null){
+                fillDataonRepeatGL();
+            }
 
         }
 

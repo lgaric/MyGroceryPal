@@ -79,6 +79,7 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
 
         //BUTTON
         againCommitbtn = view.findViewById(R.id.againCommitbtn);
+        againCommitbtn.setOnClickListener(listenerAgainCommitBtn);
 
         setHeaderColor(colorOfHeaderGroceryDetails);
         setButtonText(againCommitbtn);
@@ -131,4 +132,18 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
             groceryListAccepted = false;
         }
     }
+
+    private View.OnClickListener listenerAgainCommitBtn = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            CreateNewGroceryListFragment createNewGroceryListFragment = new CreateNewGroceryListFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("repeatGL", groceryListsModel);
+            createNewGroceryListFragment.setArguments(bundle);
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, createNewGroceryListFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
+    };
 }
