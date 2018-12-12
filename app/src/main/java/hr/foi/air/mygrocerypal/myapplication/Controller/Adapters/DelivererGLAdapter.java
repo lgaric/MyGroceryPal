@@ -42,11 +42,11 @@ public class DelivererGLAdapter extends RecyclerView.Adapter<DelivererGLHolder> 
         }
         else if(type == 1){ //IGNORIRANI -> STAVI SVOJ LAYOUT
             view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.grocerylist_item_created, viewGroup, false);
+                    .inflate(R.layout.gl_item_ignored, viewGroup, false);
         }
         else{ //PRIHVACENI -> STAVI SVOJ LAYOUT
             view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.grocerylist_item_created, viewGroup, false);
+                    .inflate(R.layout.grocerylist_item_created, viewGroup, false);//ovdje još treba layout za prihvaćene
         }
 
         return new DelivererGLHolder(view, type);

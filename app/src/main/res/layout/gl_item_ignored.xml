@@ -58,7 +58,7 @@
             tools:text="Commision: 25kn"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
         <TextView
-            android:id="@+id/delivery_address"
+            android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"

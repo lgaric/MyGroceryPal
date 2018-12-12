@@ -52,8 +52,8 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
                 case R.id.ignore_gl:
                     groceryListOperationListener.buttonPressedOnGroceryList(groceryListsModel, GroceryListOperation.IGNORE);
                     break;
-
-                    //CASE ZA VRATI
+                case R.id.btnRestoreIgnored: //CASE ZA VRATI
+                    groceryListOperationListener.buttonPressedOnGroceryList(groceryListsModel, GroceryListOperation.RETURN);
             }
         }
     };
@@ -85,8 +85,8 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
                 break;
             case 1:
                 //VRATI IGNORIRAI GL
-                //PRONADI SVOJ GUMB
-                //DODAJ MU CLICKLISTENER
+                returnGL = itemView.findViewById(R.id.btnRestoreIgnored);//PRONADI SVOJ GUMB
+                returnGL.setOnClickListener(buttonClickListener);//DODAJ MU CLICKLISTENER
                 break;
         }
     }
