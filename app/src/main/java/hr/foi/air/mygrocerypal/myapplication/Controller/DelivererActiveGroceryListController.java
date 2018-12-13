@@ -19,11 +19,13 @@ import java.util.List;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListListener;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListStatusListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
+import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListOperation;
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 
 public class DelivererActiveGroceryListController {
     static final String GROCERYLISTNODE  = "grocerylists";
+    static final String USERIGNOREDLISTNODE  = "userignoredlists";
     static final String GROCERYLISTSTATUS = "status";
 
     GroceryListListener groceryListListener;
@@ -92,7 +94,7 @@ public class DelivererActiveGroceryListController {
     }
 
 
-    public void checkGroceryListStatus(final String groceryListID) {
+    public void checkGroceryListStatus(final String groceryListID, final GroceryListOperation operation) {
 
         if(firebaseDatabase == null)
             firebaseDatabase = FirebaseDatabase.getInstance();
@@ -103,11 +105,11 @@ public class DelivererActiveGroceryListController {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                groceryListStatusListener.groceryListStatusReceived(groceryListID, dataSnapshot.getValue().toString());
+                groceryListStatusListener.groceryListStatusReceived(groceryListID, dataSnapshot.getValue().toString(), operation);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                groceryListStatusListener.groceryListStatusReceived(groceryListID, "");
+                groceryListStatusListener.groceryListStatusReceived(groceryListID, "", operation);
             }
         });
 
@@ -157,6 +159,26 @@ public class DelivererActiveGroceryListController {
             return true;
         else
             return false;
+    }
+
+    public String ignoreGroceryList(String groceryListID) {
+        if(firebaseDatabase == null)
+            firebaseDatabase = FirebaseDatabase.getInstance();
+
+        String message = "";
+        try{
+            DatabaseReference ref = firebaseDatabase.getReference()
+                    .child(USERIGNOREDLISTNODE)
+                    .child(CurrentUser.currentUser.getUserUID())
+                    .child(groceryListID);
+            ref.setValue(true);
+            message = "Lista ignorirana!";
+            return message;
+        }catch(Exception e) {
+            Log.e(getClass().toString(), e.getMessage());
+            message = "Greška prilikom ignoriranja narudžbe";
+            return message;
+        }
     }
 
 

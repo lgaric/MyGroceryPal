@@ -36,7 +36,7 @@
             android:layout_marginStart="5dp"
             android:textIsSelectable="false"
             tools:text="Store name string"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         <TextView
             android:id="@+id/price"
@@ -46,7 +46,7 @@
             android:layout_marginStart="5dp"
             android:textIsSelectable="false"
             tools:text="Price: 500kn"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
         <TextView
             android:id="@+id/commision"
@@ -56,7 +56,7 @@
             android:layout_marginStart="5dp"
             android:textIsSelectable="false"
             tools:text="Commision: 25kn"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
         <TextView
             android:id="@+id/address"
             android:layout_width="wrap_content"
@@ -64,8 +64,8 @@
             android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"
             android:textIsSelectable="false"
-            tools:text="Delivery address"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            tools:text="Delivery address: Ulica 23"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
         <TextView
             android:id="@+id/delivery_town"
             android:layout_width="wrap_content"
@@ -73,8 +73,8 @@
             android:layout_marginTop="5dp"
             android:layout_marginStart="5dp"
             android:textIsSelectable="false"
-            tools:text="Delivery town"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            tools:text="Delivery town: Bjelovar"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
 
     </LinearLayout>
