@@ -110,19 +110,20 @@ import hr.foi.air.mygrocerypal.myapplication.R;
             delivererIgnoredGroceryListController.loadAllIgnoredGroceryLists();
     }
 
-        @Override
-        public void groceryListStatusReceived(String groceryListID, String groceryListStatus, GroceryListOperation operation) {
-            String message = "";
-            if(groceryListStatus.equals("")) {
-                Toast.makeText(getActivity(), "Pogreška prilikom dohvata Grocery List ID-a", Toast.LENGTH_SHORT).show();
-                return;
-            }else if(!GroceryListStatus.valueOf(groceryListStatus).equals(GroceryListStatus.CREATED)){
-                Toast.makeText(getActivity(), "Kupovna lista je već prihvaćena", Toast.LENGTH_SHORT).show();
-                CurrentUser.currentUser.getIgnoredLists().remove(groceryListID);
-            }else if(operation == GroceryListOperation.RETURN)
-                message = delivererIgnoredGroceryListController.returnGroceryListFromIgnored(groceryListID);
-            else
-                message = "Došlo je do greške!";
+    @Override
+    public void groceryListStatusReceived(String groceryListID, String groceryListStatus, GroceryListOperation operation) {
+        String message = "";
+        if(groceryListStatus.equals("")) {
+            Toast.makeText(getActivity(), "Pogreška prilikom dohvata Grocery List ID-a", Toast.LENGTH_SHORT).show();
+            return;
+        }else if(!GroceryListStatus.valueOf(groceryListStatus).equals(GroceryListStatus.CREATED)){
+            Toast.makeText(getActivity(), "Kupovna lista je već prihvaćena", Toast.LENGTH_SHORT).show();
+            CurrentUser.currentUser.getIgnoredLists().remove(groceryListID);
+            return;
+        }else if(operation == GroceryListOperation.RETURN)
+            message = delivererIgnoredGroceryListController.returnGroceryListFromIgnored(groceryListID);
+        else
+            message = "Došlo je do greške!";
 
             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             refreshRecyclerView();
