@@ -126,6 +126,8 @@ public class RegistrationController {
                 validateRetypedPassword(passwordTxt, retypedPasswordTxt)) {
 
             registerUser(firstNameTxt, lastNameTxt, userNameTxt, passwordTxt, emailTxt, addressTxt, townTxt, contactTxt, dateOfBirthTxt);
+        }else{
+            listener.onRegistrationFail("Sva polja su obavezna!");
         }
-        }
-        }
+    }
+}

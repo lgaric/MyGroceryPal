@@ -1,6 +1,5 @@
 package hr.foi.air.mygrocerypal.myapplication.View;
 
-import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -60,10 +59,9 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
 
 
 
-    private ProgressBar progressBar;
     private TextView dateOfBirthTxt, txtCities;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    private EditText emailTxt, passwordTxt, userNameTxt, firstNameTxt, lastNameTxt, adressTxt, townTxt, contactTxt, retypedPasswordTxt;
+    private EditText emailTxt, passwordTxt, userNameTxt, firstNameTxt, lastNameTxt, adressTxt, contactTxt, retypedPasswordTxt;
     private Button registerBtn, backToLoginBtn;
 
     private RegistrationController controller;
@@ -78,7 +76,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
 
         controller = new RegistrationController(this);
 
-//        progressBar = findViewById(R.id.progressBar);
         firstNameTxt = (EditText) findViewById(R.id.firstnameRegistration);
         lastNameTxt = (EditText) findViewById(R.id.lastnameRegistration);
         userNameTxt = (EditText) findViewById(R.id.usernameRegistration);
@@ -86,7 +83,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
         retypedPasswordTxt = (EditText) findViewById(R.id.repeatPasswordRegistration);
         emailTxt = (EditText) findViewById(R.id.emailRegistration);
         adressTxt = (EditText) findViewById(R.id.addressRegistration);
-//        townTxt = (EditText) findViewById(R.id.txtCity);
         dateOfBirthTxt = (TextView) findViewById(R.id.dateOfBirthRegistration);
         contactTxt = (EditText) findViewById(R.id.contactRegistration);
 
@@ -186,12 +182,11 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
                 controller.validateInputAndRegisterUserIfInputCorrect(
                         firstNameTxt.getText().toString().trim(), lastNameTxt.getText().toString().trim(),
                         userNameTxt.getText().toString().trim(), passwordTxt.getText().toString().trim(),
                         retypedPasswordTxt.getText().toString().trim(), emailTxt.getText().toString().trim(),
-                        adressTxt.getText().toString().trim(), townTxt.getText().toString().trim(),
+                        adressTxt.getText().toString().trim(), txtCities.getText().toString().trim(),
                         contactTxt.getText().toString().trim(), dateOfBirthTxt.getText().toString().trim());
                 }
         });
@@ -206,14 +201,12 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
 
     @Override
     public void onRegistrationSuccess(String message) {
-        progressBar.setVisibility(View.GONE);
         ShowActivity(LoginActivity.class);
         showToastRegistration(message);
     }
 
     @Override
     public void onRegistrationFail(String message) {
-        progressBar.setVisibility(View.GONE);
         showToastRegistration(message);
 
     }

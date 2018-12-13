@@ -135,7 +135,7 @@ public class DelivererIgnoredGroceryListController {
                     .child(grocerylist_key)
                     .removeValue();
             CurrentUser.currentUser.getIgnoredLists().remove(grocerylist_key);
-            message = "Lista ignorirana!";
+            message = "Lista vraćena!";
             return message;
         }catch (Exception e){
             Log.e(getClass().toString(), e.getMessage());

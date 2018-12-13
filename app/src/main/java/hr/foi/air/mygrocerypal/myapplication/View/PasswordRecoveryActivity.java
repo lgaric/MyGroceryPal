@@ -15,7 +15,6 @@ import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class PasswordRecoveryActivity extends BaseActivity implements PasswordRecoveryListener {
-    private ProgressBar progressBar;
     private EditText userEmail;
     private Button buttonRecoveryPassword, showLogin;
     FirebaseAuth firebaseAuth;
@@ -31,7 +30,6 @@ public class PasswordRecoveryActivity extends BaseActivity implements PasswordRe
 
         buttonRecoveryPassword = findViewById(R.id.buttonRecoveryPassword);
         showLogin = findViewById(R.id.buttonShowLogin);
-//        progressBar = findViewById(R.id.progressBar);
 
         userEmail =(EditText) findViewById(R.id.emailRecoveryPassword);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -39,7 +37,6 @@ public class PasswordRecoveryActivity extends BaseActivity implements PasswordRe
         buttonRecoveryPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
                 passwordRecoveryController.sendRecoveryMail(userEmail.getText().toString());
             }
         });
@@ -63,7 +60,6 @@ public class PasswordRecoveryActivity extends BaseActivity implements PasswordRe
     @Override
     public void onRecoveryFail(String message) {
         Toast.makeText(PasswordRecoveryActivity.this, message, Toast.LENGTH_LONG).show();
-        progressBar.setVisibility(View.GONE);
 
     }
 
