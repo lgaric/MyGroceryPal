@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +23,7 @@ import java.util.Calendar;
 import hr.foi.air.mygrocerypal.myapplication.Controller.RegistrationController;
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.RegistrationListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
+import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
 import in.galaxyofandroid.spinerdialog.SpinnerDialog;
@@ -182,12 +182,8 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                controller.validateInputAndRegisterUserIfInputCorrect(
-                        firstNameTxt.getText().toString().trim(), lastNameTxt.getText().toString().trim(),
-                        userNameTxt.getText().toString().trim(), passwordTxt.getText().toString().trim(),
-                        retypedPasswordTxt.getText().toString().trim(), emailTxt.getText().toString().trim(),
-                        adressTxt.getText().toString().trim(), txtCities.getText().toString().trim(),
-                        contactTxt.getText().toString().trim(), dateOfBirthTxt.getText().toString().trim());
+
+                controller.registerUser(createUser(), retypedPasswordTxt.getText().toString().trim());
                 }
         });
 
@@ -213,5 +209,19 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
 
     public void showToastRegistration(String message){
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    private UserModel createUser(){
+        UserModel newUser = new UserModel();
+        newUser.setFirst_name(firstNameTxt.getText().toString().trim());
+        newUser.setLast_name(lastNameTxt.getText().toString().trim());
+        newUser.setUsername(userNameTxt.getText().toString().trim());
+        newUser.setPassword(passwordTxt.getText().toString().trim());
+        newUser.setEmail(emailTxt.getText().toString().trim());
+        newUser.setAddress(adressTxt.getText().toString().trim());
+        newUser.setTown(txtCities.getText().toString().trim());
+        newUser.setPhone_number(contactTxt.getText().toString().trim());
+        newUser.setBirth_date(dateOfBirthTxt.getText().toString().trim());
+        return newUser;
     }
 }

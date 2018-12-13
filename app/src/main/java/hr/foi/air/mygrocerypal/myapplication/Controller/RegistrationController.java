@@ -1,11 +1,8 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
 import android.content.Context;
-import android.location.Location;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.util.Patterns;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,7 +18,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.regex.Pattern;
 
 import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.RegistrationListener;
-import hr.foi.air.mygrocerypal.LocationListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
 public class RegistrationController {
@@ -35,20 +31,11 @@ public class RegistrationController {
         listener = (RegistrationListener) context;
     }
 
-    public void registerUser(String firstNameTxt, String lastNameTxt, String userNameTxt, String passwordTxt,
-                             String emailTxt, String addressTxt, String townTxt, String contactTxt, String dateOfBirthTxt){
-        final String firstName = firstNameTxt;
-        final String lastName = lastNameTxt;
-        final String username = userNameTxt;
-        final String pass = passwordTxt;
-        final String email = emailTxt;
-        final String address = addressTxt;
-        final String town = townTxt;
-        final String contact = contactTxt;
-        final String dateOfBirth = dateOfBirthTxt;
-        final Double longitude = 20.0;
-        final Double latitude = 20.0;
-        final Double range = 20.0;
+    public void registration(UserModel newUser){
+        final UserModel user = newUser;
+        user.setLatitude(20.0);
+        user.setLongitude(20.0);
+        user.setRange(20.0);
 
         if(mAuth == null)
             mAuth = FirebaseAuth.getInstance();
@@ -56,7 +43,7 @@ public class RegistrationController {
         if(mDatabase == null)
             mDatabase = FirebaseDatabase.getInstance();
 
-        Query query = mDatabase.getReference().child("users").orderByChild("username").equalTo(userNameTxt);
+        Query query = mDatabase.getReference().child("users").orderByChild("username").equalTo(user.getUsername());
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -65,14 +52,12 @@ public class RegistrationController {
                     listener.showToastRegistration("Korisničko ime je već u upotrebi!");
                 }
                 else{
-                    mAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
                                 final String uId = mAuth.getCurrentUser().getUid();
-                                final UserModel newUser = new UserModel(firstName, lastName, username, email, pass, town, address, contact, dateOfBirth,
-                                        longitude, latitude, range);
-                                mDatabase.getReference().child("users").child(uId).setValue(newUser);
+                                mDatabase.getReference().child("users").child(uId).setValue(user);
                                 mAuth.getCurrentUser().sendEmailVerification();
                                 mAuth.signOut();
                                 listener.onRegistrationSuccess("Registracija uspješna. Molimo potvrdite email!");
@@ -118,16 +103,22 @@ public class RegistrationController {
         }else return true;
     }
 
-    public void validateInputAndRegisterUserIfInputCorrect(String firstNameTxt, String lastNameTxt, String userNameTxt, String passwordTxt, String retypedPasswordTxt,
-                                                           String emailTxt, String addressTxt, String townTxt, String contactTxt, String dateOfBirthTxt) {
-        if (firstNameTxt.length() > 0 && lastNameTxt.length() > 0 && userNameTxt.length() > 0 &&
-                townTxt.length() > 0 && addressTxt.length() > 0 && contactTxt.length() > 0 &&
-                dateOfBirthTxt.length() > 0 && validateEmail(emailTxt) && validatePassword(passwordTxt) &&
-                validateRetypedPassword(passwordTxt, retypedPasswordTxt)) {
-
-            registerUser(firstNameTxt, lastNameTxt, userNameTxt, passwordTxt, emailTxt, addressTxt, townTxt, contactTxt, dateOfBirthTxt);
-        }else{
+    public void registerUser(UserModel newUser, String retypedPassword) {
+        if (InputCorrect(newUser, retypedPassword))
+            registration(newUser);
+        else
             listener.onRegistrationFail("Sva polja su obavezna!");
-        }
+
+    }
+
+    private boolean InputCorrect(UserModel newUser, String retypedPassword){
+        if(newUser.getFirst_name().length() > 0 && newUser.getLast_name().length() > 0 &&
+                newUser.getUsername().length() > 0 && newUser.getTown().length() > 0 &&
+                newUser.getAddress().length() > 0 && newUser.getPhone_number().length() > 0 &&
+                newUser.getBirth_date().length() > 0 && validateEmail(newUser.getEmail())
+                && validatePassword(newUser.getPassword()) && validateRetypedPassword(newUser.getPassword(), retypedPassword))
+            return true;
+        else
+            return false;
     }
 }
