@@ -172,6 +172,7 @@ public class DelivererActiveGroceryListController {
                     .child(CurrentUser.currentUser.getUserUID())
                     .child(groceryListID);
             ref.setValue(true);
+            CurrentUser.currentUser.getIgnoredLists().add(groceryListID);
             message = "Lista ignorirana!";
             return message;
         }catch(Exception e) {
