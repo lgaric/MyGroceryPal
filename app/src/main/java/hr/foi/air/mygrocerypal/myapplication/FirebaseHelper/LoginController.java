@@ -2,6 +2,7 @@ package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +26,7 @@ public class LoginController extends FirebaseBaseHelper{
     private LoginListener listener;
 
     public  LoginController(Context context){
+        this.context = context;
         listener = (LoginListener)context;
     }
 
@@ -34,25 +36,25 @@ public class LoginController extends FirebaseBaseHelper{
             return;
         }
 
-        mAuth.signInWithEmailAndPassword(username, password)
-            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful())
-                    {
-                        if(mAuth.getCurrentUser().isEmailVerified()) {
-                            getUserInformation(mAuth.getCurrentUser().getUid());
+        if(isNetworkAvailable()) {
+            mAuth.signInWithEmailAndPassword(username, password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                if (mAuth.getCurrentUser().isEmailVerified()) {
+                                    getUserInformation(mAuth.getCurrentUser().getUid());
+                                } else
+                                    listener.onStatusFailed("Email nije verificiran");
+                            } else {
+                                String errorMessage = checkErrorCode(((FirebaseAuthException) task.getException()).getErrorCode());
+                                listener.onStatusFailed(errorMessage);
+                            }
                         }
-                        else
-                            listener.onStatusFailed("Email nije verificiran");
-                    }
-                    else{
-                        String errorMessage = checkErrorCode(((FirebaseAuthException) task.getException()).getErrorCode());
-                        listener.onStatusFailed(errorMessage);
-                    }
-                }
-            });
-
+                    });
+        }
+        else
+            showInternetMessageWarning();
     }
 
     private String checkErrorCode(String error){

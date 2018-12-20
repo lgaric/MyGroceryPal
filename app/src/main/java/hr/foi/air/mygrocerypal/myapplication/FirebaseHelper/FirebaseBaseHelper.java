@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Patterns;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -35,11 +36,17 @@ public class FirebaseBaseHelper {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    private Boolean isNetworkAvailable() {
+    protected Boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+    protected void showInternetMessageWarning(){
+        if(context != null){
+            Toast.makeText(context, "Potrebna je internet veza!", Toast.LENGTH_LONG).show();
+        }
     }
 
 }
