@@ -2,7 +2,6 @@ package hr.foi.air.mygrocerypal.myapplication.Model;
 
 public class StoresModel {
     private String name;
-
     private String store_id;
 
     public String getName() {

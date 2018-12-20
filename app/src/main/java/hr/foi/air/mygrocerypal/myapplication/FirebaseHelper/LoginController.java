@@ -28,7 +28,7 @@ public class LoginController extends FirebaseBaseHelper{
         listener = (LoginListener)context;
     }
 
-    public void Login(String username, String password){
+    public void login(String username, String password){
         if(username.isEmpty() || password.isEmpty()) {
             listener.onStatusFailed("Ispunite odgovarajuća polja!");
             return;

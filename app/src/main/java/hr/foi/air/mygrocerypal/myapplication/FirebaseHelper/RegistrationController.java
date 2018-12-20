@@ -98,10 +98,11 @@ public class RegistrationController extends FirebaseBaseHelper{
         if(newUser.getFirst_name().length() > 0 && newUser.getLast_name().length() > 0 &&
                 newUser.getUsername().length() > 0 && newUser.getTown().length() > 0 &&
                 newUser.getAddress().length() > 0 && newUser.getPhone_number().length() > 0 &&
-                newUser.getBirth_date().length() > 0 && validateEmail(newUser.getEmail())
-                && validatePassword(newUser.getPassword()) && validateRetypedPassword(newUser.getPassword(), retypedPassword))
+                newUser.getBirth_date().length() > 0 && ValidateInputs.validateEmail(newUser.getEmail())
+                && ValidateInputs.validatePassword(newUser.getPassword()) && ValidateInputs.validateRetypedPassword(newUser.getPassword(), retypedPassword))
             return true;
         else
             return false;
     }
+
 }

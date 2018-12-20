@@ -2,16 +2,16 @@ package hr.foi.air.mygrocerypal.myapplication.Controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.LoginController;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.LoginListener;
-import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
-public class LoginActivity extends BaseActivity implements LoginListener {
+public class LoginActivity extends AppCompatActivity implements LoginListener {
     private EditText username, password;
     private LoginController loginController;
 
@@ -20,22 +20,22 @@ public class LoginActivity extends BaseActivity implements LoginListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        username = (EditText) findViewById(R.id.usernameLogin);
-        password = (EditText) findViewById(R.id.passwordLogin);
+        username = findViewById(R.id.usernameLogin);
+        password = findViewById(R.id.passwordLogin);
 
         loginController = new LoginController(this);
     }
 
-    public void Login(View view){
-        loginController.Login(username.getText().toString(), password.getText().toString());
+    public void login(View view){
+        loginController.login(username.getText().toString(), password.getText().toString());
     }
 
-    public void ShowRegister(View view) {
-        ShowActivity(RegistrationActivity.class);
+    public void showRegister(View view) {
+        startActivity(new Intent(this, RegistrationActivity.class));
     }
 
-    public void ShowRecoveryPassword(View view) {
-        ShowActivity(PasswordRecoveryActivity.class);
+    public void showRecoveryPassword(View view) {
+        startActivity(new Intent(this,PasswordRecoveryActivity.class));
     }
 
     @Override
@@ -48,6 +48,4 @@ public class LoginActivity extends BaseActivity implements LoginListener {
         startActivity(new Intent(this, MainActivity.class));
         this.finish();
     }
-
-
 }

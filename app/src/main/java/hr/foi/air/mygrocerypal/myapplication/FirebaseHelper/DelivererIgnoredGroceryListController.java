@@ -5,15 +5,9 @@ import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListListener;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListStatusListener;
@@ -37,7 +31,7 @@ public class DelivererIgnoredGroceryListController extends FirebaseBaseHelper{
     public void loadAllIgnoredGroceryLists(){
         CurrentUser.currentUser.getIgnoredLists();
         mQuery = mDatabase.getReference().child(GROCERYLISTSNODE)
-                .orderByChild(GROCERYLISTSTATUS).equalTo(GroceryListStatus.CREATED.toString());
+                .orderByChild(GROCERYLISTSTATUSNODE).equalTo(GroceryListStatus.CREATED.toString());
         mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -73,7 +67,7 @@ public class DelivererIgnoredGroceryListController extends FirebaseBaseHelper{
 
     public void checkGroceryListStatus(final String groceryListID, final GroceryListOperation operation) {
         mQuery = mDatabase.getReference().child(GROCERYLISTSNODE)
-                .child(groceryListID).child(GROCERYLISTSTATUS);
+                .child(groceryListID).child(GROCERYLISTSTATUSNODE);
 
         mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

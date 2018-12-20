@@ -1,6 +1,8 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,10 +12,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.PasswordRecoveryController;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.PasswordRecoveryListener;
-import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
-public class PasswordRecoveryActivity extends BaseActivity implements PasswordRecoveryListener {
+public class PasswordRecoveryActivity extends AppCompatActivity implements PasswordRecoveryListener {
     private EditText userEmail;
     private Button buttonRecoveryPassword, showLogin;
     FirebaseAuth firebaseAuth;
@@ -43,17 +44,20 @@ public class PasswordRecoveryActivity extends BaseActivity implements PasswordRe
         showLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowActivity(LoginActivity.class);
+                showLogin();
             }
         });
 
     }
 
+    public void showLogin(){
+        startActivity(new Intent(this,LoginActivity.class));
+    }
 
     @Override
     public void onRecoverySuccess(String message) {
         Toast.makeText(PasswordRecoveryActivity.this, message, Toast.LENGTH_LONG).show();
-        ShowActivity(LoginActivity.class);
+        showLogin();
     }
 
     @Override
@@ -61,31 +65,4 @@ public class PasswordRecoveryActivity extends BaseActivity implements PasswordRe
         Toast.makeText(PasswordRecoveryActivity.this, message, Toast.LENGTH_LONG).show();
 
     }
-
-
-/*
-    @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.buttonRecoveryPassword:
-                firebaseAuth.sendPasswordResetEmail(userEmail.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    Toast.makeText(PasswordRecoveryController.this, "Link za promjenu lozinke je poslan. Provjerite email!", Toast.LENGTH_LONG).show();
-                                    ShowActivity(LoginActivity.class);
-                                }
-                                else{
-                                    Toast.makeText(PasswordRecoveryController.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
-
-                break;
-            case R.id.buttonShowLogin:
-                ShowActivity(LoginActivity.class);
-                break;
-        }
-    }*/
 }

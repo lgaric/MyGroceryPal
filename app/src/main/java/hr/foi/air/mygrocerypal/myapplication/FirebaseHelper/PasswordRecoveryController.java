@@ -20,7 +20,7 @@ public class PasswordRecoveryController extends FirebaseBaseHelper{
      * @param email
      */
     public void sendRecoveryMail(String email){
-        if(validateEmail(email)){
+        if(ValidateInputs.validateEmail(email)){
             mAuth.sendPasswordResetEmail(email)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -36,7 +36,5 @@ public class PasswordRecoveryController extends FirebaseBaseHelper{
         }else{
             listener.onRecoveryFail("Unesite ispravnu email adresu!");
         }
-
     }
-
 }

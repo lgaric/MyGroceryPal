@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
-import hr.foi.air.mygrocerypal.myapplication.Core.LocationCoordinates;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener {
@@ -145,9 +144,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.navigation_settings:
                 mDrawer.closeDrawer(GravityCompat.START);
-                SettingsFragment mSettingsFragment = new SettingsFragment();
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new LocationCoordinates())
+                        .replace(R.id.fragment_container, new SettingsFragment())
                         .addToBackStack(null)
                         .commit();
                 break;

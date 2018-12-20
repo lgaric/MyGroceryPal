@@ -15,7 +15,7 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Adapters.GroceryListAdapter;
+import hr.foi.air.mygrocerypal.myapplication.Core.Adapters.GroceryListAdapter;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.GroceryListController;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.ClickListener;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListListener;

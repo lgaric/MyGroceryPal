@@ -1,8 +1,6 @@
 package hr.foi.air.mygrocerypal.myapplication.Model;
 
 public class ProductsModel {
-
-
     private String product_key;
     private String category_id;
     private String category_name;

@@ -16,12 +16,9 @@ public class FirebaseBaseHelper {
     protected static final String GROCERYLISTSNODE  = "grocerylists";
     protected static final String GROCERYLISTPRODUCTSNODE  = "grocerylistproducts";
     protected static final String USERIGNOREDLISTNODE  = "userignoredlists";
-    protected static final String GROCERYLISTSTATUS = "status";
-    protected static final String USERACCEPTEDID = "user_accepted_id";
+    protected static final String GROCERYLISTSTATUSNODE = "status";
+    protected static final String USERACCEPTEDIDNODE = "user_accepted_id";
     protected static final String USERNODE = "users";
-
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$");
-
 
     //Firebase varijable
     protected FirebaseDatabase mDatabase;
@@ -34,27 +31,6 @@ public class FirebaseBaseHelper {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    public boolean validateEmail(String emailTxt){
-        String email = emailTxt;
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            return false;
-        }else return true;
-    }
-
-    public boolean validatePassword(String passwordTxt){
-        String password = passwordTxt;
-        if (!PASSWORD_PATTERN.matcher(password).matches()){
-            return false;
-        }else return true;
-    }
-
-    public boolean validateRetypedPassword(String passwordTxt, String retypedPasswordTxt){
-        String firstPassword = passwordTxt;
-        String secondPassword = retypedPasswordTxt;
-        if(!firstPassword.equals(secondPassword)){
-            return false;
-        }else return true;
-    }
 
     /*
     private Boolean isNetworkAvailable() {

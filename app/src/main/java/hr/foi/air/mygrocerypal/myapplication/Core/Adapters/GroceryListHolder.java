@@ -1,4 +1,4 @@
-package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Adapters;
+package hr.foi.air.mygrocerypal.myapplication.Core.Adapters;
 
 import android.graphics.Color;
 import android.support.annotation.NonNull;

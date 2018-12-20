@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import hr.foi.air.mygrocerypal.GPSLocation;
 import hr.foi.air.mygrocerypal.LocationListener;
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Adapters.DelivererGLAdapter;
+import hr.foi.air.mygrocerypal.myapplication.Core.Adapters.DelivererGLAdapter;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.DelivererActiveGroceryListController;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListListener;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListOperationListener;

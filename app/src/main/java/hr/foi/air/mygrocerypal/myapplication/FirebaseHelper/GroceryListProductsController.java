@@ -27,7 +27,7 @@ public class GroceryListProductsController extends FirebaseBaseHelper{
      * @param groceryListKey
      */
     public void loadGroceryProductsLists(String groceryListKey) {
-        mQuery = mDatabase.getReference().child(GROCERYLISTSNODE).child(groceryListKey);
+        mQuery = mDatabase.getReference().child(GROCERYLISTPRODUCTSNODE).child(groceryListKey);
 
         mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

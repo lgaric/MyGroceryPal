@@ -1,9 +1,11 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -22,13 +24,13 @@ import java.util.Calendar;
 
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.RegistrationController;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.RegistrationListener;
-import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.ValidateInputs;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
 import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 
-public class RegistrationActivity extends BaseActivity implements RegistrationListener {
+public class RegistrationActivity extends AppCompatActivity implements RegistrationListener {
 
     ArrayList<String> cities = new ArrayList<>();
     SpinnerDialog spinnerDialog;
@@ -72,24 +74,22 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
         setContentView(R.layout.activity_register);
         getSupportActionBar().setTitle(R.string.register);
 
-
-
         controller = new RegistrationController(this);
 
-        firstNameTxt = (EditText) findViewById(R.id.firstnameRegistration);
-        lastNameTxt = (EditText) findViewById(R.id.lastnameRegistration);
-        userNameTxt = (EditText) findViewById(R.id.usernameRegistration);
-        passwordTxt = (EditText) findViewById(R.id.passwordRegistration);
-        retypedPasswordTxt = (EditText) findViewById(R.id.repeatPasswordRegistration);
-        emailTxt = (EditText) findViewById(R.id.emailRegistration);
-        adressTxt = (EditText) findViewById(R.id.addressRegistration);
-        dateOfBirthTxt = (TextView) findViewById(R.id.dateOfBirthRegistration);
-        contactTxt = (EditText) findViewById(R.id.contactRegistration);
+        firstNameTxt = findViewById(R.id.firstnameRegistration);
+        lastNameTxt = findViewById(R.id.lastnameRegistration);
+        userNameTxt = findViewById(R.id.usernameRegistration);
+        passwordTxt = findViewById(R.id.passwordRegistration);
+        retypedPasswordTxt = findViewById(R.id.repeatPasswordRegistration);
+        emailTxt =  findViewById(R.id.emailRegistration);
+        adressTxt = findViewById(R.id.addressRegistration);
+        dateOfBirthTxt = findViewById(R.id.dateOfBirthRegistration);
+        contactTxt = findViewById(R.id.contactRegistration);
 
-        txtCities = (TextView) findViewById(R.id.txtCity);
+        txtCities =  findViewById(R.id.txtCity);
 
-        registerBtn = (Button) findViewById(R.id.buttonRegister);
-        backToLoginBtn = (Button) findViewById(R.id.buttonBackToLogin);
+        registerBtn =  findViewById(R.id.buttonRegister);
+        backToLoginBtn =  findViewById(R.id.buttonBackToLogin);
 
         initCities();
         spinnerDialog = new SpinnerDialog(RegistrationActivity.this, cities, "Odaberite grad", R.style.DialogAnimations_SmileWindow , "Zatvori");
@@ -140,7 +140,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
                     if(emailTxt.getText().toString().trim().length() > 0){
-                        boolean validationSuccess = controller.validateEmail(emailTxt.getText().toString().trim());
+                        boolean validationSuccess = ValidateInputs.validateEmail(emailTxt.getText().toString().trim());
                         if(!validationSuccess) emailTxt.setError("Molimo unesite ispravnu email adresu!");
                     }else {
                         emailTxt.setError("Obavezno polje!");
@@ -154,7 +154,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus) {
                     if (passwordTxt.getText().toString().trim().length() > 0) {
-                        boolean validationSuccess = controller.validatePassword(passwordTxt.getText().toString().trim());
+                        boolean validationSuccess = ValidateInputs.validatePassword(passwordTxt.getText().toString().trim());
                         if (!validationSuccess)
                             passwordTxt.setError("Minimalno 6 slova i jedan specijalni znak!");
                     } else {
@@ -169,7 +169,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
                     if(retypedPasswordTxt.getText().toString().trim().length() > 0){
-                        boolean validationSuccess = controller.validateRetypedPassword(passwordTxt.getText().toString().trim(), retypedPasswordTxt.getText().toString().trim());
+                        boolean validationSuccess = ValidateInputs.validateRetypedPassword(passwordTxt.getText().toString().trim(), retypedPasswordTxt.getText().toString().trim());
                         if(!validationSuccess) retypedPasswordTxt.setError("Lozinke ne odgovaraju!");
                     }else{
                         retypedPasswordTxt.setError("Obavezno polje!");
@@ -190,21 +190,24 @@ public class RegistrationActivity extends BaseActivity implements RegistrationLi
         backToLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowActivity(LoginActivity.class);
+                showLogin();
             }
         });
     }
 
+    public void showLogin(){
+        startActivity(new Intent(this,LoginActivity.class));
+    }
+
     @Override
     public void onRegistrationSuccess(String message) {
-        ShowActivity(LoginActivity.class);
+        showLogin();
         showToastRegistration(message);
     }
 
     @Override
     public void onRegistrationFail(String message) {
         showToastRegistration(message);
-
     }
 
     public void showToastRegistration(String message){

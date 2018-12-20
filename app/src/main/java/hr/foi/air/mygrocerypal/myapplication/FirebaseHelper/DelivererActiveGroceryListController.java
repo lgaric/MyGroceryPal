@@ -5,9 +5,6 @@ import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
@@ -41,7 +38,7 @@ public class DelivererActiveGroceryListController extends FirebaseBaseHelper{
      */
     public void loadAllActiveGroceryLists() {
         mQuery = mDatabase.getReference().child(GROCERYLISTSNODE)
-                .orderByChild(GROCERYLISTSTATUS).equalTo(GroceryListStatus.CREATED.toString());
+                .orderByChild(GROCERYLISTSTATUSNODE).equalTo(GroceryListStatus.CREATED.toString());
 
         mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -78,8 +75,8 @@ public class DelivererActiveGroceryListController extends FirebaseBaseHelper{
 
         try{
             mReference = mDatabase.getReference();
-            mReference.child(GROCERYLISTSNODE).child(groceryListID).child(GROCERYLISTSTATUS).setValue(GroceryListStatus.ACCEPTED);
-            mReference.child(GROCERYLISTSNODE).child(groceryListID).child(USERACCEPTEDID).setValue(CurrentUser.currentUser.getUserUID());
+            mReference.child(GROCERYLISTSNODE).child(groceryListID).child(GROCERYLISTSTATUSNODE).setValue(GroceryListStatus.ACCEPTED);
+            mReference.child(GROCERYLISTSNODE).child(groceryListID).child(USERACCEPTEDIDNODE).setValue(CurrentUser.currentUser.getUserUID());
             return "Prihvaćen odabir";
         }catch(Exception e) {
             Log.e(getClass().toString(), e.getMessage());
@@ -94,7 +91,7 @@ public class DelivererActiveGroceryListController extends FirebaseBaseHelper{
      */
     public void checkGroceryListStatus(final String groceryListID, final GroceryListOperation operation) {
         mQuery = mDatabase.getReference().child(GROCERYLISTSNODE)
-                .child(groceryListID).child(GROCERYLISTSTATUS);
+                .child(groceryListID).child(GROCERYLISTSTATUSNODE);
 
         mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

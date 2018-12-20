@@ -33,7 +33,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Adapters.ProductsListAdapter;
+import hr.foi.air.mygrocerypal.myapplication.Core.Adapters.ProductsListAdapter;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.CreateNewGroceryListController;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.AddGroceryListListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
