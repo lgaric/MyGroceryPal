@@ -54,7 +54,7 @@ import hr.foi.air.mygrocerypal.myapplication.R;
         swipeRefreshLayout.setOnRefreshListener(refreshListener);
 
         if(delivererIgnoredGroceryListController == null){
-            delivererIgnoredGroceryListController = new DelivererIgnoredGroceryListController(this, this);
+            delivererIgnoredGroceryListController = new DelivererIgnoredGroceryListController(getContext(),this, this);
             delivererIgnoredGroceryListController.loadAllIgnoredGroceryLists();
         }
         else

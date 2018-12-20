@@ -22,8 +22,8 @@ public class CreateNewGroceryListController extends FirebaseBaseHelper{
 
     private AddGroceryListListener addGroceryListListener;
 
-    public CreateNewGroceryListController(AddGroceryListListener listener){
-        this.context = (Context) listener;
+    public CreateNewGroceryListController(Context context, AddGroceryListListener listener){
+        this.context = context;
         addGroceryListListener = listener;
     }
 

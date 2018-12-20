@@ -26,8 +26,8 @@ public class DelivererActiveGroceryListController extends FirebaseBaseHelper{
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     Date currentDate = new Date();
 
-    public DelivererActiveGroceryListController(GroceryListStatusListener listListener){
-        this.context = (Context) listListener;
+    public DelivererActiveGroceryListController(Context context, GroceryListStatusListener listListener){
+        this.context = context;
         groceryListStatusListener = listListener;
     }
 

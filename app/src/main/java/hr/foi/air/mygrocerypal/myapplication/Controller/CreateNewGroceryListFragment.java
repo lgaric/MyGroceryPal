@@ -153,7 +153,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         startDate.setText(getDate());
-        createNewGroceryListController = new CreateNewGroceryListController(this);
+        createNewGroceryListController = new CreateNewGroceryListController(getContext(),this);
 
         createNewGroceryListController.getAllStores();
 

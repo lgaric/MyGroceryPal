@@ -21,8 +21,8 @@ public class DelivererIgnoredGroceryListController extends FirebaseBaseHelper{
     GroceryListListener listener;
     GroceryListStatusListener statusListener;
 
-    public DelivererIgnoredGroceryListController(GroceryListListener listListener, GroceryListStatusListener statusListener){
-        this.context = (Context) listListener;
+    public DelivererIgnoredGroceryListController(Context context, GroceryListListener listListener, GroceryListStatusListener statusListener){
+        this.context = context;
         listener = listListener;
         this.statusListener = statusListener;
     }

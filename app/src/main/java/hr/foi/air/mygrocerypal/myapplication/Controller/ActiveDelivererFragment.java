@@ -100,7 +100,7 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
         gpsSwitch.setOnClickListener(clickListener);
 
         if (controller == null) {
-            controller = new DelivererActiveGroceryListController(this);
+            controller = new DelivererActiveGroceryListController(getContext(), this);
             controller.loadAllActiveGroceryLists();
         }
         else
