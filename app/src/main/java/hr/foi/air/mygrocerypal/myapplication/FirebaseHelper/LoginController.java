@@ -79,46 +79,54 @@ public class LoginController extends FirebaseBaseHelper{
     }
 
     private void getUserInformation(String userUID){
-        mReference = mDatabase.getReference().child(USERNODE).child(userUID);
+        if(isNetworkAvailable()) {
+            mReference = mDatabase.getReference().child(USERNODE).child(userUID);
 
-        mReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserModel temp = dataSnapshot.getValue(UserModel.class);
-                if(temp == null)
-                    listener.onStatusFailed(checkErrorCode(null));
-                else {
-                    CurrentUser.currentUser = temp;
-                    CurrentUser.currentUser.setUserUID(dataSnapshot.getKey());
-                    getUserIgnoredLists(dataSnapshot.getKey());
+            mReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    UserModel temp = dataSnapshot.getValue(UserModel.class);
+                    if (temp == null)
+                        listener.onStatusFailed(checkErrorCode(null));
+                    else {
+                        CurrentUser.currentUser = temp;
+                        CurrentUser.currentUser.setUserUID(dataSnapshot.getKey());
+                        getUserIgnoredLists(dataSnapshot.getKey());
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
+        else
+            showInternetMessageWarning();
     }
 
     private void getUserIgnoredLists(String userUID) {
-        mReference = mDatabase.getReference().child(USERIGNOREDLISTNODE).child(userUID);
+        if(isNetworkAvailable()) {
+            mReference = mDatabase.getReference().child(USERIGNOREDLISTNODE).child(userUID);
 
-        mReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<String> ingoredLists = new ArrayList<>();
-                for (DataSnapshot temp : dataSnapshot.getChildren())
-                    ingoredLists.add(temp.getKey());
+            mReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    List<String> ingoredLists = new ArrayList<>();
+                    for (DataSnapshot temp : dataSnapshot.getChildren())
+                        ingoredLists.add(temp.getKey());
 
-                CurrentUser.currentUser.setIgnoredLists(ingoredLists);
-                listener.onStatusSuccess();
-            }
+                    CurrentUser.currentUser.setIgnoredLists(ingoredLists);
+                    listener.onStatusSuccess();
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
+        else
+            showInternetMessageWarning();
     }
 }

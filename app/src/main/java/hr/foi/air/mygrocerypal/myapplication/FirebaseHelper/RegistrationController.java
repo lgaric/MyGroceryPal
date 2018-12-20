@@ -24,6 +24,7 @@ public class RegistrationController extends FirebaseBaseHelper{
     private RegistrationListener listener;
 
     public RegistrationController(RegistrationListener listener) {
+        this.context = (Context)listener;
         this.listener = listener;
     }
 
@@ -37,42 +38,43 @@ public class RegistrationController extends FirebaseBaseHelper{
         user.setLongitude(20.0);
         user.setRange(20.0);
 
-        mQuery = mDatabase.getReference().child("users").orderByChild("username").equalTo(user.getUsername());
-        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //username exists
-                if(dataSnapshot.getChildrenCount() > 0) {
-                    listener.showToastRegistration("Korisničko ime je već u upotrebi!");
+        if(isNetworkAvailable()) {
+            mQuery = mDatabase.getReference().child("users").orderByChild("username").equalTo(user.getUsername());
+            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    //username exists
+                    if (dataSnapshot.getChildrenCount() > 0) {
+                        listener.showToastRegistration("Korisničko ime je već u upotrebi!");
+                    } else {
+                        mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    final String uId = mAuth.getCurrentUser().getUid();
+                                    mDatabase.getReference().child("users").child(uId).setValue(user);
+                                    mAuth.getCurrentUser().sendEmailVerification();
+                                    mAuth.signOut();
+                                    listener.onRegistrationSuccess("Registracija uspješna. Molimo potvrdite email!");
+                                } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
+                                    listener.onRegistrationFail("Već postoji račun s navedenom email adresom!");
+                                } else {
+                                    listener.onRegistrationFail("Greška prilikom registracije!");
+                                }
+                            }
+                        });
+                    }
+
                 }
-                else{
-                    mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-                                final String uId = mAuth.getCurrentUser().getUid();
-                                mDatabase.getReference().child("users").child(uId).setValue(user);
-                                mAuth.getCurrentUser().sendEmailVerification();
-                                mAuth.signOut();
-                                listener.onRegistrationSuccess("Registracija uspješna. Molimo potvrdite email!");
-                            }
-                            else if(task.getException() instanceof FirebaseAuthUserCollisionException){
-                                listener.onRegistrationFail("Već postoji račun s navedenom email adresom!");
-                            }
-                            else{
-                                listener.onRegistrationFail("Greška prilikom registracije!");
-                            }
-                        }
-                    });
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
                 }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+            });
+        }
+        else
+            showInternetMessageWarning();
     }
 
     /**
@@ -85,7 +87,6 @@ public class RegistrationController extends FirebaseBaseHelper{
             registration(newUser);
         else
             listener.onRegistrationFail("Molimo pravilno ispunite sve podatke!");
-
     }
 
     /**
