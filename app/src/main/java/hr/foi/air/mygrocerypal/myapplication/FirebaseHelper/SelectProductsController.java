@@ -1,5 +1,6 @@
 package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
@@ -18,6 +19,7 @@ public class SelectProductsController extends FirebaseBaseHelper{
     private SelectProductsListener listener;
 
     public SelectProductsController(SelectProductsListener listener){
+        this.context = (Context)listener;
         this.listener = listener;
     }
 
@@ -29,27 +31,31 @@ public class SelectProductsController extends FirebaseBaseHelper{
         if (storeName == null)
             return;
 
-        mQuery = mDatabase.getReference().child(PRODUCTSNODE).orderByChild("store_name").equalTo(storeName);
+        if(isNetworkAvailable()) {
+            mQuery = mDatabase.getReference().child(PRODUCTSNODE).orderByChild("store_name").equalTo(storeName);
 
-        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<ProductsModel> productsList = new ArrayList<>();
+            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    ArrayList<ProductsModel> productsList = new ArrayList<>();
 
-                for (DataSnapshot temp : dataSnapshot.getChildren()) {
-                    ProductsModel product = temp.getValue(ProductsModel.class);
-                    product.setProduct_key(temp.getKey());
-                    productsList.add(product);
+                    for (DataSnapshot temp : dataSnapshot.getChildren()) {
+                        ProductsModel product = temp.getValue(ProductsModel.class);
+                        product.setProduct_key(temp.getKey());
+                        productsList.add(product);
+                    }
+
+                    listener.productsListReceived(productsList);
                 }
 
-                listener.productsListReceived(productsList);
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+                }
+            });
+        }
+        else
+            showInternetMessageWarning();
     }
 
 }

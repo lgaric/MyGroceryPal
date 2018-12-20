@@ -14,6 +14,7 @@ public class GroceryListUserController extends FirebaseBaseHelper{
     private GroceryListUserListener groceryListUserListener;
 
     public GroceryListUserController(Fragment fragment, String userKey) {
+        this.context = fragment.getContext();
         groceryListUserListener = (GroceryListUserListener) fragment;
         if(userKey.equals("-")){
             groceryListUserListener.groceryListUserReceived(null);
@@ -23,19 +24,23 @@ public class GroceryListUserController extends FirebaseBaseHelper{
     }
 
     public void getUserInformationGroceryList(String userKey) {
-        mQuery = mDatabase.getReference().child(USERNODE).child(userKey);
+        if(isNetworkAvailable()) {
+            mQuery = mDatabase.getReference().child(USERNODE).child(userKey);
 
-        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                UserModel model = dataSnapshot.getValue(UserModel.class);
-                groceryListUserListener.groceryListUserReceived(model);
-            }
+            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    UserModel model = dataSnapshot.getValue(UserModel.class);
+                    groceryListUserListener.groceryListUserReceived(model);
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
+        else
+            showInternetMessageWarning();
     }
 }
