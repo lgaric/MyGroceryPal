@@ -18,6 +18,7 @@ public class FirebaseBaseHelper {
     protected static final String USERIGNOREDLISTNODE  = "userignoredlists";
     protected static final String GROCERYLISTSTATUS = "status";
     protected static final String USERACCEPTEDID = "user_accepted_id";
+    protected static final String USERNODE = "users";
 
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$");
 

@@ -16,42 +16,32 @@ import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryLis
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 
-//SVE DODANO
-public class GroceryListController {
-
-    //PRETRAŽIVANJE
-    private static final String GROCERYLISTNODE  = "grocerylists";
-    private static final String STATUSATTRIBUTE = "status";
-
+public class GroceryListController extends FirebaseBaseHelper{
     private GroceryListListener groceryListListener;
-    private FirebaseDatabase firebaseDatabase;
-    GroceryListController groceryListController;
 
     public GroceryListController(Fragment fragment){
         groceryListListener = (GroceryListListener)fragment;
     }
 
-    //OVU METODA SE MOŽE KORISTITI I ZA AKTIVNE GROCERYLISTE
+    /**
+     * Dohvati sve GL-ove
+     * @param status
+     */
     public void loadGroceryLists(final GroceryListStatus status) {
         if (status == null)
             return;
 
-        if(firebaseDatabase == null)
-            firebaseDatabase = FirebaseDatabase.getInstance();
+        mQuery = mDatabase.getReference().child(GROCERYLISTSNODE);
 
-        Query query = firebaseDatabase.getReference().child(GROCERYLISTNODE);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<GroceryListsModel> groceryList = new ArrayList<>();
-
                 for (DataSnapshot temp : dataSnapshot.getChildren()) {
                     GroceryListsModel model = temp.getValue(GroceryListsModel.class);
                     model.setGrocerylist_key(temp.getKey());
                     groceryList.add(model);
                 }
-                Log.d("TEST", Integer.toString(groceryList.size()));
                 groceryListListener.groceryListReceived(filterList(groceryList, status));
             }
 
@@ -62,15 +52,24 @@ public class GroceryListController {
         });
     }
 
+    /**
+     * Filtriranje u dvije skupine
+     *  1. skupina ACCEPTED I CREATED
+     *  2. skupina FINISHED
+     * @param groceryListsModels
+     * @param status
+     * @return
+     */
     private ArrayList<GroceryListsModel> filterList(ArrayList<GroceryListsModel> groceryListsModels, GroceryListStatus status){
         ArrayList<GroceryListsModel> temp = new ArrayList<>();
 
+        // 1. skupina ACCEPTED I CREATED
         if(status == GroceryListStatus.ACCEPTED) {
             for (int i = 0; i < groceryListsModels.size(); i++) {
                 if (groceryListsModels.get(i).getStatus() != GroceryListStatus.FINISHED)
                     temp.add(groceryListsModels.get(i));
             }
-        }
+        } // 2. skupina FINISHED
         else{
             for (int i = 0; i < groceryListsModels.size(); i++) {
                 if (groceryListsModels.get(i).getStatus() == GroceryListStatus.FINISHED)
