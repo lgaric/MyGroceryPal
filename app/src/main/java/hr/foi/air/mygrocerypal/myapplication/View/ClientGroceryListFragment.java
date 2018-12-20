@@ -15,10 +15,10 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
-import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.GroceryListAdapter;
-import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListController;
-import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.ClickListener;
-import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListListener;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Adapters.GroceryListAdapter;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.GroceryListController;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.ClickListener;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;

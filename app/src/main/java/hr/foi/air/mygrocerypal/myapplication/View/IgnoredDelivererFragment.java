@@ -14,11 +14,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.DelivererGLAdapter;
-import hr.foi.air.mygrocerypal.myapplication.Controller.DelivererIgnoredGroceryListController;
-import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListListener;
-import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListOperationListener;
-import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListStatusListener;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Adapters.DelivererGLAdapter;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.DelivererIgnoredGroceryListController;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListListener;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListOperationListener;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListStatusListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListOperation;
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
@@ -74,7 +74,6 @@ import hr.foi.air.mygrocerypal.myapplication.R;
             recyclerView.setAdapter(adapter);
             swipeRefreshLayout.setRefreshing(false);
         }
-
     }
 
     @Override

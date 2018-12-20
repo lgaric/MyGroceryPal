@@ -17,9 +17,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.SelectProductsAdapter;
-import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.SelectProductsListener;
-import hr.foi.air.mygrocerypal.myapplication.Controller.SelectProductsController;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Adapters.SelectProductsAdapter;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.SelectProductsListener;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.SelectProductsController;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.ProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;

@@ -17,11 +17,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import hr.foi.air.mygrocerypal.myapplication.Controller.Adapters.GroceryListDetailsAdapter;
-import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListProductsController;
-import hr.foi.air.mygrocerypal.myapplication.Controller.GroceryListUserController;
-import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListProductsListener;
-import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.GroceryListUserListener;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Adapters.GroceryListDetailsAdapter;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.GroceryListProductsController;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.GroceryListUserController;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListProductsListener;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListUserListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;

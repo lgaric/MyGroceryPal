@@ -20,8 +20,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import hr.foi.air.mygrocerypal.myapplication.Controller.RegistrationController;
-import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.RegistrationListener;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.RegistrationController;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.RegistrationListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 import hr.foi.air.mygrocerypal.myapplication.R;

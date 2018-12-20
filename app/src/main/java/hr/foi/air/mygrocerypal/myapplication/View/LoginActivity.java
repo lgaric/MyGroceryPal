@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import hr.foi.air.mygrocerypal.myapplication.Controller.LoginController;
-import hr.foi.air.mygrocerypal.myapplication.Controller.Listeners.LoginListener;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.LoginController;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.LoginListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
