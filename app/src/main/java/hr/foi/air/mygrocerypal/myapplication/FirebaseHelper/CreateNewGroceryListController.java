@@ -1,5 +1,7 @@
 package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
+import android.content.Context;
+import android.content.pm.LabeledIntent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -21,6 +23,7 @@ public class CreateNewGroceryListController extends FirebaseBaseHelper{
     private AddGroceryListListener addGroceryListListener;
 
     public CreateNewGroceryListController(AddGroceryListListener listener){
+        this.context = (Context) listener;
         addGroceryListListener = listener;
     }
 
@@ -28,26 +31,30 @@ public class CreateNewGroceryListController extends FirebaseBaseHelper{
      * Dohvati sve trgovine
      */
     public void getAllStores(){
-        mQuery = mDatabase.getReference().child(STORESNODE);
-        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<StoresModel> stores = new ArrayList<>();
-                for (DataSnapshot temp : dataSnapshot.getChildren()){
-                    StoresModel storesModel = temp.getValue(StoresModel.class);
-                    storesModel.setStore_id(temp.getKey());
-                    stores.add(storesModel);
+        if(isNetworkAvailable()){
+            mQuery = mDatabase.getReference().child(STORESNODE);
+            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    ArrayList<StoresModel> stores = new ArrayList<>();
+                    for (DataSnapshot temp : dataSnapshot.getChildren()){
+                        StoresModel storesModel = temp.getValue(StoresModel.class);
+                        storesModel.setStore_id(temp.getKey());
+                        stores.add(storesModel);
+                    }
+
+                    addGroceryListListener.storesReceived(stores);
+                    Log.d("getAllStores", "sizeStores" + Integer.toString(stores.size()));
                 }
 
-                addGroceryListListener.storesReceived(stores);
-                Log.d("getAllStores", "sizeStores" + Integer.toString(stores.size()));
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        }else
+            showInternetMessageWarning();
 
-            }
-        });
     }
 
     /**
@@ -56,25 +63,29 @@ public class CreateNewGroceryListController extends FirebaseBaseHelper{
      * @param groceryListProductsModels
      */
     public void saveGL_withProducts(GroceryListsModel groceryListsModel, List<GroceryListProductsModel> groceryListProductsModels){
-        mReference = mDatabase.getReference().child(GROCERYLISTSNODE);
-        DatabaseReference pushRef = mReference.push();
-        pushRef.setValue(groceryListsModel);
-        String generated_GL_key = pushRef.getKey();
+        if(isNetworkAvailable()){
+            mReference = mDatabase.getReference().child(GROCERYLISTSNODE);
+            DatabaseReference pushRef = mReference.push();
+            pushRef.setValue(groceryListsModel);
+            String generated_GL_key = pushRef.getKey();
 
-        Log.d("generated_GL_key", generated_GL_key);
+            Log.d("generated_GL_key", generated_GL_key);
 
-        //Upis proizvoda za taj GL u firebase
-        if(!isNullOrBlank(generated_GL_key)){
-            for (GroceryListProductsModel product: groceryListProductsModels) {
-                DatabaseReference refProducts = mDatabase.getReference().child(GROCERYLISTPRODUCTSNODE).child(generated_GL_key).child(product.getProduct_key());
-                product.setProduct_key(null);
-                refProducts.setValue(product);
+            //Upis proizvoda za taj GL u firebase
+            if(!isNullOrBlank(generated_GL_key)){
+                for (GroceryListProductsModel product: groceryListProductsModels) {
+                    DatabaseReference refProducts = mDatabase.getReference().child(GROCERYLISTPRODUCTSNODE).child(generated_GL_key).child(product.getProduct_key());
+                    product.setProduct_key(null);
+                    refProducts.setValue(product);
+                }
+                addGroceryListListener.groceryListAddedToDatabase(true, "Uspješno kreirano!");
             }
-            addGroceryListListener.groceryListAddedToDatabase(true, "Uspješno kreirano!");
-        }
-        else{
-            addGroceryListListener.groceryListAddedToDatabase(true, "Greška prilikom upisa!");
-        }
+            else{
+                addGroceryListListener.groceryListAddedToDatabase(true, "Greška prilikom upisa!");
+            }
+        }else
+            showInternetMessageWarning();
+
 
     }
 

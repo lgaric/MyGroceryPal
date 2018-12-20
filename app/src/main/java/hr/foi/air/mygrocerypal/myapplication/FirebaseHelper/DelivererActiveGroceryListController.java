@@ -1,5 +1,6 @@
 package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -26,6 +27,7 @@ public class DelivererActiveGroceryListController extends FirebaseBaseHelper{
     Date currentDate = new Date();
 
     public DelivererActiveGroceryListController(GroceryListStatusListener listListener){
+        this.context = (Context) listListener;
         groceryListStatusListener = listListener;
     }
 
@@ -33,27 +35,31 @@ public class DelivererActiveGroceryListController extends FirebaseBaseHelper{
      * Ucitaj sve aktivne GL-ove
      */
     public void loadAllActiveGroceryLists() {
-        mQuery = mDatabase.getReference().child(GROCERYLISTSNODE)
-                .orderByChild(GROCERYLISTSTATUSNODE).equalTo(GroceryListStatus.CREATED.toString());
+        if(isNetworkAvailable()){
+            mQuery = mDatabase.getReference().child(GROCERYLISTSNODE)
+                    .orderByChild(GROCERYLISTSTATUSNODE).equalTo(GroceryListStatus.CREATED.toString());
 
-        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<GroceryListsModel> groceryList = new ArrayList<>();
+            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    ArrayList<GroceryListsModel> groceryList = new ArrayList<>();
 
-                for (DataSnapshot temp : dataSnapshot.getChildren()) {
-                    GroceryListsModel model = temp.getValue(GroceryListsModel.class);
-                    model.setGrocerylist_key(temp.getKey());
-                    groceryList.add(model);
+                    for (DataSnapshot temp : dataSnapshot.getChildren()) {
+                        GroceryListsModel model = temp.getValue(GroceryListsModel.class);
+                        model.setGrocerylist_key(temp.getKey());
+                        groceryList.add(model);
+                    }
+                    groceryListStatusListener.groceryListReceived(filterIgnoredLists(groceryList));
                 }
-                groceryListStatusListener.groceryListReceived(filterIgnoredLists(groceryList));
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }else
+            showInternetMessageWarning();
+
     }
 
     /**
@@ -64,20 +70,23 @@ public class DelivererActiveGroceryListController extends FirebaseBaseHelper{
      */
     public String acceptGroceryList(final String groceryListID, final String groceryListStatus)
     {
-        if(GroceryListStatus.valueOf(groceryListStatus).equals(GroceryListStatus.ACCEPTED)
-                || GroceryListStatus.valueOf(groceryListStatus).equals(GroceryListStatus.FINISHED)) {
-            return "Kupovna lista je već prihvaćena";
-        }
+        if(isNetworkAvailable()){
+            if(GroceryListStatus.valueOf(groceryListStatus).equals(GroceryListStatus.ACCEPTED)
+                    || GroceryListStatus.valueOf(groceryListStatus).equals(GroceryListStatus.FINISHED)) {
+                return "Kupovna lista je već prihvaćena";
+            }
 
-        try{
-            mReference = mDatabase.getReference();
-            mReference.child(GROCERYLISTSNODE).child(groceryListID).child(GROCERYLISTSTATUSNODE).setValue(GroceryListStatus.ACCEPTED);
-            mReference.child(GROCERYLISTSNODE).child(groceryListID).child(USERACCEPTEDIDNODE).setValue(CurrentUser.currentUser.getUserUID());
-            return "Prihvaćen odabir";
-        }catch(Exception e) {
-            Log.e(getClass().toString(), e.getMessage());
-            return "Greška prilikom prihvaćanja narudžbe";
-        }
+            try{
+                mReference = mDatabase.getReference();
+                mReference.child(GROCERYLISTSNODE).child(groceryListID).child(GROCERYLISTSTATUSNODE).setValue(GroceryListStatus.ACCEPTED);
+                mReference.child(GROCERYLISTSNODE).child(groceryListID).child(USERACCEPTEDIDNODE).setValue(CurrentUser.currentUser.getUserUID());
+                return "Prihvaćen odabir";
+            }catch(Exception e) {
+                Log.e(getClass().toString(), e.getMessage());
+                return "Greška prilikom prihvaćanja narudžbe";
+            }
+        }else
+            return "Potrebna je internet veza!";
     }
 
     /**
@@ -86,20 +95,22 @@ public class DelivererActiveGroceryListController extends FirebaseBaseHelper{
      * @param operation
      */
     public void checkGroceryListStatus(final String groceryListID, final GroceryListOperation operation) {
-        mQuery = mDatabase.getReference().child(GROCERYLISTSNODE)
-                .child(groceryListID).child(GROCERYLISTSTATUSNODE);
+        if(isNetworkAvailable()){
+            mQuery = mDatabase.getReference().child(GROCERYLISTSNODE)
+                    .child(groceryListID).child(GROCERYLISTSTATUSNODE);
 
-        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                groceryListStatusListener.groceryListStatusReceived(groceryListID, dataSnapshot.getValue().toString(), operation);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                groceryListStatusListener.groceryListStatusReceived(groceryListID, "", operation);
-            }
-        });
-
+            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    groceryListStatusListener.groceryListStatusReceived(groceryListID, dataSnapshot.getValue().toString(), operation);
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    groceryListStatusListener.groceryListStatusReceived(groceryListID, "", operation);
+                }
+            });
+        }else
+            showInternetMessageWarning();
     }
 
     /**
@@ -163,15 +174,19 @@ public class DelivererActiveGroceryListController extends FirebaseBaseHelper{
     }
 
     public String ignoreGroceryList(String groceryListID) {
-        try{
-            mReference = mDatabase.getReference().child(USERIGNOREDLISTNODE).child(CurrentUser.currentUser.getUserUID())
-                    .child(groceryListID);
-            mReference.setValue(true);
-            CurrentUser.currentUser.getIgnoredLists().add(groceryListID);
-            return "Lista ignorirana!";
-        }catch(Exception e) {
-            Log.e(getClass().toString(), e.getMessage());
-            return "Greška prilikom ignoriranja narudžbe";
-        }
+        if(isNetworkAvailable()){
+            try{
+                mReference = mDatabase.getReference().child(USERIGNOREDLISTNODE).child(CurrentUser.currentUser.getUserUID())
+                        .child(groceryListID);
+                mReference.setValue(true);
+                CurrentUser.currentUser.getIgnoredLists().add(groceryListID);
+                return "Lista ignorirana!";
+            }catch(Exception e) {
+                Log.e(getClass().toString(), e.getMessage());
+                return "Greška prilikom ignoriranja narudžbe!";
+            }
+        }else
+            return "Potrebna je internet veza!";
+
     }
 }

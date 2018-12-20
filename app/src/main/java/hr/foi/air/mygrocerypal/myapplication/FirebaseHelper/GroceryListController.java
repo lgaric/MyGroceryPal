@@ -1,5 +1,6 @@
 package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -20,6 +21,7 @@ public class GroceryListController extends FirebaseBaseHelper{
     private GroceryListListener groceryListListener;
 
     public GroceryListController(Fragment fragment){
+        this.context = fragment.getContext();
         groceryListListener = (GroceryListListener)fragment;
     }
 
@@ -31,25 +33,28 @@ public class GroceryListController extends FirebaseBaseHelper{
         if (status == null)
             return;
 
-        mQuery = mDatabase.getReference().child(GROCERYLISTSNODE);
+        if(isNetworkAvailable()){
+            mQuery = mDatabase.getReference().child(GROCERYLISTSNODE);
 
-        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ArrayList<GroceryListsModel> groceryList = new ArrayList<>();
-                for (DataSnapshot temp : dataSnapshot.getChildren()) {
-                    GroceryListsModel model = temp.getValue(GroceryListsModel.class);
-                    model.setGrocerylist_key(temp.getKey());
-                    groceryList.add(model);
+            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    ArrayList<GroceryListsModel> groceryList = new ArrayList<>();
+                    for (DataSnapshot temp : dataSnapshot.getChildren()) {
+                        GroceryListsModel model = temp.getValue(GroceryListsModel.class);
+                        model.setGrocerylist_key(temp.getKey());
+                        groceryList.add(model);
+                    }
+                    groceryListListener.groceryListReceived(filterList(groceryList, status));
                 }
-                groceryListListener.groceryListReceived(filterList(groceryList, status));
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }else
+            showInternetMessageWarning();
     }
 
     /**
