@@ -20,31 +20,25 @@ import java.util.regex.Pattern;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.RegistrationListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
-public class RegistrationController {
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$");
-
-    private FirebaseAuth mAuth;
-    private FirebaseDatabase mDatabase;
+public class RegistrationController extends FirebaseBaseHelper{
     private RegistrationListener listener;
 
-    public RegistrationController(Context context) {
-        listener = (RegistrationListener) context;
+    public RegistrationController(RegistrationListener listener) {
+        this.listener = listener;
     }
 
+    /**
+     * Registriraj korisnika
+     * @param newUser
+     */
     public void registration(UserModel newUser){
         final UserModel user = newUser;
         user.setLatitude(20.0);
         user.setLongitude(20.0);
         user.setRange(20.0);
 
-        if(mAuth == null)
-            mAuth = FirebaseAuth.getInstance();
-
-        if(mDatabase == null)
-            mDatabase = FirebaseDatabase.getInstance();
-
-        Query query = mDatabase.getReference().child("users").orderByChild("username").equalTo(user.getUsername());
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        mQuery = mDatabase.getReference().child("users").orderByChild("username").equalTo(user.getUsername());
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //username exists
@@ -81,36 +75,25 @@ public class RegistrationController {
         });
     }
 
-    public boolean validateEmail(String emailTxt){
-        String email = emailTxt;
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            return false;
-        }else return true;
-    }
-
-    public boolean validatePassword(String passwordTxt){
-        String password = passwordTxt;
-        if (!PASSWORD_PATTERN.matcher(password).matches()){
-            return false;
-        }else return true;
-    }
-
-    public boolean validateRetypedPassword(String passwordTxt, String retypedPasswordTxt){
-        String firstPassword = passwordTxt;
-        String secondPassword = retypedPasswordTxt;
-        if(!firstPassword.equals(secondPassword)){
-            return false;
-        }else return true;
-    }
-
+    /**
+     * Pozovi metodu za registraciju ako je input korisnika valjan
+     * @param newUser
+     * @param retypedPassword
+     */
     public void registerUser(UserModel newUser, String retypedPassword) {
         if (InputCorrect(newUser, retypedPassword))
             registration(newUser);
         else
-            listener.onRegistrationFail("Sva polja su obavezna!");
+            listener.onRegistrationFail("Molimo pravilno ispunite sve podatke!");
 
     }
 
+    /**
+     * Provjeri valjanost korisnikovog inputa
+     * @param newUser
+     * @param retypedPassword
+     * @return
+     */
     private boolean InputCorrect(UserModel newUser, String retypedPassword){
         if(newUser.getFirst_name().length() > 0 && newUser.getLast_name().length() > 0 &&
                 newUser.getUsername().length() > 0 && newUser.getTown().length() > 0 &&

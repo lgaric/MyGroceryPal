@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import hr.foi.air.mygrocerypal.myapplication.View.LoginActivity;
+import hr.foi.air.mygrocerypal.myapplication.Controller.LoginActivity;
 
 public class BaseActivity extends AppCompatActivity {
 

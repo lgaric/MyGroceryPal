@@ -1,4 +1,4 @@
-package hr.foi.air.mygrocerypal.myapplication.View;
+package hr.foi.air.mygrocerypal.myapplication.Controller;
 
 import android.os.Bundle;
 import android.view.View;

@@ -1,28 +1,27 @@
 package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Patterns;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.PasswordRecoveryListener;
 
-public class PasswordRecoveryController {
-    FirebaseAuth firebaseAuth;
+public class PasswordRecoveryController extends FirebaseBaseHelper{
     private PasswordRecoveryListener listener;
 
-    public  PasswordRecoveryController(Context context){
-        listener = (PasswordRecoveryListener) context;
+    public  PasswordRecoveryController(PasswordRecoveryListener listener){
+        this.listener = listener;
     }
 
-
+    /**
+     * Pošalji email za kreiranje nove lozinke
+     * @param email
+     */
     public void sendRecoveryMail(String email){
-        firebaseAuth = FirebaseAuth.getInstance();
         if(validateEmail(email)){
-            firebaseAuth.sendPasswordResetEmail(email)
+            mAuth.sendPasswordResetEmail(email)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -38,16 +37,6 @@ public class PasswordRecoveryController {
             listener.onRecoveryFail("Unesite ispravnu email adresu!");
         }
 
-    }
-
-    private boolean validateEmail(String emailTxt){
-        String email = emailTxt.trim();
-
-        if(email == null){
-            return false;
-        } else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            return false;
-        }else return true;
     }
 
 }

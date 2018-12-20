@@ -14,27 +14,24 @@ import java.util.ArrayList;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.SelectProductsListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.ProductsModel;
 
-public class SelectProductsController {
-    private static final String PRODUCTSNODE  = "products";
+public class SelectProductsController extends FirebaseBaseHelper{
+    private SelectProductsListener listener;
 
-    private SelectProductsListener selectProductsListener;
-    private FirebaseDatabase firebaseDatabase;
-
-    public SelectProductsController(Fragment fragment){
-        selectProductsListener = (SelectProductsListener)fragment;
+    public SelectProductsController(SelectProductsListener listener){
+        this.listener = listener;
     }
 
-    public void loadGroceryLists(String storeName) {
+    /**
+     * Dohvati sve proizvode po trgovini
+     * @param storeName
+     */
+    public void loadProductsByStore(String storeName) {
         if (storeName == null)
             return;
 
-        if(firebaseDatabase == null)
-            firebaseDatabase = FirebaseDatabase.getInstance();
+        mQuery = mDatabase.getReference().child(PRODUCTSNODE).orderByChild("store_name").equalTo(storeName);
 
-        
-        Query query = firebaseDatabase.getReference().child(PRODUCTSNODE).orderByChild("store_name").equalTo(storeName);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<ProductsModel> productsList = new ArrayList<>();
@@ -45,7 +42,7 @@ public class SelectProductsController {
                     productsList.add(product);
                 }
 
-                selectProductsListener.productsListReceived(productsList);
+                listener.productsListReceived(productsList);
             }
 
             @Override

@@ -5,6 +5,6 @@ import android.support.annotation.Nullable;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
 public interface GroceryListUserListener {
-        public void groceryListUserReceived(@Nullable  UserModel groceryListUser);
+        void groceryListUserReceived(@Nullable  UserModel groceryListUser);
 
 }

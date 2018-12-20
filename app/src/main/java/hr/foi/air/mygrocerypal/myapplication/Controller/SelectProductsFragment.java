@@ -1,4 +1,4 @@
-package hr.foi.air.mygrocerypal.myapplication.View;
+package hr.foi.air.mygrocerypal.myapplication.Controller;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -48,7 +48,7 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
         recyclerView = view.findViewById(R.id.recycler_view);
         addProductsToGroceryList = view.findViewById(R.id.addProductsToGroceryList);
 
-        selectProductsController.loadGroceryLists(getArguments().getString("store_name"));
+        selectProductsController.loadProductsByStore(getArguments().getString("store_name"));
         allreadyAddedProducts = (List<GroceryListProductsModel>)getArguments().getSerializable("list_of_products");
 
         addProductsToGroceryList.setOnClickListener(new View.OnClickListener() {

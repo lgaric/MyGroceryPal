@@ -1,4 +1,4 @@
-package hr.foi.air.mygrocerypal.myapplication.View;
+package hr.foi.air.mygrocerypal.myapplication.Controller;
 
 import android.app.Activity;
 import android.app.AlertDialog;
