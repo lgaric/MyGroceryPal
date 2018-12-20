@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListListener;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListStatusListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListOperation;
@@ -21,16 +20,13 @@ import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 
 public class DelivererActiveGroceryListController extends FirebaseBaseHelper{
-
-    GroceryListListener groceryListListener;
     GroceryListStatusListener groceryListStatusListener;
 
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     Date currentDate = new Date();
 
-    public DelivererActiveGroceryListController(GroceryListListener listListener){
-        groceryListListener = listListener;
-        groceryListStatusListener = (GroceryListStatusListener) listListener;
+    public DelivererActiveGroceryListController(GroceryListStatusListener listListener){
+        groceryListStatusListener = listListener;
     }
 
     /**
@@ -50,7 +46,7 @@ public class DelivererActiveGroceryListController extends FirebaseBaseHelper{
                     model.setGrocerylist_key(temp.getKey());
                     groceryList.add(model);
                 }
-                groceryListListener.groceryListReceived(filterIgnoredLists(groceryList));
+                groceryListStatusListener.groceryListReceived(filterIgnoredLists(groceryList));
             }
 
             @Override

@@ -57,12 +57,12 @@ public class DelivererIgnoredGroceryListController extends FirebaseBaseHelper{
      * @return
      */
     public ArrayList<GroceryListsModel> findUserIgnoredLists(ArrayList<GroceryListsModel> groceryList){
-        ArrayList<GroceryListsModel> temporery = new ArrayList<>();
+        ArrayList<GroceryListsModel> temporary = new ArrayList<>();
         for(int i = 0; i < groceryList.size(); i++){
             if(CurrentUser.currentUser.getIgnoredLists().contains(groceryList.get(i).getGrocerylist_key()))
-                temporery.add(groceryList.get(i));
+                temporary.add(groceryList.get(i));
         }
-        return temporery;
+        return temporary;
     }
 
     public void checkGroceryListStatus(final String groceryListID, final GroceryListOperation operation) {

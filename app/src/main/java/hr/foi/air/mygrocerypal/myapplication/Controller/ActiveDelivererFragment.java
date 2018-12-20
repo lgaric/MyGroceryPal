@@ -32,8 +32,8 @@ import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListOperation;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
-public class ActiveDelivererFragment extends Fragment implements GroceryListListener, LocationListener,
-        GroceryListOperationListener, GroceryListStatusListener {
+public class ActiveDelivererFragment extends Fragment implements LocationListener, GroceryListOperationListener,
+        GroceryListStatusListener {
 
     SeekBar seekBar;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -165,7 +165,7 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
      * @return
      */
     private ArrayList<GroceryListsModel> filterListUsingDistance(int radius, Location location){
-        ArrayList<GroceryListsModel> temporery = new ArrayList<>();
+        ArrayList<GroceryListsModel> temporary = new ArrayList<>();
         for(int i = 0; i < allActiveGroceryList.size(); i++){
             Location groceryListLocation = getLocation(allActiveGroceryList.get(i).getLatitude(),
                     allActiveGroceryList.get(i).getLongitude(), "GROCERYLISTLOCATION");
@@ -173,9 +173,9 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
             float distance = location.distanceTo(groceryListLocation) / 1000;
 
             if(distance < radius)
-                temporery.add(allActiveGroceryList.get(i));
+                temporary.add(allActiveGroceryList.get(i));
         }
-        return temporery;
+        return temporary;
     }
 
     /**
@@ -205,11 +205,6 @@ public class ActiveDelivererFragment extends Fragment implements GroceryListList
                 .addToBackStack(null)
                 .commit();
     }
-
-
-
-
-
 
 
     //IMPLEMENTACIJA INTERFEJSA
