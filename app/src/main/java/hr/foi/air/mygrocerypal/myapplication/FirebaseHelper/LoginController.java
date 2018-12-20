@@ -21,44 +21,37 @@ import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.LoginListe
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
-public class LoginController {
+public class LoginController extends FirebaseBaseHelper{
     private LoginListener listener;
-
-    private FirebaseAuth mAuth;
-    private FirebaseDatabase mDatabase;
 
     public  LoginController(Context context){
         listener = (LoginListener)context;
     }
 
     public void Login(String username, String password){
-
         if(username.isEmpty() || password.isEmpty()) {
             listener.onStatusFailed("Ispunite odgovarajuća polja!");
             return;
         }
 
-        if(mAuth == null)
-            mAuth = FirebaseAuth.getInstance();
-
         mAuth.signInWithEmailAndPassword(username, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful())
-                        {
-                            if(mAuth.getCurrentUser().isEmailVerified()) {
-                                getUserInformation(mAuth.getCurrentUser().getUid());
-                            }
-                            else
-                                listener.onStatusFailed("Email nije verificiran");
+            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful())
+                    {
+                        if(mAuth.getCurrentUser().isEmailVerified()) {
+                            getUserInformation(mAuth.getCurrentUser().getUid());
                         }
-                        else{
-                            String errorMessage = checkErrorCode(((FirebaseAuthException) task.getException()).getErrorCode());
-                            listener.onStatusFailed(errorMessage);
-                        }
+                        else
+                            listener.onStatusFailed("Email nije verificiran");
                     }
-                });
+                    else{
+                        String errorMessage = checkErrorCode(((FirebaseAuthException) task.getException()).getErrorCode());
+                        listener.onStatusFailed(errorMessage);
+                    }
+                }
+            });
 
     }
 
@@ -84,12 +77,9 @@ public class LoginController {
     }
 
     private void getUserInformation(String userUID){
-        if(mDatabase == null)
-            mDatabase = FirebaseDatabase.getInstance();
+        mReference = mDatabase.getReference().child(USERNODE).child(userUID);
 
-        DatabaseReference reference = mDatabase.getReference().child("users").child(userUID);
-
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        mReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserModel temp = dataSnapshot.getValue(UserModel.class);
@@ -107,13 +97,12 @@ public class LoginController {
 
             }
         });
-
     }
 
     private void getUserIgnoredLists(String userUID) {
-        DatabaseReference reference = mDatabase.getReference().child("userignoredlists").child(userUID);
+        mReference = mDatabase.getReference().child(USERIGNOREDLISTNODE).child(userUID);
 
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+        mReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<String> ingoredLists = new ArrayList<>();

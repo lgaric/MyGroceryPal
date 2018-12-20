@@ -5,39 +5,27 @@ import android.support.v4.app.Fragment;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListUserListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
-public class GroceryListUserController {
-    //PRETRAŽIVANJE
-
-    private static final String USERNODE = "users";
-
+public class GroceryListUserController extends FirebaseBaseHelper{
     private GroceryListUserListener groceryListUserListener;
-    private FirebaseDatabase firebaseDatabase;
 
     public GroceryListUserController(Fragment fragment, String userKey) {
         groceryListUserListener = (GroceryListUserListener) fragment;
         if(userKey.equals("-")){
             groceryListUserListener.groceryListUserReceived(null);
         }else{
-            loadGroceryProductsLists(userKey);
+            getUserInformationGroceryList(userKey);
         }
     }
 
-    //OVU METODA SE MOŽE KORISTITI I ZA AKTIVNE GROCERYLISTE
-    public void loadGroceryProductsLists(String userKey) {
+    public void getUserInformationGroceryList(String userKey) {
+        mQuery = mDatabase.getReference().child(USERNODE).child(userKey);
 
-        if (firebaseDatabase == null)
-            firebaseDatabase = FirebaseDatabase.getInstance();
-
-        Query query = firebaseDatabase.getReference().child(USERNODE).child(userKey);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 UserModel model = dataSnapshot.getValue(UserModel.class);

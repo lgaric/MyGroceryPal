@@ -13,6 +13,7 @@ public class FirebaseBaseHelper {
     protected static final String USERIGNOREDLISTNODE  = "userignoredlists";
     protected static final String GROCERYLISTSTATUS = "status";
     protected static final String USERACCEPTEDID = "user_accepted_id";
+    protected static final String USERNODE = "users";
 
 
     //Firebase varijable

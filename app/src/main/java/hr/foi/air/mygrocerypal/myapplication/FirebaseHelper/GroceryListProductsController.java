@@ -14,29 +14,22 @@ import java.util.ArrayList;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListProductsListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 
-public class GroceryListProductsController {
-    //PRETRAŽIVANJE
-
-    private static final String GROCERYLISTNODE = "grocerylistproducts";
-    private static final String USERNODE = "users";
-
+public class GroceryListProductsController extends FirebaseBaseHelper{
     private GroceryListProductsListener groceryListProductsListener;
-    private FirebaseDatabase firebaseDatabase;
 
     public GroceryListProductsController(Fragment fragment, String groceryListKey) {
         groceryListProductsListener = (GroceryListProductsListener) fragment;
         loadGroceryProductsLists(groceryListKey);
     }
 
-    //OVU METODA SE MOŽE KORISTITI I ZA AKTIVNE GROCERYLISTE
+    /**
+     * Ucitaj sve proizvode odabrane grocery liste
+     * @param groceryListKey
+     */
     public void loadGroceryProductsLists(String groceryListKey) {
+        mQuery = mDatabase.getReference().child(GROCERYLISTSNODE).child(groceryListKey);
 
-        if (firebaseDatabase == null)
-            firebaseDatabase = FirebaseDatabase.getInstance();
-
-        Query query = firebaseDatabase.getReference().child(GROCERYLISTNODE).child(groceryListKey);
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<GroceryListProductsModel> groceryListProducts = new ArrayList<>();
