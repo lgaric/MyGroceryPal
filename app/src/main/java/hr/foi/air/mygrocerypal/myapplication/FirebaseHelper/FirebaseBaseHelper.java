@@ -1,5 +1,8 @@
 package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Patterns;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,19 +28,18 @@ public class FirebaseBaseHelper {
     protected FirebaseAuth mAuth;
     protected DatabaseReference mReference;
     protected Query mQuery;
+    protected Context context;
 
     public FirebaseBaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
     }
 
-
-    /*
     private Boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
-    */
+
 }
