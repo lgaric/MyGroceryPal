@@ -1,6 +1,8 @@
 package hr.foi.air.mygrocerypal.myapplication.Core;
 
-//DODANO
+/**
+ * Tri vrste grocery liste: kreirane, prihvacene i zavrsene
+ */
 public enum GroceryListStatus {
     ACCEPTED,
     CREATED,

@@ -23,8 +23,7 @@ import java.util.ArrayList;
 import hr.foi.air.mygrocerypal.GPSLocation;
 import hr.foi.air.mygrocerypal.LocationListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.Adapters.DelivererGLAdapter;
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.DelivererActiveGroceryListController;
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListListener;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.DelivererGroceryListController;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListOperationListener;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListStatusListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
@@ -43,7 +42,7 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
 
     GPSLocation gpsLocation;
 
-    DelivererActiveGroceryListController controller;
+    DelivererGroceryListController controller;
 
     ArrayList<GroceryListsModel> allActiveGroceryList;
 
@@ -100,11 +99,11 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
         gpsSwitch.setOnClickListener(clickListener);
 
         if (controller == null) {
-            controller = new DelivererActiveGroceryListController(getContext(), this);
-            controller.loadAllActiveGroceryLists();
+            controller = new DelivererGroceryListController(this);
+            controller.getAllActiveGroceryLists();
         }
         else
-            controller.loadAllActiveGroceryLists();
+            controller.getAllActiveGroceryLists();
 
         return view;
     }
@@ -123,7 +122,7 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
      */
     private void refreshRecyclerView(){
         if(controller != null)
-            controller.loadAllActiveGroceryLists();
+            controller.getAllActiveGroceryLists();
     }
 
     /**
