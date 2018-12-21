@@ -27,7 +27,7 @@ public class FirebaseBaseHelper {
     protected FirebaseAuth mAuth;
     protected DatabaseReference mReference;
     protected Query mQuery;
-    protected Context context;
+    protected Context mContext;
 
     public FirebaseBaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
@@ -36,14 +36,14 @@ public class FirebaseBaseHelper {
 
     protected Boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
-                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
     protected void showInternetMessageWarning(){
-        if(context != null){
-            Toast.makeText(context, NOINTERNETCONNECTIONMESSAGE, Toast.LENGTH_LONG).show();
+        if(mContext != null){
+            Toast.makeText(mContext, NOINTERNETCONNECTIONMESSAGE, Toast.LENGTH_LONG).show();
         }
     }
 

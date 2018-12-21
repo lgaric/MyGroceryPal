@@ -16,21 +16,21 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapter.ProductsListHolder> {
 
-    private List<GroceryListProductsModel> listOfProducts;//nova verzija
-    TextView totalTextView;
+    private List<GroceryListProductsModel> mListOfProducts;//nova verzija
+    TextView mTotalTextView;
 
     public  ProductsListAdapter(List<GroceryListProductsModel> productsList, TextView total){
-        listOfProducts = productsList;
-        totalTextView = total;
+        mListOfProducts = productsList;
+        mTotalTextView = total;
         calculateTotalAmount();
     }
 
     private void calculateTotalAmount(){
         double totalAmount = 0;
-        for (GroceryListProductsModel product: listOfProducts) {
+        for (GroceryListProductsModel product: mListOfProducts) {
             totalAmount += product.getPrice() * product.getQuantity();
         }
-        totalTextView.setText(roundToTwoDecimalPlaces(totalAmount));
+        mTotalTextView.setText(roundToTwoDecimalPlaces(totalAmount));
     }
 
     private String roundToTwoDecimalPlaces(double value){
@@ -49,46 +49,46 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ProductsListHolder productsListHolder, int position) {
-        productsListHolder.bind(listOfProducts.get(position), listOfProducts);
+        productsListHolder.bind(mListOfProducts.get(position), mListOfProducts);
     }
 
     @Override
     public int getItemCount() {
-        return listOfProducts.size();
+        return mListOfProducts.size();
     }
 
     public GroceryListProductsModel getItem(int position){
-        return listOfProducts.get(position);
+        return mListOfProducts.get(position);
     }
 
-    public List<GroceryListProductsModel> getListOfProducts(){
-        return listOfProducts;
+    public List<GroceryListProductsModel> getmListOfProducts(){
+        return mListOfProducts;
     }
 
 
     public class ProductsListHolder extends RecyclerView.ViewHolder {
 
-        private GroceryListProductsModel product;
-        private TextView productName;
-        private ImageButton increaseGroceryAmount, decreaseGroceryAmount, deleteProduct;
-        private EditText productQuantity;
-        private List<GroceryListProductsModel> listOfProducts;
+        private GroceryListProductsModel mProduct;
+        private TextView mProductName;
+        private ImageButton btnIncreaseGroceryAmount, btnDecreaseGroceryAmount, btnDeleteProduct;
+        private EditText mProductQuantity;
+        private List<GroceryListProductsModel> mListOfProducts;
 
         public ProductsListHolder(@NonNull View itemView) {
             super(itemView);
 
-            this.productName = itemView.findViewById(R.id.productName);
-            this.productQuantity = itemView.findViewById(R.id.productQuantity);
-            this.decreaseGroceryAmount = itemView.findViewById(R.id.groceryDecreaseAmount);
-            this.increaseGroceryAmount = itemView.findViewById(R.id.groceryIncreaseAmount);
-            this.deleteProduct = itemView.findViewById(R.id.groceryDelete);
+            this.mProductName = itemView.findViewById(R.id.productName);
+            this.mProductQuantity = itemView.findViewById(R.id.productQuantity);
+            this.btnDecreaseGroceryAmount = itemView.findViewById(R.id.btnGroceryDecreaseAmount);
+            this.btnIncreaseGroceryAmount = itemView.findViewById(R.id.btnGroceryIncreaseAmount);
+            this.btnDeleteProduct = itemView.findViewById(R.id.groceryDelete);
 
-            increaseGroceryAmount.setOnClickListener(new View.OnClickListener() {
+            btnIncreaseGroceryAmount.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                  if(product != null){
-                      product.setQuantity(product.getQuantity() + 1);
-                      productQuantity.setText(Integer.toString(product.getQuantity()));
+                  if(mProduct != null){
+                      mProduct.setQuantity(mProduct.getQuantity() + 1);
+                      mProductQuantity.setText(Integer.toString(mProduct.getQuantity()));
 
                       calculateTotalAmount();
                   }
@@ -96,41 +96,41 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
                 }
             });
 
-            decreaseGroceryAmount.setOnClickListener(new View.OnClickListener() {
+            btnDecreaseGroceryAmount.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(product != null && product.getQuantity() >= 1){
-                            product.setQuantity(product.getQuantity() - 1);
-                            productQuantity.setText(Integer.toString(product.getQuantity()));
+                    if(mProduct != null && mProduct.getQuantity() >= 1){
+                            mProduct.setQuantity(mProduct.getQuantity() - 1);
+                            mProductQuantity.setText(Integer.toString(mProduct.getQuantity()));
                     }
                     calculateTotalAmount();
                 }
             });
 
-            deleteProduct.setOnClickListener(new View.OnClickListener() {
+            btnDeleteProduct.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listOfProducts.remove(product);//izbrisao iz liste
+                    mListOfProducts.remove(mProduct);//izbrisao iz liste
                     notifyItemRemoved(getAdapterPosition());
-                    notifyItemRangeChanged(getAdapterPosition(),listOfProducts.size());
+                    notifyItemRangeChanged(getAdapterPosition(), mListOfProducts.size());
 
                     calculateTotalAmount();
                 }
             });
 
-            productQuantity.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            mProductQuantity.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     //ako korisnik izbrise sve iz EditTexta
-                    if(isEmpty(productQuantity)){
-                        if(product != null){
-                            product.setQuantity(0);
+                    if(isEmpty(mProductQuantity)){
+                        if(mProduct != null){
+                            mProduct.setQuantity(0);
                         }
-                        productQuantity.setText("0");
-                    }else if (Integer.parseInt(productQuantity.getText().toString()) == 0 && product != null){
-                        product.setQuantity(0);
-                    }else if(Integer.parseInt(productQuantity.getText().toString()) > 0 && product != null)
-                        product.setQuantity(Integer.parseInt(productQuantity.getText().toString()));
+                        mProductQuantity.setText("0");
+                    }else if (Integer.parseInt(mProductQuantity.getText().toString()) == 0 && mProduct != null){
+                        mProduct.setQuantity(0);
+                    }else if(Integer.parseInt(mProductQuantity.getText().toString()) > 0 && mProduct != null)
+                        mProduct.setQuantity(Integer.parseInt(mProductQuantity.getText().toString()));
 
                     calculateTotalAmount();
                 }
@@ -138,17 +138,17 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
         }
 
 
-        private boolean isEmpty(EditText editText){
-            if(editText.getText().toString().trim().length() > 0) return false;
+        private boolean isEmpty(EditText mEditText){
+            if(mEditText.getText().toString().trim().length() > 0) return false;
             else return true;
         }
 
-        public void bind(GroceryListProductsModel product, List<GroceryListProductsModel> listOfProducts){
-            this.listOfProducts = listOfProducts;
-            this.product = product;
+        public void bind(GroceryListProductsModel mProduct, List<GroceryListProductsModel> mListOfProducts){
+            this.mListOfProducts = mListOfProducts;
+            this.mProduct = mProduct;
 
-            this.productName.setText(product.getName());
-            this.productQuantity.setText(Integer.toString(product.getQuantity()));
+            this.mProductName.setText(mProduct.getName());
+            this.mProductQuantity.setText(Integer.toString(mProduct.getQuantity()));
         }
 
     }

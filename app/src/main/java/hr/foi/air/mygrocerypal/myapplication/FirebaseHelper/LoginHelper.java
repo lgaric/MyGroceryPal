@@ -19,21 +19,21 @@ import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
 public class LoginHelper extends FirebaseBaseHelper{
-    private LoginListener listener;
+    private LoginListener mLoginListener;
 
-    public LoginHelper(LoginListener listener){
-        this.context = (Context)listener;
-        this.listener = listener;
+    public LoginHelper(LoginListener mLoginListener){
+        this.mContext = (Context) mLoginListener;
+        this.mLoginListener = mLoginListener;
     }
 
-    public void login(String username, String password){
-        if(username.isEmpty() || password.isEmpty()) {
-            listener.onStatusFailed("Ispunite odgovarajuća polja!");
+    public void login(String mUsername, String mPassword){
+        if(mUsername.isEmpty() || mPassword.isEmpty()) {
+            mLoginListener.onStatusFailed("Ispunite odgovarajuća polja!");
             return;
         }
 
         if(isNetworkAvailable()) {
-            mAuth.signInWithEmailAndPassword(username, password)
+            mAuth.signInWithEmailAndPassword(mUsername, mPassword)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -41,10 +41,10 @@ public class LoginHelper extends FirebaseBaseHelper{
                                 if (mAuth.getCurrentUser().isEmailVerified()) {
                                     getUserInformation(mAuth.getCurrentUser().getUid());
                                 } else
-                                    listener.onStatusFailed("Email nije verificiran");
+                                    mLoginListener.onStatusFailed("Email nije verificiran");
                             } else {
                                 String errorMessage = checkErrorCode(((FirebaseAuthException) task.getException()).getErrorCode());
-                                listener.onStatusFailed(errorMessage);
+                                mLoginListener.onStatusFailed(errorMessage);
                             }
                         }
                     });
@@ -53,10 +53,10 @@ public class LoginHelper extends FirebaseBaseHelper{
             showInternetMessageWarning();
     }
 
-    private String checkErrorCode(String error){
+    private String checkErrorCode(String mError){
         String errorMessage;
 
-        switch(error) {
+        switch(mError) {
             case "ERROR_INVALID_EMAIL":
                 errorMessage ="Neispravan Email";
                 break;
@@ -74,16 +74,16 @@ public class LoginHelper extends FirebaseBaseHelper{
         return  errorMessage;
     }
 
-    private void getUserInformation(String userUID){
+    private void getUserInformation(String mUserUID){
         if(isNetworkAvailable()) {
-            mReference = mDatabase.getReference().child(USERNODE).child(userUID);
+            mReference = mDatabase.getReference().child(USERNODE).child(mUserUID);
 
             mReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     UserModel temp = dataSnapshot.getValue(UserModel.class);
                     if (temp == null)
-                        listener.onStatusFailed(checkErrorCode(null));
+                        mLoginListener.onStatusFailed(checkErrorCode(null));
                     else {
                         CurrentUser.getCurrentUser = temp;
                         CurrentUser.getCurrentUser.setUserUID(dataSnapshot.getKey());
@@ -101,9 +101,9 @@ public class LoginHelper extends FirebaseBaseHelper{
             showInternetMessageWarning();
     }
 
-    private void getUserIgnoredLists(String userUID) {
+    private void getUserIgnoredLists(String mUserUID) {
         if(isNetworkAvailable()) {
-            mReference = mDatabase.getReference().child(USERIGNOREDLISTNODE).child(userUID);
+            mReference = mDatabase.getReference().child(USERIGNOREDLISTNODE).child(mUserUID);
 
             mReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -113,7 +113,7 @@ public class LoginHelper extends FirebaseBaseHelper{
                         ingoredLists.add(temp.getKey());
 
                     CurrentUser.getCurrentUser.setIgnoredLists(ingoredLists);
-                    listener.onStatusSuccess();
+                    mLoginListener.onStatusSuccess();
                 }
 
                 @Override

@@ -33,8 +33,8 @@ import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 
 public class RegistrationActivity extends AppCompatActivity implements RegistrationListener {
 
-    ArrayList<String> cities = new ArrayList<>();
-    SpinnerDialog spinnerDialog;
+    ArrayList<String> mListOfCities = new ArrayList<>();
+    SpinnerDialog mSpinnerDialog;
     private static final String OBLIGATORY  = "Obavezno polje!";
 
     public void initCities(){
@@ -47,7 +47,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                 JSONArray jsonArray = new JSONArray(json);
                 for (int i = 0; i<jsonArray.length(); i++){
                     JSONObject obj = jsonArray.getJSONObject(i);
-                    cities.add(obj.getString("mjesto"));
+                    mListOfCities.add(obj.getString("mjesto"));
                 }
             }
         } catch (IOException e) {
@@ -62,12 +62,12 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
 
 
-    private TextView dateOfBirthTxt, txtCities;
+    private TextView mDateOfBirth, mCities;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    private EditText emailTxt, passwordTxt, userNameTxt, firstNameTxt, lastNameTxt, adressTxt, contactTxt, retypedPasswordTxt;
-    private Button registerBtn, backToLoginBtn;
+    private EditText mEmail, mPassword, mUsername, mFirstName, mLastName, mAddress, mContact, mRetypedPassword;
+    private Button btnRegister, btnBackToLogin;
 
-    private RegistrationHelper controller;
+    private RegistrationHelper mRegistrationHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,41 +75,41 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         setContentView(R.layout.activity_register);
         getSupportActionBar().setTitle(R.string.register);
 
-        controller = new RegistrationHelper(this);
+        mRegistrationHelper = new RegistrationHelper(this);
 
-        firstNameTxt = findViewById(R.id.firstnameRegistration);
-        lastNameTxt = findViewById(R.id.lastnameRegistration);
-        userNameTxt = findViewById(R.id.usernameRegistration);
-        passwordTxt = findViewById(R.id.passwordRegistration);
-        retypedPasswordTxt = findViewById(R.id.repeatPasswordRegistration);
-        emailTxt =  findViewById(R.id.emailRegistration);
-        adressTxt = findViewById(R.id.addressRegistration);
-        dateOfBirthTxt = findViewById(R.id.dateOfBirthRegistration);
-        contactTxt = findViewById(R.id.contactRegistration);
+        mFirstName = findViewById(R.id.firstnameRegistration);
+        mLastName = findViewById(R.id.lastnameRegistration);
+        mUsername = findViewById(R.id.usernameRegistration);
+        mPassword = findViewById(R.id.passwordRegistration);
+        mRetypedPassword = findViewById(R.id.repeatPasswordRegistration);
+        mEmail =  findViewById(R.id.emailRegistration);
+        mAddress = findViewById(R.id.addressRegistration);
+        mDateOfBirth = findViewById(R.id.dateOfBirthRegistration);
+        mContact = findViewById(R.id.contactRegistration);
 
-        txtCities =  findViewById(R.id.txtCity);
+        mCities =  findViewById(R.id.txtCity);
 
-        registerBtn =  findViewById(R.id.buttonRegister);
-        backToLoginBtn =  findViewById(R.id.buttonBackToLogin);
+        btnRegister =  findViewById(R.id.buttonRegister);
+        btnBackToLogin =  findViewById(R.id.buttonBackToLogin);
 
         initCities();
-        spinnerDialog = new SpinnerDialog(RegistrationActivity.this, cities, "Odaberite grad", R.style.DialogAnimations_SmileWindow , "Zatvori");
-        spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
+        mSpinnerDialog = new SpinnerDialog(RegistrationActivity.this, mListOfCities, "Odaberite grad", R.style.DialogAnimations_SmileWindow , "Zatvori");
+        mSpinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
             @Override
             public void onClick(String item, int position) {
                 Toast.makeText(RegistrationActivity.this, "Selected: " + item, Toast.LENGTH_LONG).show();
-                txtCities.setText(item);
+                mCities.setText(item);
             }
         });
 
-        txtCities.setOnClickListener(new View.OnClickListener() {
+        mCities.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                spinnerDialog.showSpinerDialog();
+                mSpinnerDialog.showSpinerDialog();
             }
         });
 
-        dateOfBirthTxt.setOnClickListener(new View.OnClickListener() {
+        mDateOfBirth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Calendar calendar = Calendar.getInstance();
@@ -131,64 +131,64 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String date = (month+1) + "/" + dayOfMonth + "/" + year;
-                dateOfBirthTxt.setText(date);
-                contactTxt.requestFocus();
+                mDateOfBirth.setText(date);
+                mContact.requestFocus();
             }
         };
 
-        emailTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
-                    if(emailTxt.getText().toString().trim().length() > 0){
-                        boolean validationSuccess = ValidateInputs.validateEmail(emailTxt.getText().toString().trim());
-                        if(!validationSuccess) emailTxt.setError("Molimo unesite ispravnu email adresu!");
+                    if(mEmail.getText().toString().trim().length() > 0){
+                        boolean validationSuccess = ValidateInputs.validateEmail(mEmail.getText().toString().trim());
+                        if(!validationSuccess) mEmail.setError("Molimo unesite ispravnu email adresu!");
                     }else {
-                        emailTxt.setError(OBLIGATORY);
+                        mEmail.setError(OBLIGATORY);
                     }
                 }
             }
         });
 
-        passwordTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus) {
-                    if (passwordTxt.getText().toString().trim().length() > 0) {
-                        boolean validationSuccess = ValidateInputs.validatePassword(passwordTxt.getText().toString().trim());
+                    if (mPassword.getText().toString().trim().length() > 0) {
+                        boolean validationSuccess = ValidateInputs.validatePassword(mPassword.getText().toString().trim());
                         if (!validationSuccess)
-                            passwordTxt.setError("Minimalno 6 slova i jedan specijalni znak!");
+                            mPassword.setError("Minimalno 6 slova i jedan specijalni znak!");
                     } else {
-                        passwordTxt.setError(OBLIGATORY);
+                        mPassword.setError(OBLIGATORY);
                     }
                 }
             }
         });
 
-        retypedPasswordTxt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mRetypedPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
-                    if(retypedPasswordTxt.getText().toString().trim().length() > 0){
-                        boolean validationSuccess = ValidateInputs.validateRetypedPassword(passwordTxt.getText().toString().trim(), retypedPasswordTxt.getText().toString().trim());
-                        if(!validationSuccess) retypedPasswordTxt.setError("Lozinke ne odgovaraju!");
+                    if(mRetypedPassword.getText().toString().trim().length() > 0){
+                        boolean validationSuccess = ValidateInputs.validateRetypedPassword(mPassword.getText().toString().trim(), mRetypedPassword.getText().toString().trim());
+                        if(!validationSuccess) mRetypedPassword.setError("Lozinke ne odgovaraju!");
                     }else{
-                        retypedPasswordTxt.setError(OBLIGATORY);
+                        mRetypedPassword.setError(OBLIGATORY);
                     }
                 }
             }
         });
 
 
-        registerBtn.setOnClickListener(new View.OnClickListener() {
+        btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                controller.registerUser(createUser(), retypedPasswordTxt.getText().toString().trim());
+                mRegistrationHelper.registerUser(createUser(), mRetypedPassword.getText().toString().trim());
                 }
         });
 
-        backToLoginBtn.setOnClickListener(new View.OnClickListener() {
+        btnBackToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showLogin();
@@ -201,31 +201,31 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     }
 
     @Override
-    public void onRegistrationSuccess(String message) {
+    public void onRegistrationSuccess(String mMessage) {
         showLogin();
-        showToastRegistration(message);
+        showToastRegistration(mMessage);
     }
 
     @Override
-    public void onRegistrationFail(String message) {
-        showToastRegistration(message);
+    public void onRegistrationFail(String mMessage) {
+        showToastRegistration(mMessage);
     }
 
-    public void showToastRegistration(String message){
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    public void showToastRegistration(String mMessage){
+        Toast.makeText(this, mMessage, Toast.LENGTH_LONG).show();
     }
 
     private UserModel createUser(){
         UserModel newUser = new UserModel();
-        newUser.setFirst_name(firstNameTxt.getText().toString().trim());
-        newUser.setLast_name(lastNameTxt.getText().toString().trim());
-        newUser.setUsername(userNameTxt.getText().toString().trim());
-        newUser.setPassword(passwordTxt.getText().toString().trim());
-        newUser.setEmail(emailTxt.getText().toString().trim());
-        newUser.setAddress(adressTxt.getText().toString().trim());
-        newUser.setTown(txtCities.getText().toString().trim());
-        newUser.setPhone_number(contactTxt.getText().toString().trim());
-        newUser.setBirth_date(dateOfBirthTxt.getText().toString().trim());
+        newUser.setFirst_name(mFirstName.getText().toString().trim());
+        newUser.setLast_name(mLastName.getText().toString().trim());
+        newUser.setUsername(mUsername.getText().toString().trim());
+        newUser.setPassword(mPassword.getText().toString().trim());
+        newUser.setEmail(mEmail.getText().toString().trim());
+        newUser.setAddress(mAddress.getText().toString().trim());
+        newUser.setTown(mCities.getText().toString().trim());
+        newUser.setPhone_number(mContact.getText().toString().trim());
+        newUser.setBirth_date(mDateOfBirth.getText().toString().trim());
         return newUser;
     }
 }

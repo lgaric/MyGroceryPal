@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //Hamburger and back button
         getSupportFragmentManager().addOnBackStackChangedListener(this);
-        mToolbar.setNavigationOnClickListener(navigationClick);
+        mToolbar.setNavigationOnClickListener(mNavigationClick);
     }
 
     @Override
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     // Hamburger and back button
-    View.OnClickListener navigationClick = new View.OnClickListener() {
+    View.OnClickListener mNavigationClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if(getSupportFragmentManager().getBackStackEntryCount() == 0) {

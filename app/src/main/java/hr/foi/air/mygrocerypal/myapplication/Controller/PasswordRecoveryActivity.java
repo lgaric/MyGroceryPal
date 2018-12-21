@@ -8,17 +8,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.PasswordRecoveryHelper;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.PasswordRecoveryListener;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class PasswordRecoveryActivity extends AppCompatActivity implements PasswordRecoveryListener {
-    private EditText userEmail;
-    private Button buttonRecoveryPassword, showLogin;
-    FirebaseAuth firebaseAuth;
-    private PasswordRecoveryHelper passwordRecoveryHelper;
+    private EditText mUserEmail;
+    private Button btnRecoveryPassword, btnShowLogin;
+    private PasswordRecoveryHelper mPasswordRecoveryHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,22 +23,21 @@ public class PasswordRecoveryActivity extends AppCompatActivity implements Passw
         setContentView(R.layout.activity_password_recovery);
         getSupportActionBar().setTitle(R.string.forgotPassword);
 
-        passwordRecoveryHelper = new PasswordRecoveryHelper(this);
+        mPasswordRecoveryHelper = new PasswordRecoveryHelper(this);
 
-        buttonRecoveryPassword = findViewById(R.id.buttonRecoveryPassword);
-        showLogin = findViewById(R.id.buttonShowLogin);
+        btnRecoveryPassword = findViewById(R.id.buttonRecoveryPassword);
+        btnShowLogin = findViewById(R.id.buttonShowLogin);
 
-        userEmail =(EditText) findViewById(R.id.emailRecoveryPassword);
-        firebaseAuth = FirebaseAuth.getInstance();
+        mUserEmail =(EditText) findViewById(R.id.emailRecoveryPassword);
 
-        buttonRecoveryPassword.setOnClickListener(new View.OnClickListener() {
+        btnRecoveryPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                passwordRecoveryHelper.sendRecoveryMail(userEmail.getText().toString());
+                mPasswordRecoveryHelper.sendRecoveryMail(mUserEmail.getText().toString());
             }
         });
 
-        showLogin.setOnClickListener(new View.OnClickListener() {
+        btnShowLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showLogin();
@@ -55,14 +51,14 @@ public class PasswordRecoveryActivity extends AppCompatActivity implements Passw
     }
 
     @Override
-    public void onRecoverySuccess(String message) {
-        Toast.makeText(PasswordRecoveryActivity.this, message, Toast.LENGTH_LONG).show();
+    public void onRecoverySuccess(String mMessage) {
+        Toast.makeText(PasswordRecoveryActivity.this, mMessage, Toast.LENGTH_LONG).show();
         showLogin();
     }
 
     @Override
-    public void onRecoveryFail(String message) {
-        Toast.makeText(PasswordRecoveryActivity.this, message, Toast.LENGTH_LONG).show();
+    public void onRecoveryFail(String mMessage) {
+        Toast.makeText(PasswordRecoveryActivity.this, mMessage, Toast.LENGTH_LONG).show();
 
     }
 }

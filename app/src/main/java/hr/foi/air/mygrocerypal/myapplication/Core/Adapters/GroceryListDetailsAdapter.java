@@ -12,11 +12,11 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class GroceryListDetailsAdapter extends RecyclerView.Adapter<GroceryListDetailsHolder>  {
 
-    GroceryListsModel groceryList;
+    GroceryListsModel mGroceryList;
     boolean deliverer;
 
-    public GroceryListDetailsAdapter(GroceryListsModel groceryList, boolean deliverer){
-        this.groceryList = groceryList;
+    public GroceryListDetailsAdapter(GroceryListsModel mGroceryList, boolean deliverer){
+        this.mGroceryList = mGroceryList;
         this.deliverer = deliverer;
     }
 
@@ -26,7 +26,7 @@ public class GroceryListDetailsAdapter extends RecyclerView.Adapter<GroceryListD
         View view;
 
         if(!deliverer) {
-            if (groceryList.getStatus() == GroceryListStatus.ACCEPTED) {
+            if (mGroceryList.getStatus() == GroceryListStatus.ACCEPTED) {
                 view = LayoutInflater.from(viewGroup.getContext())
                         .inflate(R.layout.grocerylistdetails_item_buttons, viewGroup, false);
             } else {
@@ -38,16 +38,16 @@ public class GroceryListDetailsAdapter extends RecyclerView.Adapter<GroceryListD
                     .inflate(R.layout.listview_association, viewGroup, false);
         }
 
-        return new GroceryListDetailsHolder(view, groceryList);
+        return new GroceryListDetailsHolder(view, mGroceryList);
     }
 
     @Override
     public void onBindViewHolder(@NonNull GroceryListDetailsHolder groceryListHolder, int i) {
-        groceryListHolder.bind(groceryList.getProductsModels().get(i));
+        groceryListHolder.bind(mGroceryList.getProductsModels().get(i));
     }
 
     @Override
     public int getItemCount() {
-        return groceryList.getProductsModels().size();
+        return mGroceryList.getProductsModels().size();
     }
 }

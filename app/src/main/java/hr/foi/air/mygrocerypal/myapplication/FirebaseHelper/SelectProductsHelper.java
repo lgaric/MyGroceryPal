@@ -13,23 +13,23 @@ import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.SelectProd
 import hr.foi.air.mygrocerypal.myapplication.Model.ProductsModel;
 
 public class SelectProductsHelper extends FirebaseBaseHelper{
-    private SelectProductsListener listener;
+    private SelectProductsListener mSelectProductsListener;
 
-    public SelectProductsHelper(SelectProductsListener listener){
-        this.context = ((Fragment)listener).getContext();
-        this.listener = listener;
+    public SelectProductsHelper(SelectProductsListener mSelectProductsListener){
+        this.mContext = ((Fragment) mSelectProductsListener).getContext();
+        this.mSelectProductsListener = mSelectProductsListener;
     }
 
     /**
      * Dohvati sve proizvode po trgovini
-     * @param storeName
+     * @param mStoreName
      */
-    public void loadProductsByStore(String storeName) {
-        if (storeName == null)
+    public void loadProductsByStore(String mStoreName) {
+        if (mStoreName == null)
             return;
 
         if(isNetworkAvailable()) {
-            mQuery = mDatabase.getReference().child(PRODUCTSNODE).orderByChild("store_name").equalTo(storeName);
+            mQuery = mDatabase.getReference().child(PRODUCTSNODE).orderByChild("store_name").equalTo(mStoreName);
 
             mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -42,7 +42,7 @@ public class SelectProductsHelper extends FirebaseBaseHelper{
                         productsList.add(product);
                     }
 
-                    listener.productsListReceived(productsList);
+                    mSelectProductsListener.productsListReceived(productsList);
                 }
 
                 @Override

@@ -55,7 +55,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/upBought"
+        android:id="@+id/btnUpBought"
         android:text="+"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -64,11 +64,11 @@
 
 
     <Button
-        android:id="@+id/downBought"
+        android:id="@+id/btnDownBought"
         android:text="-"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/upBought"/>
+        android:layout_below="@+id/btnUpBought"/>
 
 </RelativeLayout>

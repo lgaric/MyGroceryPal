@@ -18,20 +18,20 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAdapter.SelectProductsHolder> {
 
-    private ArrayList<ProductsModel> productsList;
-    private List<GroceryListProductsModel> listOfProducts;
-    private List<GroceryListProductsModel> allreadyAddedProducts;
-    private int productQuantity;
+    private ArrayList<ProductsModel> mProductsList;
+    private List<GroceryListProductsModel> mListOfProducts;
+    private List<GroceryListProductsModel> mAllreadyAddedProducts;
+    private int mProductQuantity;
 
-    public  SelectProductsAdapter(ArrayList<ProductsModel> productsList){
-        this.productsList = productsList;
-        listOfProducts = new ArrayList<>();
+    public  SelectProductsAdapter(ArrayList<ProductsModel> mProductsList){
+        this.mProductsList = mProductsList;
+        mListOfProducts = new ArrayList<>();
     }
 
-    public  SelectProductsAdapter(ArrayList<ProductsModel> productsList, List<GroceryListProductsModel> allreadyAddedProducts){
-        this.productsList = productsList;
-        listOfProducts = new ArrayList<>();
-        this.allreadyAddedProducts = allreadyAddedProducts;
+    public  SelectProductsAdapter(ArrayList<ProductsModel> mProductsList, List<GroceryListProductsModel> mAllreadyAddedProducts){
+        this.mProductsList = mProductsList;
+        mListOfProducts = new ArrayList<>();
+        this.mAllreadyAddedProducts = mAllreadyAddedProducts;
     }
 
     @NonNull
@@ -45,20 +45,20 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
 
     @Override
     public void onBindViewHolder(@NonNull final SelectProductsHolder selectProductsHolder, int position) {
-        if(allreadyAddedProducts != null){
-            ProductsModel allreadyAddedProduct = alleadyAddedProduct(productsList.get(position));
+        if(mAllreadyAddedProducts != null){
+            ProductsModel allreadyAddedProduct = alleadyAddedProduct(mProductsList.get(position));
             if(allreadyAddedProduct != null)
-                selectProductsHolder.bind(allreadyAddedProduct, listOfProducts, productQuantity);
+                selectProductsHolder.bind(allreadyAddedProduct, mListOfProducts, mProductQuantity);
             else
-                selectProductsHolder.bind(productsList.get(position), listOfProducts);
+                selectProductsHolder.bind(mProductsList.get(position), mListOfProducts);
         }else
-            selectProductsHolder.bind(productsList.get(position), listOfProducts);
+            selectProductsHolder.bind(mProductsList.get(position), mListOfProducts);
     }
 
     private ProductsModel alleadyAddedProduct(ProductsModel productsModel){
-        for(GroceryListProductsModel product : allreadyAddedProducts){
+        for(GroceryListProductsModel product : mAllreadyAddedProducts){
             if(productsModel.getProduct_key().equals(product.getProduct_key())){
-                productQuantity = product.getQuantity();
+                mProductQuantity = product.getQuantity();
                 return productsModel;
             }
         }
@@ -67,87 +67,87 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
 
     @Override
     public int getItemCount() {
-        return productsList.size();
+        return mProductsList.size();
     }
 
     public ProductsModel getItem(int position){
-        return productsList.get(position);
+        return mProductsList.get(position);
     }
 
-    public List<GroceryListProductsModel> getListOfProducts(){
-        return listOfProducts;
+    public List<GroceryListProductsModel> getmListOfProducts(){
+        return mListOfProducts;
     }
 
 
 
     public class SelectProductsHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private GroceryListProductsModel product;
-        private ProductsModel productsModel;
-        private TextView productName, productPrice;
-        private ImageButton increaseGroceryAmount, decreaseGroceryAmount;
-        private EditText productQuantity;
-        private List<GroceryListProductsModel> listOfProducts;
+        private GroceryListProductsModel mProduct;
+        private ProductsModel mProductsModel;
+        private TextView mProductName, mProductPrice;
+        private ImageButton btnIncreaseGroceryAmount, btnDecreaseGroceryAmount;
+        private EditText mProductQuantity;
+        private List<GroceryListProductsModel> mListOfProducts;
 
         public SelectProductsHolder(@NonNull View itemView) {
             super(itemView);
 
-            this.productName = itemView.findViewById(R.id.productName);
-            this.productPrice = itemView.findViewById(R.id.productPrice);
-            this.productQuantity = itemView.findViewById(R.id.productQuantity);
-            this.decreaseGroceryAmount = itemView.findViewById(R.id.groceryDecreaseAmount);
-            this.increaseGroceryAmount = itemView.findViewById(R.id.groceryIncreaseAmount);
+            this.mProductName = itemView.findViewById(R.id.productName);
+            this.mProductPrice = itemView.findViewById(R.id.productPrice);
+            this.mProductQuantity = itemView.findViewById(R.id.productQuantity);
+            this.btnDecreaseGroceryAmount = itemView.findViewById(R.id.btnGroceryDecreaseAmount);
+            this.btnIncreaseGroceryAmount = itemView.findViewById(R.id.btnGroceryIncreaseAmount);
 
-            increaseGroceryAmount.setOnClickListener(this);
-            decreaseGroceryAmount.setOnClickListener(this);
-            productQuantity.setOnFocusChangeListener(onFocusChangeListener);
+            btnIncreaseGroceryAmount.setOnClickListener(this);
+            btnDecreaseGroceryAmount.setOnClickListener(this);
+            mProductQuantity.setOnFocusChangeListener(mOnFocusChangeListener);
         }
 
-        private void addSelectedProductToGroceryList(int value){
-            product = new GroceryListProductsModel();
-            product.setName(productsModel.getName());
-            product.setPrice(productsModel.getCurrent_price());
-            product.setQuantity(value);
-            product.setBought(0);
-            product.setProduct_key(productsModel.getProduct_key());
-            listOfProducts.add(product);
+        private void addSelectedProductToGroceryList(int mValue){
+            mProduct = new GroceryListProductsModel();
+            mProduct.setName(mProductsModel.getName());
+            mProduct.setPrice(mProductsModel.getCurrent_price());
+            mProduct.setQuantity(mValue);
+            mProduct.setBought(0);
+            mProduct.setProduct_key(mProductsModel.getProduct_key());
+            mListOfProducts.add(mProduct);
         }
 
-        View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
+        View.OnFocusChangeListener mOnFocusChangeListener = new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 updateQuantity();
             }
         };
 
-        private boolean isEmpty(EditText editText){
-            if(editText.getText().toString().trim().length() > 0) return false;
+        private boolean isEmpty(EditText mEditText){
+            if(mEditText.getText().toString().trim().length() > 0) return false;
             else return true;
         }
 
-        public void bind(ProductsModel product, List<GroceryListProductsModel> listOfProducts){
-            this.listOfProducts = listOfProducts;
-            this.productsModel = product;
-            this.productName.setText(product.getName());
-            this.productPrice.setText(Double.toString(product.getCurrent_price()));
+        public void bind(ProductsModel Product, List<GroceryListProductsModel> mListOfProducts){
+            this.mListOfProducts = mListOfProducts;
+            this.mProductsModel = Product;
+            this.mProductName.setText(Product.getName());
+            this.mProductPrice.setText(Double.toString(Product.getCurrent_price()));
         }
 
-        public void bind(ProductsModel product, List<GroceryListProductsModel> listOfProducts, int productQuantity){
-            this.listOfProducts = listOfProducts;
-            this.productsModel = product;
-            this.productName.setText(product.getName());
-            this.productPrice.setText(Double.toString(product.getCurrent_price()));
-            this.productQuantity.setText(Integer.toString(productQuantity));
-            addSelectedProductToGroceryList(productQuantity);
+        public void bind(ProductsModel mPproduct, List<GroceryListProductsModel> mListOfProducts, int mProductQuantity){
+            this.mListOfProducts = mListOfProducts;
+            this.mProductsModel = mPproduct;
+            this.mProductName.setText(mPproduct.getName());
+            this.mProductPrice.setText(Double.toString(mPproduct.getCurrent_price()));
+            this.mProductQuantity.setText(Integer.toString(mProductQuantity));
+            addSelectedProductToGroceryList(mProductQuantity);
         }
 
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.groceryDecreaseAmount:
+                case R.id.btnGroceryDecreaseAmount:
                     decreaseAmount();
                     break;
-                case R.id.groceryIncreaseAmount:
+                case R.id.btnGroceryIncreaseAmount:
                     increaseAmount();
                     break;
                 default:
@@ -156,41 +156,41 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
         }
 
         private void increaseAmount(){
-            if(product == null){
+            if(mProduct == null){
                 addSelectedProductToGroceryList(1);
-                productQuantity.setText(Integer.toString(product.getQuantity()));
+                mProductQuantity.setText(Integer.toString(mProduct.getQuantity()));
             }else{
-                product.setQuantity(product.getQuantity() + 1);
-                productQuantity.setText(Integer.toString(product.getQuantity()));
+                mProduct.setQuantity(mProduct.getQuantity() + 1);
+                mProductQuantity.setText(Integer.toString(mProduct.getQuantity()));
             }
         }
 
         private void decreaseAmount(){
-            if(product != null){
-                if(product.getQuantity() > 1){
-                    product.setQuantity(product.getQuantity() - 1);
-                    productQuantity.setText(Integer.toString(product.getQuantity()));
+            if(mProduct != null){
+                if(mProduct.getQuantity() > 1){
+                    mProduct.setQuantity(mProduct.getQuantity() - 1);
+                    mProductQuantity.setText(Integer.toString(mProduct.getQuantity()));
                 }
                 else{
-                    listOfProducts.remove(product);
-                    product = null;
-                    productQuantity.setText("0");
+                    mListOfProducts.remove(mProduct);
+                    mProduct = null;
+                    mProductQuantity.setText("0");
                 }
             }
         }
 
         private void updateQuantity(){
-            if(isEmpty(productQuantity)){
-                if(product != null){
-                    listOfProducts.remove(product);
-                    product = null;
+            if(isEmpty(mProductQuantity)){
+                if(mProduct != null){
+                    mListOfProducts.remove(mProduct);
+                    mProduct = null;
                 }
-                productQuantity.setText("0");
-            }else if (Integer.parseInt(productQuantity.getText().toString()) == 0 && product != null){
-                listOfProducts.remove(product);
-                product = null;
-            }else if(Integer.parseInt(productQuantity.getText().toString()) > 0 && product != null)
-                product.setQuantity(Integer.parseInt(productQuantity.getText().toString()));
+                mProductQuantity.setText("0");
+            }else if (Integer.parseInt(mProductQuantity.getText().toString()) == 0 && mProduct != null){
+                mListOfProducts.remove(mProduct);
+                mProduct = null;
+            }else if(Integer.parseInt(mProductQuantity.getText().toString()) > 0 && mProduct != null)
+                mProduct.setQuantity(Integer.parseInt(mProductQuantity.getText().toString()));
         }
     }
 }

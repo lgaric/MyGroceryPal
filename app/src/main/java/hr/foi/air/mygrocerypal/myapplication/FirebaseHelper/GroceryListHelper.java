@@ -14,19 +14,19 @@ import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 
 public class GroceryListHelper extends FirebaseBaseHelper{
-    private GroceryListListener groceryListListener;
+    private GroceryListListener mGroceryListListener;
 
-    public GroceryListHelper(GroceryListListener listener){
-        this.context = ((Fragment)listener).getContext();
-        groceryListListener = listener;
+    public GroceryListHelper(GroceryListListener mGroceryListListener){
+        this.mContext = ((Fragment)mGroceryListListener).getContext();
+        this.mGroceryListListener = mGroceryListListener;
     }
 
     /**
      * Dohvati sve GL-ove
-     * @param status
+     * @param mGroceryListStatus
      */
-    public void loadGroceryLists(final GroceryListStatus status) {
-        if (status == null)
+    public void loadGroceryLists(final GroceryListStatus mGroceryListStatus) {
+        if (mGroceryListStatus == null)
             return;
 
         if(isNetworkAvailable()){
@@ -41,7 +41,7 @@ public class GroceryListHelper extends FirebaseBaseHelper{
                         model.setGrocerylist_key(temp.getKey());
                         groceryList.add(model);
                     }
-                    groceryListListener.groceryListReceived(filterList(groceryList, status));
+                    mGroceryListListener.groceryListReceived(filterList(groceryList, mGroceryListStatus));
                 }
 
                 @Override
@@ -57,28 +57,28 @@ public class GroceryListHelper extends FirebaseBaseHelper{
      * Filtriranje u dvije skupine
      *  1. skupina ACCEPTED I CREATED
      *  2. skupina FINISHED
-     * @param groceryListsModels
-     * @param status
+     * @param mGroceryListsModels
+     * @param mStatus
      * @return
      */
-    private ArrayList<GroceryListsModel> filterList(ArrayList<GroceryListsModel> groceryListsModels, GroceryListStatus status){
-        ArrayList<GroceryListsModel> temp = new ArrayList<>();
+    private ArrayList<GroceryListsModel> filterList(ArrayList<GroceryListsModel> mGroceryListsModels, GroceryListStatus mStatus){
+        ArrayList<GroceryListsModel> mFilteredList = new ArrayList<>();
 
         // 1. skupina ACCEPTED I CREATED
-        if(status == GroceryListStatus.ACCEPTED) {
-            for (int i = 0; i < groceryListsModels.size(); i++) {
-                if (groceryListsModels.get(i).getStatus() != GroceryListStatus.FINISHED)
-                    temp.add(groceryListsModels.get(i));
+        if(mStatus == GroceryListStatus.ACCEPTED) {
+            for (int i = 0; i < mGroceryListsModels.size(); i++) {
+                if (mGroceryListsModels.get(i).getStatus() != GroceryListStatus.FINISHED)
+                    mFilteredList.add(mGroceryListsModels.get(i));
             }
         } // 2. skupina FINISHED
         else{
-            for (int i = 0; i < groceryListsModels.size(); i++) {
-                if (groceryListsModels.get(i).getStatus() == GroceryListStatus.FINISHED)
-                    temp.add(groceryListsModels.get(i));
+            for (int i = 0; i < mGroceryListsModels.size(); i++) {
+                if (mGroceryListsModels.get(i).getStatus() == GroceryListStatus.FINISHED)
+                    mFilteredList.add(mGroceryListsModels.get(i));
             }
         }
 
-        return temp;
+        return mFilteredList;
     }
 
 }

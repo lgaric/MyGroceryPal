@@ -14,20 +14,20 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class DelivererGLAdapter extends RecyclerView.Adapter<DelivererGLHolder> {
 
-    private ArrayList<GroceryListsModel> groceryListsModels;
-    private GroceryListOperationListener groceryListOperationListener;
+    private ArrayList<GroceryListsModel> mGroceryListsModels;
+    private GroceryListOperationListener mGroceryListOperationListener;
 
     /*
         0 - AKTIVNI GL DOSTAVLJAC
         1 - IGNORIRANI GL DOSTAVLJAC
         2 - PRIHVACENI GL DOSTAVLJAC
     */
-    int type;
+    int mType;
 
-    public DelivererGLAdapter(ArrayList<GroceryListsModel> groceryList, GroceryListOperationListener groceryListOperationListener, int type){
-        this.groceryListOperationListener = groceryListOperationListener;
-        this.groceryListsModels = groceryList;
-        this.type = type;
+    public DelivererGLAdapter(ArrayList<GroceryListsModel> groceryList, GroceryListOperationListener mGroceryListOperationListener, int mType){
+        this.mGroceryListOperationListener = mGroceryListOperationListener;
+        this.mGroceryListsModels = groceryList;
+        this.mType = mType;
     }
 
     @NonNull
@@ -35,11 +35,11 @@ public class DelivererGLAdapter extends RecyclerView.Adapter<DelivererGLHolder> 
     public DelivererGLHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view;
 
-        if(type == 0) { //AKTIVNI
+        if(mType == 0) { //AKTIVNI
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.gl_deliverer_active, viewGroup, false);
         }
-        else if(type == 1){ //IGNORIRANI -> STAVI SVOJ LAYOUT
+        else if(mType == 1){ //IGNORIRANI -> STAVI SVOJ LAYOUT
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.gl_item_ignored, viewGroup, false);
         }
@@ -48,16 +48,16 @@ public class DelivererGLAdapter extends RecyclerView.Adapter<DelivererGLHolder> 
                     .inflate(R.layout.grocerylist_item_created, viewGroup, false);//ovdje još treba layout za prihvaćene
         }
 
-        return new DelivererGLHolder(view, type);
+        return new DelivererGLHolder(view, mType);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DelivererGLHolder groceryListHolder, int i) {
-        groceryListHolder.bind(this.groceryListsModels.get(i), this.groceryListOperationListener);
+        groceryListHolder.bind(this.mGroceryListsModels.get(i), this.mGroceryListOperationListener);
     }
 
     @Override
     public int getItemCount() {
-        return groceryListsModels.size();
+        return mGroceryListsModels.size();
     }
 }

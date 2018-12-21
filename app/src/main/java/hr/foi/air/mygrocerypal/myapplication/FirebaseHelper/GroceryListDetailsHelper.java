@@ -15,20 +15,20 @@ import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
 public class GroceryListDetailsHelper extends FirebaseBaseHelper{
-    private GroceryListDetailsListener groceryListDetailsListener;
+    private GroceryListDetailsListener mGroceryListDetailsListener;
 
-    public GroceryListDetailsHelper(GroceryListDetailsListener listener) {
-        this.context = ((Fragment)listener).getContext();
-        groceryListDetailsListener = listener;
+    public GroceryListDetailsHelper(GroceryListDetailsListener mGroceryListDetailsListener) {
+        this.mContext = ((Fragment)mGroceryListDetailsListener).getContext();
+        this.mGroceryListDetailsListener = mGroceryListDetailsListener;
     }
 
     /**
      * Ucitaj sve proizvode odabrane grocery liste
-     * @param groceryListsModel
+     * @param mGroceryListsModel
      */
-    public void loadGroceryListProducts(final GroceryListsModel groceryListsModel) {
+    public void loadGroceryListProducts(final GroceryListsModel mGroceryListsModel) {
         if(isNetworkAvailable()){
-            mQuery = mDatabase.getReference().child(GROCERYLISTPRODUCTSNODE).child(groceryListsModel.getGrocerylist_key());
+            mQuery = mDatabase.getReference().child(GROCERYLISTPRODUCTSNODE).child(mGroceryListsModel.getGrocerylist_key());
 
             mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -39,10 +39,10 @@ public class GroceryListDetailsHelper extends FirebaseBaseHelper{
                         model.setGrocery_list_key(temp.getKey());
                         groceryListProducts.add(model);
                     }
-                    if(groceryListsModel.getUser_accepted_id() != null)
-                        getUserInformationGroceryList(groceryListProducts, groceryListsModel);
+                    if(mGroceryListsModel.getUser_accepted_id() != null)
+                        getUserInformationGroceryList(groceryListProducts, mGroceryListsModel);
                     else
-                        groceryListDetailsListener.groceryListDetailsReceived(null, groceryListProducts);
+                        mGroceryListDetailsListener.groceryListDetailsReceived(null, groceryListProducts);
                 }
 
                 @Override
@@ -54,15 +54,15 @@ public class GroceryListDetailsHelper extends FirebaseBaseHelper{
             showInternetMessageWarning();
     }
 
-    public void getUserInformationGroceryList(final ArrayList<GroceryListProductsModel> groceryListProducts, GroceryListsModel groceryListsModel) {
+    public void getUserInformationGroceryList(final ArrayList<GroceryListProductsModel> mGroceryListProducts, GroceryListsModel mGroceryListsModel) {
         if(isNetworkAvailable()) {
-            mQuery = mDatabase.getReference().child(USERNODE).child(groceryListsModel.getUser_id());
+            mQuery = mDatabase.getReference().child(USERNODE).child(mGroceryListsModel.getUser_id());
 
             mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     UserModel model = dataSnapshot.getValue(UserModel.class);
-                    groceryListDetailsListener.groceryListDetailsReceived(model, groceryListProducts);
+                    mGroceryListDetailsListener.groceryListDetailsReceived(model, mGroceryListProducts);
                 }
 
                 @Override

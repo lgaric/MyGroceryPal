@@ -12,22 +12,22 @@ import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.LoginListe
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener {
-    private EditText username, password;
-    private LoginHelper loginHelper;
+    private EditText mUsername, mPassword;
+    private LoginHelper mLoginHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        username = findViewById(R.id.usernameLogin);
-        password = findViewById(R.id.passwordLogin);
+        mUsername = findViewById(R.id.usernameLogin);
+        mPassword = findViewById(R.id.passwordLogin);
 
-        loginHelper = new LoginHelper(this);
+        mLoginHelper = new LoginHelper(this);
     }
 
     public void login(View view){
-        loginHelper.login(username.getText().toString(), password.getText().toString());
+        mLoginHelper.login(mUsername.getText().toString(), mPassword.getText().toString());
     }
 
     public void showRegister(View view) {
@@ -39,8 +39,8 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     }
 
     @Override
-    public void onStatusFailed(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    public void onStatusFailed(String mMessage) {
+        Toast.makeText(this, mMessage, Toast.LENGTH_LONG).show();
     }
 
     @Override

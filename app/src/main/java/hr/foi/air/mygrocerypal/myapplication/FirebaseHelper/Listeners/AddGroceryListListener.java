@@ -7,7 +7,7 @@ import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
 
 public interface AddGroceryListListener {
-    void storesReceived(ArrayList<StoresModel> stores);
-    void productsListReceived(List<GroceryListProductsModel> productsList);
-    void groceryListAddedToDatabase(boolean success, String message);
+    void storesReceived(ArrayList<StoresModel> mStores);
+    void productsListReceived(List<GroceryListProductsModel> mProductsList);
+    void groceryListAddedToDatabase(boolean mSuccess, String mMessage);
 }

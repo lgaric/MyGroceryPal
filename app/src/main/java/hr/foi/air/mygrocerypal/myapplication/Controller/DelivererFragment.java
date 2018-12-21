@@ -14,30 +14,27 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class DelivererFragment extends Fragment {
 
-    Button accepted;
-    Button active;
-    Button ignored;
+    Button btnAccepted, btnActive, btnIgnored;
+    FrameLayout mGroceryLists;
+    ActiveDelivererFragment mActiveDelivererFragment;
 
-    FrameLayout groceryLists;
-    ActiveDelivererFragment activeDelivererFragment;
-
-    int flag = 1;
+    int mFlag = 1;
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.active_deliverer_btn: //flag = 1
-                    if(flag != 1){
-                        flag = 1;
-                        showGroceryLists(activeDelivererFragment);
+                case R.id.active_deliverer_btn: //mFlag = 1
+                    if(mFlag != 1){
+                        mFlag = 1;
+                        showGroceryLists(mActiveDelivererFragment);
                     }
                     break;
-                case R.id.accepted_deliverer_btn: //flag = 2
+                case R.id.accepted_deliverer_btn: //mFlag = 2
                     break;
-                case R.id.ignored_client_btn: //flag = 3
-                    if(flag != 3){
-                        flag = 3;
+                case R.id.ignored_client_btn: //mFlag = 3
+                    if(mFlag != 3){
+                        mFlag = 3;
                         showGroceryLists(new IgnoredDelivererFragment());
                     }
                     break;
@@ -53,25 +50,25 @@ public class DelivererFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_deliverer, container, false);
 
-        active = view.findViewById(R.id.active_deliverer_btn);
-        accepted = view.findViewById(R.id.accepted_deliverer_btn);
-        ignored = view.findViewById(R.id.ignored_client_btn);
-        groceryLists = view.findViewById(R.id.show_grocery_lists);
+        btnActive = view.findViewById(R.id.active_deliverer_btn);
+        btnAccepted = view.findViewById(R.id.accepted_deliverer_btn);
+        btnIgnored = view.findViewById(R.id.ignored_client_btn);
+        mGroceryLists = view.findViewById(R.id.show_grocery_lists);
 
-        active.setOnClickListener(clickListener);
-        accepted.setOnClickListener(clickListener);
-        ignored.setOnClickListener(clickListener);
+        btnActive.setOnClickListener(clickListener);
+        btnAccepted.setOnClickListener(clickListener);
+        btnIgnored.setOnClickListener(clickListener);
 
-        if(activeDelivererFragment == null)
-            activeDelivererFragment = new ActiveDelivererFragment();
+        if(mActiveDelivererFragment == null)
+            mActiveDelivererFragment = new ActiveDelivererFragment();
         showGroceryLists(new ActiveDelivererFragment());
 
         return view;
     }
 
-    public void showGroceryLists(Fragment fragment){
+    public void showGroceryLists(Fragment mFragment){
         getChildFragmentManager().beginTransaction()
-            .replace(R.id.show_grocery_lists, fragment)
+            .replace(R.id.show_grocery_lists, mFragment)
             .commit();
     }
 

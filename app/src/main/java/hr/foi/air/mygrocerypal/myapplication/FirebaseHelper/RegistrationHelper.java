@@ -16,28 +16,26 @@ import hr.foi.air.mygrocerypal.LocationBasedOnAddress;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.RegistrationListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
-import static hr.foi.air.mygrocerypal.LocationBasedOnAddress.GetLocation;
-
 public class RegistrationHelper extends FirebaseBaseHelper{
-    private RegistrationListener listener;
+    private RegistrationListener mRegistrationListener;
 
-    public RegistrationHelper(RegistrationListener listener) {
-        this.context = (Context)listener;
-        this.listener = listener;
+    public RegistrationHelper(RegistrationListener mRegistrationListener) {
+        this.mContext = (Context) mRegistrationListener;
+        this.mRegistrationListener = mRegistrationListener;
     }
 
     /**
      * Registriraj korisnika
-     * @param newUser
+     * @param mNewUser
      */
-    public void registration(UserModel newUser){
-        final UserModel user = newUser;
-        Location userLocation = LocationBasedOnAddress.GetLocation(user.getAddress() + ", " + user.getTown() + ", Croatia", (Context)listener);
+    public void registration(UserModel mNewUser){
+        final UserModel user = mNewUser;
+        Location userLocation = LocationBasedOnAddress.GetLocation(user.getAddress() + ", " + user.getTown() + ", Croatia", (Context) mRegistrationListener);
         if(userLocation != null){
             user.setLongitude(userLocation.getLongitude());
             user.setLatitude(userLocation.getLatitude());
         }else{
-            listener.onRegistrationFail("Greška prilikom dohvaćanja lokacije!");
+            mRegistrationListener.onRegistrationFail("Greška prilikom dohvaćanja lokacije!");
             return;
         }
 
@@ -49,7 +47,7 @@ public class RegistrationHelper extends FirebaseBaseHelper{
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     //username exists
                     if (dataSnapshot.getChildrenCount() > 0) {
-                        listener.showToastRegistration("Korisničko ime je već u upotrebi!");
+                        mRegistrationListener.showToastRegistration("Korisničko ime je već u upotrebi!");
                     } else {
                         mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -59,11 +57,11 @@ public class RegistrationHelper extends FirebaseBaseHelper{
                                     mDatabase.getReference().child("users").child(uId).setValue(user);
                                     mAuth.getCurrentUser().sendEmailVerification();
                                     mAuth.signOut();
-                                    listener.onRegistrationSuccess("Registracija uspješna. Molimo potvrdite email!");
+                                    mRegistrationListener.onRegistrationSuccess("Registracija uspješna. Molimo potvrdite email!");
                                 } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                    listener.onRegistrationFail("Već postoji račun s navedenom email adresom!");
+                                    mRegistrationListener.onRegistrationFail("Već postoji račun s navedenom email adresom!");
                                 } else {
-                                    listener.onRegistrationFail("Greška prilikom registracije!");
+                                    mRegistrationListener.onRegistrationFail("Greška prilikom registracije!");
                                 }
                             }
                         });
@@ -83,28 +81,28 @@ public class RegistrationHelper extends FirebaseBaseHelper{
 
     /**
      * Pozovi metodu za registraciju ako je input korisnika valjan
-     * @param newUser
-     * @param retypedPassword
+     * @param mNewUser
+     * @param mRetypedPassword
      */
-    public void registerUser(UserModel newUser, String retypedPassword) {
-        if (InputCorrect(newUser, retypedPassword))
-            registration(newUser);
+    public void registerUser(UserModel mNewUser, String mRetypedPassword) {
+        if (InputCorrect(mNewUser, mRetypedPassword))
+            registration(mNewUser);
         else
-            listener.onRegistrationFail("Molimo pravilno ispunite sve podatke!");
+            mRegistrationListener.onRegistrationFail("Molimo pravilno ispunite sve podatke!");
     }
 
     /**
      * Provjeri valjanost korisnikovog inputa
-     * @param newUser
-     * @param retypedPassword
+     * @param mNewUser
+     * @param mRetypedPassword
      * @return
      */
-    private boolean InputCorrect(UserModel newUser, String retypedPassword){
-        if(newUser.getFirst_name().length() > 0 && newUser.getLast_name().length() > 0 &&
-                newUser.getUsername().length() > 0 && newUser.getTown().length() > 0 &&
-                newUser.getAddress().length() > 0 && newUser.getPhone_number().length() > 0 &&
-                newUser.getBirth_date().length() > 0 && ValidateInputs.validateEmail(newUser.getEmail())
-                && ValidateInputs.validatePassword(newUser.getPassword()) && ValidateInputs.validateRetypedPassword(newUser.getPassword(), retypedPassword))
+    private boolean InputCorrect(UserModel mNewUser, String mRetypedPassword){
+        if(mNewUser.getFirst_name().length() > 0 && mNewUser.getLast_name().length() > 0 &&
+                mNewUser.getUsername().length() > 0 && mNewUser.getTown().length() > 0 &&
+                mNewUser.getAddress().length() > 0 && mNewUser.getPhone_number().length() > 0 &&
+                mNewUser.getBirth_date().length() > 0 && ValidateInputs.validateEmail(mNewUser.getEmail())
+                && ValidateInputs.validatePassword(mNewUser.getPassword()) && ValidateInputs.validateRetypedPassword(mNewUser.getPassword(), mRetypedPassword))
             return true;
         else
             return false;

@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,19 +25,19 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class ClientGroceryListFragment extends Fragment implements View.OnClickListener, GroceryListListener, GroceryListClickListener {
 
-    private GroceryListHelper pastGroceryListHelper;
-    private Button activeGrocerylistBtn, pastGroceryListBtn;
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private FloatingActionButton floatingButtonAdd;
-    private RecyclerView recyclerView;
-    private GroceryListAdapter groceryListAdapter;
+    private GroceryListHelper mPastGroceryListHelper;
+    private Button btnActiveGrocerylist, btnPastGroceryList;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private FloatingActionButton mFloatingButtonAdd;
+    private RecyclerView mRecyclerView;
+    private GroceryListAdapter mGroceryListAdapter;
     /*
     0 -> AKTUALNI GROCERYLISTS
     1 -> PROŠLI GROCERYLISTS
      */
-    boolean active;
+    boolean mActive;
 
-    private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+    private SwipeRefreshLayout.OnRefreshListener mRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
             showGroceryLists();
@@ -50,34 +49,34 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_client_grocerylist, container, false);
 
-        activeGrocerylistBtn = view.findViewById(R.id.active_client_btn);
-        pastGroceryListBtn = view.findViewById(R.id.past_client_btn);
-        swipeRefreshLayout = view.findViewById(R.id.swiperefreshPastLists);
-        floatingButtonAdd = view.findViewById(R.id.floatingButtonAdd);
-        recyclerView = view.findViewById(R.id.recycler_view);
+        btnActiveGrocerylist = view.findViewById(R.id.active_client_btn);
+        btnPastGroceryList = view.findViewById(R.id.past_client_btn);
+        mSwipeRefreshLayout = view.findViewById(R.id.swiperefreshPastLists);
+        mFloatingButtonAdd = view.findViewById(R.id.floatingButtonAdd);
+        mRecyclerView = view.findViewById(R.id.recycler_view);
 
-        swipeRefreshLayout.setOnRefreshListener(refreshListener);
+        mSwipeRefreshLayout.setOnRefreshListener(mRefreshListener);
 
-        activeGrocerylistBtn.setOnClickListener(this);
-        pastGroceryListBtn.setOnClickListener(this);
-        floatingButtonAdd.setOnClickListener(this);
+        btnActiveGrocerylist.setOnClickListener(this);
+        btnPastGroceryList.setOnClickListener(this);
+        mFloatingButtonAdd.setOnClickListener(this);
 
         return view;
     }
 
     private void showGroceryLists(){
-        if(active)
-            pastGroceryListHelper.loadGroceryLists(GroceryListStatus.ACCEPTED);
+        if(mActive)
+            mPastGroceryListHelper.loadGroceryLists(GroceryListStatus.ACCEPTED);
         else
-            pastGroceryListHelper.loadGroceryLists(GroceryListStatus.FINISHED);
+            mPastGroceryListHelper.loadGroceryLists(GroceryListStatus.FINISHED);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        pastGroceryListHelper = new GroceryListHelper(this);
+        mPastGroceryListHelper = new GroceryListHelper(this);
         super.onViewCreated(view, savedInstanceState);
-        active = true;
+        mActive = true;
         loadGroceryListToRecyclerView(GroceryListStatus.ACCEPTED);
     }
 
@@ -86,15 +85,15 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
         switch (v.getId()){
             case R.id.active_client_btn:
                 //AKO NISU PRIKAZANI AKTIVNI GL ONDA IH PRIKAZI
-                if(!active) {
+                if(!mActive) {
                     loadGroceryListToRecyclerView(GroceryListStatus.ACCEPTED);
-                    active = true;
+                    mActive = true;
                 }
                 break;
             case R.id.past_client_btn:
-                if(active){
+                if(mActive){
                     loadGroceryListToRecyclerView(GroceryListStatus.FINISHED);
-                    active = false;
+                    mActive = false;
                 }
                 break;
             case R.id.floatingButtonAdd:
@@ -109,15 +108,15 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
         }
     }
 
-    private void loadGroceryListToRecyclerView(GroceryListStatus status){
-        pastGroceryListHelper.loadGroceryLists(status);
+    private void loadGroceryListToRecyclerView(GroceryListStatus mStatus){
+        mPastGroceryListHelper.loadGroceryLists(mStatus);
     }
 
 
     //NEZANIMA NAS
-    private void loadFragmentDetails(GroceryListsModel groceryListsModel){
+    private void loadFragmentDetails(GroceryListsModel mGroceryListsModel){
         Bundle bundle = new Bundle();
-        bundle.putSerializable("GROCERY_LIST_MODEL", groceryListsModel);
+        bundle.putSerializable("GROCERY_LIST_MODEL", mGroceryListsModel);
         ShowGroceryListDetailsFragment fragment = new ShowGroceryListDetailsFragment();
         fragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
@@ -127,20 +126,20 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
     }
 
     @Override
-    public void groceryListReceived(ArrayList<GroceryListsModel> groceryList) {
-        if(groceryList != null){
-            recyclerView.setAdapter(null);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            groceryListAdapter = new GroceryListAdapter(groceryList, this);
-            recyclerView.setAdapter(groceryListAdapter);
+    public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList) {
+        if(mGroceryList != null){
+            mRecyclerView.setAdapter(null);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mGroceryListAdapter = new GroceryListAdapter(mGroceryList, this);
+            mRecyclerView.setAdapter(mGroceryListAdapter);
 
             //MAKNI OZNAKU ZA OSVJEZAVANJE
-            swipeRefreshLayout.setRefreshing(false);
+            mSwipeRefreshLayout.setRefreshing(false);
         }
     }
 
     @Override
-    public void groceryListSelected(GroceryListsModel groceryListsModel) {
-        loadFragmentDetails(groceryListsModel);
+    public void groceryListSelected(GroceryListsModel mGroceryListsModel) {
+        loadFragmentDetails(mGroceryListsModel);
     }
 }

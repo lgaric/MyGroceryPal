@@ -45,59 +45,59 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class CreateNewGroceryListFragment extends Fragment implements AddGroceryListListener, View.OnClickListener {
 
-    private CreateNewGroceryListHelper createNewGroceryListHelper;
+    private CreateNewGroceryListHelper mCreateNewGroceryListHelper;
 
-    private String selectedStoreName;
-    private GroceryListsModel groceryListsModel;
-    private List<GroceryListProductsModel> groceryListProductsModels = new ArrayList<>();
-    private ProductsListAdapter productsListAdapter;
-    boolean sended = false;
-    boolean firstEntry = false;
-    boolean repeat = false;
-    int positionInSpinner;
+    private String mSelectedStoreName;
+    private GroceryListsModel mGroceryListsModel;
+    private List<GroceryListProductsModel> mGroceryListProductsModels = new ArrayList<>();
+    private ProductsListAdapter mProductsListAdapter;
+    boolean mSended = false;
+    boolean mFirstEntry = false;
+    boolean mRepeat = false;
+    int mPositionInSpinner;
     int flag = 0;
 
 
     //widgets
-    private RadioGroup radioGroup;
-    private RadioButton radioButton;
-    private EditText address, town, commision;
-    private TextView startDate, totalPriceAmount, labelProducts;
+    private RadioGroup mRadioGroup;
+    private RadioButton mRadioButton;
+    private EditText mAddress, mTown, mCommision;
+    private TextView mStartDate, mTotalPriceAmount, mLabelProducts;
     private Button btnAddProducts, btnConfirm;
-    private Spinner spinnerStores;
-    private RecyclerView recyclerView;
+    private Spinner mSpinnerStores;
+    private RecyclerView mRecyclerView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_new_grocerylist, container, false);
 
-        totalPriceAmount = view.findViewById(R.id.TotalPriceAmount);
+        mTotalPriceAmount = view.findViewById(R.id.TotalPriceAmount);
         btnAddProducts = view.findViewById(R.id.btnAddProducts);
         btnConfirm = view.findViewById(R.id.btnConfirm);
-        commision = view.findViewById(R.id.commision);
-        startDate = view.findViewById(R.id.startDate);
-        spinnerStores = view.findViewById(R.id.spinnerStores);
-        address = view.findViewById(R.id.address);
-        town = view.findViewById(R.id.town);
-        recyclerView = view.findViewById(R.id.recycler_view_products);
-        address.setText(CurrentUser.getCurrentUser.getAddress());
-        town.setText(CurrentUser.getCurrentUser.getTown());
-        address.setEnabled(false);
-        town.setEnabled(false);
-        radioGroup = view.findViewById(R.id.rgroup);
-        labelProducts = view.findViewById(R.id.labelProducts);
+        mCommision = view.findViewById(R.id.commision);
+        mStartDate = view.findViewById(R.id.startDate);
+        mSpinnerStores = view.findViewById(R.id.spinnerStores);
+        mAddress = view.findViewById(R.id.address);
+        mTown = view.findViewById(R.id.town);
+        mRecyclerView = view.findViewById(R.id.recycler_view_products);
+        mAddress.setText(CurrentUser.getCurrentUser.getAddress());
+        mTown.setText(CurrentUser.getCurrentUser.getTown());
+        mAddress.setEnabled(false);
+        mTown.setEnabled(false);
+        mRadioGroup = view.findViewById(R.id.rgroup);
+        mLabelProducts = view.findViewById(R.id.labelProducts);
 
-        radioGroup.setOnCheckedChangeListener(onCheckedChangeListener);
+        mRadioGroup.setOnCheckedChangeListener(onCheckedChangeListener);
         btnAddProducts.setOnClickListener(this);
         btnConfirm.setOnClickListener(this);
-        spinnerStores.setOnItemSelectedListener(onItemSelectedListener);
+        mSpinnerStores.setOnItemSelectedListener(onItemSelectedListener);
 
         //PONOVI
         if(getArguments() != null){
-            groceryListsModel = (GroceryListsModel)getArguments().getSerializable("repeatGL");
-            groceryListProductsModels = groceryListsModel.getProductsModels();
-            repeat = true;
+            mGroceryListsModel = (GroceryListsModel)getArguments().getSerializable("repeatGL");
+            mGroceryListProductsModels = mGroceryListsModel.getProductsModels();
+            mRepeat = true;
         }
         return view;
     }
@@ -106,19 +106,19 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     //PONOVI
     private void fillDataonRepeatGL(){
 
-        Adapter adapter = spinnerStores.getAdapter();
+        Adapter adapter = mSpinnerStores.getAdapter();
         for (int i = 0; i < adapter.getCount(); i++){
-            if(adapter.getItem(i).toString().equals(groceryListsModel.getStore_name())){
-                spinnerStores.setSelection(i);
+            if(adapter.getItem(i).toString().equals(mGroceryListsModel.getStore_name())){
+                mSpinnerStores.setSelection(i);
                 break;
             }
         }
-        commision.setText(groceryListsModel.getCommision());
-        if(CurrentUser.getCurrentUser.getAddress().equals(groceryListsModel.getDelivery_address()) && CurrentUser.getCurrentUser.getTown().equals(groceryListsModel.getDelivery_town())){
-            radioGroup.check(R.id.radioButton);
+        mCommision.setText(mGroceryListsModel.getCommision());
+        if(CurrentUser.getCurrentUser.getAddress().equals(mGroceryListsModel.getDelivery_address()) && CurrentUser.getCurrentUser.getTown().equals(mGroceryListsModel.getDelivery_town())){
+            mRadioGroup.check(R.id.radioButton);
         }
         else{
-            radioGroup.check(R.id.radioButton2);
+            mRadioGroup.check(R.id.radioButton2);
         }
 
     }
@@ -128,8 +128,8 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     public void onActivityResult(int requestCode, int resultCode, Intent data){
 
         if(requestCode==1 && resultCode==Activity.RESULT_OK){
-            groceryListProductsModels = (List<GroceryListProductsModel>) data.getSerializableExtra("groceryListOfProducts");
-            firstEntry = true;
+            mGroceryListProductsModels = (List<GroceryListProductsModel>) data.getSerializableExtra("groceryListOfProducts");
+            mFirstEntry = true;
         }
 
     }
@@ -138,11 +138,11 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     public void onStart() {
 
         super.onStart();
-        if(groceryListProductsModels.size() > 0){
-            productsListReceived(groceryListProductsModels);
-            labelProducts.setVisibility(View.VISIBLE);
+        if(mGroceryListProductsModels.size() > 0){
+            productsListReceived(mGroceryListProductsModels);
+            mLabelProducts.setVisibility(View.VISIBLE);
         }else{
-            labelProducts.setVisibility(View.GONE);
+            mLabelProducts.setVisibility(View.GONE);
         }
 
 
@@ -153,10 +153,10 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
-        startDate.setText(getDate());
-        createNewGroceryListHelper = new CreateNewGroceryListHelper(this);
+        mStartDate.setText(getDate());
+        mCreateNewGroceryListHelper = new CreateNewGroceryListHelper(this);
 
-        createNewGroceryListHelper.getAllStores();
+        mCreateNewGroceryListHelper.getAllStores();
 
     }
 
@@ -168,17 +168,17 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 SelectProductsFragment selectProductsFragment = new SelectProductsFragment();
                 Bundle bundle = new Bundle();
                 hideKeyboard(btnAddProducts);
-                selectedStoreName = spinnerStores.getSelectedItem().toString();
-                bundle.putString("store_name", selectedStoreName);
-                if(groceryListProductsModels.size() > 0)
-                    bundle.putSerializable("list_of_products", (Serializable)groceryListProductsModels);
+                mSelectedStoreName = mSpinnerStores.getSelectedItem().toString();
+                bundle.putString("store_name", mSelectedStoreName);
+                if(mGroceryListProductsModels.size() > 0)
+                    bundle.putSerializable("list_of_products", (Serializable) mGroceryListProductsModels);
                 selectProductsFragment.setArguments(bundle);
                 selectProductsFragment.setTargetFragment(CreateNewGroceryListFragment.this, 1);
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, selectProductsFragment)
                         .addToBackStack(null)
                         .commit();
-                sended = true;
+                mSended = true;
 
                 break;
             case R.id.btnConfirm:
@@ -186,7 +186,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 hideKeyboard(btnConfirm);
                 if(entered){
                     createGroceryList();
-                    createNewGroceryListHelper.saveGL_withProducts(groceryListsModel, groceryListProductsModels);
+                    mCreateNewGroceryListHelper.saveGL_withProducts(mGroceryListsModel, mGroceryListProductsModels);
                 }
                 break;
             default:
@@ -195,45 +195,45 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     }
 
     private void checkProductsQuantity(){
-        if(groceryListProductsModels != null){
-            int size = groceryListProductsModels.size();
+        if(mGroceryListProductsModels != null){
+            int size = mGroceryListProductsModels.size();
             for(int i = 0; i < size; i++){
-                if(groceryListProductsModels.get(i).getQuantity() == 0){
-                    groceryListProductsModels.remove(i);
+                if(mGroceryListProductsModels.get(i).getQuantity() == 0){
+                    mGroceryListProductsModels.remove(i);
                     size --;
                 }
             }
         }
     }
 
-    private void hideKeyboard(Button button){
+    private void hideKeyboard(Button mButton){
         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(button.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+        imm.hideSoftInputFromWindow(mButton.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
     }
 
     RadioGroup.OnCheckedChangeListener onCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
-            radioButton = radioGroup.findViewById(checkedId);
+            mRadioButton = mRadioGroup.findViewById(checkedId);
 
-            if(radioButton.getText().equals("Moja adresa")){
-                address.setEnabled(false);
-                town.setEnabled(false);
-                address.setText(CurrentUser.getCurrentUser.getAddress());
-                town.setText(CurrentUser.getCurrentUser.getTown());
+            if(mRadioButton.getText().equals("Moja adresa")){
+                mAddress.setEnabled(false);
+                mTown.setEnabled(false);
+                mAddress.setText(CurrentUser.getCurrentUser.getAddress());
+                mTown.setText(CurrentUser.getCurrentUser.getTown());
             }
             else{
-                address.setEnabled(true);
-                town.setEnabled(true);
-                address.getText().clear();
-                town.getText().clear();
-                address.setHint("Upišite drugu adresu");
-                town.setHint("Upišite grad");
+                mAddress.setEnabled(true);
+                mTown.setEnabled(true);
+                mAddress.getText().clear();
+                mTown.getText().clear();
+                mAddress.setHint("Upišite drugu adresu");
+                mTown.setHint("Upišite grad");
 
                 //PONOVI
-                if(groceryListsModel != null){
-                    address.setText(groceryListsModel.getDelivery_address());
-                    town.setText(groceryListsModel.getDelivery_town());
+                if(mGroceryListsModel != null){
+                    mAddress.setText(mGroceryListsModel.getDelivery_address());
+                    mTown.setText(mGroceryListsModel.getDelivery_town());
                 }
             }
         }
@@ -241,18 +241,18 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
 
     @Override
-    public void storesReceived(ArrayList<StoresModel> stores) {
-        if(stores != null){
+    public void storesReceived(ArrayList<StoresModel> mStores) {
+        if(mStores != null){
             ArrayList<String> storeNames = new ArrayList<>();
-            for(int i = 0; i < stores.size(); i++){
-                storeNames.add(stores.get(i).getName());
+            for(int i = 0; i < mStores.size(); i++){
+                storeNames.add(mStores.get(i).getName());
             }
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, storeNames);
-            spinnerStores.setAdapter(adapter);
+            mSpinnerStores.setAdapter(adapter);
 
             //PONOVI
-            if(repeat && groceryListsModel != null){
+            if(mRepeat && mGroceryListsModel != null){
                 fillDataonRepeatGL();
             }
 
@@ -265,24 +265,24 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
             //Ako je fragment već kreiran, ako su dohvaćeni podaci o proizvodima i ako je dućan jednak odabranom itemu u spinneru
-            if(!firstEntry && sended && selectedStoreName != null && parent.getItemAtPosition(position) != null && (!selectedStoreName.equals(parent.getItemAtPosition(position).toString()))){
-                if(productsListAdapter.getItemCount() > 0)
+            if(!mFirstEntry && mSended && mSelectedStoreName != null && parent.getItemAtPosition(position) != null && (!mSelectedStoreName.equals(parent.getItemAtPosition(position).toString()))){
+                if(mProductsListAdapter.getItemCount() > 0)
                     showDialogOnStoreChanged(true);
                 else
                     showDialogOnStoreChanged(false);
-                if(sended){
-                    spinnerStores.setSelection(positionInSpinner);//ako je u dialogbox odabran NE
+                if(mSended){
+                    mSpinnerStores.setSelection(mPositionInSpinner);//ako je u dialogbox odabran NE
                     flag = 1;
                 }
             }
-            if(sended && firstEntry){
-                spinnerStores.setSelection(positionInSpinner);
-                firstEntry = false;
+            if(mSended && mFirstEntry){
+                mSpinnerStores.setSelection(mPositionInSpinner);
+                mFirstEntry = false;
             }
             else{
                 if(flag == 0){
-                    selectedStoreName = parent.getItemAtPosition(position).toString();
-                    positionInSpinner = parent.getSelectedItemPosition();
+                    mSelectedStoreName = parent.getItemAtPosition(position).toString();
+                    mPositionInSpinner = parent.getSelectedItemPosition();
                 }
                 else{
                     flag = 0;
@@ -299,20 +299,20 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
 
     @Override
-    public void productsListReceived(List<GroceryListProductsModel> productsList) {
-        if(productsList != null){
-            recyclerView.setAdapter(null);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            productsListAdapter = new ProductsListAdapter(productsList, totalPriceAmount);
-            recyclerView.setAdapter(productsListAdapter);
+    public void productsListReceived(List<GroceryListProductsModel> mProductsList) {
+        if(mProductsList != null){
+            mRecyclerView.setAdapter(null);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mProductsListAdapter = new ProductsListAdapter(mProductsList, mTotalPriceAmount);
+            mRecyclerView.setAdapter(mProductsListAdapter);
         }
     }
 
     @Override
-    public void groceryListAddedToDatabase(boolean success, String message) {
-        showToast(message);
+    public void groceryListAddedToDatabase(boolean mSuccess, String mMessage) {
+        showToast(mMessage);
 
-        if(success && getFragmentManager().getBackStackEntryCount() > 0){
+        if(mSuccess && getFragmentManager().getBackStackEntryCount() > 0){
             getFragmentManager().popBackStack();
         }
     }
@@ -321,30 +321,30 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     public boolean checkData(){
 
         boolean entered = true;
-        if(isNullOrBlank(selectedStoreName)){
+        if(isNullOrBlank(mSelectedStoreName)){
             showToast("Odaberite dućan!");
             entered = false;
 
         }
-        if(isNullOrBlank(address.getText().toString())){
+        if(isNullOrBlank(mAddress.getText().toString())){
             showToast("Odaberite adresu!");
             entered = false;
         }
-        if(isNullOrBlank(town.getText().toString())){
+        if(isNullOrBlank(mTown.getText().toString())){
             showToast("Odaberite grad!");
             entered = false;
         }
-        if(isNullOrBlank(startDate.toString())){
+        if(isNullOrBlank(mStartDate.toString())){
             showToast("Odaberite početni datum prikazivanja!");
             entered = false;
         }
-        if(isNullOrBlank(commision.getText().toString())){
+        if(isNullOrBlank(mCommision.getText().toString())){
             showToast("Odaberite proviziju!");
             entered = false;
         }
         checkProductsQuantity();//ako je količina 0 briše iz liste
-        if(groceryListProductsModels != null){
-            if(groceryListProductsModels.size() < 1){
+        if(mGroceryListProductsModels != null){
+            if(mGroceryListProductsModels.size() < 1){
                 showToast("Morate odabrati barem jedan proizvod!");
                 entered = false;
             }
@@ -364,35 +364,35 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     }
 
     public void createGroceryList(){
-        groceryListsModel = new GroceryListsModel(
-                commision.getText().toString(),
-                address.getText().toString(), town.getText().toString(),
+        mGroceryListsModel = new GroceryListsModel(
+                mCommision.getText().toString(),
+                mAddress.getText().toString(), mTown.getText().toString(),
                 increaseCurrentDateBy(3),
-                startDate.getText().toString(),
+                mStartDate.getText().toString(),
                 GroceryListStatus.CREATED,
-                selectedStoreName,
-                totalPriceAmount.getText().toString(),
+                mSelectedStoreName,
+                mTotalPriceAmount.getText().toString(),
                 CurrentUser.getCurrentUser.getUserUID(),
                 "-", CurrentUser.getCurrentUser.getLongitude(),
                 CurrentUser.getCurrentUser.getLatitude());
     }
 
 
-    public String increaseCurrentDateBy(int value){
+    public String increaseCurrentDateBy(int mValue){
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
-        c.add(Calendar.DATE, value);
+        c.add(Calendar.DATE, mValue);
         String endDate = df.format(c.getTime());
         return endDate;
     }
 
-    public void showToast(String message){
-        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    public void showToast(String mMessage){
+        Toast.makeText(getActivity(), mMessage, Toast.LENGTH_LONG).show();
     }
 
-    public void showDialogOnStoreChanged(boolean flag){
-        if(flag) {
+    public void showDialogOnStoreChanged(boolean mFlag){
+        if(mFlag) {
             new AlertDialog.Builder(getActivity())
                     .setTitle("Promjena dućana")
                     .setMessage("Mijenjanje dućana briše listu proizvoda. Jeste li sigurni da želite promijeniti dućan?")
@@ -400,10 +400,10 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                     .setPositiveButton("Da", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            if (productsListAdapter != null && groceryListProductsModels != null) {
-                                groceryListProductsModels.clear();
-                                productsListReceived(groceryListProductsModels);
-                                sended = false;
+                            if (mProductsListAdapter != null && mGroceryListProductsModels != null) {
+                                mGroceryListProductsModels.clear();
+                                productsListReceived(mGroceryListProductsModels);
+                                mSended = false;
 
                             }
 
@@ -411,9 +411,9 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                     }).create().show();
         }
         else{
-            groceryListProductsModels.clear();
-            productsListReceived(groceryListProductsModels);
-            sended = false;
+            mGroceryListProductsModels.clear();
+            productsListReceived(mGroceryListProductsModels);
+            mSended = false;
         }
     }
 

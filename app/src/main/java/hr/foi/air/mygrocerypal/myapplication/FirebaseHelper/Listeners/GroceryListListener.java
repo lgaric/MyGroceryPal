@@ -5,5 +5,5 @@ import java.util.ArrayList;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 
 public interface GroceryListListener {
-    void groceryListReceived(ArrayList<GroceryListsModel> groceryList);
+    void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList);
 }

@@ -14,12 +14,12 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListHolder> {
 
-    private ArrayList<GroceryListsModel> groceryListsModels;
-    private GroceryListClickListener groceryListClickListener;
+    private ArrayList<GroceryListsModel> mGroceryListsModels;
+    private GroceryListClickListener mGroceryListClickListener;
 
     public  GroceryListAdapter(ArrayList<GroceryListsModel> groceryList, GroceryListClickListener listener){
-        this.groceryListClickListener = listener;
-        groceryListsModels = groceryList;
+        this.mGroceryListClickListener = listener;
+        mGroceryListsModels = groceryList;
     }
 
     @NonNull
@@ -33,12 +33,12 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull GroceryListHolder groceryListHolder, int i) {
-        groceryListHolder.bind(groceryListsModels.get(i), this.groceryListClickListener);
+        groceryListHolder.bind(mGroceryListsModels.get(i), this.mGroceryListClickListener);
 
     }
 
     @Override
     public int getItemCount() {
-        return groceryListsModels.size();
+        return mGroceryListsModels.size();
     }
 }

@@ -19,11 +19,11 @@ import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
 
 public class CreateNewGroceryListHelper extends FirebaseBaseHelper{
 
-    private AddGroceryListListener addGroceryListListener;
+    private AddGroceryListListener mAddGroceryListListener;
 
-    public CreateNewGroceryListHelper(AddGroceryListListener listener){
-        this.context = ((Fragment)listener).getContext();
-        addGroceryListListener = listener;
+    public CreateNewGroceryListHelper(AddGroceryListListener mAddGroceryListListener){
+        this.mContext = ((Fragment)mAddGroceryListListener).getContext();
+        this.mAddGroceryListListener = mAddGroceryListListener;
     }
 
     /**
@@ -42,7 +42,7 @@ public class CreateNewGroceryListHelper extends FirebaseBaseHelper{
                         stores.add(storesModel);
                     }
 
-                    addGroceryListListener.storesReceived(stores);
+                    mAddGroceryListListener.storesReceived(stores);
                     Log.d("getAllStores", "sizeStores" + Integer.toString(stores.size()));
                 }
 
@@ -58,29 +58,29 @@ public class CreateNewGroceryListHelper extends FirebaseBaseHelper{
 
     /**
      * Napravi novi GL
-     * @param groceryListsModel
-     * @param groceryListProductsModels
+     * @param mGroceryListsModel
+     * @param mGroceryListProductsModels
      */
-    public void saveGL_withProducts(GroceryListsModel groceryListsModel, List<GroceryListProductsModel> groceryListProductsModels){
+    public void saveGL_withProducts(GroceryListsModel mGroceryListsModel, List<GroceryListProductsModel> mGroceryListProductsModels){
         if(isNetworkAvailable()){
             mReference = mDatabase.getReference().child(GROCERYLISTSNODE);
             DatabaseReference pushRef = mReference.push();
-            pushRef.setValue(groceryListsModel);
+            pushRef.setValue(mGroceryListsModel);
             String generated_GL_key = pushRef.getKey();
 
             Log.d("generated_GL_key", generated_GL_key);
 
             //Upis proizvoda za taj GL u firebase
             if(!isNullOrBlank(generated_GL_key)){
-                for (GroceryListProductsModel product: groceryListProductsModels) {
+                for (GroceryListProductsModel product: mGroceryListProductsModels) {
                     DatabaseReference refProducts = mDatabase.getReference().child(GROCERYLISTPRODUCTSNODE).child(generated_GL_key).child(product.getProduct_key());
                     product.setProduct_key(null);
                     refProducts.setValue(product);
                 }
-                addGroceryListListener.groceryListAddedToDatabase(true, "Uspješno kreirano!");
+                mAddGroceryListListener.groceryListAddedToDatabase(true, "Uspješno kreirano!");
             }
             else{
-                addGroceryListListener.groceryListAddedToDatabase(true, "Greška prilikom upisa!");
+                mAddGroceryListListener.groceryListAddedToDatabase(true, "Greška prilikom upisa!");
             }
         }else
             showInternetMessageWarning();

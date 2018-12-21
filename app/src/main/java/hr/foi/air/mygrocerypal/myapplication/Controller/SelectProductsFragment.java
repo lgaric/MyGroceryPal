@@ -25,11 +25,11 @@ import hr.foi.air.mygrocerypal.myapplication.Model.ProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class SelectProductsFragment extends Fragment implements SelectProductsListener{
-    private List<GroceryListProductsModel> allreadyAddedProducts = new ArrayList<>();
-    private Button addProductsToGroceryList;
-    private SelectProductsHelper selectProductsHelper;
-    private RecyclerView recyclerView;
-    private SelectProductsAdapter selectProductsAdapter;
+    private List<GroceryListProductsModel> mAllreadyAddedProducts = new ArrayList<>();
+    private Button btnAddProductsToGroceryList;
+    private SelectProductsHelper mSelectProductsHelper;
+    private RecyclerView mRecyclerView;
+    private SelectProductsAdapter mSelectProductsAdapter;
 
 
     @Nullable
@@ -43,18 +43,18 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        selectProductsHelper = new SelectProductsHelper(this);
+        mSelectProductsHelper = new SelectProductsHelper(this);
 
-        recyclerView = view.findViewById(R.id.recycler_view);
-        addProductsToGroceryList = view.findViewById(R.id.addProductsToGroceryList);
+        mRecyclerView = view.findViewById(R.id.recycler_view);
+        btnAddProductsToGroceryList = view.findViewById(R.id.addProductsToGroceryList);
 
-        selectProductsHelper.loadProductsByStore(getArguments().getString("store_name"));
-        allreadyAddedProducts = (List<GroceryListProductsModel>)getArguments().getSerializable("list_of_products");
+        mSelectProductsHelper.loadProductsByStore(getArguments().getString("store_name"));
+        mAllreadyAddedProducts = (List<GroceryListProductsModel>)getArguments().getSerializable("list_of_products");
 
-        addProductsToGroceryList.setOnClickListener(new View.OnClickListener() {
+        btnAddProductsToGroceryList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<GroceryListProductsModel> listOfProducts = selectProductsAdapter.getListOfProducts();
+                List<GroceryListProductsModel> listOfProducts = mSelectProductsAdapter.getmListOfProducts();
 
                 //ukoliko ne postoji prethodni fragment ne čini ništa!
                 if(getFragmentManager().getBackStackEntryCount() > 0){
@@ -68,21 +68,21 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
     }
 
     @Override
-    public void productsListReceived(ArrayList<ProductsModel> productsList) {
-        if(productsList != null){
-            recyclerView.setAdapter(null);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    public void productsListReceived(ArrayList<ProductsModel> mProductsList) {
+        if(mProductsList != null){
+            mRecyclerView.setAdapter(null);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-            InitializeAdapter(productsList);
-            recyclerView.setAdapter(selectProductsAdapter);
+            InitializeAdapter(mProductsList);
+            mRecyclerView.setAdapter(mSelectProductsAdapter);
         }
     }
 
-    private void InitializeAdapter(ArrayList<ProductsModel> productsList){
-        if(allreadyAddedProducts == null)
-            selectProductsAdapter = new SelectProductsAdapter(productsList);
+    private void InitializeAdapter(ArrayList<ProductsModel> mProductsList){
+        if(mAllreadyAddedProducts == null)
+            mSelectProductsAdapter = new SelectProductsAdapter(mProductsList);
         else
-            selectProductsAdapter = new SelectProductsAdapter(productsList, allreadyAddedProducts);
+            mSelectProductsAdapter = new SelectProductsAdapter(mProductsList, mAllreadyAddedProducts);
     }
 
 }

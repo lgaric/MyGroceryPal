@@ -21,34 +21,34 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
     private static String TOTALPRICE = "Ukupna cijena: ";
     private static String CURRENCY = " kn";
 
-    private GroceryListProductsModel model;
+    private GroceryListProductsModel mModel;
     private TextView mNameOfProduct, mBought, mQuantity, mPrice, mTotalPrice, mCurrentPrice;
     private Button btnUpBought, btnDownBought;
 
-    private View.OnClickListener clickListener = new View.OnClickListener() {
+    private View.OnClickListener btnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.upBought:
+                case R.id.btnUpBought:
 
-                    if(model.getBought() < model.getQuantity()){
-                        model.setBought(model.getBought() + 1);
-                        mBought.setText(BOUGHT + Integer.toString(model.getBought()));
-                        mCurrentPrice.setText(CURRENTPRICE + String.format("%.2f", model.getBought() * model.getPrice()) + CURRENCY);
+                    if(mModel.getBought() < mModel.getQuantity()){
+                        mModel.setBought(mModel.getBought() + 1);
+                        mBought.setText(BOUGHT + Integer.toString(mModel.getBought()));
+                        mCurrentPrice.setText(CURRENTPRICE + String.format("%.2f", mModel.getBought() * mModel.getPrice()) + CURRENCY);
                     }
 
-                    Log.d("GROCERYDETAILSHOLDERUP", "GUMB UP: " + model.getGrocery_list_key());
+                    Log.d("GROCERYDETAILSHOLDERUP", "GUMB UP: " + mModel.getGrocery_list_key());
 
                     break;
-                case R.id.downBought:
+                case R.id.btnDownBought:
 
-                    if(model.getBought() > 0){
-                        model.setBought(model.getBought() - 1);
-                        mBought.setText(BOUGHT + Integer.toString(model.getBought()));
-                        mCurrentPrice.setText(CURRENTPRICE + String.format("%.2f", model.getBought() * model.getPrice()) + CURRENCY);
+                    if(mModel.getBought() > 0){
+                        mModel.setBought(mModel.getBought() - 1);
+                        mBought.setText(BOUGHT + Integer.toString(mModel.getBought()));
+                        mCurrentPrice.setText(CURRENTPRICE + String.format("%.2f", mModel.getBought() * mModel.getPrice()) + CURRENCY);
                     }
 
-                    Log.d("GROCERYDETAILSHOLDERUP", "GUMB DOWN: " + model.getGrocery_list_key());
+                    Log.d("GROCERYDETAILSHOLDERUP", "GUMB DOWN: " + mModel.getGrocery_list_key());
 
                     break;
                 default:
@@ -70,20 +70,20 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
 
 
         if(groceryModel.getStatus() == GroceryListStatus.ACCEPTED) {
-            this.btnUpBought = itemView.findViewById(R.id.upBought);
-            this.btnDownBought = itemView.findViewById(R.id.downBought);
+            this.btnUpBought = itemView.findViewById(R.id.btnUpBought);
+            this.btnDownBought = itemView.findViewById(R.id.btnDownBought);
 
             this.mCurrentPrice = itemView.findViewById(R.id.currentprice);
 
-            this.btnUpBought.setOnClickListener(clickListener);
-            this.btnDownBought.setOnClickListener(clickListener);
+            this.btnUpBought.setOnClickListener(btnClickListener);
+            this.btnDownBought.setOnClickListener(btnClickListener);
         }
 
 
     }
 
     public void bind(GroceryListProductsModel model){
-        this.model = model;
+        this.mModel = model;
 
         this.mNameOfProduct.setText(model.getName());
         this.mBought.setText(BOUGHT + Integer.toString(model.getBought()));

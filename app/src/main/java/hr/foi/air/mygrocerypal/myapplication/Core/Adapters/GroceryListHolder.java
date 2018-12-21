@@ -18,9 +18,9 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
     private static final String FEE = "Provizija: ";
     private static final String CURRENCY = " KN";
 
-    private GroceryListsModel groceryListsModel;
+    private GroceryListsModel mGroceryListsModel;
 
-    private LinearLayout color_track;
+    private LinearLayout mColorTrack;
 
     private TextView mStore;
     private TextView mPrice;
@@ -30,15 +30,15 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
     private View.OnClickListener onclick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            groceryListClickListener.groceryListSelected(groceryListsModel);
+            mGroceryListClickListener.groceryListSelected(mGroceryListsModel);
         }
     };
-        private GroceryListClickListener groceryListClickListener;
+        private GroceryListClickListener mGroceryListClickListener;
 
     public GroceryListHolder(@NonNull View itemView) {
             super(itemView);
 
-            color_track = itemView.findViewById(R.id.color_track);
+            mColorTrack = itemView.findViewById(R.id.color_track);
 
             mStore = itemView.findViewById(R.id.store_name);
             mPrice = itemView.findViewById(R.id.price);
@@ -47,24 +47,24 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
             itemView.setOnClickListener(onclick);
         }
 
-        public void bind(GroceryListsModel groceryListsModel, GroceryListClickListener groceryListClickListener){
-            this.groceryListsModel = groceryListsModel;
-            mStore.setText(groceryListsModel.getStore_name());
-            mPrice.setText(PRICE + groceryListsModel.getTotal_price() + CURRENCY);
-            mCommision.setText(FEE + groceryListsModel.getCommision() + CURRENCY);
+        public void bind(GroceryListsModel mGroceryListsModel, GroceryListClickListener mGroceryListClickListener){
+            this.mGroceryListsModel = mGroceryListsModel;
+            mStore.setText(mGroceryListsModel.getStore_name());
+            mPrice.setText(PRICE + mGroceryListsModel.getTotal_price() + CURRENCY);
+            mCommision.setText(FEE + mGroceryListsModel.getCommision() + CURRENCY);
 
             setColorOfTrack();
 
-            this.groceryListClickListener = groceryListClickListener;
+            this.mGroceryListClickListener = mGroceryListClickListener;
         }
 
         private void setColorOfTrack(){
-            if(groceryListsModel.getStatus() == GroceryListStatus.FINISHED)
-                color_track.setBackgroundColor(Color.parseColor("#0E314F"));
-            else if(groceryListsModel.getStatus() == GroceryListStatus.CREATED)
-                color_track.setBackgroundColor(Color.parseColor("#D81B60"));
+            if(mGroceryListsModel.getStatus() == GroceryListStatus.FINISHED)
+                mColorTrack.setBackgroundColor(Color.parseColor("#0E314F"));
+            else if(mGroceryListsModel.getStatus() == GroceryListStatus.CREATED)
+                mColorTrack.setBackgroundColor(Color.parseColor("#D81B60"));
             else
-                color_track.setBackgroundColor(Color.parseColor("#447eb1"));
+                mColorTrack.setBackgroundColor(Color.parseColor("#447eb1"));
         }
 
 }

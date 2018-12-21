@@ -30,28 +30,23 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
 
     private static String CURRENCY = " kn";
 
-    private GroceryListDetailsHelper productsController;
-    private GroceryListsModel groceryListsModel;
+    private GroceryListDetailsHelper mProductsController;
+    private GroceryListsModel mGroceryListsModel;
 
-    private LinearLayout colorOfHeaderGroceryDetails;
+    private LinearLayout mColorOfHeaderGroceryDetails;
 
-    private TextView storeNametxt;
-    private TextView firstNametxt;
-    private TextView totalPricetxt;
-    private TextView commisiontxt;
-    private TextView phoneNumbertxt;
+    private TextView mStoreName, mFirstName, mTotalPrice, mCommision,  mContact;
+    private RecyclerView mRecyclerView;
 
-    private RecyclerView recyclerView;
-
-    private Button againCommitbtn;
+    private Button btnAgainCommit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        groceryListsModel = (GroceryListsModel)getArguments().getSerializable("GROCERY_LIST_MODEL");
-        productsController =  new GroceryListDetailsHelper(this);
-        productsController.loadGroceryListProducts(groceryListsModel);
+        mGroceryListsModel = (GroceryListsModel)getArguments().getSerializable("GROCERY_LIST_MODEL");
+        mProductsController =  new GroceryListDetailsHelper(this);
+        mProductsController.loadGroceryListProducts(mGroceryListsModel);
 
         return inflater.inflate(R.layout.fragment_show_grocery_list_details, container, false);
     }
@@ -61,72 +56,72 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
         super.onViewCreated(view, savedInstanceState);
 
         //LINEARLAYOUT
-        colorOfHeaderGroceryDetails = view.findViewById(R.id.colorOfHeaderGroceryDetails);
+        mColorOfHeaderGroceryDetails = view.findViewById(R.id.colorOfHeaderGroceryDetails);
 
         //EDITTEXT
-        storeNametxt = view.findViewById(R.id.storenameGroceryDetails);
-        firstNametxt = view.findViewById(R.id.firstnameGroceryDetails);
-        totalPricetxt = view.findViewById(R.id.priceGroceryDetails);
-        commisiontxt = view.findViewById(R.id.commisionGroceryDetails);
-        phoneNumbertxt = view.findViewById(R.id.contactGroceryDetails);
+        mStoreName = view.findViewById(R.id.storenameGroceryDetails);
+        mFirstName = view.findViewById(R.id.firstnameGroceryDetails);
+        mTotalPrice = view.findViewById(R.id.priceGroceryDetails);
+        mCommision = view.findViewById(R.id.commisionGroceryDetails);
+        mContact = view.findViewById(R.id.contactGroceryDetails);
 
         //LISTVIEW
-        recyclerView = view.findViewById(R.id.listOfItemsGroceryDetails);
+        mRecyclerView = view.findViewById(R.id.listOfItemsGroceryDetails);
 
         //BUTTON
-        againCommitbtn = view.findViewById(R.id.againCommitbtn);
-        againCommitbtn.setOnClickListener(listenerAgainCommitBtn);
+        btnAgainCommit = view.findViewById(R.id.againCommitbtn);
+        btnAgainCommit.setOnClickListener(btnListenerAgainCommit);
 
-        setHeaderColor(colorOfHeaderGroceryDetails);
-        setButtonText(againCommitbtn);
+        setHeaderColor(mColorOfHeaderGroceryDetails);
+        setButtonText(btnAgainCommit);
         setGroceryListDetailsHeader();
     }
 
     private void setGroceryListDetailsHeader(){
-        storeNametxt.append(groceryListsModel.getStore_name());
-        totalPricetxt.append(groceryListsModel.getTotal_price() + CURRENCY);
-        commisiontxt.append(groceryListsModel.getCommision() + CURRENCY);
+        mStoreName.append(mGroceryListsModel.getStore_name());
+        mTotalPrice.append(mGroceryListsModel.getTotal_price() + CURRENCY);
+        mCommision.append(mGroceryListsModel.getCommision() + CURRENCY);
     }
 
-    private void setButtonText(Button buttonText){
-        if(groceryListsModel.getStatus() != GroceryListStatus.FINISHED)
-            buttonText.setText("POTVRDI");
+    private void setButtonText(Button mButtonText){
+        if(mGroceryListsModel.getStatus() != GroceryListStatus.FINISHED)
+            mButtonText.setText("POTVRDI");
     }
 
-    private void setHeaderColor(LinearLayout layout){
-        if(groceryListsModel.getStatus() == GroceryListStatus.ACCEPTED)
-            layout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        else if(groceryListsModel.getStatus() == GroceryListStatus.FINISHED)
-            layout.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+    private void setHeaderColor(LinearLayout mLayout){
+        if(mGroceryListsModel.getStatus() == GroceryListStatus.ACCEPTED)
+            mLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        else if(mGroceryListsModel.getStatus() == GroceryListStatus.FINISHED)
+            mLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
         else
-            layout.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+            mLayout.setBackgroundColor(getResources().getColor(R.color.colorAccent));
     }
 
     @Override
-    public void groceryListDetailsReceived(@Nullable UserModel groceryListUser, ArrayList<GroceryListProductsModel> groceryListProducts) {
-        if(groceryListProducts != null) {
-            groceryListsModel.setProductsModels(groceryListProducts);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-            GroceryListDetailsAdapter v2 = new GroceryListDetailsAdapter(groceryListsModel, false);
-            recyclerView.setAdapter(v2);
+    public void groceryListDetailsReceived(@Nullable UserModel mGroceryListUser, ArrayList<GroceryListProductsModel> mGroceryListProducts) {
+        if(mGroceryListProducts != null) {
+            mGroceryListsModel.setProductsModels(mGroceryListProducts);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+            GroceryListDetailsAdapter v2 = new GroceryListDetailsAdapter(mGroceryListsModel, false);
+            mRecyclerView.setAdapter(v2);
         }
 
-        if (groceryListUser != null){
-            firstNametxt.append(groceryListUser.getFirst_name() + " " + groceryListUser.getLast_name());
-            phoneNumbertxt.append(groceryListUser.getPhone_number());
+        if (mGroceryListUser != null){
+            mFirstName.append(mGroceryListUser.getFirst_name() + " " + mGroceryListUser.getLast_name());
+            mContact.append(mGroceryListUser.getPhone_number());
         }else{
-            firstNametxt.append("-");
-            phoneNumbertxt.append("-");
+            mFirstName.append("-");
+            mContact.append("-");
         }
     }
 
-    private View.OnClickListener listenerAgainCommitBtn = new View.OnClickListener() {
+    private View.OnClickListener btnListenerAgainCommit = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             CreateNewGroceryListFragment createNewGroceryListFragment = new CreateNewGroceryListFragment();
             Bundle bundle = new Bundle();
-            bundle.putSerializable("repeatGL", groceryListsModel);
+            bundle.putSerializable("repeatGL", mGroceryListsModel);
             createNewGroceryListFragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, createNewGroceryListFragment)

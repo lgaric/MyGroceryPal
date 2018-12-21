@@ -18,7 +18,7 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
     private static final String FEE = "Provizija: ";
     private static final String CURRENCY = " KN";
 
-    private GroceryListsModel groceryListsModel;
+    private GroceryListsModel mGroceryListsModel;
 
     private TextView mStore;
     private TextView mPrice;
@@ -30,29 +30,29 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
     Button btnIgnoreGL;
     Button btnReturnGL;
 
-    private GroceryListOperationListener groceryListOperationListener;
+    private GroceryListOperationListener mGroceryListOperationListener;
 
     //PROSLIJEDI FRAGMENTU ODABRANU INSTANCU GroceryListModel-a
-    private View.OnClickListener groceryListDetails = new View.OnClickListener() {
+    private View.OnClickListener btnGroceryListDetails = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            groceryListOperationListener.buttonPressedOnGroceryList(groceryListsModel, GroceryListOperation.DETAILS);
+            mGroceryListOperationListener.buttonPressedOnGroceryList(mGroceryListsModel, GroceryListOperation.DETAILS);
         }
     };
 
     //GUMBOVI NA CARDVIEW (PRIHVATI, IGNORIRAJ, VRATI)
-    private View.OnClickListener buttonClickListener = new View.OnClickListener() {
+    private View.OnClickListener btnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
                 case R.id.accept_gl:
-                    groceryListOperationListener.buttonPressedOnGroceryList(groceryListsModel, GroceryListOperation.ACCEPT);
+                    mGroceryListOperationListener.buttonPressedOnGroceryList(mGroceryListsModel, GroceryListOperation.ACCEPT);
                     break;
                 case R.id.ignore_gl:
-                    groceryListOperationListener.buttonPressedOnGroceryList(groceryListsModel, GroceryListOperation.IGNORE);
+                    mGroceryListOperationListener.buttonPressedOnGroceryList(mGroceryListsModel, GroceryListOperation.IGNORE);
                     break;
                 case R.id.btnRestoreIgnored: //CASE ZA VRATI
-                    groceryListOperationListener.buttonPressedOnGroceryList(groceryListsModel, GroceryListOperation.RETURN);
+                    mGroceryListOperationListener.buttonPressedOnGroceryList(mGroceryListsModel, GroceryListOperation.RETURN);
                     break;
                 default:
                     break;
@@ -74,38 +74,38 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
         setButtonsListener(type, itemView);
 
         //AKO NEKO PRITISNE NA GROCERYLIST I ŽELI VIDJETI DETALJE(OVO SE NE ODNOSI NA GUMB)
-        itemView.setOnClickListener(groceryListDetails);
+        itemView.setOnClickListener(btnGroceryListDetails);
     }
 
-    private void setButtonsListener(int type, View itemView){
-        switch (type){
+    private void setButtonsListener(int mType, View mItemView){
+        switch (mType){
             case 0: //AKTIVNI GROCERYLISTI
-                btnAcceptGL = itemView.findViewById(R.id.accept_gl);
-                btnIgnoreGL = itemView.findViewById(R.id.ignore_gl);
-                btnAcceptGL.setOnClickListener(buttonClickListener);
-                btnIgnoreGL.setOnClickListener(buttonClickListener);
+                btnAcceptGL = mItemView.findViewById(R.id.accept_gl);
+                btnIgnoreGL = mItemView.findViewById(R.id.ignore_gl);
+                btnAcceptGL.setOnClickListener(btnClickListener);
+                btnIgnoreGL.setOnClickListener(btnClickListener);
                 break;
             case 1:
                 //VRATI IGNORIRAI GL
-                btnReturnGL = itemView.findViewById(R.id.btnRestoreIgnored);//PRONADI SVOJ GUMB
-                btnReturnGL.setOnClickListener(buttonClickListener);//DODAJ MU CLICKLISTENER
+                btnReturnGL = mItemView.findViewById(R.id.btnRestoreIgnored);//PRONADI SVOJ GUMB
+                btnReturnGL.setOnClickListener(btnClickListener);//DODAJ MU CLICKLISTENER
                 break;
             default:
                 break;
         }
     }
 
-    public void bind(GroceryListsModel groceryListsModel, GroceryListOperationListener groceryListOperationListener){
-        this.groceryListsModel = groceryListsModel;
+    public void bind(GroceryListsModel mGroceryListsModel, GroceryListOperationListener mGroceryListOperationListener){
+        this.mGroceryListsModel = mGroceryListsModel;
 
         //POSTAVI VRIJEDNOST TEXTVIEWOVA
-        this.mStore.setText(groceryListsModel.getStore_name());
-        this.mPrice.setText(PRICE + groceryListsModel.getTotal_price() + CURRENCY);
-        this.mCommision.setText(FEE + groceryListsModel.getCommision() + CURRENCY);
-        this.mAddress.setText("ADRESA: " + groceryListsModel.getDelivery_address());
-        this.mDeliveryTown.setText("GRAD: " + groceryListsModel.getDelivery_town());
+        this.mStore.setText(mGroceryListsModel.getStore_name());
+        this.mPrice.setText(PRICE + mGroceryListsModel.getTotal_price() + CURRENCY);
+        this.mCommision.setText(FEE + mGroceryListsModel.getCommision() + CURRENCY);
+        this.mAddress.setText("ADRESA: " + mGroceryListsModel.getDelivery_address());
+        this.mDeliveryTown.setText("GRAD: " + mGroceryListsModel.getDelivery_town());
 
-        this.groceryListOperationListener = groceryListOperationListener;
+        this.mGroceryListOperationListener = mGroceryListOperationListener;
     }
 
 }

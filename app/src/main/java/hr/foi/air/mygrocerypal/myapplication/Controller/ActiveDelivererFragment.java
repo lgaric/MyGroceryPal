@@ -34,43 +34,43 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 public class ActiveDelivererFragment extends Fragment implements LocationListener, GroceryListOperationListener,
         GroceryListStatusListener {
 
-    SeekBar seekBar;
-    SwipeRefreshLayout swipeRefreshLayout;
-    RecyclerView recyclerView;
-    TextView radius;
-    Switch gpsSwitch;
+    SeekBar mSeekBar;
+    SwipeRefreshLayout mSwipeRefreshLayout;
+    RecyclerView mRecyclerView;
+    TextView mRadius;
+    Switch mGpsSwitch;
 
-    GPSLocation gpsLocation;
+    GPSLocation mGpsLocation;
 
-    DelivererGroceryListHelper controller;
+    DelivererGroceryListHelper mDelivererGroceryListHelper;
 
-    ArrayList<GroceryListsModel> allActiveGroceryList;
+    ArrayList<GroceryListsModel> mAllActiveGroceryList;
 
-    private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+    private SwipeRefreshLayout.OnRefreshListener mRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
             refreshRecyclerView();
         }
     };
 
-    private SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+    private SeekBar.OnSeekBarChangeListener mSeekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-            if(radius != null) {
+            if(mRadius != null) {
                 if(progress == 0)
-                    radius.setText(Integer.toString(1));
+                    mRadius.setText(Integer.toString(1));
                 else
-                    radius.setText(Integer.toString(progress));
+                    mRadius.setText(Integer.toString(progress));
             }
         }
 
         @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
+        public void onStartTrackingTouch(SeekBar mSeekBar) {
             // Do nothing
         }
 
         @Override
-        public void onStopTrackingTouch(SeekBar seekBar) {
+        public void onStopTrackingTouch(SeekBar mSeekBar) {
             // Do nothing
         }
     };
@@ -78,7 +78,7 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
     private CompoundButton.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(gpsSwitch.isChecked())
+            if(mGpsSwitch.isChecked())
                 turnOnGps();
         }
     };
@@ -88,115 +88,115 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_deliverer_active, container, false);
 
-        seekBar = view.findViewById(R.id.grocery_list_range);
-        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
-        recyclerView = view.findViewById(R.id.grocery_lists);
-        radius = view.findViewById(R.id.radius);
-        gpsSwitch = view.findViewById(R.id.gps_switch);
+        mSeekBar = view.findViewById(R.id.grocery_list_range);
+        mSwipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
+        mRecyclerView = view.findViewById(R.id.grocery_lists);
+        mRadius = view.findViewById(R.id.radius);
+        mGpsSwitch = view.findViewById(R.id.gps_switch);
 
-        seekBar.setOnSeekBarChangeListener(seekBarChangeListener);
-        swipeRefreshLayout.setOnRefreshListener(refreshListener);
-        gpsSwitch.setOnClickListener(clickListener);
+        mSeekBar.setOnSeekBarChangeListener(mSeekBarChangeListener);
+        mSwipeRefreshLayout.setOnRefreshListener(mRefreshListener);
+        mGpsSwitch.setOnClickListener(clickListener);
 
-        if (controller == null) {
-            controller = new DelivererGroceryListHelper(this);
-            controller.getAllActiveGroceryLists();
+        if (mDelivererGroceryListHelper == null) {
+            mDelivererGroceryListHelper = new DelivererGroceryListHelper(this);
+            mDelivererGroceryListHelper.getAllActiveGroceryLists();
         }
         else
-            controller.getAllActiveGroceryLists();
+            mDelivererGroceryListHelper.getAllActiveGroceryLists();
 
         return view;
     }
 
     public void turnOnGps(){
-        if (gpsLocation == null) {
-            gpsLocation = new GPSLocation(getActivity(), this);
-            gpsLocation.startLocationButtonClick();
+        if (mGpsLocation == null) {
+            mGpsLocation = new GPSLocation(getActivity(), this);
+            mGpsLocation.startLocationButtonClick();
         }
         else
-            gpsLocation.startLocationButtonClick();
+            mGpsLocation.startLocationButtonClick();
     }
 
     /**
      * osvježi recycleview
      */
     private void refreshRecyclerView(){
-        if(controller != null)
-            controller.getAllActiveGroceryLists();
+        if(mDelivererGroceryListHelper != null)
+            mDelivererGroceryListHelper.getAllActiveGroceryLists();
     }
 
     /**
      * Ako je dohvaćena lokacija od korisnika pomocu gps i ako je switch (R.id.gps_switch) ukljucen
      * koristi GPS lokaciju, inaće koristi adresu na kojoj se korisnik prijavio
-     * @param radius
+     * @param mRadius
      */
-    private void showFilteredList(int radius){
-        if(allActiveGroceryList != null){
+    private void showFilteredList(int mRadius){
+        if(mAllActiveGroceryList != null){
             ArrayList<GroceryListsModel> temporary;
-            if(CurrentUser.gpsLocation != null && gpsSwitch.isChecked())
-                temporary = filterListUsingDistance(radius, CurrentUser.gpsLocation);
+            if(CurrentUser.gpsLocation != null && mGpsSwitch.isChecked())
+                temporary = filterListUsingDistance(mRadius, CurrentUser.gpsLocation);
             else
-                temporary = filterListUsingDistance(radius, getLocation(CurrentUser.getCurrentUser.getLatitude(),
+                temporary = filterListUsingDistance(mRadius, getLocation(CurrentUser.getCurrentUser.getLatitude(),
                         CurrentUser.getCurrentUser.getLongitude(), "USERLOCATION"));
-            setRecyclerView(temporary);
+            setmRecyclerView(temporary);
         }
     }
 
 
     /**
      * Metoda na temelju latituda i longituda vraća objekt tipa Location
-     * @param latitude
-     * @param longitude
-     * @param locationName
+     * @param mLatitude
+     * @param mLongitude
+     * @param mLocationName
      * @return
      */
-    private Location getLocation(double latitude,double longitude, String locationName){
-        Location tempLocation = new Location(locationName);
-        tempLocation.setLatitude(latitude);
-        tempLocation.setLongitude(longitude);
+    private Location getLocation(double mLatitude, double mLongitude, String mLocationName){
+        Location tempLocation = new Location(mLocationName);
+        tempLocation.setLatitude(mLatitude);
+        tempLocation.setLongitude(mLongitude);
         return tempLocation;
     }
 
     /**
      * Računanje udaljenost izmeđe svakog GL i lokacije korisnika
-     * @param radius
-     * @param location
+     * @param mRadius
+     * @param mLocation
      * @return
      */
-    private ArrayList<GroceryListsModel> filterListUsingDistance(int radius, Location location){
+    private ArrayList<GroceryListsModel> filterListUsingDistance(int mRadius, Location mLocation){
         ArrayList<GroceryListsModel> temporary = new ArrayList<>();
-        for(int i = 0; i < allActiveGroceryList.size(); i++){
-            Location groceryListLocation = getLocation(allActiveGroceryList.get(i).getLatitude(),
-                    allActiveGroceryList.get(i).getLongitude(), "GROCERYLISTLOCATION");
+        for(int i = 0; i < mAllActiveGroceryList.size(); i++){
+            Location groceryListLocation = getLocation(mAllActiveGroceryList.get(i).getLatitude(),
+                    mAllActiveGroceryList.get(i).getLongitude(), "GROCERYLISTLOCATION");
 
-            float distance = location.distanceTo(groceryListLocation) / 1000;
+            float distance = mLocation.distanceTo(groceryListLocation) / 1000;
 
-            if(distance < radius)
-                temporary.add(allActiveGroceryList.get(i));
+            if(distance < mRadius)
+                temporary.add(mAllActiveGroceryList.get(i));
         }
         return temporary;
     }
 
     /**
      * postavi adapter za recycleview
-     * @param groceryList
+     * @param mGroceryList
      */
-    private void setRecyclerView(ArrayList<GroceryListsModel> groceryList){
-        if(groceryList != null) {
-            recyclerView.setAdapter(null);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            DelivererGLAdapter adapter = new DelivererGLAdapter(groceryList, this,0);
-            recyclerView.setAdapter(adapter);
+    private void setmRecyclerView(ArrayList<GroceryListsModel> mGroceryList){
+        if(mGroceryList != null) {
+            mRecyclerView.setAdapter(null);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            DelivererGLAdapter adapter = new DelivererGLAdapter(mGroceryList, this,0);
+            mRecyclerView.setAdapter(adapter);
         }
     }
 
     /**
      * Prikaži detalje groceryliste
-     * @param groceryListsModel
+     * @param mGroceryListsModel
      */
-    private void showGroceryListDetails(GroceryListsModel groceryListsModel){
+    private void showGroceryListDetails(GroceryListsModel mGroceryListsModel){
         Bundle bundle = new Bundle();
-        bundle.putSerializable("GROCERY_LIST_MODEL", groceryListsModel);
+        bundle.putSerializable("GROCERY_LIST_MODEL", mGroceryListsModel);
         ShowGroceryListDetailsFragment fragment = new ShowGroceryListDetailsFragment();
         fragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
@@ -209,48 +209,48 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
     //IMPLEMENTACIJA INTERFEJSA
 
     @Override
-    public void groceryListReceived(ArrayList<GroceryListsModel> groceryList) {
-        if(groceryList != null){
-            allActiveGroceryList = groceryList;
-            showFilteredList(Integer.parseInt(radius.getText().toString().trim()));
-            swipeRefreshLayout.setRefreshing(false);
+    public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList) {
+        if(mGroceryList != null){
+            mAllActiveGroceryList = mGroceryList;
+            showFilteredList(Integer.parseInt(mRadius.getText().toString().trim()));
+            mSwipeRefreshLayout.setRefreshing(false);
         }
     }
 
     /**
-     * Postavljanje vrijednosti atributa gpsLocation u CurrentUser klasi
-     * @param location
+     * Postavljanje vrijednosti atributa mGpsLocation u CurrentUser klasi
+     * @param mLocation
      */
     @Override
-    public void locationReceived(Location location) {
-        if(location != null) {
-            Log.d("LOKACIJA", Double.toString(location.getLatitude()) + " : " + Double.toString(location.getLongitude()));
-            CurrentUser.gpsLocation = location;
+    public void locationReceived(Location mLocation) {
+        if(mLocation != null) {
+            Log.d("LOKACIJA", Double.toString(mLocation.getLatitude()) + " : " + Double.toString(mLocation.getLongitude()));
+            CurrentUser.gpsLocation = mLocation;
         }
     }
 
     /**
      * Ako korisnik ne prihvati dozvolu za ukljucivanjem GPS, stavi switch na off
-     * @param errorMessage
+     * @param mErrorMessage
      */
     @Override
-    public void dataNotReceived(String errorMessage) {
-        Log.d("GPSERROR", errorMessage);
-        if(gpsSwitch.isChecked())
-            gpsSwitch.setChecked(false);
+    public void dataNotReceived(String mErrorMessage) {
+        Log.d("GPSERROR", mErrorMessage);
+        if(mGpsSwitch.isChecked())
+            mGpsSwitch.setChecked(false);
     }
 
     @Override
-    public void buttonPressedOnGroceryList(GroceryListsModel groceryListsModel, GroceryListOperation operation) {
-        switch (operation){
+    public void buttonPressedOnGroceryList(GroceryListsModel mGroceryListsModel, GroceryListOperation mOperation) {
+        switch (mOperation){
             case ACCEPT:
-                controller.checkGroceryListStatus(groceryListsModel.getGrocerylist_key(), operation);
+                mDelivererGroceryListHelper.checkGroceryListStatus(mGroceryListsModel.getGrocerylist_key(), mOperation);
                 break;
             case IGNORE:
-                controller.checkGroceryListStatus(groceryListsModel.getGrocerylist_key(), operation);
+                mDelivererGroceryListHelper.checkGroceryListStatus(mGroceryListsModel.getGrocerylist_key(), mOperation);
                 break;
             case DETAILS:
-                showGroceryListDetails(groceryListsModel);
+                showGroceryListDetails(mGroceryListsModel);
                 break;
             default:
                 break;
@@ -259,16 +259,16 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
 
 
     @Override
-    public void groceryListStatusReceived(String groceryListID, String groceryListStatus, GroceryListOperation operation) {
+    public void groceryListStatusReceived(String mGroceryListID, String mGroceryListStatus, GroceryListOperation mOperation) {
         String message = "";
-        if(groceryListStatus.equals("")) {
+        if(mGroceryListStatus.equals("")) {
             Toast.makeText(getActivity(), "Pogreška prilikom dohvata Grocery List ID-a", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(operation == GroceryListOperation.ACCEPT)
-            message = controller.acceptGroceryList(groceryListID, groceryListStatus);
-        else if (operation == GroceryListOperation.IGNORE)
-            message = controller.ignoreGroceryList(groceryListID);
+        if(mOperation == GroceryListOperation.ACCEPT)
+            message = mDelivererGroceryListHelper.acceptGroceryList(mGroceryListID, mGroceryListStatus);
+        else if (mOperation == GroceryListOperation.IGNORE)
+            message = mDelivererGroceryListHelper.ignoreGroceryList(mGroceryListID);
         else
             message = "Došlo je do greške!";
 

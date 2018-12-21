@@ -41,7 +41,7 @@
 
 
     <ImageButton
-        android:id="@+id/groceryDecreaseAmount"
+        android:id="@+id/btnGroceryDecreaseAmount"
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -64,16 +64,16 @@
         android:textSize="10dp"
         android:inputType="number"
         android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/groceryIncreaseAmount"
-        app:layout_constraintStart_toEndOf="@+id/groceryDecreaseAmount"
-        app:layout_constraintLeft_toRightOf="@+id/groceryDecreaseAmount"
+        app:layout_constraintEnd_toStartOf="@+id/btnGroceryIncreaseAmount"
+        app:layout_constraintStart_toEndOf="@+id/btnGroceryDecreaseAmount"
+        app:layout_constraintLeft_toRightOf="@+id/btnGroceryDecreaseAmount"
         android:layout_marginLeft="8dp"
-        app:layout_constraintRight_toLeftOf="@+id/groceryIncreaseAmount"
+        app:layout_constraintRight_toLeftOf="@+id/btnGroceryIncreaseAmount"
         android:layout_marginRight="8dp" />
 
 
     <ImageButton
-        android:id="@+id/groceryIncreaseAmount"
+        android:id="@+id/btnGroceryIncreaseAmount"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="bottom"

@@ -4,5 +4,5 @@ import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListOperati
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 
 public interface GroceryListOperationListener {
-    void buttonPressedOnGroceryList(GroceryListsModel groceryListsModel, GroceryListOperation operation);
+    void buttonPressedOnGroceryList(GroceryListsModel mGroceryListsModel, GroceryListOperation mOperation);
 }
