@@ -1,13 +1,10 @@
 package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -15,11 +12,11 @@ import java.util.ArrayList;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.SelectProductsListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.ProductsModel;
 
-public class SelectProductsController extends FirebaseBaseHelper{
+public class SelectProductsHelper extends FirebaseBaseHelper{
     private SelectProductsListener listener;
 
-    public SelectProductsController(SelectProductsListener listener){
-        this.context = (Context)listener;
+    public SelectProductsHelper(SelectProductsListener listener){
+        this.context = ((Fragment)listener).getContext();
         this.listener = listener;
     }
 

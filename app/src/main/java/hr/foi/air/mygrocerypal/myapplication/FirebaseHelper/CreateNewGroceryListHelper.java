@@ -1,8 +1,7 @@
 package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
-import android.content.Context;
-import android.content.pm.LabeledIntent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -18,12 +17,12 @@ import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
 
-public class CreateNewGroceryListController extends FirebaseBaseHelper{
+public class CreateNewGroceryListHelper extends FirebaseBaseHelper{
 
     private AddGroceryListListener addGroceryListListener;
 
-    public CreateNewGroceryListController(Context context, AddGroceryListListener listener){
-        this.context = context;
+    public CreateNewGroceryListHelper(AddGroceryListListener listener){
+        this.context = ((Fragment)listener).getContext();
         addGroceryListListener = listener;
     }
 

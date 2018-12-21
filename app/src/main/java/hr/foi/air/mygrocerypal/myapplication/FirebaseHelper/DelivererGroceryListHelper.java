@@ -1,13 +1,11 @@
 package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
@@ -18,17 +16,17 @@ import java.util.List;
 
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListStatusListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
-import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListOperation;
-import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
+import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListOperation;
+import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 
-public class DelivererGroceryListController extends FirebaseBaseHelper{
+public class DelivererGroceryListHelper extends FirebaseBaseHelper{
     GroceryListStatusListener groceryListStatusListener;
 
     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     Date currentDate = new Date();
 
-    public DelivererGroceryListController(GroceryListStatusListener listListener){
+    public DelivererGroceryListHelper(GroceryListStatusListener listListener){
         this.context = ((Fragment)listListener).getContext();
         groceryListStatusListener = listListener;
     }

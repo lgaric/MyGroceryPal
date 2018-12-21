@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
+import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 
 public class GroceryListsModel implements Serializable {
     private String grocerylist_key;
@@ -27,7 +27,6 @@ public class GroceryListsModel implements Serializable {
         productsModels = new ArrayList<>();
     }
 
-    //Konstruktor za dodavanje novog GL-a u CreateNewGroceryListController
     public GroceryListsModel(String commision, String delivery_address, String delivery_town, String end_date, String start_date,
                              GroceryListStatus status, String store_name, String total_price, String user_id, String user_accepted_id,
                             Double longitude, Double latitude) {

@@ -7,13 +7,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.LoginController;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.LoginHelper;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.LoginListener;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class LoginActivity extends AppCompatActivity implements LoginListener {
     private EditText username, password;
-    private LoginController loginController;
+    private LoginHelper loginHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +23,11 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         username = findViewById(R.id.usernameLogin);
         password = findViewById(R.id.passwordLogin);
 
-        loginController = new LoginController(this);
+        loginHelper = new LoginHelper(this);
     }
 
     public void login(View view){
-        loginController.login(username.getText().toString(), password.getText().toString());
+        loginHelper.login(username.getText().toString(), password.getText().toString());
     }
 
     public void showRegister(View view) {

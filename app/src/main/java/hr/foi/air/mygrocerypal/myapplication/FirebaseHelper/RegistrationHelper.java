@@ -2,28 +2,22 @@ package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Patterns;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.regex.Pattern;
 
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.RegistrationListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
-public class RegistrationController extends FirebaseBaseHelper{
+public class RegistrationHelper extends FirebaseBaseHelper{
     private RegistrationListener listener;
 
-    public RegistrationController(RegistrationListener listener) {
+    public RegistrationHelper(RegistrationListener listener) {
         this.context = (Context)listener;
         this.listener = listener;
     }

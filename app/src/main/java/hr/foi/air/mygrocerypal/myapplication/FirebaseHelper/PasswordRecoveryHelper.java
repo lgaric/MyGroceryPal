@@ -2,17 +2,16 @@ package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.util.Patterns;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.PasswordRecoveryListener;
 
-public class PasswordRecoveryController extends FirebaseBaseHelper{
+public class PasswordRecoveryHelper extends FirebaseBaseHelper{
     private PasswordRecoveryListener listener;
 
-    public  PasswordRecoveryController(PasswordRecoveryListener listener){
+    public PasswordRecoveryHelper(PasswordRecoveryListener listener){
         this.context = (Context)listener;
         this.listener = listener;
     }

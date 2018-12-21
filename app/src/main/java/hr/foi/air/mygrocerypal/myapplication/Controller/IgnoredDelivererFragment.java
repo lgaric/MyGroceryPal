@@ -15,19 +15,19 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import hr.foi.air.mygrocerypal.myapplication.Core.Adapters.DelivererGLAdapter;
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.DelivererGroceryListController;
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListOperationListener;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.DelivererGroceryListHelper;
+import hr.foi.air.mygrocerypal.myapplication.Core.Listeners.GroceryListOperationListener;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListStatusListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
-import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListOperation;
-import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
+import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListOperation;
+import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
     public class IgnoredDelivererFragment extends Fragment implements GroceryListOperationListener, GroceryListStatusListener{
 
     //vars
-    DelivererGroceryListController delivererGroceryListController;
+    DelivererGroceryListHelper delivererGroceryListHelper;
     ArrayList<GroceryListsModel> ignoredGroceryList;
 
     //widgets
@@ -52,12 +52,12 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
         swipeRefreshLayout.setOnRefreshListener(refreshListener);
 
-        if(delivererGroceryListController == null){
-            delivererGroceryListController = new DelivererGroceryListController(this);
-            delivererGroceryListController.getAllIgnoredGroceryLists();
+        if(delivererGroceryListHelper == null){
+            delivererGroceryListHelper = new DelivererGroceryListHelper(this);
+            delivererGroceryListHelper.getAllIgnoredGroceryLists();
         }
         else
-            delivererGroceryListController.getAllIgnoredGroceryLists();
+            delivererGroceryListHelper.getAllIgnoredGroceryLists();
 
         return view;
     }
@@ -78,7 +78,7 @@ import hr.foi.air.mygrocerypal.myapplication.R;
     public void buttonPressedOnGroceryList(GroceryListsModel groceryListsModel, GroceryListOperation operation) {
         switch(operation){
             case RETURN:
-                delivererGroceryListController.checkGroceryListStatus(groceryListsModel.getGrocerylist_key(), operation);
+                delivererGroceryListHelper.checkGroceryListStatus(groceryListsModel.getGrocerylist_key(), operation);
                 break;
             case DETAILS:
                 showGroceryListDetails(groceryListsModel);
@@ -103,8 +103,8 @@ import hr.foi.air.mygrocerypal.myapplication.R;
     }
 
     private void refreshRecyclerView(){
-        if(delivererGroceryListController != null)
-            delivererGroceryListController.getAllIgnoredGroceryLists();
+        if(delivererGroceryListHelper != null)
+            delivererGroceryListHelper.getAllIgnoredGroceryLists();
     }
 
     @Override
@@ -118,7 +118,7 @@ import hr.foi.air.mygrocerypal.myapplication.R;
             CurrentUser.currentUser.getIgnoredLists().remove(groceryListID);
             return;
         }else if(operation == GroceryListOperation.RETURN)
-            message = delivererGroceryListController.returnGroceryListFromIgnored(groceryListID);
+            message = delivererGroceryListHelper.returnGroceryListFromIgnored(groceryListID);
         else
             message = "Došlo je do greške!";
 

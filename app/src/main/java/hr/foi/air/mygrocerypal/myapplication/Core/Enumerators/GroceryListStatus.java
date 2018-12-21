@@ -1,4 +1,4 @@
-package hr.foi.air.mygrocerypal.myapplication.Core;
+package hr.foi.air.mygrocerypal.myapplication.Core.Enumerators;
 
 /**
  * Tri vrste grocery liste: kreirane, prihvacene i zavrsene

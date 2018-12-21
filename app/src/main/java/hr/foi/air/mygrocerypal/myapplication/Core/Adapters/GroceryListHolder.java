@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.ClickListener;
-import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
+import hr.foi.air.mygrocerypal.myapplication.Core.Listeners.GroceryListClickListener;
+import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
@@ -30,10 +30,10 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
     private View.OnClickListener onclick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            clickListener.onItemSelect(groceryListsModel);
+            groceryListClickListener.groceryListSelected(groceryListsModel);
         }
     };
-        private ClickListener clickListener;
+        private GroceryListClickListener groceryListClickListener;
 
     public GroceryListHolder(@NonNull View itemView) {
             super(itemView);
@@ -47,7 +47,7 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
             itemView.setOnClickListener(onclick);
         }
 
-        public void bind(GroceryListsModel groceryListsModel, ClickListener clickListener){
+        public void bind(GroceryListsModel groceryListsModel, GroceryListClickListener groceryListClickListener){
             this.groceryListsModel = groceryListsModel;
             store.setText(groceryListsModel.getStore_name());
             price.setText(PRICE + groceryListsModel.getTotal_price() + CURRENCY);
@@ -55,7 +55,7 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
 
             setColorOfTrack();
 
-            this.clickListener = clickListener;
+            this.groceryListClickListener = groceryListClickListener;
         }
 
         private void setColorOfTrack(){

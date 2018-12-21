@@ -34,10 +34,10 @@ import java.util.Date;
 import java.util.List;
 
 import hr.foi.air.mygrocerypal.myapplication.Core.Adapters.ProductsListAdapter;
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.CreateNewGroceryListController;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.CreateNewGroceryListHelper;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.AddGroceryListListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
-import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
+import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
@@ -45,7 +45,7 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class CreateNewGroceryListFragment extends Fragment implements AddGroceryListListener, View.OnClickListener {
 
-    private CreateNewGroceryListController createNewGroceryListController;
+    private CreateNewGroceryListHelper createNewGroceryListHelper;
 
     private String selectedStoreName;
     private GroceryListsModel groceryListsModel;
@@ -153,9 +153,9 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
         startDate.setText(getDate());
-        createNewGroceryListController = new CreateNewGroceryListController(getContext(),this);
+        createNewGroceryListHelper = new CreateNewGroceryListHelper(this);
 
-        createNewGroceryListController.getAllStores();
+        createNewGroceryListHelper.getAllStores();
 
     }
 
@@ -185,7 +185,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 hideKeyboard(btnConfirm);
                 if(entered){
                     createGroceryList();
-                    createNewGroceryListController.saveGL_withProducts(groceryListsModel, groceryListProductsModels);
+                    createNewGroceryListHelper.saveGL_withProducts(groceryListsModel, groceryListProductsModels);
                 }
                 break;
         }

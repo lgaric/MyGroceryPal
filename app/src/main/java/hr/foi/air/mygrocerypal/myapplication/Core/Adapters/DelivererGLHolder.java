@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListOperationListener;
-import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListOperation;
+import hr.foi.air.mygrocerypal.myapplication.Core.Listeners.GroceryListOperationListener;
+import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListOperation;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 

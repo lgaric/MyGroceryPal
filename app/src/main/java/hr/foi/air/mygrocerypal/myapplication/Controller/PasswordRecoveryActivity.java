@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.PasswordRecoveryController;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.PasswordRecoveryHelper;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.PasswordRecoveryListener;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
@@ -18,7 +18,7 @@ public class PasswordRecoveryActivity extends AppCompatActivity implements Passw
     private EditText userEmail;
     private Button buttonRecoveryPassword, showLogin;
     FirebaseAuth firebaseAuth;
-    private PasswordRecoveryController passwordRecoveryController;
+    private PasswordRecoveryHelper passwordRecoveryHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class PasswordRecoveryActivity extends AppCompatActivity implements Passw
         setContentView(R.layout.activity_password_recovery);
         getSupportActionBar().setTitle(R.string.forgotPassword);
 
-        passwordRecoveryController = new PasswordRecoveryController(this);
+        passwordRecoveryHelper = new PasswordRecoveryHelper(this);
 
         buttonRecoveryPassword = findViewById(R.id.buttonRecoveryPassword);
         showLogin = findViewById(R.id.buttonShowLogin);
@@ -37,7 +37,7 @@ public class PasswordRecoveryActivity extends AppCompatActivity implements Passw
         buttonRecoveryPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                passwordRecoveryController.sendRecoveryMail(userEmail.getText().toString());
+                passwordRecoveryHelper.sendRecoveryMail(userEmail.getText().toString());
             }
         });
 

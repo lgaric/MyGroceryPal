@@ -8,17 +8,17 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.ClickListener;
+import hr.foi.air.mygrocerypal.myapplication.Core.Listeners.GroceryListClickListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListHolder> {
 
     private ArrayList<GroceryListsModel> groceryListsModels;
-    private ClickListener clickListener;
+    private GroceryListClickListener groceryListClickListener;
 
-    public  GroceryListAdapter(ArrayList<GroceryListsModel> groceryList, ClickListener listener){
-        this.clickListener = listener;
+    public  GroceryListAdapter(ArrayList<GroceryListsModel> groceryList, GroceryListClickListener listener){
+        this.groceryListClickListener = listener;
         groceryListsModels = groceryList;
     }
 
@@ -33,7 +33,7 @@ public class GroceryListAdapter extends RecyclerView.Adapter<GroceryListHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull GroceryListHolder groceryListHolder, int i) {
-        groceryListHolder.bind(groceryListsModels.get(i), this.clickListener);
+        groceryListHolder.bind(groceryListsModels.get(i), this.groceryListClickListener);
 
     }
 

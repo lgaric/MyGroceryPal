@@ -3,15 +3,12 @@ package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Patterns;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-
-import java.util.regex.Pattern;
 
 public class FirebaseBaseHelper {
     //Firebase tablice

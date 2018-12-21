@@ -1,4 +1,4 @@
-package hr.foi.air.mygrocerypal.myapplication.Core;
+package hr.foi.air.mygrocerypal.myapplication.Core.Enumerators;
 
 /**
  * Operacija s grocery listom: ignoriraj, prihvati, vrati s popisa ignoriranih i pokazi detalje

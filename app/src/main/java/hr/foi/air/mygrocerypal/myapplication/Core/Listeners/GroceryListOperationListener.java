@@ -1,6 +1,6 @@
-package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners;
+package hr.foi.air.mygrocerypal.myapplication.Core.Listeners;
 
-import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListOperation;
+import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListOperation;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 
 public interface GroceryListOperationListener {

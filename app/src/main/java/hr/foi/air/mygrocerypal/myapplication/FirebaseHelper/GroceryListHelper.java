@@ -1,28 +1,24 @@
 package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListListener;
-import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
+import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 
-public class GroceryListController extends FirebaseBaseHelper{
+public class GroceryListHelper extends FirebaseBaseHelper{
     private GroceryListListener groceryListListener;
 
-    public GroceryListController(Fragment fragment){
-        this.context = fragment.getContext();
-        groceryListListener = (GroceryListListener)fragment;
+    public GroceryListHelper(GroceryListListener listener){
+        this.context = ((Fragment)listener).getContext();
+        groceryListListener = listener;
     }
 
     /**

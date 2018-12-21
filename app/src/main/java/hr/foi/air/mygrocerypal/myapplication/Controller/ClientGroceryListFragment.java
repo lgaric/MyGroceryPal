@@ -16,16 +16,16 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 import hr.foi.air.mygrocerypal.myapplication.Core.Adapters.GroceryListAdapter;
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.GroceryListController;
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.ClickListener;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.GroceryListHelper;
+import hr.foi.air.mygrocerypal.myapplication.Core.Listeners.GroceryListClickListener;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListListener;
-import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
+import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
-public class ClientGroceryListFragment extends Fragment implements View.OnClickListener, GroceryListListener, ClickListener {
+public class ClientGroceryListFragment extends Fragment implements View.OnClickListener, GroceryListListener, GroceryListClickListener {
 
-    private GroceryListController pastGroceryListController;
+    private GroceryListHelper pastGroceryListHelper;
     private Button activeGrocerylistBtn, pastGroceryListBtn;
     private SwipeRefreshLayout swipeRefreshLayout;
     private FloatingActionButton floatingButtonAdd;
@@ -66,15 +66,15 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
 
     private void showGroceryLists(){
         if(active)
-            pastGroceryListController.loadGroceryLists(GroceryListStatus.ACCEPTED);
+            pastGroceryListHelper.loadGroceryLists(GroceryListStatus.ACCEPTED);
         else
-            pastGroceryListController.loadGroceryLists(GroceryListStatus.FINISHED);
+            pastGroceryListHelper.loadGroceryLists(GroceryListStatus.FINISHED);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
-        pastGroceryListController = new GroceryListController(this);
+        pastGroceryListHelper = new GroceryListHelper(this);
         super.onViewCreated(view, savedInstanceState);
         active = true;
         loadGroceryListToRecyclerView(GroceryListStatus.ACCEPTED);
@@ -107,7 +107,7 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
     }
 
     private void loadGroceryListToRecyclerView(GroceryListStatus status){
-        pastGroceryListController.loadGroceryLists(status);
+        pastGroceryListHelper.loadGroceryLists(status);
     }
 
 
@@ -137,7 +137,7 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
     }
 
     @Override
-    public void onItemSelect(GroceryListsModel groceryListsModel) {
+    public void groceryListSelected(GroceryListsModel groceryListsModel) {
         loadFragmentDetails(groceryListsModel);
     }
 }

@@ -18,26 +18,22 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import hr.foi.air.mygrocerypal.myapplication.Core.Adapters.GroceryListDetailsAdapter;
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.GroceryListProductsController;
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.GroceryListUserController;
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListProductsListener;
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListUserListener;
-import hr.foi.air.mygrocerypal.myapplication.Core.GroceryListStatus;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.GroceryListDetailsHelper;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListDetailsListener;
+import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
-public class ShowGroceryListDetailsFragment extends Fragment implements GroceryListProductsListener, GroceryListUserListener {
+public class ShowGroceryListDetailsFragment extends Fragment implements GroceryListDetailsListener {
 
     private static String CURRENCY = " kn";
 
-    private GroceryListProductsController productsController;
-    private GroceryListUserController userController;
+    private GroceryListDetailsHelper productsController;
     private GroceryListsModel groceryListsModel;
 
     private LinearLayout colorOfHeaderGroceryDetails;
-    private boolean groceryListAccepted = true;
 
     private TextView storeNametxt;
     private TextView firstNametxt;
@@ -54,8 +50,7 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
                              Bundle savedInstanceState) {
 
         groceryListsModel = (GroceryListsModel)getArguments().getSerializable("GROCERY_LIST_MODEL");
-        productsController =  new GroceryListProductsController(this, groceryListsModel.getGrocerylist_key());
-        userController = new GroceryListUserController(this, groceryListsModel.getUser_accepted_id());
+        productsController =  new GroceryListDetailsHelper(this, groceryListsModel);
 
         return inflater.inflate(R.layout.fragment_show_grocery_list_details, container, false);
     }
@@ -84,11 +79,6 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
         setHeaderColor(colorOfHeaderGroceryDetails);
         setButtonText(againCommitbtn);
         setGroceryListDetailsHeader();
-
-        if(!groceryListAccepted){
-            firstNametxt.append("-");
-            phoneNumbertxt.append("-");
-        }
     }
 
     private void setGroceryListDetailsHeader(){
@@ -112,7 +102,7 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
     }
 
     @Override
-    public void groceryListProductsReceived(ArrayList<GroceryListProductsModel> groceryListProducts) {
+    public void groceryListDetailsReceived(@Nullable UserModel groceryListUser, ArrayList<GroceryListProductsModel> groceryListProducts) {
         if(groceryListProducts != null) {
             groceryListsModel.setProductsModels(groceryListProducts);
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -121,15 +111,12 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
             recyclerView.setAdapter(v2);
         }
 
-    }
-
-    @Override
-    public void groceryListUserReceived(@Nullable UserModel groceryListUser) {
         if (groceryListUser != null){
             firstNametxt.append(groceryListUser.getFirst_name() + " " + groceryListUser.getLast_name());
             phoneNumbertxt.append(groceryListUser.getPhone_number());
         }else{
-            groceryListAccepted = false;
+            firstNametxt.append("-");
+            phoneNumbertxt.append("-");
         }
     }
 

@@ -22,7 +22,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.RegistrationController;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.RegistrationHelper;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.RegistrationListener;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.ValidateInputs;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
@@ -66,7 +66,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     private EditText emailTxt, passwordTxt, userNameTxt, firstNameTxt, lastNameTxt, adressTxt, contactTxt, retypedPasswordTxt;
     private Button registerBtn, backToLoginBtn;
 
-    private RegistrationController controller;
+    private RegistrationHelper controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         setContentView(R.layout.activity_register);
         getSupportActionBar().setTitle(R.string.register);
 
-        controller = new RegistrationController(this);
+        controller = new RegistrationHelper(this);
 
         firstNameTxt = findViewById(R.id.firstnameRegistration);
         lastNameTxt = findViewById(R.id.lastnameRegistration);

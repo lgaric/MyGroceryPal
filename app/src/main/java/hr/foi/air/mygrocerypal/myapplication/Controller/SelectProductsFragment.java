@@ -19,7 +19,7 @@ import java.util.List;
 
 import hr.foi.air.mygrocerypal.myapplication.Core.Adapters.SelectProductsAdapter;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.SelectProductsListener;
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.SelectProductsController;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.SelectProductsHelper;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.ProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
@@ -27,7 +27,7 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 public class SelectProductsFragment extends Fragment implements SelectProductsListener{
     private List<GroceryListProductsModel> allreadyAddedProducts = new ArrayList<>();
     private Button addProductsToGroceryList;
-    private SelectProductsController selectProductsController;
+    private SelectProductsHelper selectProductsHelper;
     private RecyclerView recyclerView;
     private SelectProductsAdapter selectProductsAdapter;
 
@@ -43,12 +43,12 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        selectProductsController = new SelectProductsController(this);
+        selectProductsHelper = new SelectProductsHelper(this);
 
         recyclerView = view.findViewById(R.id.recycler_view);
         addProductsToGroceryList = view.findViewById(R.id.addProductsToGroceryList);
 
-        selectProductsController.loadProductsByStore(getArguments().getString("store_name"));
+        selectProductsHelper.loadProductsByStore(getArguments().getString("store_name"));
         allreadyAddedProducts = (List<GroceryListProductsModel>)getArguments().getSerializable("list_of_products");
 
         addProductsToGroceryList.setOnClickListener(new View.OnClickListener() {
