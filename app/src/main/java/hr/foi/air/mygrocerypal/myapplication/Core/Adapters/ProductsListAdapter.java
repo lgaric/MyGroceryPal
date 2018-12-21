@@ -68,12 +68,11 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
 
     public class ProductsListHolder extends RecyclerView.ViewHolder {
 
-        public GroceryListProductsModel product;
-
-        public TextView productName;
-        public ImageButton increaseGroceryAmount, decreaseGroceryAmount, deleteProduct;
-        public EditText productQuantity;
-        public List<GroceryListProductsModel> listOfProducts;
+        private GroceryListProductsModel product;
+        private TextView productName;
+        private ImageButton increaseGroceryAmount, decreaseGroceryAmount, deleteProduct;
+        private EditText productQuantity;
+        private List<GroceryListProductsModel> listOfProducts;
 
         public ProductsListHolder(@NonNull View itemView) {
             super(itemView);

@@ -82,12 +82,12 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
 
     public class SelectProductsHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        public GroceryListProductsModel product;
-        public ProductsModel productsModel;
-        public TextView productName, productPrice;
-        public ImageButton increaseGroceryAmount, decreaseGroceryAmount;
-        public EditText productQuantity;
-        public List<GroceryListProductsModel> listOfProducts;
+        private GroceryListProductsModel product;
+        private ProductsModel productsModel;
+        private TextView productName, productPrice;
+        private ImageButton increaseGroceryAmount, decreaseGroceryAmount;
+        private EditText productQuantity;
+        private List<GroceryListProductsModel> listOfProducts;
 
         public SelectProductsHolder(@NonNull View itemView) {
             super(itemView);
