@@ -14,18 +14,12 @@ import java.util.Locale;
 
 public class LocationBasedOnAddress {
 
-    private LocationListener locationListener;
-
-    public LocationBasedOnAddress(Fragment fragment) {
-        locationListener = (LocationListener) fragment;
-    }
-
     /**
      * Metoda za dobivanje geografske sirine i duzine na temelju proslijedene adrese
      * @param address
      * @param context
      */
-    public Location GetLocation(String address, Context context) {
+    public static Location GetLocation(String address, Context context) {
         String errorMessage = "";
         if(address.isEmpty()) {
             return null;

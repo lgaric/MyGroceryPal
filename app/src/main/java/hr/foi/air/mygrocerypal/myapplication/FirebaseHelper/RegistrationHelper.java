@@ -1,6 +1,7 @@
 package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
 import android.content.Context;
+import android.location.Location;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -11,8 +12,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import hr.foi.air.mygrocerypal.LocationBasedOnAddress;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.RegistrationListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
+
+import static hr.foi.air.mygrocerypal.LocationBasedOnAddress.GetLocation;
 
 public class RegistrationHelper extends FirebaseBaseHelper{
     private RegistrationListener listener;
@@ -28,9 +32,15 @@ public class RegistrationHelper extends FirebaseBaseHelper{
      */
     public void registration(UserModel newUser){
         final UserModel user = newUser;
-        user.setLatitude(20.0);
-        user.setLongitude(20.0);
-        user.setRange(20.0);
+        Location userLocation = LocationBasedOnAddress.GetLocation(user.getAddress() + ", " + user.getTown() + ", Croatia", (Context)listener);
+        if(userLocation != null){
+            user.setLongitude(userLocation.getLongitude());
+            user.setLatitude(userLocation.getLatitude());
+        }else{
+            listener.onRegistrationFail("Greška prilikom dohvaćanja lokacije!");
+            return;
+        }
+
 
         if(isNetworkAvailable()) {
             mQuery = mDatabase.getReference().child("users").orderByChild("username").equalTo(user.getUsername());
