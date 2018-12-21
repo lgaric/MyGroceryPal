@@ -34,28 +34,26 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
     ArrayList<String> cities = new ArrayList<>();
     SpinnerDialog spinnerDialog;
+    private static final String OBLIGATORY  = "Obavezno polje!";
 
     public void initCities(){
         String json = null;
-        try {
-            InputStream is = getAssets().open("CroatianCities.json");
+        try (InputStream is = getAssets().open("CroatianCities.json")) {
             int size = is.available();
             byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-            JSONArray jsonArray = new JSONArray(json);
-
-            for (int i = 0; i<jsonArray.length(); i++){
-                JSONObject obj = jsonArray.getJSONObject(i);
-                cities.add(obj.getString("mjesto"));
+            while(is.read(buffer) > 0){
+                json = new String(buffer, "UTF-8");
+                JSONArray jsonArray = new JSONArray(json);
+                for (int i = 0; i<jsonArray.length(); i++){
+                    JSONObject obj = jsonArray.getJSONObject(i);
+                    cities.add(obj.getString("mjesto"));
+                }
             }
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         catch (JSONException e){
-        e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -143,7 +141,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                         boolean validationSuccess = ValidateInputs.validateEmail(emailTxt.getText().toString().trim());
                         if(!validationSuccess) emailTxt.setError("Molimo unesite ispravnu email adresu!");
                     }else {
-                        emailTxt.setError("Obavezno polje!");
+                        emailTxt.setError(OBLIGATORY);
                     }
                 }
             }
@@ -158,7 +156,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                         if (!validationSuccess)
                             passwordTxt.setError("Minimalno 6 slova i jedan specijalni znak!");
                     } else {
-                        passwordTxt.setError("Obavezno polje!");
+                        passwordTxt.setError(OBLIGATORY);
                     }
                 }
             }
@@ -172,7 +170,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                         boolean validationSuccess = ValidateInputs.validateRetypedPassword(passwordTxt.getText().toString().trim(), retypedPasswordTxt.getText().toString().trim());
                         if(!validationSuccess) retypedPasswordTxt.setError("Lozinke ne odgovaraju!");
                     }else{
-                        retypedPasswordTxt.setError("Obavezno polje!");
+                        retypedPasswordTxt.setError(OBLIGATORY);
                     }
                 }
             }

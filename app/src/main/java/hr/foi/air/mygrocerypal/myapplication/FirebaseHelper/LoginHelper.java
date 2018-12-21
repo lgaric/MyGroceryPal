@@ -85,15 +85,15 @@ public class LoginHelper extends FirebaseBaseHelper{
                     if (temp == null)
                         listener.onStatusFailed(checkErrorCode(null));
                     else {
-                        CurrentUser.currentUser = temp;
-                        CurrentUser.currentUser.setUserUID(dataSnapshot.getKey());
+                        CurrentUser.getCurrentUser = temp;
+                        CurrentUser.getCurrentUser.setUserUID(dataSnapshot.getKey());
                         getUserIgnoredLists(dataSnapshot.getKey());
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    // Do nothing
                 }
             });
         }
@@ -112,13 +112,13 @@ public class LoginHelper extends FirebaseBaseHelper{
                     for (DataSnapshot temp : dataSnapshot.getChildren())
                         ingoredLists.add(temp.getKey());
 
-                    CurrentUser.currentUser.setIgnoredLists(ingoredLists);
+                    CurrentUser.getCurrentUser.setIgnoredLists(ingoredLists);
                     listener.onStatusSuccess();
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    // Do nothing
                 }
             });
         }

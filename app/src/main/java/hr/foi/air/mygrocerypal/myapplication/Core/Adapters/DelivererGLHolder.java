@@ -20,15 +20,15 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
 
     private GroceryListsModel groceryListsModel;
 
-    private TextView store;
-    private TextView price;
-    private TextView commision;
-    private TextView address;
-    private TextView delivery_town;
+    private TextView mStore;
+    private TextView mPrice;
+    private TextView mCommision;
+    private TextView mAddress;
+    private TextView mDeliveryTown;
 
-    Button acceptGL;
-    Button ignoreGL;
-    Button returnGL;
+    Button btnAcceptGL;
+    Button btnIgnoreGL;
+    Button btnReturnGL;
 
     private GroceryListOperationListener groceryListOperationListener;
 
@@ -53,6 +53,9 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
                     break;
                 case R.id.btnRestoreIgnored: //CASE ZA VRATI
                     groceryListOperationListener.buttonPressedOnGroceryList(groceryListsModel, GroceryListOperation.RETURN);
+                    break;
+                default:
+                    break;
             }
         }
     };
@@ -62,11 +65,11 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
 
         Log.d("TROLL", Integer.toString(itemView.getId()));
         //POHRANI SVE POTREBNE INFORMACIJE
-        this.store = itemView.findViewById(R.id.store_name);
-        this.price = itemView.findViewById(R.id.price);
-        this.commision = itemView.findViewById(R.id.commision);
-        this.address = itemView.findViewById(R.id.address);
-        this.delivery_town = itemView.findViewById(R.id.delivery_town);
+        this.mStore = itemView.findViewById(R.id.store_name);
+        this.mPrice = itemView.findViewById(R.id.price);
+        this.mCommision = itemView.findViewById(R.id.commision);
+        this.mAddress = itemView.findViewById(R.id.address);
+        this.mDeliveryTown = itemView.findViewById(R.id.delivery_town);
 
         setButtonsListener(type, itemView);
 
@@ -77,15 +80,17 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
     private void setButtonsListener(int type, View itemView){
         switch (type){
             case 0: //AKTIVNI GROCERYLISTI
-                acceptGL = itemView.findViewById(R.id.accept_gl);
-                ignoreGL = itemView.findViewById(R.id.ignore_gl);
-                acceptGL.setOnClickListener(buttonClickListener);
-                ignoreGL.setOnClickListener(buttonClickListener);
+                btnAcceptGL = itemView.findViewById(R.id.accept_gl);
+                btnIgnoreGL = itemView.findViewById(R.id.ignore_gl);
+                btnAcceptGL.setOnClickListener(buttonClickListener);
+                btnIgnoreGL.setOnClickListener(buttonClickListener);
                 break;
             case 1:
                 //VRATI IGNORIRAI GL
-                returnGL = itemView.findViewById(R.id.btnRestoreIgnored);//PRONADI SVOJ GUMB
-                returnGL.setOnClickListener(buttonClickListener);//DODAJ MU CLICKLISTENER
+                btnReturnGL = itemView.findViewById(R.id.btnRestoreIgnored);//PRONADI SVOJ GUMB
+                btnReturnGL.setOnClickListener(buttonClickListener);//DODAJ MU CLICKLISTENER
+                break;
+            default:
                 break;
         }
     }
@@ -94,11 +99,11 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
         this.groceryListsModel = groceryListsModel;
 
         //POSTAVI VRIJEDNOST TEXTVIEWOVA
-        this.store.setText(groceryListsModel.getStore_name());
-        this.price.setText(PRICE + groceryListsModel.getTotal_price() + CURRENCY);
-        this.commision.setText(FEE + groceryListsModel.getCommision() + CURRENCY);
-        this.address.setText("ADRESA: " + groceryListsModel.getDelivery_address());
-        this.delivery_town.setText("GRAD: " + groceryListsModel.getDelivery_town());
+        this.mStore.setText(groceryListsModel.getStore_name());
+        this.mPrice.setText(PRICE + groceryListsModel.getTotal_price() + CURRENCY);
+        this.mCommision.setText(FEE + groceryListsModel.getCommision() + CURRENCY);
+        this.mAddress.setText("ADRESA: " + groceryListsModel.getDelivery_address());
+        this.mDeliveryTown.setText("GRAD: " + groceryListsModel.getDelivery_town());
 
         this.groceryListOperationListener = groceryListOperationListener;
     }

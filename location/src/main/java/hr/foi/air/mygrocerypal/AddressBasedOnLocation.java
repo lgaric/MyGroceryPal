@@ -1,11 +1,9 @@
 package hr.foi.air.mygrocerypal;
 
 import android.app.Activity;
-import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
@@ -29,7 +27,7 @@ public class AddressBasedOnLocation {
      * Metoda za dobivanje tocne adrese u obliku stringa na temelju geolokacije
      * @param location
      */
-    public String GetAddress(final Location location)
+    public String getAddress(final Location location)
     {
         List<Address> addresses = null;
         fullAddress = new StringBuilder();

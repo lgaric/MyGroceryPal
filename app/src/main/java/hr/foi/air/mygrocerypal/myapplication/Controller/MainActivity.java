@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationView mNavigationView;
-    private FragmentManager mFragmentManager;
 
 
     @Override
@@ -79,8 +78,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View headerView = mNavigationView.getHeaderView(0);
         TextView username = (TextView) headerView.findViewById(R.id.nav_header_username);
         TextView email = (TextView) headerView.findViewById(R.id.nav_header_email);
-        username.setText(CurrentUser.currentUser.getFirst_name() + " " + CurrentUser.currentUser.getLast_name());
-        email.setText(CurrentUser.currentUser.getEmail());
+        username.setText(CurrentUser.getCurrentUser.getFirst_name() + " " + CurrentUser.getCurrentUser.getLast_name());
+        email.setText(CurrentUser.getCurrentUser.getEmail());
     }
 
     @Override
@@ -102,16 +101,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
-        mFragmentManager = getSupportFragmentManager();
-        //FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         switch (id) {
             //Handle click on static options
             case R.id.navigation_deliverer:
@@ -146,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.navigation_logout:
                 mDrawer.closeDrawer(GravityCompat.START);
-                CurrentUser.currentUser = null;
+                CurrentUser.getCurrentUser = null;
                 startActivity(new Intent(this, LoginActivity.class));
                 this.finish();
                 break;

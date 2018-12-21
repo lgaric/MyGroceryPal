@@ -6,6 +6,6 @@ import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
 
 public class CurrentUser {
-    public static UserModel currentUser;
+    public static UserModel getCurrentUser;
     public static Location gpsLocation;
 }

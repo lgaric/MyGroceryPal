@@ -50,13 +50,12 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
                         groceryListStatusListener.groceryListReceived(getAllActiveLists(groceryList));
                     else if (option == "ignored")
                         groceryListStatusListener.groceryListReceived(getAllUserIgnoredLists(groceryList));
-                    //else //Dohvati prihvacene liste
-                        //groceryListStatusListener.groceryListReceived(getAllActiveLists(groceryList));
+                    // TODO Implement method for accepted grocery lists
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    // Do nothing
                 }
             });
         }else
@@ -96,14 +95,14 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
             try{
                 mReference = mDatabase.getReference();
                 mReference.child(GROCERYLISTSNODE).child(groceryListID).child(GROCERYLISTSTATUSNODE).setValue(GroceryListStatus.ACCEPTED);
-                mReference.child(GROCERYLISTSNODE).child(groceryListID).child(USERACCEPTEDIDNODE).setValue(CurrentUser.currentUser.getUserUID());
+                mReference.child(GROCERYLISTSNODE).child(groceryListID).child(USERACCEPTEDIDNODE).setValue(CurrentUser.getCurrentUser.getUserUID());
                 return "Prihvaćen odabir";
             }catch(Exception e) {
                 Log.e(getClass().toString(), e.getMessage());
                 return "Greška prilikom prihvaćanja narudžbe";
             }
         }else
-            return "Potrebna je internet veza!";
+            return NOINTERNETCONNECTIONMESSAGE;
     }
 
     /**
@@ -137,7 +136,7 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
      */
     private ArrayList<GroceryListsModel> getAllActiveLists(ArrayList<GroceryListsModel> allActiveLists){
         ArrayList<GroceryListsModel> validLists = new ArrayList<>();
-        List<String> ignoredLists = CurrentUser.currentUser.getIgnoredLists();
+        List<String> ignoredLists = CurrentUser.getCurrentUser.getIgnoredLists();
 
         //1 UVJET -> IZBACI SVE IGNORIRANE KORISNIKOVE LISTE
         //2 UVJET -> IZBACI SVE NJEGOVE LISTE (KORISNIK NE MOŽE PRIHVATITI SVOJU LISTU)
@@ -145,7 +144,7 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
 
         for(int i = 0; i < allActiveLists.size(); i++){
             if(!ignoredLists.contains(allActiveLists.get(i).getGrocerylist_key())
-                    && !compareUsersId(CurrentUser.currentUser.getUserUID(), allActiveLists.get(i).getUser_id())
+                    && !compareUsersId(CurrentUser.getCurrentUser.getUserUID(), allActiveLists.get(i).getUser_id())
                     && groceryListDateValid(allActiveLists.get(i).getEnd_date())){
                 validLists.add(allActiveLists.get(i));
             }
@@ -162,7 +161,7 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
     public ArrayList<GroceryListsModel> getAllUserIgnoredLists(ArrayList<GroceryListsModel> groceryList){
         ArrayList<GroceryListsModel> temporary = new ArrayList<>();
         for(int i = 0; i < groceryList.size(); i++){
-            if(CurrentUser.currentUser.getIgnoredLists().contains(groceryList.get(i).getGrocerylist_key()))
+            if(CurrentUser.getCurrentUser.getIgnoredLists().contains(groceryList.get(i).getGrocerylist_key()))
                 temporary.add(groceryList.get(i));
         }
         return temporary;
@@ -207,32 +206,32 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
     public String ignoreGroceryList(String groceryListID) {
         if(isNetworkAvailable()){
             try{
-                mReference = mDatabase.getReference().child(USERIGNOREDLISTNODE).child(CurrentUser.currentUser.getUserUID())
+                mReference = mDatabase.getReference().child(USERIGNOREDLISTNODE).child(CurrentUser.getCurrentUser.getUserUID())
                         .child(groceryListID);
                 mReference.setValue(true);
-                CurrentUser.currentUser.getIgnoredLists().add(groceryListID);
+                CurrentUser.getCurrentUser.getIgnoredLists().add(groceryListID);
                 return "Lista ignorirana!";
             }catch(Exception e) {
                 Log.e(getClass().toString(), e.getMessage());
                 return "Greška prilikom ignoriranja narudžbe!";
             }
         }else
-            return "Potrebna je internet veza!";
+            return NOINTERNETCONNECTIONMESSAGE;
 
     }
 
     public String returnGroceryListFromIgnored(String grocerylist_key) {
         if(isNetworkAvailable()){
             try {
-                mDatabase.getReference().child(USERIGNOREDLISTNODE).child(CurrentUser.currentUser.getUserUID())
+                mDatabase.getReference().child(USERIGNOREDLISTNODE).child(CurrentUser.getCurrentUser.getUserUID())
                         .child(grocerylist_key).removeValue();
-                CurrentUser.currentUser.getIgnoredLists().remove(grocerylist_key);
+                CurrentUser.getCurrentUser.getIgnoredLists().remove(grocerylist_key);
                 return "Lista vraćena!";
             }catch (Exception e){
                 Log.e(getClass().toString(), e.getMessage());
                 return "Greška prilikom ignoriranja narudžbe";
             }
         }else
-            return "Potrebna je internet veza!";
+            return NOINTERNETCONNECTIONMESSAGE;
     }
 }

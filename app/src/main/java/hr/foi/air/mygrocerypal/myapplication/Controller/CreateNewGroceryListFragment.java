@@ -81,8 +81,8 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         address = view.findViewById(R.id.address);
         town = view.findViewById(R.id.town);
         recyclerView = view.findViewById(R.id.recycler_view_products);
-        address.setText(CurrentUser.currentUser.getAddress());
-        town.setText(CurrentUser.currentUser.getTown());
+        address.setText(CurrentUser.getCurrentUser.getAddress());
+        town.setText(CurrentUser.getCurrentUser.getTown());
         address.setEnabled(false);
         town.setEnabled(false);
         radioGroup = view.findViewById(R.id.rgroup);
@@ -114,7 +114,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
             }
         }
         commision.setText(groceryListsModel.getCommision());
-        if(CurrentUser.currentUser.getAddress().equals(groceryListsModel.getDelivery_address()) && CurrentUser.currentUser.getTown().equals(groceryListsModel.getDelivery_town())){
+        if(CurrentUser.getCurrentUser.getAddress().equals(groceryListsModel.getDelivery_address()) && CurrentUser.getCurrentUser.getTown().equals(groceryListsModel.getDelivery_town())){
             radioGroup.check(R.id.radioButton);
         }
         else{
@@ -134,6 +134,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
     }
 
+    @Override
     public void onStart() {
 
         super.onStart();
@@ -188,6 +189,8 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                     createNewGroceryListHelper.saveGL_withProducts(groceryListsModel, groceryListProductsModels);
                 }
                 break;
+            default:
+                break;
         }
     }
 
@@ -216,8 +219,8 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
             if(radioButton.getText().equals("Moja adresa")){
                 address.setEnabled(false);
                 town.setEnabled(false);
-                address.setText(CurrentUser.currentUser.getAddress());
-                town.setText(CurrentUser.currentUser.getTown());
+                address.setText(CurrentUser.getCurrentUser.getAddress());
+                town.setText(CurrentUser.getCurrentUser.getTown());
             }
             else{
                 address.setEnabled(true);
@@ -290,7 +293,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
         @Override
         public void onNothingSelected(AdapterView<?> parent) {
-
+            // Do nothing
         }
     };
 
@@ -369,16 +372,15 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 GroceryListStatus.CREATED,
                 selectedStoreName,
                 totalPriceAmount.getText().toString(),
-                CurrentUser.currentUser.getUserUID(),
-                "-", CurrentUser.currentUser.getLongitude(),
-                CurrentUser.currentUser.getLatitude());
+                CurrentUser.getCurrentUser.getUserUID(),
+                "-", CurrentUser.getCurrentUser.getLongitude(),
+                CurrentUser.getCurrentUser.getLatitude());
     }
 
 
     public String increaseCurrentDateBy(int value){
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        String currentDateTime = df.format(c.getTime());
 
         c.add(Calendar.DATE, value);
         String endDate = df.format(c.getTime());

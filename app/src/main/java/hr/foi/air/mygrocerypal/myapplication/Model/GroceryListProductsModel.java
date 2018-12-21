@@ -8,10 +8,6 @@ public class GroceryListProductsModel {
     private double price;
     private int quantity;
 
-   public GroceryListProductsModel(){
-
-   }
-
     public String getGrocery_list_key() {
         return grocery_list_key;
     }

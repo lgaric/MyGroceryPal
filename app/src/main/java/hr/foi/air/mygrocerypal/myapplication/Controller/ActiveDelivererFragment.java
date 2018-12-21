@@ -66,12 +66,12 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
 
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
-
+            // Do nothing
         }
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-
+            // Do nothing
         }
     };
 
@@ -136,8 +136,8 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
             if(CurrentUser.gpsLocation != null && gpsSwitch.isChecked())
                 temporary = filterListUsingDistance(radius, CurrentUser.gpsLocation);
             else
-                temporary = filterListUsingDistance(radius, getLocation(CurrentUser.currentUser.getLatitude(),
-                        CurrentUser.currentUser.getLongitude(), "USERLOCATION"));
+                temporary = filterListUsingDistance(radius, getLocation(CurrentUser.getCurrentUser.getLatitude(),
+                        CurrentUser.getCurrentUser.getLongitude(), "USERLOCATION"));
             setRecyclerView(temporary);
         }
     }
@@ -251,6 +251,8 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
                 break;
             case DETAILS:
                 showGroceryListDetails(groceryListsModel);
+                break;
+            default:
                 break;
         }
     }

@@ -50,7 +50,8 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
                              Bundle savedInstanceState) {
 
         groceryListsModel = (GroceryListsModel)getArguments().getSerializable("GROCERY_LIST_MODEL");
-        productsController =  new GroceryListDetailsHelper(this, groceryListsModel);
+        productsController =  new GroceryListDetailsHelper(this);
+        productsController.loadGroceryListProducts(groceryListsModel);
 
         return inflater.inflate(R.layout.fragment_show_grocery_list_details, container, false);
     }

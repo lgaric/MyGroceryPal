@@ -17,10 +17,9 @@ import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 public class GroceryListDetailsHelper extends FirebaseBaseHelper{
     private GroceryListDetailsListener groceryListDetailsListener;
 
-    public GroceryListDetailsHelper(GroceryListDetailsListener listener, GroceryListsModel groceryListsModel) {
+    public GroceryListDetailsHelper(GroceryListDetailsListener listener) {
         this.context = ((Fragment)listener).getContext();
         groceryListDetailsListener = listener;
-        loadGroceryListProducts(groceryListsModel);
     }
 
     /**
@@ -48,7 +47,7 @@ public class GroceryListDetailsHelper extends FirebaseBaseHelper{
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    // Do nothing
                 }
             });
         }else
@@ -68,7 +67,7 @@ public class GroceryListDetailsHelper extends FirebaseBaseHelper{
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    // Do nothing
                 }
             });
         }

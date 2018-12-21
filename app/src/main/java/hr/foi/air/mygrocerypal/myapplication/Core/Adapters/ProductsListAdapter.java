@@ -100,11 +100,9 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
             decreaseGroceryAmount.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(product != null){
-                        if(product.getQuantity() >= 1){
+                    if(product != null && product.getQuantity() >= 1){
                             product.setQuantity(product.getQuantity() - 1);
                             productQuantity.setText(Integer.toString(product.getQuantity()));
-                        }
                     }
                     calculateTotalAmount();
                 }

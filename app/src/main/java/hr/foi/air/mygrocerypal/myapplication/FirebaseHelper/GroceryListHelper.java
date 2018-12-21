@@ -46,7 +46,7 @@ public class GroceryListHelper extends FirebaseBaseHelper{
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    // Do nothing
                 }
             });
         }else

@@ -22,9 +22,9 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
 
     private LinearLayout color_track;
 
-    private TextView store;
-    private TextView price;
-    private TextView commision;
+    private TextView mStore;
+    private TextView mPrice;
+    private TextView mCommision;
 
     //ONCLICKLISTENER -> ANDROID INTERFACE
     private View.OnClickListener onclick = new View.OnClickListener() {
@@ -40,18 +40,18 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
 
             color_track = itemView.findViewById(R.id.color_track);
 
-            store = itemView.findViewById(R.id.store_name);
-            price = itemView.findViewById(R.id.price);
-            commision = itemView.findViewById(R.id.commision);
+            mStore = itemView.findViewById(R.id.store_name);
+            mPrice = itemView.findViewById(R.id.price);
+            mCommision = itemView.findViewById(R.id.commision);
 
             itemView.setOnClickListener(onclick);
         }
 
         public void bind(GroceryListsModel groceryListsModel, GroceryListClickListener groceryListClickListener){
             this.groceryListsModel = groceryListsModel;
-            store.setText(groceryListsModel.getStore_name());
-            price.setText(PRICE + groceryListsModel.getTotal_price() + CURRENCY);
-            commision.setText(FEE + groceryListsModel.getCommision() + CURRENCY);
+            mStore.setText(groceryListsModel.getStore_name());
+            mPrice.setText(PRICE + groceryListsModel.getTotal_price() + CURRENCY);
+            mCommision.setText(FEE + groceryListsModel.getCommision() + CURRENCY);
 
             setColorOfTrack();
 

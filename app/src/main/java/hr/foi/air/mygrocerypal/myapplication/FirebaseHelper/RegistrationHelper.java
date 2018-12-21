@@ -73,7 +73,7 @@ public class RegistrationHelper extends FirebaseBaseHelper{
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    // Do nothing
                 }
             });
         }

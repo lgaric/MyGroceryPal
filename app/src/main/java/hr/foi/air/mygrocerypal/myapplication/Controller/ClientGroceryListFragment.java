@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,6 +103,8 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
                         .replace(R.id.fragment_container, createNewGroceryListFragment)
                         .addToBackStack(null)
                         .commit();
+                break;
+            default:
                 break;
         }
     }

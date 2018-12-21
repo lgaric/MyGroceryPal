@@ -150,6 +150,8 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
                 case R.id.groceryIncreaseAmount:
                     increaseAmount();
                     break;
+                default:
+                    break;
             }
         }
 

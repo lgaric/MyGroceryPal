@@ -83,6 +83,8 @@ import hr.foi.air.mygrocerypal.myapplication.R;
             case DETAILS:
                 showGroceryListDetails(groceryListsModel);
                 break;
+            default:
+                break;
         }
 
     }
@@ -115,7 +117,7 @@ import hr.foi.air.mygrocerypal.myapplication.R;
             return;
         }else if(!GroceryListStatus.valueOf(groceryListStatus).equals(GroceryListStatus.CREATED)){
             Toast.makeText(getActivity(), "Kupovna lista je već prihvaćena", Toast.LENGTH_SHORT).show();
-            CurrentUser.currentUser.getIgnoredLists().remove(groceryListID);
+            CurrentUser.getCurrentUser.getIgnoredLists().remove(groceryListID);
             return;
         }else if(operation == GroceryListOperation.RETURN)
             message = delivererGroceryListHelper.returnGroceryListFromIgnored(groceryListID);
