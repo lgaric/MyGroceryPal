@@ -1,12 +1,12 @@
 package hr.foi.air.mygrocerypal.myapplication.Model;
 
-public class ProductsModel {
+import com.example.filter.FilterableObject;
+
+public class ProductsModel extends FilterableObject {
     private String product_key;
     private String category_id;
-    private String category_name;
     private double current_price;
     private String image_url;
-    private String name;
     private String store_id;
     private String store_name;
 

@@ -9,6 +9,7 @@ import com.example.filter.Listeners.ObjectsFilterListener;
 import java.util.ArrayList;
 
 /**
+ * Primjer poziva -> new FilterObjects<Klasa>(listaObjekata, "lampion", FilterType.NAME, this, Klasa.class).execute()
  * Klasa zaduzena za filtriranje objekata na temelju imena i kategorije
  * @param <T>
  */
