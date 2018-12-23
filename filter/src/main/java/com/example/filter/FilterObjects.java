@@ -1,6 +1,5 @@
 package com.example.filter;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.filter.Enumerators.FilterType;
@@ -9,11 +8,10 @@ import com.example.filter.Listeners.ObjectsFilterListener;
 import java.util.ArrayList;
 
 /**
- * Primjer poziva -> new FilterObjects<Klasa>(listaObjekata, "lampion", FilterType.NAME, this, Klasa.class).execute()
- * Klasa zaduzena za filtriranje objekata na temelju imena i kategorije
+ * Klasa za filtriranje objekata na temelju imena i kategorije
  * @param <T>
  */
-public class FilterObjects<T extends FilterableObject> extends AsyncTask<Void, Void, ArrayList<T>> {
+public class FilterObjects<T extends FilterableObject> {
 
     private ArrayList<T> mListOfObjects;
     private String mFilterBy;
@@ -21,62 +19,23 @@ public class FilterObjects<T extends FilterableObject> extends AsyncTask<Void, V
     private ObjectsFilterListener mListener;
     private Class<T> mClassType;
 
-    /**
-     * Konstruktor
-     * @param listOfObjects lista objekata koje zelimo filtrirati
-     * @param filterBy string na temelju kojega filtriramo
-     * @param type vrsta filtriranja
-     * @param listener activity, fragment koji implementira klasu ObjectsFilterListener
-     * @param classType kojeg tipa je listOfObjects tj. 1 parametar
-     */
-    public FilterObjects(ArrayList<T> listOfObjects, String filterBy, FilterType type, ObjectsFilterListener listener, Class<T> classType){
-        this.mListOfObjects = listOfObjects;
-        this.mFilterBy = filterBy.toLowerCase();
-        this.mType = type;
-        this.mListener = listener;
-        this.mClassType = classType;
+    public FilterObjects(ArrayList<T> mListOfObjects, String mFilterBy, FilterType mType, ObjectsFilterListener mListener, Class<T> mClassType) {
+        this.mListOfObjects = mListOfObjects;
+        this.mFilterBy = mFilterBy.toLowerCase();
+        this.mType = mType;
+        this.mListener = mListener;
+        this.mClassType = mClassType;
     }
 
     /**
-     * Filtriraj listu asinkrono
-     * @param voids
+     * Filtriraj po imenu
      * @return
      */
-    @Override
-    protected ArrayList<T> doInBackground(Void... voids) {
-        if(!validateInputs())
+    @SuppressWarnings("unchecked")
+    private ArrayList<T> filterListByNames() {
+        if(mListOfObjects == null)
             return null;
 
-        if(mType == FilterType.NAME)
-            filterListByNames();
-        else
-            filterListByCategories();
-
-        return mListOfObjects;
-    }
-
-    /**
-     * Proslijedi activity, fragmentu filtriranu listu
-     * @param list
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    protected void onPostExecute(ArrayList<T> list) {
-        if(list != null) {
-            try {
-                mListener.listIsFiltered(list);
-            }
-            catch (Exception e){
-                Log.d(this.getClass().getName(), "POGRESKA PRILIKOM PROSLIJEDIVANJA LISTE FRAGMENTU");
-            }
-        }
-    }
-
-    /**
-     * Filtriraj listu objekata na temelju imena
-     */
-    @SuppressWarnings("unchecked")
-    private void filterListByNames() {
         ArrayList<T> temp = new ArrayList<>();
 
         try {
@@ -87,21 +46,20 @@ public class FilterObjects<T extends FilterableObject> extends AsyncTask<Void, V
                     }
                 }
             }
-
-            mListOfObjects = temp;
         }
         catch (Exception e){
             Log.d(this.getClass().getName(), "POGRESKA KOD CASTANJA -> filterListByNames");
         }
+
+        return temp;
     }
 
-    /**
-     * Filtriraj listu objekata na temelju kategorije
-     */
     @SuppressWarnings("unchecked")
-    private void filterListByCategories() {
-        ArrayList<T> temp = new ArrayList<>();
+    private ArrayList<T> filterListByCategories() {
+        if(mListOfObjects == null)
+            return null;
 
+        ArrayList<T> temp = new ArrayList<>();
         try {
             for (FilterableObject object : mListOfObjects) {
                 if (object.category_name.equals(mFilterBy)) {
@@ -110,21 +68,11 @@ public class FilterObjects<T extends FilterableObject> extends AsyncTask<Void, V
                     }
                 }
             }
-
-            mListOfObjects = temp;
         }
         catch (Exception e){
             Log.d(this.getClass().getName(), "POGRESKA KOD CASTANJA -> filterListByCategories");
         }
-    }
 
-    /**
-     * Provjeri sve atribute ove klase
-     * @return
-     */
-    private boolean validateInputs() {
-        if(mListOfObjects == null || mFilterBy == null || mType == null || mListener == null || mClassType == null)
-            return false;
-        return true;
+        return temp;
     }
 }
