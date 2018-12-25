@@ -16,16 +16,22 @@
     <string name="contact">Kontakt</string>
     <string name="back">Povratak</string>
     <string name="send">Pošalji</string>
+    <string name="confirm">Potvrdi</string>
     <string name="pleaseInsertEmail">Molimo Vas, unesite Vašu e-mail adresu!</string>
     <string name="activeCaps">AKTIVNI</string>
     <string name="pastCaps">PROŠLI</string>
     <string name="ignoredCaps">IGNORIRANI</string>
     <string name="acceptedCaps">PRIHVAĆENI</string>
     <string name="printLocation">ISPIŠI LOKACIJU</string>
-    <string name="storeSemicolon">"Trgovina: "</string>
+
     <string name="store">Trgovina</string>
-    <string name="commison">"Provizija: "</string>
-    <string name="delivererSemicolon">"Dobavljač: "</string>
+    <string name="commission">"Provizija"</string>
+    <string name="croatianKuna">"Kuna"</string>
+    <string name="croatianKunaShort">"KN"</string>
+    <string name="addedProducts">"Dodani proizvodi"</string>
+    <string name="addProduct">"Dodaj proizvod"</string>
+    <string name="totalPriceSemicolon">"Ukupna cijena: "</string>
+
     <string name="deliverer">Dobavljač</string>
     <string name="price">"Cijena: "</string>
     <string name="client">Naručitelj</string>
@@ -33,8 +39,16 @@
     <string name="pay">Uplati</string>
     <string name="statistics">Statistika</string>
     <string name="logout">Odjavi se</string>
+    <string name="myAddress">"Moja adresa"</string>
+    <string name="otherAddress">"Druga adresa"</string>
+    <string name="pickDate">Odaberite datum</string>
     <string name="boughtSemicolon">"Kupljeno: "</string>
     <string name="contactSemicolon">"Kontakt: "</string>
+    <string name="pickStoreSemicolon">"Odaberite dućan: "</string>
+    <string name="validFromSemicolon">"Vrijedi od:</string>
+    <string name="delivererSemicolon">"Dobavljač: "</string>
+    <string name="storeSemicolon">"Trgovina: "</string>
+    <string name="commisionSemicolon">"Provizija: "</string>
 
 
 
@@ -63,4 +77,5 @@
     <string name="searchLocation">Lokacijsko traženje</string>
 
     <string name="tab" translatable="false">\u0009</string>
+    <string name="commison">Provizija</string>
 </resources>

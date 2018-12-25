@@ -43,4 +43,17 @@
     <string name="forgotPassword">Forgot password?</string>
     <string name="navigation_drawer_close">Close drawer</string>
     <string name="contactSemicolon">"Contact: "</string>
+    <string name="confirm">Confirm</string>
+    <string name="commission">Commision</string>
+    <string name="croatianKuna">Kuna</string>
+    <string name="croatianKunaShort">KN</string>
+    <string name="addedProducts">Added products</string>
+    <string name="addProduct">Add product</string>
+    <string name="totalPriceSemicolon">"Total price: "</string>
+    <string name="myAddress">My address</string>
+    <string name="otherAddress">Other address</string>
+    <string name="pickDate">Choose date</string>
+    <string name="pickStoreSemicolon">"Choose store: "</string>
+    <string name="validFromSemicolon">"Valid from: "</string>
+    <string name="commisionSemicolon">"Commison: "</string>
 </resources>

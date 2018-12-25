@@ -53,15 +53,17 @@
 
     </style>
 
-    <style name="TextApp">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
+    <style name="TextInAppWhite">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:padding">10dp</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/advent_pro_thin</item>
+        <item name="android:textIsSelectable">false</item>
     </style>
+
 
     <style name="DialogAnimations" />
     <style name="DialogAnimations.SmileWindow">
@@ -92,6 +94,20 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">15sp</item>
     </style>
+
+    <style name="LinearLayoutRoundHorizontalDark">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">10dp</item>
+
+
+        <item name="android:background">@drawable/shape_linear_layout_dark</item>
+    </style>
+
 
     <style name="LinearLayoutRoundVertical">
         <item name="android:layout_width">match_parent</item>
@@ -133,13 +149,33 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">10dp</item>
-
         <item name="android:textSize">15sp</item>
-
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/button_light_blue_background</item>
+    </style>
+
+    <style name="ButtonPink">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/button_pink_background</item>
+    </style>
+
+    <style name="ButtonDarkBlue">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/button_blue_background</item>
     </style>
         <!--End buttons designs-->
 
