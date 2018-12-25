@@ -6,22 +6,23 @@
     android:background="@color/colorPrimaryDark">
 
     <LinearLayout
+        android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttons"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:gravity="center">
 
         <Button
             android:id="@+id/buttonBackToLogin"
-            style="@style/MyButton"
-            android:text="@string/back"/>
+            style="@style/ButtonLightBlue"
+            android:layout_weight="1"
+            android:text="@string/back" />
 
         <Button
             android:id="@+id/buttonRegister"
-            style="@style/MyButton"
-            android:text="@string/register"/>
+            style="@style/ButtonLightBlue"
+            android:layout_weight="1"
+            android:text="@string/register" />
 
     </LinearLayout>
     
@@ -41,56 +42,56 @@
 
             <EditText
                 android:id="@+id/firstnameRegistration"
-                style="@style/MyEditText"
+                style="@style/EditTextWhite"
                 android:hint="@string/firstname"/>
 
             <EditText
                 android:id="@+id/lastnameRegistration"
                 android:hint="@string/lastname"
-                style="@style/MyEditText" />
+                style="@style/EditTextWhite" />
 
             <EditText
                 android:id="@+id/usernameRegistration"
-                style="@style/MyEditText"
+                style="@style/EditTextWhite"
                 android:hint="@string/username" />
 
             <EditText
                 android:id="@+id/passwordRegistration"
-                style="@style/MyEditText"
+                style="@style/EditTextWhite"
                 android:hint="@string/password"
                 android:inputType="textPassword" />
 
             <EditText
                 android:id="@+id/repeatPasswordRegistration"
-                style="@style/MyEditText"
+                style="@style/EditTextWhite"
                 android:hint="@string/repeatPassword"
                 android:inputType="textPassword" />
 
             <EditText
                 android:id="@+id/emailRegistration"
-                style="@style/MyEditText"
+                style="@style/EditTextWhite"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"/>
 
             <EditText
                 android:id="@+id/addressRegistration"
-                style="@style/MyEditText"
+                style="@style/EditTextWhite"
                 android:hint="@string/address" />
 
             <TextView
                 android:id="@+id/txtCity"
-                style="@style/MyEditText"
+                style="@style/EditTextWhite"
                 android:hint="@string/city" />
 
             <TextView
                 android:id="@+id/dateOfBirthRegistration"
-                style="@style/MyEditText"
+                style="@style/EditTextWhite"
                 android:hint="@string/birthDate"
                 android:inputType="date" />
 
             <EditText
                 android:id="@+id/contactRegistration"
-                style="@style/MyEditText"
+                style="@style/EditTextWhite"
                 android:hint="@string/contact"
                 android:inputType="number"/>
 

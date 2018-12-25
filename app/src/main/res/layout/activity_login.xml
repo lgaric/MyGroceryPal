@@ -59,7 +59,7 @@
 
         <Button
             android:id="@+id/buttonLogin"
-            style="@style/ButtonLight"
+            style="@style/ButtonLightBlue"
             android:text="@string/login"
             android:onClick="login"/>
 
