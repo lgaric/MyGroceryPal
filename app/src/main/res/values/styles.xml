@@ -26,6 +26,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <!--EditText styles-->
+
     <style name="EditTextWhite">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">40dp</item>
@@ -36,39 +39,6 @@
         <item name="android:background">@drawable/change_border_on_focus</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:inputType">text</item>
-    </style>
-
-
-
-    <style name="MyTitle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:background">@color/colorPrimaryDark</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textSize">25sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:fontFamily">@font/alegreya_sans_sc_thin</item>
-
-    </style>
-
-    <style name="TextInAppWhite">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:textSize">15sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:fontFamily">@font/advent_pro_thin</item>
-        <item name="android:textIsSelectable">false</item>
-    </style>
-
-
-    <style name="DialogAnimations" />
-    <style name="DialogAnimations.SmileWindow">
-        <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
-        <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
     </style>
 
     <style name="EditTextLogin">
@@ -84,6 +54,21 @@
         <item name="android:inputType">text</item>
     </style>
 
+    <!-- End of EditText styles-->
+
+    <!-- TextView styles-->
+
+    <style name="TextInAppWhite">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/advent_pro_thin</item>
+        <item name="android:textIsSelectable">false</item>
+    </style>
+
     <style name="TextViewWhite">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -95,6 +80,19 @@
         <item name="android:textSize">15sp</item>
     </style>
 
+    <style name="TextViewBigWhite">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/advent_pro_thin</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">35sp</item>
+    </style>
+
+    <!-- End of TextView styles-->
+
+    <!--Layout styles -->
+
     <style name="LinearLayoutRoundHorizontalDark">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -103,11 +101,8 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">10dp</item>
-
-
         <item name="android:background">@drawable/shape_linear_layout_dark</item>
     </style>
-
 
     <style name="LinearLayoutRoundVertical">
         <item name="android:layout_width">match_parent</item>
@@ -127,24 +122,10 @@
         <item name="android:layout_centerVertical">true</item>
     </style>
 
-    <style name="TextViewBigWhite">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:fontFamily">@font/advent_pro_thin</item>
-        <item name="android:gravity">center</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">35sp</item>
-    </style>
+    <!--End of Layout styles -->
 
-    <style name="AppLogoImage">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">100sp</item>
-        <item name="android:src">@mipmap/ic_launcher</item>
-        <item name="android:layout_margin">5dp</item>
+    <!--Buttons designs-->
 
-    </style>
-
-        <!--Buttons designs-->
     <style name="ButtonLightBlue">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -177,7 +158,24 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:background">@drawable/button_blue_background</item>
     </style>
-        <!--End buttons designs-->
 
+    <!--End buttons designs-->
+
+    <!--Other styles-->
+
+    <style name="DialogAnimations" />
+    <style name="DialogAnimations.SmileWindow">
+        <item name="android:windowEnterAnimation">@android:anim/slide_in_left</item>
+        <item name="android:windowExitAnimation">@android:anim/slide_out_right</item>
+    </style>
+
+    <style name="AppLogoImage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">100sp</item>
+        <item name="android:src">@mipmap/ic_launcher</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
+    <!--End of Other styles-->
 
 </resources>
