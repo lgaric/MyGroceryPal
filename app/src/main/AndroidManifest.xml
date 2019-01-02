@@ -15,6 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Controller.LoginActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -23,10 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Controller.RegistrationActivity" />
-        <activity android:name=".Controller.PasswordRecoveryActivity" />
+        <activity android:name=".Controller.RegistrationActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Controller.PasswordRecoveryActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Controller.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
 
 
         <meta-data
