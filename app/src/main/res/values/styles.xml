@@ -33,8 +33,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:layout_margin">5dp</item>
-        <item name="android:paddingStart">10dp</item>
-        <item name="android:textSize">17sp</item>
+        <item name="android:paddingStart">@dimen/padding_start_in_app</item>
+        <item name="android:textSize">@dimen/edit_text_size_in_app</item>
         <item name="android:textCursorDrawable">@drawable/cursor_color</item>
         <item name="android:background">@drawable/change_border_on_focus</item>
         <item name="android:gravity">center_vertical</item>
@@ -48,7 +48,7 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/text_size_in_app</item>
         <item name="android:background">@drawable/button_white_background</item>
         <item name="android:maxLines">1</item>
         <item name="android:inputType">text</item>
@@ -61,8 +61,8 @@
     <style name="TextInAppWhite">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:padding">@dimen/padding_start_in_app</item>
+        <item name="android:textSize">@dimen/text_size_in_app</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">@font/advent_pro_thin</item>
@@ -72,12 +72,12 @@
     <style name="TextViewWhite">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_margin">@dimen/default_margin_in_app</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:textAlignment">center</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/text_size_in_app</item>
     </style>
 
     <style name="TextViewBigWhite">
@@ -86,7 +86,7 @@
         <item name="android:fontFamily">@font/advent_pro_thin</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">35sp</item>
+        <item name="android:textSize">@dimen/text_size_big_in_app</item>
     </style>
 
     <!-- End of TextView styles-->
@@ -100,7 +100,7 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:padding">@dimen/padding_start_in_app</item>
         <item name="android:background">@drawable/shape_linear_layout_dark</item>
     </style>
 
@@ -115,7 +115,7 @@
     <style name="ScrollViewRoundVertical">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_margin">@dimen/default_margin_in_app</item>
         <item name="android:orientation">vertical</item>
         <item name="android:background">@drawable/shape_linear_layout</item>
         <item name="android:fillViewport">true</item>
@@ -129,8 +129,8 @@
     <style name="ButtonLightBlue">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">10dp</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:layout_margin">@dimen/default_margin_in_app</item>
+        <item name="android:textSize">@dimen/text_size_in_app</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
@@ -140,8 +140,8 @@
     <style name="ButtonPink">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">10dp</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:layout_margin">@dimen/default_margin_in_app</item>
+        <item name="android:textSize">@dimen/text_size_in_app</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
@@ -151,8 +151,8 @@
     <style name="ButtonDarkBlue">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">10dp</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:layout_margin">@dimen/default_margin_in_app</item>
+        <item name="android:textSize">@dimen/text_size_in_app</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
