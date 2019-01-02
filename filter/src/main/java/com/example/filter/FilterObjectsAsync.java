@@ -19,7 +19,6 @@ public class FilterObjectsAsync<T extends FilterableObject> extends AsyncTask<Vo
     private String mFilterBy;
     private FilterType mType;
     private ObjectsFilterListener mListener;
-    private Class<T> mClassType;
 
     /**
      * Konstruktor
@@ -27,14 +26,12 @@ public class FilterObjectsAsync<T extends FilterableObject> extends AsyncTask<Vo
      * @param filterBy string na temelju kojega filtriramo
      * @param type vrsta filtriranja
      * @param listener activity, fragment koji implementira klasu ObjectsFilterListener
-     * @param classType kojeg tipa je listOfObjects tj. 1 parametar
      */
-    public FilterObjectsAsync(ArrayList<T> listOfObjects, String filterBy, FilterType type, ObjectsFilterListener listener, Class<T> classType){
+    public FilterObjectsAsync(ArrayList<T> listOfObjects, String filterBy, FilterType type, ObjectsFilterListener listener){
         this.mListOfObjects = listOfObjects;
         this.mFilterBy = filterBy.toLowerCase();
         this.mType = type;
         this.mListener = listener;
-        this.mClassType = classType;
     }
 
     /**
@@ -82,9 +79,7 @@ public class FilterObjectsAsync<T extends FilterableObject> extends AsyncTask<Vo
         try {
             for (FilterableObject object : mListOfObjects) {
                 if (object.name.toLowerCase().contains(mFilterBy)) {
-                    if (mClassType.isInstance(object)) {
-                        temp.add((T) object);
-                    }
+                    temp.add((T) object);
                 }
             }
 
@@ -105,9 +100,7 @@ public class FilterObjectsAsync<T extends FilterableObject> extends AsyncTask<Vo
         try {
             for (FilterableObject object : mListOfObjects) {
                 if (object.category_name.equals(mFilterBy)) {
-                    if (mClassType.isInstance(object)) {
-                        temp.add((T) object);
-                    }
+                    temp.add((T) object);
                 }
             }
 
@@ -123,7 +116,7 @@ public class FilterObjectsAsync<T extends FilterableObject> extends AsyncTask<Vo
      * @return
      */
     private boolean validateInputs() {
-        if(mListOfObjects == null || mFilterBy == null || mType == null || mListener == null || mClassType == null)
+        if(mListOfObjects == null || mFilterBy == null || mType == null || mListener == null)
             return false;
         return true;
     }
