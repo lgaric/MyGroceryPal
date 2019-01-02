@@ -9,4 +9,6 @@
     <dimen name="text_size_big_in_app">35sp</dimen>
     <dimen name="padding_start_in_app">10dp</dimen>
     <dimen name="default_margin_in_app">10dp</dimen>
+    <dimen name="small_margin_in_app">5dp</dimen>
+    <dimen name="height_of_edit_text_in_app">40dp</dimen>
 </resources>

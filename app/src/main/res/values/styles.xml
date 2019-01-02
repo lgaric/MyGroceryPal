@@ -31,8 +31,8 @@
 
     <style name="EditTextWhite">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">40dp</item>
-        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_height">@dimen/height_of_edit_text_in_app</item>
+        <item name="android:layout_margin">@dimen/small_margin_in_app</item>
         <item name="android:paddingStart">@dimen/padding_start_in_app</item>
         <item name="android:textSize">@dimen/edit_text_size_in_app</item>
         <item name="android:textCursorDrawable">@drawable/cursor_color</item>
@@ -44,7 +44,7 @@
     <style name="EditTextLogin">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">10dp</item>
+        <item name="android:layout_margin">@dimen/default_margin_in_app</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
@@ -96,7 +96,7 @@
     <style name="LinearLayoutRoundHorizontalDark">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_margin">@dimen/small_margin_in_app</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
@@ -107,7 +107,7 @@
     <style name="LinearLayoutRoundVertical">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_margin">@dimen/small_margin_in_app</item>
         <item name="android:orientation">vertical</item>
         <item name="android:background">@drawable/shape_linear_layout</item>
     </style>
@@ -173,7 +173,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">100sp</item>
         <item name="android:src">@mipmap/ic_launcher</item>
-        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_margin">@dimen/small_margin_in_app</item>
     </style>
 
     <!--End of Other styles-->
