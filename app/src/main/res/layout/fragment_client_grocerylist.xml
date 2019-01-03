@@ -25,13 +25,13 @@ POTREBNO JE SAMO MJENJATI FRAGMENT KOJI SE POZIVA U FRAMELAYOUT KOMPONENTI-->
 
             <Button
                 android:id="@+id/active_client_btn"
-                style="@style/ButtonLightBlue"
+                style="@style/ButtonDarkBlue"
                 android:layout_weight="1"
                 android:text="@string/activeCaps"/>
 
             <Button
                 android:id="@+id/past_client_btn"
-                style="@style/ButtonLightBlue"
+                style="@style/ButtonDarkBlue"
                 android:layout_weight="1"
                 android:text="@string/pastCaps"/>
 

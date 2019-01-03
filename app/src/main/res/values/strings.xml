@@ -27,8 +27,8 @@
     <string name="ignoreCaps">IGNORIRAJ</string>
     <string name="returnCaps">VRATI</string>
     <string name="repeatCaps">PONOVI</string>
-    <string name="plusCaps">+</string>
-    <string name="minusCaps">-</string>
+    <string name="plusCaps" translatable="false">+</string>
+    <string name="minusCaps" translatable="false">-</string>
 
 
 

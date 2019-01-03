@@ -8,10 +8,11 @@
     tools:context=".Controller.SettingsFragment">
 
     <LinearLayout
-        style="@style/LinearLayoutRoundVertical">
+        style="@style/LinearLayoutRoundVertical"
+        android:background="@color/colorPrimaryDark">
 
         <Button
-            style="@style/ButtonDarkBlue"
+            style="@style/ButtonLightBlue"
             android:id="@+id/btn_start_location_updates"
             android:layout_marginTop="40dp"
             android:gravity="center"
@@ -46,7 +47,7 @@
             android:hint="@string/address" />
 
         <Button
-            style="@style/ButtonDarkBlue"
+            style="@style/ButtonLightBlue"
             android:id="@+id/btnIspisLokacije"
             android:gravity="center"
             android:text="@string/printLocation"/>

@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:id="@+id/productName"
         tools:text="Product name"
-        android:layout_weight=".5"/>
+        android:layout_weight=".3"/>
 
 
     <ImageButton
@@ -20,27 +20,27 @@
         android:id="@+id/btnGroceryDecreaseAmount"
         android:layout_width="0dp"
         android:src="@drawable/ic_remove_circle_outline_black_24dp"
-        android:layout_weight=".1" />
+        android:layout_weight=".2" />
 
     <EditText
         style="@style/EditTextWhite"
         android:id="@+id/productQuantity"
         tools:text="Quantity"
         android:layout_width="0dp"
-        android:layout_weight=".2"/>
+        android:layout_weight=".1"/>
 
     <ImageButton
         style="@style/ButtonQuantity"
         android:id="@+id/btnGroceryIncreaseAmount"
         android:layout_width="0dp"
         android:src="@drawable/ic_add_circle_outline_black_24dp"
-        android:layout_weight=".1"/>
+        android:layout_weight=".2"/>
 
     <ImageButton
         style="@style/ButtonQuantity"
         android:id="@+id/groceryDelete"
         android:layout_width="0dp"
         android:src="@drawable/ic_delete_forever_black_24dp"
-        android:layout_weight=".1"/>
+        android:layout_weight=".2"/>
 
 </LinearLayout>

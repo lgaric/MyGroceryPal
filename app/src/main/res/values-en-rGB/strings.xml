@@ -56,4 +56,8 @@
     <string name="pickStoreSemicolon">"Choose store: "</string>
     <string name="validFromSemicolon">"Valid from: "</string>
     <string name="commisionSemicolon">"Commison: "</string>
+    <string name="acceptCaps">ACCEPT</string>
+    <string name="ignoreCaps">IGNORE</string>
+    <string name="returnCaps">RETURN</string>
+    <string name="repeatCaps">REPEAT</string>
 </resources>

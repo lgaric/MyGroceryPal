@@ -11,19 +11,19 @@
       android:orientation="horizontal">
 
     <Button
-        style="@style/ButtonLightBlue"
+        style="@style/ButtonDarkBlue"
         android:layout_weight="1"
         android:text="@string/activeCaps"
         android:id="@+id/active_deliverer_btn"/>
 
     <Button
-        style="@style/ButtonLightBlue"
+        style="@style/ButtonDarkBlue"
         android:layout_weight="1"
         android:text="@string/acceptedCaps"
         android:id="@+id/accepted_deliverer_btn"/>
 
     <Button
-        style="@style/ButtonLightBlue"
+        style="@style/ButtonDarkBlue"
         android:layout_weight="1"
         android:text="@string/ignoredCaps"
         android:id="@+id/ignored_client_btn"/>

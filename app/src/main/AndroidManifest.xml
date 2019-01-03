@@ -17,7 +17,7 @@
         <activity android:name=".Controller.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/SplashScreenTheme"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -25,10 +25,12 @@
         </activity>
         <activity android:name=".Controller.RegistrationActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.ActionBar"/>
+            android:theme="@style/AppTheme.ActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".Controller.PasswordRecoveryActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.ActionBar"/>
+            android:theme="@style/AppTheme.ActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".Controller.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait" />

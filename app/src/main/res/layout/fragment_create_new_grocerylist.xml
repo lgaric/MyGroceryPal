@@ -12,7 +12,8 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            style="@style/LinearLayoutRoundVertical">
+            style="@style/LinearLayoutRoundVertical"
+            android:background="@color/colorPrimaryDark">
 
             <LinearLayout
                 style="@style/LinearLayoutRoundHorizontalDark">
@@ -26,7 +27,7 @@
                     android:text="@string/pickStoreSemicolon"/>
 
                 <Spinner
-                    android:background="@drawable/button_pink_background"
+                    android:background="@drawable/button_light_blue_background"
                     android:layout_margin="10dp"
                     android:id="@+id/spinnerStores"
                     android:layout_width="0dp"
@@ -141,14 +142,14 @@
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view_products"
-                    android:background="@drawable/button_light_blue_background"
+                    android:background="@drawable/button_white_background"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
             </LinearLayout>
 
             <Button
-                style="@style/ButtonDarkBlue"
+                style="@style/ButtonLightBlue"
                 android:gravity="center"
                 android:id="@+id/btnAddProducts"
                 android:text="@string/addProduct"/>
