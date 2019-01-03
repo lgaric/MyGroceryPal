@@ -3,6 +3,7 @@ package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -24,19 +25,21 @@ import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 public class LoginHelper extends FirebaseBaseHelper{
     private LoginListener mLoginListener;
     private LinearLayout mProgress;
+    private LinearLayout mNameAndLogoApp;
 
     public LoginHelper(LoginListener mLoginListener){
         this.mContext = (Context) mLoginListener;
         this.mLoginListener = mLoginListener;
     }
 
-    public void login(String mUsername, String mPassword, LinearLayout progress){
+    public void login(String mUsername, String mPassword, LinearLayout progress, LinearLayout logo){
         if(mUsername.isEmpty() || mPassword.isEmpty()) {
             mLoginListener.onStatusFailed("Ispunite odgovarajuća polja!");
             return;
         }
 
         this.mProgress = progress;
+        this.mNameAndLogoApp = logo;
 
         if(isNetworkAvailable()) {
             mAuth.signInWithEmailAndPassword(mUsername, mPassword)
@@ -82,7 +85,9 @@ public class LoginHelper extends FirebaseBaseHelper{
 
     private void getUserInformation(String mUserUID){
 
+        mNameAndLogoApp.setVisibility(View.GONE);
         mProgress.setVisibility(View.VISIBLE);
+
 
         if(isNetworkAvailable()) {
             mReference = mDatabase.getReference().child(USERNODE).child(mUserUID);
@@ -94,6 +99,7 @@ public class LoginHelper extends FirebaseBaseHelper{
                     if (temp == null) {
                         mLoginListener.onStatusFailed(checkErrorCode(null));
                         mProgress.setVisibility(View.GONE);
+                        mNameAndLogoApp.setVisibility(View.VISIBLE);
                     }
                     else {
                         CurrentUser.getCurrentUser = temp;
