@@ -3,101 +3,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.LoginFragment"
     android:orientation="vertical"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimaryDark"
+    tools:context=".Controller.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="5sp"
-        android:layout_marginTop="5sp"
-        android:layout_marginEnd="5sp"
-        android:layout_marginBottom="40sp"
-        android:background="@drawable/shape_linear_layout"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:id="@+id/buttons"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_margin="5dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/alegreya_sans_sc_thin"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textColor="@color/white"
-            android:textSize="50sp" />
 
         <EditText
+            style="@style/EditTextLogin"
             android:id="@+id/usernameLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/button_white_background"
-            android:gravity="center"
-            android:hint="@string/username"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="15sp" />
-
+            android:hint="@string/username" />
 
         <EditText
+            style="@style/EditTextLogin"
             android:id="@+id/passwordLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/button_white_background"
-            android:gravity="center"
             android:hint="@string/password"
-            android:inputType="textPassword"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="15sp"/>
-
-        <Button
-            android:id="@+id/buttonLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/button_blue_background"
-            android:text="@string/login"
-            android:textColor="@color/white"
-            android:onClick="login"/>
+            android:inputType="textPassword" />
 
         <TextView
             android:id="@+id/forgotPasswordLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="50dp"
-            android:textAlignment="center"
+            style="@style/TextViewWhite"
             android:text="@string/forgotPassword"
-            android:onClick="showRecoveryPassword"
-            android:textColor="@color/white"/>
+            android:onClick="showRecoveryPassword"/>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/buttonLoginRegistration"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="@string/registrationOnLogin"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="11dp"
-        android:gravity="center"
-        android:onClick="showRegister"
-        android:textColor="@color/white"
-        />
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:id="@+id/logoAndAppname">
 
+        <ImageView
+            style="@style/AppLogoImage" />
+
+        <TextView
+            style="@style/TextViewBigWhite"
+            android:text="@string/app_name" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttons"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonLogin"
+            style="@style/ButtonLightBlue"
+            android:text="@string/login"
+            android:onClick="login"/>
+
+        <TextView
+            android:id="@+id/buttonLoginRegistration"
+            style="@style/TextViewWhite"
+            android:text="@string/registrationOnLogin"
+            android:onClick="showRegister"/>
+    </LinearLayout>
 </RelativeLayout>

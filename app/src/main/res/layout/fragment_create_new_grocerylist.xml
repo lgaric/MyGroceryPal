@@ -1,188 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="5dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="5dp"
     android:orientation="vertical"
-    >
+    android:background="@color/colorPrimaryDark" >
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/labelForStore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textIsSelectable="false"
-                android:text="Odaberite dućan" />
+            style="@style/LinearLayoutRoundVertical">
 
-            <Spinner
-                android:id="@+id/spinnerStores"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                
-
-                />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:background="@android:color/darker_gray" />
-
-            <RadioGroup
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/rgroup"
-
-                >
-
-                <RadioButton
-                    android:id="@+id/radioButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:text="Moja adresa"
-                    android:checked="true"
-                    />
-
-                <RadioButton
-                    android:id="@+id/radioButton2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:text="Druga adresa" />
-            </RadioGroup>
-            <EditText
-                android:id="@+id/address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:background="@drawable/edittext_light_blue"
-                android:inputType="textCapSentences"
-                android:hint="alternativna adresa" />
-
-            <EditText
-                android:id="@+id/town"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:background="@drawable/edittext_light_blue"
-                android:layout_marginTop="5dp"
-                android:inputType="textCapWords"
-                android:hint="alternativni grad" />
-            <TextView
-                android:id="@+id/labelForStartDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textIsSelectable="false"
-                android:padding="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:text="Vrijedi od" />
-            <TextView
-                android:id="@+id/startDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:background="@drawable/edittext_light_blue"
-                android:hint="Odaberite datum" />
-            <TextView
-                android:id="@+id/labelCommision"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textIsSelectable="false"
-                android:padding="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-
-                android:text="Provizija" />
-
-            <EditText
-                android:id="@+id/commision"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number"
-                android:imeOptions="actionDone"
-                android:background="@drawable/edittext_light_blue"
-                android:hint="KN"/>
-            <TextView
-                android:id="@+id/labelProducts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textIsSelectable="false"
-                android:padding="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:text="Dodani proizvodi" />
-
-            <!-- OVDJE IDE LISTA PROIZVODA-->
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view_products"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:background="@android:color/darker_gray" />
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp">
+                style="@style/LinearLayoutRoundHorizontalDark">
 
                 <TextView
-                    android:id="@+id/labelTotalPrice"
+                    android:id="@+id/labelForStore"
+                    style="@style/TextInAppWhite"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textAlignment="textStart"
+                    android:text="@string/pickStoreSemicolon"/>
+
+                <Spinner
+                    android:background="@drawable/button_pink_background"
+                    android:layout_margin="10dp"
+                    android:id="@+id/spinnerStores"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LinearLayoutRoundHorizontalDark"
+                android:orientation="vertical"
+                android:gravity="start">
+
+                <RadioGroup
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textIsSelectable="false"
-                    android:padding="5dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:text="Ukupna cijena" />
-                <TextView
-                    android:id="@+id/TotalPriceAmount"
+                    android:id="@+id/rgroup">
+
+                    <RadioButton
+                        android:id="@+id/radioButton"
+                        style="@style/TextInAppWhite"
+                        android:text="@string/myAddress"
+                        android:checked="true" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton2"
+                        style="@style/TextInAppWhite"
+                        android:text="@string/otherAddress" />
+
+                </RadioGroup>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textIsSelectable="false"
-                    android:padding="5dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:background="@drawable/edittext_light_blue"
-                    android:textColor="@color/design_default_color_primary_dark"/>
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/address"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        android:hint="@string/address"
+                        android:fontFamily="@font/advent_pro_thin"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"/>
+
+                    <EditText
+                        android:id="@+id/town"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapWords"
+                        android:hint="@string/city"
+                        android:fontFamily="@font/advent_pro_thin"
+                        android:textColorHint="@color/white"
+                        android:textColor="@color/white"/>
+
+                </LinearLayout>
             </LinearLayout>
-            <Button
-                android:id="@+id/btnAddProducts"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="50dp"
-                android:background="@drawable/button_blue_background"
-                android:text="Dodaj proizvode"
-                android:textColor="@color/white"/>
+
+            <LinearLayout
+                style="@style/LinearLayoutRoundHorizontalDark">
+
+                <TextView
+                    style="@style/TextInAppWhite"
+                    android:id="@+id/labelForStartDate"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/validFromSemicolon"/>
+
+                <TextView
+                    style="@style/EditTextWhite"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/startDate"
+                    android:hint="@string/pickDate"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LinearLayoutRoundHorizontalDark">
+
+                <TextView
+                    style="@style/TextInAppWhite"
+                    android:id="@+id/labelCommision"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/commisionSemicolon"/>
+
+                <EditText
+                    style="@style/EditTextWhite"
+                    android:id="@+id/commision"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    android:hint="@string/croatianKuna"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/LinearLayoutRoundHorizontalDark"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/labelProducts"
+                    style="@style/TextInAppWhite"
+                    android:text="@string/addedProducts"/>
+
+                <!-- OVDJE IDE LISTA PROIZVODA-->
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_products"
+                    android:background="@drawable/button_light_blue_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
 
             <Button
+                style="@style/ButtonDarkBlue"
+                android:gravity="center"
+                android:id="@+id/btnAddProducts"
+                android:text="@string/addProduct"/>
+
+            <LinearLayout
+                style="@style/LinearLayoutRoundHorizontalDark">
+
+                <TextView
+                    style="@style/TextInAppWhite"
+                    android:id="@+id/labelTotalPrice"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/totalPriceSemicolon" />
+
+                <TextView
+                    android:id="@+id/TotalPriceAmount"
+                    style="@style/EditTextWhite"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <Button
+                style="@style/ButtonPink"
                 android:id="@+id/btnConfirm"
+                android:text="@string/confirm"/>
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="50dp"
-                android:background="@drawable/button_red_background"
-                android:text="Potvrdi"
-                android:textColor="@color/white"/>
+                android:layout_height="10dp" />
+
         </LinearLayout>
     </ScrollView>
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

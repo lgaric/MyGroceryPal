@@ -7,23 +7,24 @@
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="50dp"
-      android:gravity="center">
+      android:gravity="center"
+      android:orientation="horizontal">
 
     <Button
-        android:layout_width="110dp"
-        android:layout_height="40dp"
+        style="@style/ButtonLightBlue"
+        android:layout_weight="1"
         android:text="@string/activeCaps"
         android:id="@+id/active_deliverer_btn"/>
 
     <Button
-        android:layout_width="110dp"
-        android:layout_height="40dp"
+        style="@style/ButtonLightBlue"
+        android:layout_weight="1"
         android:text="@string/acceptedCaps"
         android:id="@+id/accepted_deliverer_btn"/>
 
     <Button
-        android:layout_width="110dp"
-        android:layout_height="40dp"
+        style="@style/ButtonLightBlue"
+        android:layout_weight="1"
         android:text="@string/ignoredCaps"
         android:id="@+id/ignored_client_btn"/>
 

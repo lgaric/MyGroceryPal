@@ -11,21 +11,26 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".Controller.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashScreenTheme"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Controller.RegistrationActivity" />
-        <activity android:name=".Controller.PasswordRecoveryActivity" />
+        <activity android:name=".Controller.RegistrationActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Controller.PasswordRecoveryActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Controller.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
+
 
         <meta-data
             android:name="preloaded_fonts"
