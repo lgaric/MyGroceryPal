@@ -1,84 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content" android:layout_margin="5dp"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
 
     <TextView
+        style="@style/EditTextWhite"
+        android:layout_width="0dp"
         android:id="@+id/productName"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_product_name"
-        android:fontFamily="@font/alegreya_sans_sc_thin"
-        android:gravity="center_vertical"
-        android:hint="Product name"
-        android:padding="5dp"
-        android:textAlignment="center"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="15dp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnGroceryDecreaseAmount"/>
+        tools:text="Product name"
+        android:layout_weight=".5"/>
 
 
     <ImageButton
+        style="@style/ButtonQuantity"
         android:id="@+id/btnGroceryDecreaseAmount"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="8dp"
-        android:adjustViewBounds="true"
-        android:background="#00ffffff"
-        android:cropToPadding="false"
-        android:scaleType="centerInside"
-        android:src="@mipmap/icon_less_transparent"
-        app:layout_constraintLeft_toRightOf="@+id/productName"
-        app:layout_constraintStart_toEndOf="@+id/productName" />
+        android:layout_width="0dp"
+        android:src="@drawable/ic_remove_circle_outline_black_24dp"
+        android:layout_weight=".1" />
 
     <EditText
+        style="@style/EditTextWhite"
         android:id="@+id/productQuantity"
+        tools:text="Quantity"
         android:layout_width="0dp"
-        android:layout_height="35dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="3dp"
-        android:textSize="10dp"
-        android:inputType="number"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/btnGroceryIncreaseAmount"
-        app:layout_constraintStart_toEndOf="@+id/btnGroceryDecreaseAmount"
-        app:layout_constraintLeft_toRightOf="@+id/btnGroceryDecreaseAmount"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintRight_toLeftOf="@+id/btnGroceryIncreaseAmount"
-        android:layout_marginRight="8dp" />
-
+        android:layout_weight=".2"/>
 
     <ImageButton
+        style="@style/ButtonQuantity"
         android:id="@+id/btnGroceryIncreaseAmount"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="8dp"
-        android:scaleType="centerInside"
-        android:background="#00ffffff"
-        android:src="@mipmap/icon_more_transparent"
-        app:layout_constraintRight_toLeftOf="@+id/groceryDelete"
-        android:layout_marginRight="8dp" />
+        android:layout_width="0dp"
+        android:src="@drawable/ic_add_circle_outline_black_24dp"
+        android:layout_weight=".1"/>
 
     <ImageButton
+        style="@style/ButtonQuantity"
         android:id="@+id/groceryDelete"
-        android:layout_width="30dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginLeft="8dp"
-        android:adjustViewBounds="true"
-        android:background="#00ffffff"
-        android:cropToPadding="false"
-        android:scaleType="centerInside"
-        android:src="@mipmap/icon_delete_transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        android:layout_width="0dp"
+        android:src="@drawable/ic_delete_forever_black_24dp"
+        android:layout_weight=".1"/>
 
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

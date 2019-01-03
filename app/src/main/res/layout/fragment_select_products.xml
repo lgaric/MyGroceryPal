@@ -56,13 +56,8 @@
 
         <Button
             android:id="@+id/addProductsToGroceryList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_blue_background"
-            android:text="Dodaj"
-            android:textColor="@color/white" />
+            android:text="@string/addProduct"
+            style="@style/ButtonDarkBlue" />
 
     </LinearLayout>
 

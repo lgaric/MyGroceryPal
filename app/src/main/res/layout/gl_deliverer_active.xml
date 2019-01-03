@@ -37,53 +37,30 @@
             android:layout_weight="0.68">
 
             <TextView
+                style="@style/TextViewGroceryListItem"
                 android:id="@+id/store_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:textIsSelectable="false"
-                tools:text="Store name string"
+                tools:text="Trgovina"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
             <TextView
+                style="@style/TextViewGroceryListItem"
                 android:id="@+id/price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="5dp"
-                android:textIsSelectable="false"
-                tools:text="Price: 500kn"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                tools:text="Price: 500kn"/>
 
             <TextView
+                style="@style/TextViewGroceryListItem"
                 android:id="@+id/commision"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="5dp"
-                android:textIsSelectable="false"
-                tools:text="Commision: 25kn"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                tools:text="Commision: 25kn" />
 
             <TextView
+                style="@style/TextViewGroceryListItem"
                 android:id="@+id/address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="5dp"
-                android:textIsSelectable="false"
-                tools:text="Delivery adress: Ulica 23"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                tools:text="Delivery adress: Ulica 23" />
 
             <TextView
+                style="@style/TextViewGroceryListItem"
                 android:id="@+id/delivery_town"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginStart="5dp"
-                android:textIsSelectable="false"
-                tools:text="Delivery town: Bjelovar"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                tools:text="Delivery town: Bjelovar" />
 
         </LinearLayout>
 
@@ -96,15 +73,17 @@
             android:layout_weight="0.3">
 
             <Button
-                android:text="PRIHVATI"
+                style="@style/ButtonDarkBlue"
+                android:text="@string/acceptCaps"
                 android:id="@+id/accept_gl"
-                android:layout_width="match_parent"
-                android:layout_height="45dp" />
+                android:layout_weight="1"
+                android:layout_margin="@dimen/small_margin_in_app"/>
             <Button
-                android:text="IGNORIRAJ"
+                style="@style/ButtonDarkBlue"
+                android:text="@string/ignoreCaps"
                 android:id="@+id/ignore_gl"
-                android:layout_width="match_parent"
-                android:layout_height="45dp" />
+                android:layout_weight="1"
+                android:layout_margin="@dimen/small_margin_in_app"/>
 
         </LinearLayout>
 
