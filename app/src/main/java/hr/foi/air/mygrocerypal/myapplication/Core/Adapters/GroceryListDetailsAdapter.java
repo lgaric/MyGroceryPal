@@ -31,11 +31,11 @@ public class GroceryListDetailsAdapter extends RecyclerView.Adapter<GroceryListD
                         .inflate(R.layout.grocerylistdetails_item_buttons, viewGroup, false);
             } else {
                 view = LayoutInflater.from(viewGroup.getContext())
-                        .inflate(R.layout.listview_association, viewGroup, false);
+                        .inflate(R.layout.grocerylistdetails_item, viewGroup, false);
             }
         }else {
             view = LayoutInflater.from(viewGroup.getContext())
-                    .inflate(R.layout.listview_association, viewGroup, false);
+                    .inflate(R.layout.grocerylistdetails_item, viewGroup, false);
         }
 
         return new GroceryListDetailsHolder(view, mGroceryList);

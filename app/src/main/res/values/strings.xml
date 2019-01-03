@@ -26,6 +26,8 @@
     <string name="acceptCaps">PRIHVATI</string>
     <string name="ignoreCaps">IGNORIRAJ</string>
     <string name="returnCaps">VRATI</string>
+    <string name="plusCaps">+</string>
+    <string name="minusCaps">-</string>
 
 
 

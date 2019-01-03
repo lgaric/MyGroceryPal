@@ -14,7 +14,6 @@
     android:clickable="true"
     android:focusable="true">
 
-
     <LinearLayout
         android:id="@+id/color_track"
         android:layout_width="8dp"
@@ -30,31 +29,20 @@
         android:paddingLeft="10dp">
 
         <TextView
+            style="@style/TextViewGroceryListItem"
             android:id="@+id/store_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:textIsSelectable="false"
             tools:text="Store name string"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
 
         <TextView
+            style="@style/TextViewGroceryListItem"
             android:id="@+id/price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:textIsSelectable="false"
             tools:text="Price: 500kn"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         <TextView
+            style="@style/TextViewGroceryListItem"
             android:id="@+id/commision"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="5dp"
-            android:textIsSelectable="false"
             tools:text="Commision: 25kn"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
