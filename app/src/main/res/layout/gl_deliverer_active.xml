@@ -73,13 +73,13 @@
             android:layout_weight="0.3">
 
             <Button
-                style="@style/ButtonDarkBlue"
+                style="@style/ButtonLightBlue"
                 android:text="@string/acceptCaps"
                 android:id="@+id/accept_gl"
                 android:layout_weight="1"
                 android:layout_margin="@dimen/small_margin_in_app"/>
             <Button
-                style="@style/ButtonDarkBlue"
+                style="@style/ButtonLightBlue"
                 android:text="@string/ignoreCaps"
                 android:id="@+id/ignore_gl"
                 android:layout_weight="1"

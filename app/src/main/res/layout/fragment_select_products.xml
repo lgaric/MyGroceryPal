@@ -44,7 +44,7 @@
         <Button
             android:id="@+id/addProductsToGroceryList"
             android:text="@string/addProduct"
-            style="@style/ButtonDarkBlue" />
+            style="@style/ButtonLightBlue" />
 
     </LinearLayout>
 

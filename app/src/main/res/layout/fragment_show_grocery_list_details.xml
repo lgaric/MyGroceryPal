@@ -65,7 +65,7 @@
         ></android.support.v7.widget.RecyclerView>
 
     <Button
-        style="@style/ButtonPink"
+        style="@style/ButtonLightBlue"
         android:text="@string/repeatCaps"
         android:id="@+id/againCommitbtn" />
 
