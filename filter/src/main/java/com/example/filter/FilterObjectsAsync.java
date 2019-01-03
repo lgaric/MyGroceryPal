@@ -43,13 +43,10 @@ public class FilterObjectsAsync<T extends FilterableObject> extends AsyncTask<Vo
     protected ArrayList<T> doInBackground(Void... voids) {
         if(!validateInputs())
             return null;
-
         if(mType == FilterType.NAME)
-            filterListByNames();
+            return filterListByNames();
         else
-            filterListByCategories();
-
-        return mListOfObjects;
+            return filterListByCategories();
     }
 
     /**
@@ -73,7 +70,7 @@ public class FilterObjectsAsync<T extends FilterableObject> extends AsyncTask<Vo
      * Filtriraj listu objekata na temelju imena
      */
     @SuppressWarnings("unchecked")
-    private void filterListByNames() {
+    private ArrayList<T> filterListByNames() {
         ArrayList<T> temp = new ArrayList<>();
 
         try {
@@ -82,19 +79,19 @@ public class FilterObjectsAsync<T extends FilterableObject> extends AsyncTask<Vo
                     temp.add((T) object);
                 }
             }
-
-            mListOfObjects = temp;
         }
         catch (Exception e){
             Log.d(this.getClass().getName(), "POGRESKA KOD CASTANJA -> filterListByNames");
         }
+
+        return temp;
     }
 
     /**
      * Filtriraj listu objekata na temelju kategorije
      */
     @SuppressWarnings("unchecked")
-    private void filterListByCategories() {
+    private ArrayList<T> filterListByCategories() {
         ArrayList<T> temp = new ArrayList<>();
 
         try {
@@ -103,12 +100,12 @@ public class FilterObjectsAsync<T extends FilterableObject> extends AsyncTask<Vo
                     temp.add((T) object);
                 }
             }
-
-            mListOfObjects = temp;
         }
         catch (Exception e){
             Log.d(this.getClass().getName(), "POGRESKA KOD CASTANJA -> filterListByCategories");
         }
+
+        return temp;
     }
 
     /**
