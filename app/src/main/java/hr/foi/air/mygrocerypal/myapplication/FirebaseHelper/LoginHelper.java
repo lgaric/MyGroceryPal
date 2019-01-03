@@ -2,6 +2,9 @@ package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,17 +23,20 @@ import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 
 public class LoginHelper extends FirebaseBaseHelper{
     private LoginListener mLoginListener;
+    private LinearLayout mProgress;
 
     public LoginHelper(LoginListener mLoginListener){
         this.mContext = (Context) mLoginListener;
         this.mLoginListener = mLoginListener;
     }
 
-    public void login(String mUsername, String mPassword){
+    public void login(String mUsername, String mPassword, LinearLayout progress){
         if(mUsername.isEmpty() || mPassword.isEmpty()) {
             mLoginListener.onStatusFailed("Ispunite odgovarajuća polja!");
             return;
         }
+
+        this.mProgress = progress;
 
         if(isNetworkAvailable()) {
             mAuth.signInWithEmailAndPassword(mUsername, mPassword)
@@ -75,6 +81,9 @@ public class LoginHelper extends FirebaseBaseHelper{
     }
 
     private void getUserInformation(String mUserUID){
+
+        mProgress.setVisibility(View.VISIBLE);
+
         if(isNetworkAvailable()) {
             mReference = mDatabase.getReference().child(USERNODE).child(mUserUID);
 
@@ -82,8 +91,10 @@ public class LoginHelper extends FirebaseBaseHelper{
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     UserModel temp = dataSnapshot.getValue(UserModel.class);
-                    if (temp == null)
+                    if (temp == null) {
                         mLoginListener.onStatusFailed(checkErrorCode(null));
+                        mProgress.setVisibility(View.GONE);
+                    }
                     else {
                         CurrentUser.getCurrentUser = temp;
                         CurrentUser.getCurrentUser.setUserUID(dataSnapshot.getKey());
@@ -113,6 +124,7 @@ public class LoginHelper extends FirebaseBaseHelper{
                         ingoredLists.add(temp.getKey());
 
                     CurrentUser.getCurrentUser.setIgnoredLists(ingoredLists);
+                    mProgress.setVisibility(View.GONE);
                     mLoginListener.onStatusSuccess();
                 }
 
