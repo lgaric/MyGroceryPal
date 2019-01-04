@@ -9,6 +9,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
@@ -54,6 +55,39 @@ public class GroceryListHelper extends FirebaseBaseHelper{
     }
 
     /**
+     * Dohvati sve GL-ove trenutnog usera
+     * @param mGroceryListStatus
+     */
+    public void loadGroceryListsByUser(final GroceryListStatus mGroceryListStatus) {
+        if (mGroceryListStatus == null)
+            return;
+
+        if(isNetworkAvailable()){
+            mQuery = mDatabase.getReference().child(GROCERYLISTSNODE).orderByChild("user_id").equalTo(CurrentUser.getCurrentUser.getUserUID());
+
+            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    ArrayList<GroceryListsModel> groceryList = new ArrayList<>();
+                    for (DataSnapshot temp : dataSnapshot.getChildren()) {
+                        GroceryListsModel model = temp.getValue(GroceryListsModel.class);
+                        model.setGrocerylist_key(temp.getKey());
+                        groceryList.add(model);
+                    }
+                    mGroceryListListener.groceryListReceived(filterList(groceryList, mGroceryListStatus));
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Do nothing
+                }
+            });
+        }else
+            showInternetMessageWarning();
+    }
+
+
+    /**
      * Filtriranje u dvije skupine
      *  1. skupina ACCEPTED I CREATED
      *  2. skupina FINISHED
@@ -61,7 +95,7 @@ public class GroceryListHelper extends FirebaseBaseHelper{
      * @param mStatus
      * @return
      */
-    private ArrayList<GroceryListsModel> filterList(ArrayList<GroceryListsModel> mGroceryListsModels, GroceryListStatus mStatus){
+    public ArrayList<GroceryListsModel> filterList(ArrayList<GroceryListsModel> mGroceryListsModels, GroceryListStatus mStatus){
         ArrayList<GroceryListsModel> mFilteredList = new ArrayList<>();
 
         // 1. skupina ACCEPTED I CREATED

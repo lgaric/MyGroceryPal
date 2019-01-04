@@ -78,4 +78,9 @@
 
     <string name="tab" translatable="false">\u0009</string>
     <string name="commison">Provizija</string>
+
+    <string name="orders">Narudžbe</string>
+    <string name="deliveries">Dostave</string>
+    <string name="ordersSemicolon">Narudžbe:</string>
+    <string name="deliveriesSemicolon">Dostave:</string>
 </resources>

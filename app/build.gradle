@@ -46,4 +46,5 @@ dependencies {
     implementation 'com.karumi:dexter:4.2.0'
 
     implementation 'com.github.MdFarhanRaja:SearchableSpinner:1.9'
+    implementation 'com.github.lecho:hellocharts-library:1.5.8@aar'
 }
