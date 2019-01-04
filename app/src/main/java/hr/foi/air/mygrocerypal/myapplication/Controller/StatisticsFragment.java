@@ -8,9 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +16,6 @@ import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.GroceryListHelper;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListListener;
-import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.StatisticsHelper;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 import lecho.lib.hellocharts.model.PieChartData;
@@ -32,10 +29,8 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
     TextView mTotalOrderPriceWithProvision, mTotalOrderCommission, mNumberOfOrders, mAverageOrderPrice, mTotalOrderPriceWithoutCommission;
     TextView mNumberOfDeliveries, mAverageDeliveryPrice, mTotalDeliveryCommission, mAverageDeliveryCommission, mTotalDeliveryPrice;
     GroceryListHelper mPastGroceryListHelper;
-    StatisticsHelper mStatisticsHelper;
 
-    public StatisticsFragment(){
-    }
+    public StatisticsFragment(){ }
 
     @Nullable
     @Override
@@ -45,9 +40,7 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
         BindFragmentData(view);
         mPieData = new ArrayList<>();
         mPastGroceryListHelper = new GroceryListHelper(this);
-        mPastGroceryListHelper.loadGroceryListsByUser(GroceryListStatus.FINISHED);
-        mStatisticsHelper = new StatisticsHelper(this);
-        mStatisticsHelper.loadDeliveries();
+        mPastGroceryListHelper.loadGroceryLists(GroceryListStatus.FINISHED);
         return view;
     }
 
@@ -70,25 +63,34 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
     @Override
     public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList) {
         if(mGroceryList != null) {
-            if((mGroceryList.get(0).getUser_id()).equals(CurrentUser.getCurrentUser.getUserUID())) {
-                GroceryListOrders(mGroceryList);
-            }else{
-                GroceryListDeliveries(mGroceryList);
+            ArrayList<GroceryListsModel> ordersList = new ArrayList<>();
+            ArrayList<GroceryListsModel> deliveriesList = new ArrayList<>();
+
+            float totalDeliveryPrice = 0, totalCommission = 0, totalOrderPriceWithProvision = 0, totalCommissionPrice= 0;
+            int numberOfDeliveries = 0, numberOfOrders = 0;
+
+            for (GroceryListsModel model: mGroceryList) {
+                if(model.getUser_id().equals(CurrentUser.getCurrentUser.getUserUID())) {
+                    totalOrderPriceWithProvision += Float.parseFloat(model.getTotal_price());
+                    totalCommissionPrice += Float.parseFloat(model.getCommision());
+                    numberOfOrders++;
+                    ordersList.add(model);
+                }else if(model.getUser_accepted_id().equals(CurrentUser.getCurrentUser.getUserUID())) {
+                    totalDeliveryPrice += Float.parseFloat(model.getTotal_price());
+                    totalCommission += Float.parseFloat(model.getCommision());
+                    numberOfDeliveries++;
+                    deliveriesList.add(model);
+                }
             }
+            GroceryListOrders(ordersList, totalOrderPriceWithProvision, totalCommissionPrice, numberOfOrders);
+            GroceryListDeliveries(deliveriesList, totalDeliveryPrice, numberOfDeliveries, totalCommission);
         }
     }
 
-    private void GroceryListDeliveries(ArrayList<GroceryListsModel> mGroceryList) {
-        if(mGroceryList == null)
+    private void GroceryListDeliveries(ArrayList<GroceryListsModel> mGroceryList, float totalDeliveryPrice,
+                                       int numberOfDeliveries, float totalCommission) {
+        if(mGroceryList == null) {
             return;
-
-        mGroceryList = mPastGroceryListHelper.filterList(mGroceryList, GroceryListStatus.FINISHED);
-        float totalDeliveryPrice = 0, totalCommission = 0;
-        int numberOfDeliveries = 0;
-        for (GroceryListsModel groceryList: mGroceryList) {
-            totalDeliveryPrice += Float.parseFloat(groceryList.getTotal_price());
-            totalCommission += Float.parseFloat(groceryList.getCommision());
-            numberOfDeliveries++;
         }
         mPieData.add(new SliceValue(totalDeliveryPrice, Color.CYAN).setLabel("Dostavljanje: " + Math.round(totalDeliveryPrice)));
         mNumberOfDeliveries.setText(String.valueOf("Broj dostavljanja: " + numberOfDeliveries));
@@ -100,25 +102,18 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
         printOutGraph();
     }
 
-    public void GroceryListOrders(ArrayList<GroceryListsModel> mGroceryList) {
+    public void GroceryListOrders(ArrayList<GroceryListsModel> mGroceryList, float totalOrderPriceWithProvision,
+                                  float totalCommissionPrice, int numberOfOrders) {
         if(mGroceryList == null) {
             return;
-        }
-        float totalOrderPriceWithProvision = 0, totalCommissionPrice= 0;
-        int numberOfOrders = 0;
-
-        for (GroceryListsModel groceryList: mGroceryList) {
-            totalOrderPriceWithProvision += Float.parseFloat(groceryList.getTotal_price());
-            totalCommissionPrice += Float.parseFloat(groceryList.getCommision());
-            numberOfOrders++;
         }
         mPieData.add(new SliceValue(totalOrderPriceWithProvision, Color.MAGENTA).setLabel("Naručivanje: " + Math.round(totalOrderPriceWithProvision)));
         mNumberOfOrders.setText(String.valueOf("Broj narudžbi: " + numberOfOrders));
         mTotalOrderPriceWithProvision.setText(String.valueOf("Ukupna vrijednost narudžbi: " + Math.round(totalOrderPriceWithProvision) + " kn"));
-        mTotalOrderCommission.setText(String.valueOf("Ukupna provizija: " + Math.round(totalCommissionPrice) + " kn"));
-        mTotalOrderPriceWithoutCommission.setText(String.valueOf("Ukupna cijena bez provizije: " +
+        mTotalOrderCommission.setText(String.valueOf("Ukupna provizija narudžbi: " + Math.round(totalCommissionPrice) + " kn"));
+        mTotalOrderPriceWithoutCommission.setText(String.valueOf("Ukupna vrijednost narudžbi bez provizije: " +
                 Math.round(totalOrderPriceWithProvision-totalCommissionPrice) + " kn"));
-        mAverageOrderPrice.setText(String.valueOf("Prosjek narudžbi: " + Math.round(totalOrderPriceWithProvision/numberOfOrders) + " kn"));
+        mAverageOrderPrice.setText(String.valueOf("Prosjek vrijednost narudžbi: " + Math.round(totalOrderPriceWithProvision/numberOfOrders) + " kn"));
         printOutGraph();
     }
 
