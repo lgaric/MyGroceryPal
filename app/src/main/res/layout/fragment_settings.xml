@@ -1,57 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/colorPrimaryDark"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Controller.SettingsFragment">
+    tools:context=".Controller.SettingsFragment"
+    android:background="@color/colorPrimaryDark">
+
+    <!-- ZAGLAVLJE IZBORNIK START -->
+
+    <TextView
+        style="@style/TextViewBigWhite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/changeHeadingCaps"/>
+
+    <Spinner
+        android:background="@drawable/button_light_blue_background"
+        android:id="@+id/spinnerOptions"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp" />
+
+    <!-- ZAGLAVLJE IZBORNIK END -->
+
+    <!-- LOZINKA START -->
 
     <LinearLayout
-        style="@style/LinearLayoutRoundVertical"
-        android:background="@color/colorPrimaryDark">
-
-        <Button
-            style="@style/ButtonLightBlue"
-            android:id="@+id/btn_start_location_updates"
-            android:layout_marginTop="40dp"
-            android:gravity="center"
-            android:text="@string/searchLocation"/>
-
-        <TextView
-            android:id="@+id/location_result"
-            style="@style/TextInAppWhite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin_in_app"
-            android:gravity="center"/>
-
-        <TextView
-            android:id="@+id/full_address"
-            style="@style/TextInAppWhite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"/>
-
-        <SeekBar
-            android:id="@+id/groceryListRange"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        android:id="@+id/passwordRecoveryLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <EditText
             style="@style/EditTextWhite"
-            android:id="@+id/txtAdresa"
-            android:hint="@string/address" />
+            android:id="@+id/txtOldPassword"
+            android:layout_margin="10dp"
+            android:hint="stara lozinka"/>
 
-        <Button
-            style="@style/ButtonLightBlue"
-            android:id="@+id/btnIspisLokacije"
-            android:gravity="center"
-            android:text="@string/printLocation"/>
+        <EditText
+            style="@style/EditTextWhite"
+            android:id="@+id/txtNewPassword"
+            android:layout_margin="10dp"
+            android:hint="lozinka"/>
+
+        <EditText
+            style="@style/EditTextWhite"
+            android:id="@+id/txtNewLozinkaRepeat"
+            android:layout_margin="10dp"
+            android:hint="ponovi lozinku"/>
 
     </LinearLayout>
+
+    <!-- LOZINKA END -->
+
+    <!-- GRAD / ADRESA START -->
+
+    <LinearLayout
+        android:id="@+id/cityLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Spinner
+            android:background="@drawable/button_light_blue_background"
+            android:id="@+id/spinnerCityes"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_margin="10dp" />
+
+        <EditText
+            style="@style/EditTextWhite"
+            android:id="@+id/txtAddress"
+            android:layout_margin="10dp"
+            android:hint="adresa"/>
+
+    </LinearLayout>
+
+    <!-- GRAD / ADRESA END -->
+
+    <!-- MOBITEL START -->
+
+    <LinearLayout
+        android:id="@+id/phoneNumberLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <EditText
+            style="@style/EditTextWhite"
+            android:inputType="number"
+            android:id="@+id/txtPhoneNumber"
+            android:layout_margin="10dp"
+            android:hint="adresa"/>
+
+    </LinearLayout>
+
+    <!-- MOBITEL END -->
+
+    <Button
+        style="@style/ButtonLightBlue"
+        android:id="@+id/btnChangeProfile"
+        android:text="@string/changeCaps"/>
 
 </LinearLayout>

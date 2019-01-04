@@ -29,7 +29,8 @@
     <string name="repeatCaps">PONOVI</string>
     <string name="plusCaps" translatable="false">+</string>
     <string name="minusCaps" translatable="false">-</string>
-
+    <string name="changeCaps">PROMIJENI</string>
+    <string name="changeHeadingCaps">PROMIJENA</string>
 
 
     <string name="store">Trgovina</string>
@@ -86,4 +87,19 @@
 
     <string name="tab" translatable="false">\u0009</string>
     <string name="commison">Provizija</string>
+
+
+    <!-- POLJE POSTAVKE / START -->
+
+    <string name="passwordArray">Lozinka</string>
+    <string name="cityArray">Grad/Adresa</string>
+    <string name="phoneArray">Mobitel</string>
+
+    <string-array name="settingsArray">
+        <item>@string/passwordArray</item>
+        <item>@string/cityArray</item>
+        <item>@string/phoneArray</item>
+    </string-array>
+
+    <!-- POLJE POSTAVKE / END -->
 </resources>
