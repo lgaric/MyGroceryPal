@@ -2,6 +2,7 @@ package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -12,7 +13,13 @@ public class PasswordRecoveryHelper extends FirebaseBaseHelper{
     private PasswordRecoveryListener mPasswordRecoveryListener;
 
     public PasswordRecoveryHelper(PasswordRecoveryListener mPasswordRecoveryListener){
-        this.mContext = (Context) mPasswordRecoveryListener;
+        if(mPasswordRecoveryListener instanceof Fragment){
+            this.mContext = ((Fragment) mPasswordRecoveryListener).getContext();
+        }
+        else{
+            this.mContext = ((Context) mPasswordRecoveryListener);
+        }
+
         this.mPasswordRecoveryListener = mPasswordRecoveryListener;
     }
 

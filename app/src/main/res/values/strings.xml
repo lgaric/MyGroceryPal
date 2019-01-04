@@ -31,6 +31,7 @@
     <string name="minusCaps" translatable="false">-</string>
     <string name="changeCaps">PROMIJENI</string>
     <string name="changeHeadingCaps">PROMIJENA</string>
+    <string name="changePasswordCaps">PROMIJENI LOZINKU</string>
 
 
     <string name="store">Trgovina</string>
@@ -102,4 +103,12 @@
     </string-array>
 
     <!-- POLJE POSTAVKE / END -->
+
+    <!-- SPINNER COLOR START -->
+
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- SPINNER END -->
 </resources>

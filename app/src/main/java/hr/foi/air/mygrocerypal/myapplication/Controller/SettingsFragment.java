@@ -3,7 +3,6 @@ package hr.foi.air.mygrocerypal.myapplication.Controller;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,26 +17,29 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import hr.foi.air.mygrocerypal.AddressBasedOnLocation;
 import hr.foi.air.mygrocerypal.LocationBasedOnAddress;
 import hr.foi.air.mygrocerypal.myapplication.Core.Cities;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Core.Listeners.CitiesListener;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.PasswordRecoveryListener;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.PasswordRecoveryHelper;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.UserInformationHelper;
 import hr.foi.air.mygrocerypal.myapplication.R;
+import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
+import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 
-public class SettingsFragment extends Fragment implements CitiesListener {
+public class SettingsFragment extends Fragment implements CitiesListener, PasswordRecoveryListener{
+
     //ZAGLAVLJE
     private Spinner mOptionsSpinner;
 
     //LOZINKA
     private LinearLayout mPasswordRecoveryLayout;
-    private EditText mOldPassword;
-    private EditText mNewPassword;
-    private EditText mNewLozinkaRepeat;
 
     //GRADOVI
     private LinearLayout mCityRecoveryLayout;
-    private Spinner mSpinnerCityes;
+    private SpinnerDialog mSpinnerDialog;
+    private EditText mCity;
     private EditText mAddress;
 
     //BROJ
@@ -50,6 +52,12 @@ public class SettingsFragment extends Fragment implements CitiesListener {
     //PODACI
     private ArrayList<String> mOptions;
     private ArrayList<String> mListOfCities;
+
+    //OBNOVA LOZINKE
+    private PasswordRecoveryHelper passwordRecoveryHelper;
+
+    //ONBNOVA ADRESE I TELEFONA
+    private UserInformationHelper userInformationHelper;
 
     /**
      * Listener slusa promijenu odabira u spinneru mOptionsSpinner
@@ -82,18 +90,12 @@ public class SettingsFragment extends Fragment implements CitiesListener {
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            String selectedItem = (String)mOptionsSpinner.getSelectedItem();
-            switch (selectedItem){
-                case "Lozinka":
-                    setNewPassword();
+            switch (v.getId()) {
+                case R.id.btnChangeProfile:
+                    doOperationOnClick();
                     break;
-                case "Grad/Adresa":
-                    changeLayout(mCityRecoveryLayout, mPasswordRecoveryLayout, mPhoneRecoveryLayout);
-                    setNewCity();
-                    break;
-                case "Mobitel":
-                    changeLayout(mPhoneRecoveryLayout, mCityRecoveryLayout, mPasswordRecoveryLayout);
-                    setNewPhoneNumber();
+                case R.id.txtCity:
+                    mSpinnerDialog.showSpinerDialog();
                     break;
             }
         }
@@ -116,13 +118,10 @@ public class SettingsFragment extends Fragment implements CitiesListener {
 
         //LOZINKA
         mPasswordRecoveryLayout = view.findViewById(R.id.passwordRecoveryLayout);
-        mOldPassword = view.findViewById(R.id.txtOldPassword);
-        mNewPassword = view.findViewById(R.id.txtNewPassword);
-        mNewLozinkaRepeat = view.findViewById(R.id.txtNewLozinkaRepeat);
 
         //GRADOVI
         mCityRecoveryLayout = view.findViewById(R.id.cityLayout);
-        mSpinnerCityes = view.findViewById(R.id.spinnerCityes);
+        mCity = view.findViewById(R.id.txtCity);
         mAddress = view.findViewById(R.id.txtAddress);
 
         //MOBITEL
@@ -135,11 +134,34 @@ public class SettingsFragment extends Fragment implements CitiesListener {
         //EVENTI
         mOptionsSpinner.setOnItemSelectedListener(itemSelectedListener);
         mChangeButton.setOnClickListener(clickListener);
+        mCity.setOnClickListener(clickListener);
 
         getDataForSpinner();
         fillSpinner(mOptions, mOptionsSpinner);
 
+        userInformationHelper = new UserInformationHelper(getContext());
+
         return view;
+    }
+
+    /**
+     * Na klik gumba napravi zeljenu operaciju
+     */
+    private void doOperationOnClick(){
+        String selectedItem = (String)mOptionsSpinner.getSelectedItem();
+        switch (selectedItem){
+            case "Lozinka":
+                setNewPassword();
+                break;
+            case "Grad/Adresa":
+                changeLayout(mCityRecoveryLayout, mPasswordRecoveryLayout, mPhoneRecoveryLayout);
+                setNewCity();
+                break;
+            case "Mobitel":
+                changeLayout(mPhoneRecoveryLayout, mCityRecoveryLayout, mPasswordRecoveryLayout);
+                setNewPhoneNumber();
+                break;
+        }
     }
 
     /**
@@ -157,7 +179,7 @@ public class SettingsFragment extends Fragment implements CitiesListener {
      */
     private void fillSpinner(ArrayList<String> data, Spinner toFill){
         if(data != null) {
-            ArrayAdapter<String> tempAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, data);
+            ArrayAdapter<String> tempAdapter = new ArrayAdapter<>(getContext(), R.layout.spinner_item, data);
             tempAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             toFill.setAdapter(tempAdapter);
         }
@@ -190,52 +212,17 @@ public class SettingsFragment extends Fragment implements CitiesListener {
             }
         }
 
-        Toast.makeText(getContext(), "Potrebno je popuniti sva polja", Toast.LENGTH_LONG).show();
-
         return filled;
-    }
-
-    /**
-     * Provjera ispravnosti lozinki
-     * @param length minimalna duljina lozinke
-     * @param passwords [0] stari, [1] novi, [2] novi
-     * @return false ako lozinke ne zadovoljavaju
-     */
-    private boolean arePasswordsValid(int length, String... passwords){
-        boolean valid = true;
-
-        if(!checkValues(passwords))
-            return false;
-
-        for(String password : passwords){
-            if(password.length() < length){
-                Toast.makeText(getContext(), "Lozinke su prekratke", Toast.LENGTH_LONG).show();
-                valid = false;
-                break;
-            }
-        }
-
-        if(!CurrentUser.getCurrentUser.getPassword().equals(passwords[0])) {
-            Toast.makeText(getContext(), "Lozinke se ne podudaraju", Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        if(!passwords[1].equals(passwords[2])) {
-            Toast.makeText(getContext(), "Lozinke se ne podudaraju", Toast.LENGTH_LONG).show();
-            return false;
-        }
-
-        return valid;
     }
 
     /**
      * Postavi novu lozinku
      */
     private void setNewPassword(){
-        if(arePasswordsValid(5, mOldPassword.getText().toString(),
-                mNewPassword.getText().toString(), mNewLozinkaRepeat.getText().toString())){
-            Log.d("setNewPassword", "valid");
-        }
+        if(passwordRecoveryHelper == null)
+            passwordRecoveryHelper = new PasswordRecoveryHelper(this);
+
+        passwordRecoveryHelper.sendRecoveryMail(CurrentUser.getCurrentUser.getEmail());
     }
 
     /**
@@ -245,12 +232,16 @@ public class SettingsFragment extends Fragment implements CitiesListener {
         if(!checkValues(mAddress.getText().toString()))
             return;
 
-        String city = (String) mSpinnerCityes.getSelectedItem();
-        Location newPoint = LocationBasedOnAddress.GetLocation(mAddress.getText().toString() + ", "
+        String city = mCity.getText().toString();
+        String address = mAddress.getText().toString();
+        Location newPoint = LocationBasedOnAddress.GetLocation( address + ", "
                 + city + ", Croatia", getContext());
 
         if(newPoint != null){
-            //TODO postavi novu adresu
+            String result = userInformationHelper
+                    .updateUserAdress(CurrentUser.getCurrentUser.getUserUID(), address, city, newPoint);
+
+            Toast.makeText(getContext(), result, Toast.LENGTH_LONG).show();
         }
         else{
             Toast.makeText(getContext(), "Pogreska kod dohvacanja adrese", Toast.LENGTH_LONG).show();
@@ -265,12 +256,12 @@ public class SettingsFragment extends Fragment implements CitiesListener {
             return;
 
         String phone = mPhoneNumber.getText().toString();
-        if(phone.length() != 8 || phone.length() != 9){
+        if(phone.length() != 8 && phone.length() != 9){
             Toast.makeText(getContext(), "Ovo nije broj mobilnog telefona", Toast.LENGTH_LONG).show();
             return;
         }
 
-        //TODO posavi broj mobitela
+        userInformationHelper.updateUserPhoneNumber(CurrentUser.getCurrentUser.getUserUID(), phone);
     }
 
     /**
@@ -279,9 +270,38 @@ public class SettingsFragment extends Fragment implements CitiesListener {
      */
     @Override
     public void citiesLoaded(ArrayList<String> listOfCities) {
-        if(listOfCities != null){
+        if(listOfCities != null) {
             mListOfCities = listOfCities;
-            fillSpinner(mListOfCities, mSpinnerCityes);
+
+            mSpinnerDialog = new SpinnerDialog(getActivity(), mListOfCities,
+                    "Odaberite grad", R.style.DialogAnimations_SmileWindow, "Zatvori");
+
+            mSpinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
+                @Override
+                public void onClick(String item, int position) {
+                    Toast.makeText(getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
+                    mCity.setText(item);
+                }
+            });
         }
     }
+
+    /**
+     * Lozinka je promijenjena
+     * @param mMessage
+     */
+    @Override
+    public void onRecoverySuccess(String mMessage) {
+        Toast.makeText(getContext(), mMessage, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Pogreska prilikom promijene lozinke
+     * @param mMessage
+     */
+    @Override
+    public void onRecoveryFail(String mMessage) {
+        Toast.makeText(getContext(), mMessage, Toast.LENGTH_LONG).show();
+    }
+
 }

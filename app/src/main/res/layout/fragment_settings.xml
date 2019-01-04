@@ -33,23 +33,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <EditText
-            style="@style/EditTextWhite"
-            android:id="@+id/txtOldPassword"
-            android:layout_margin="10dp"
-            android:hint="stara lozinka"/>
-
-        <EditText
-            style="@style/EditTextWhite"
-            android:id="@+id/txtNewPassword"
-            android:layout_margin="10dp"
-            android:hint="lozinka"/>
-
-        <EditText
-            style="@style/EditTextWhite"
-            android:id="@+id/txtNewLozinkaRepeat"
-            android:layout_margin="10dp"
-            android:hint="ponovi lozinku"/>
+        <TextView
+            style="@style/TextViewBigWhite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/changePasswordCaps"/>
 
     </LinearLayout>
 
@@ -64,12 +52,12 @@
         android:orientation="vertical"
         android:visibility="gone">
 
-        <Spinner
-            android:background="@drawable/button_light_blue_background"
-            android:id="@+id/spinnerCityes"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_margin="10dp" />
+        <EditText
+            style="@style/EditTextWhite"
+            android:id="@+id/txtCity"
+            android:focusable="false"
+            android:layout_margin="10dp"
+            android:hint="grad"/>
 
         <EditText
             style="@style/EditTextWhite"

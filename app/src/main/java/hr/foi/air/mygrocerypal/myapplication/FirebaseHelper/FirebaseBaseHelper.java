@@ -20,7 +20,15 @@ public class FirebaseBaseHelper {
     protected static final String GROCERYLISTSTATUSNODE = "status";
     protected static final String USERACCEPTEDIDNODE = "user_accepted_id";
     protected static final String USERNODE = "users";
+    protected static final String ADDRESSNODE = "address";
+    protected static final String TOWNNODE = "town";
+    protected static final String LATITUDENODE = "latitude";
+    protected static final String LONGITUDE = "longitude";
+    protected static final String PHONENUMBERNODE = "phone_number";
+
+
     protected static final String NOINTERNETCONNECTIONMESSAGE  = "Potrebna je internet veza!";
+
 
     //Firebase varijable
     protected FirebaseDatabase mDatabase;
