@@ -65,7 +65,7 @@ public class DelivererFragment extends Fragment {
 
         if(mActiveDelivererFragment == null)
             mActiveDelivererFragment = new ActiveDelivererFragment();
-        showGroceryLists(new ActiveDelivererFragment());
+        showGroceryLists(mActiveDelivererFragment);
 
         return view;
     }
