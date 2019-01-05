@@ -86,6 +86,9 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
     private void setButtonText(Button mButtonText){
         if(mGroceryListsModel.getStatus() != GroceryListStatus.FINISHED)
             mButtonText.setText("POTVRDI");
+
+        if(mGroceryListsModel.getStatus() == GroceryListStatus.CREATED)
+            mButtonText.setVisibility(View.GONE);
     }
 
     private void setHeaderColor(LinearLayout mLayout){
