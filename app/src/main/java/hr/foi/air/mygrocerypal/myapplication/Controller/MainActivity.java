@@ -5,26 +5,40 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.InputStream;
+import java.util.List;
+
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.R;
+
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener {
     private Toolbar mToolbar;
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationView mNavigationView;
+
+    // Fragmenti
+    private DelivererFragment mDelivererFragment;
+    private SettingsFragment mSettingsFragment;
+    private ClientGroceryListFragment mClientGroceryListFragment;
+
 
 
     @Override
@@ -33,9 +47,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DelivererFragment mDelivererFragment = new DelivererFragment();
+        mDelivererFragment = new DelivererFragment();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, mDelivererFragment)
+                .replace(R.id.fragment_container, mDelivererFragment, mDelivererFragment.getClass().getName())
                 .commit();
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -112,25 +126,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //Handle click on static options
             case R.id.navigation_deliverer:
                 mDrawer.closeDrawer(GravityCompat.START);
-                DelivererFragment mDelivererFragment = new DelivererFragment();
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, mDelivererFragment)
-                        .addToBackStack(null)
-                        .commit();
+                showFragment(mDelivererFragment);
                 break;
             case R.id.navigation_settings:
+                if(mSettingsFragment == null) mSettingsFragment = new SettingsFragment();
                 mDrawer.closeDrawer(GravityCompat.START);
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new SettingsFragment())
-                        .addToBackStack(null)
-                        .commit();
+                showFragment(mSettingsFragment);
                 break;
             case R.id.navigation_client:
+                if(mClientGroceryListFragment == null) mClientGroceryListFragment = new ClientGroceryListFragment();
                 mDrawer.closeDrawer(GravityCompat.START);
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new ClientGroceryListFragment())
-                        .addToBackStack(null)
-                        .commit();
+                showFragment(mClientGroceryListFragment);
                 break;
             case R.id.navigation_pay:
                 mDrawer.closeDrawer(GravityCompat.START);
@@ -167,6 +173,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     };
 
+    /**
+     * Ako fragment nije kreiran, kreiraj fragment i prikazi. Inace prikazi vec kreirani fragment.
+     * @param newFragment
+     */
+    private void showFragment(Fragment newFragment){
 
+        if(newFragment instanceof DelivererFragment){
+            ClearBackStack();
+            return;
+        }
+
+        FragmentManager mFragmentManager = getSupportFragmentManager();
+        String fragmentClassName = newFragment.getClass().getName();
+        Fragment existingFragment = mFragmentManager.findFragmentByTag(fragmentClassName);
+
+        if(existingFragment == null){
+            mFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, newFragment, fragmentClassName)
+                    .addToBackStack(null)
+                    .commit();
+        }else{
+            mFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, existingFragment, fragmentClassName)
+                    .commit();
+        }
+    }
+
+    /**
+     * Brisi sve s BackStack-a osim i prikazi DelivererFragment
+     */
+    private void ClearBackStack(){
+        while (getSupportFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStackImmediate();
+    }
 }
 

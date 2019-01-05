@@ -18,7 +18,7 @@ public class FilterObjects<T extends FilterableObject> {
      * @return
      */
     @SuppressWarnings("unchecked")
-    private ArrayList<T> filterListByNames(ArrayList<T> mListOfObjects, String mFilterBy) {
+    public ArrayList<T> filterListByNames(ArrayList<T> mListOfObjects, String mFilterBy) {
         if(mListOfObjects == null)
             return null;
 
@@ -40,7 +40,7 @@ public class FilterObjects<T extends FilterableObject> {
     }
 
     @SuppressWarnings("unchecked")
-    private ArrayList<T> filterListByCategories(ArrayList<T> mListOfObjects, String mFilterBy) {
+    public ArrayList<T> filterListByCategories(ArrayList<T> mListOfObjects, String mFilterBy) {
         if(mListOfObjects == null)
             return null;
 
