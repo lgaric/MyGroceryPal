@@ -20,6 +20,10 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
     private LinearLayout mProgressLayout;
     private LinearLayout mNameAndLogoApp;
 
+    /**
+     * Inicijalizacija
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,23 +41,42 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
         mLoginHelper = new LoginHelper(this);
     }
 
+    /**
+     * Pokretanje postupka prijave korisnika
+     * @param view
+     */
     public void login(View view){
         mLoginHelper.login(mUsername.getText().toString(), mPassword.getText().toString(), mProgressLayout, mNameAndLogoApp);
     }
 
+    /**
+     * Prikazi Activity za registraciju korisnika
+     * @param view
+     */
     public void showRegister(View view) {
         startActivity(new Intent(this, RegistrationActivity.class));
     }
 
+    /**
+     * Prikazi Activity za obnovu lozinke
+     * @param view
+     */
     public void showRecoveryPassword(View view) {
         startActivity(new Intent(this,PasswordRecoveryActivity.class));
     }
 
+    /**
+     * Prikazi razlog neuspjesne prijave
+     * @param mMessage
+     */
     @Override
     public void onStatusFailed(String mMessage) {
         Toast.makeText(this, mMessage, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Prijava je uspjesna. Otvori glavni Activity
+     */
     @Override
     public void onStatusSuccess() {
         startActivity(new Intent(this, MainActivity.class));

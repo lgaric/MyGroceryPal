@@ -83,7 +83,7 @@
             android:inputType="number"
             android:id="@+id/txtPhoneNumber"
             android:layout_margin="10dp"
-            android:hint="adresa"/>
+            android:hint="broj"/>
 
     </LinearLayout>
 

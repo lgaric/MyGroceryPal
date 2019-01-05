@@ -32,6 +32,13 @@ public class LoginHelper extends FirebaseBaseHelper{
         this.mLoginListener = mLoginListener;
     }
 
+    /**
+     * Prijava korisnika
+     * @param mUsername
+     * @param mPassword
+     * @param progress
+     * @param logo
+     */
     public void login(String mUsername, String mPassword, LinearLayout progress, LinearLayout logo){
         if(mUsername.isEmpty() || mPassword.isEmpty()) {
             mLoginListener.onStatusFailed("Ispunite odgovarajuća polja!");
@@ -62,6 +69,11 @@ public class LoginHelper extends FirebaseBaseHelper{
             showInternetMessageWarning();
     }
 
+    /**
+     * Dohvati razlog neuspjesne prijave
+     * @param mError
+     * @return
+     */
     private String checkErrorCode(String mError){
         String errorMessage;
 
@@ -83,6 +95,10 @@ public class LoginHelper extends FirebaseBaseHelper{
         return  errorMessage;
     }
 
+    /**
+     * Dohvati sve informacije za trenutnog korisnika koji se logira
+     * @param mUserUID
+     */
     private void getUserInformation(String mUserUID){
 
         mNameAndLogoApp.setVisibility(View.GONE);
@@ -110,14 +126,20 @@ public class LoginHelper extends FirebaseBaseHelper{
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // Do nothing
                 }
             });
         }
-        else
+        else {
             showInternetMessageWarning();
+            mNameAndLogoApp.setVisibility(View.VISIBLE);
+            mProgress.setVisibility(View.GONE);
+        }
     }
 
+    /**
+     * Dohvati sve ignorirane liste trenutnog korisnika
+     * @param mUserUID
+     */
     private void getUserIgnoredLists(String mUserUID) {
         if(isNetworkAvailable()) {
             mReference = mDatabase.getReference().child(USERIGNOREDLISTNODE).child(mUserUID);
@@ -136,11 +158,13 @@ public class LoginHelper extends FirebaseBaseHelper{
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // Do nothing
                 }
             });
         }
-        else
+        else {
             showInternetMessageWarning();
+            mNameAndLogoApp.setVisibility(View.VISIBLE);
+            mProgress.setVisibility(View.GONE);
+        }
     }
 }

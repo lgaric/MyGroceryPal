@@ -17,6 +17,10 @@ public class PasswordRecoveryActivity extends AppCompatActivity implements Passw
     private Button btnRecoveryPassword, btnShowLogin;
     private PasswordRecoveryHelper mPasswordRecoveryHelper;
 
+    /**
+     * Inicijalizacija
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,16 +50,27 @@ public class PasswordRecoveryActivity extends AppCompatActivity implements Passw
 
     }
 
+    /**
+     * Prikazi login Activity
+     */
     public void showLogin(){
         startActivity(new Intent(this,LoginActivity.class));
     }
 
+    /**
+     * Poslan zahtjev za novom lozinkom
+     * @param mMessage
+     */
     @Override
     public void onRecoverySuccess(String mMessage) {
         Toast.makeText(PasswordRecoveryActivity.this, mMessage, Toast.LENGTH_LONG).show();
         showLogin();
     }
 
+    /**
+     * Odbijen zahtjev za novom lozinkom
+     * @param mMessage
+     */
     @Override
     public void onRecoveryFail(String mMessage) {
         Toast.makeText(PasswordRecoveryActivity.this, mMessage, Toast.LENGTH_LONG).show();

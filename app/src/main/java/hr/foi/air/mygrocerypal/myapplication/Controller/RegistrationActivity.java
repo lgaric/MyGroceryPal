@@ -23,6 +23,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import hr.foi.air.mygrocerypal.myapplication.Core.Cities;
+import hr.foi.air.mygrocerypal.myapplication.Core.Listeners.CitiesListener;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.RegistrationHelper;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.RegistrationListener;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.ValidateInputs;
@@ -31,36 +33,10 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
 import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 
-public class RegistrationActivity extends AppCompatActivity implements RegistrationListener {
-
-    ArrayList<String> mListOfCities = new ArrayList<>();
+public class RegistrationActivity extends AppCompatActivity implements RegistrationListener, CitiesListener {
+    ArrayList<String> mListOfCities;
     SpinnerDialog mSpinnerDialog;
     private static final String OBLIGATORY  = "Obavezno polje!";
-
-    public void initCities(){
-        String json = null;
-        try (InputStream is = getAssets().open("CroatianCities.json")) {
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            while(is.read(buffer) > 0){
-                json = new String(buffer, "UTF-8");
-                JSONArray jsonArray = new JSONArray(json);
-                for (int i = 0; i<jsonArray.length(); i++){
-                    JSONObject obj = jsonArray.getJSONObject(i);
-                    mListOfCities.add(obj.getString("mjesto"));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e(getClass().toString(), e.getMessage());
-        }
-        catch (JSONException e){
-            e.printStackTrace();
-            Log.e(getClass().toString(), e.getMessage());
-        }
-    }
-
-
 
     private TextView mDateOfBirth, mCities;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -69,6 +45,10 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
     private RegistrationHelper mRegistrationHelper;
 
+    /**
+     * Inicijalizacija
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,22 +72,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         btnRegister =  findViewById(R.id.buttonRegister);
         btnBackToLogin =  findViewById(R.id.buttonBackToLogin);
 
-        initCities();
-        mSpinnerDialog = new SpinnerDialog(RegistrationActivity.this, mListOfCities, "Odaberite grad", R.style.DialogAnimations_SmileWindow , "Zatvori");
-        mSpinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
-            @Override
-            public void onClick(String item, int position) {
-                Toast.makeText(RegistrationActivity.this, "Selected: " + item, Toast.LENGTH_LONG).show();
-                mCities.setText(item);
-            }
-        });
-
-        mCities.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSpinnerDialog.showSpinerDialog();
-            }
-        });
+        new Cities(this, this).execute();
 
         mDateOfBirth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,25 +161,25 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         });
     }
 
+    /**
+     * Otvori Activity login
+     */
     public void showLogin(){
         startActivity(new Intent(this,LoginActivity.class));
     }
 
-    @Override
-    public void onRegistrationSuccess(String mMessage) {
-        showLogin();
-        showToastRegistration(mMessage);
-    }
-
-    @Override
-    public void onRegistrationFail(String mMessage) {
-        showToastRegistration(mMessage);
-    }
-
+    /**
+     * Prikazi poruku korisniku
+     * @param mMessage
+     */
     public void showToastRegistration(String mMessage){
         Toast.makeText(this, mMessage, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Kreiraj novog korisnika
+     * @return
+     */
     private UserModel createUser(){
         UserModel newUser = new UserModel();
         newUser.setFirst_name(mFirstName.getText().toString().trim());
@@ -227,5 +192,50 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         newUser.setPhone_number(mContact.getText().toString().trim());
         newUser.setBirth_date(mDateOfBirth.getText().toString().trim());
         return newUser;
+    }
+
+    /**
+     * U slucaju uspjesne registracije prikazi poruku
+     * @param mMessage
+     */
+    @Override
+    public void onRegistrationSuccess(String mMessage) {
+        showLogin();
+        showToastRegistration(mMessage);
+    }
+
+    /**
+     * U slucaju neuspjesne registracije prikazi poruku
+     * @param mMessage
+     */
+    @Override
+    public void onRegistrationFail(String mMessage) {
+        showToastRegistration(mMessage);
+    }
+
+    /**
+     * Dodaj gradove u SpinnerDialog
+     * @param listOfCities
+     */
+    @Override
+    public void citiesLoaded(ArrayList<String> listOfCities) {
+        if(listOfCities != null) {
+            mListOfCities = listOfCities;
+            mSpinnerDialog = new SpinnerDialog(RegistrationActivity.this, mListOfCities, "Odaberite grad", R.style.DialogAnimations_SmileWindow, "Zatvori");
+            mSpinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
+                @Override
+                public void onClick(String item, int position) {
+                    Toast.makeText(RegistrationActivity.this, "Selected: " + item, Toast.LENGTH_LONG).show();
+                    mCities.setText(item);
+                }
+            });
+
+            mCities.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSpinnerDialog.showSpinerDialog();
+                }
+            });
+        }
     }
 }
