@@ -50,7 +50,8 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
                         mGroceryListStatusListener.groceryListReceived(getAllActiveLists(groceryList));
                     else if (mOption == "ignored")
                         mGroceryListStatusListener.groceryListReceived(getAllUserIgnoredLists(groceryList));
-                    // TODO Implement method for accepted grocery lists
+                    else if(mOption == "accepted")
+                        mGroceryListStatusListener.groceryListReceived(getOnlyWithStatusAccepted(groceryList));
                 }
 
                 @Override
@@ -75,7 +76,9 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
     }
 
     public void getAllAcceptedListsByCurrentUser(){
-        // TODO Implement method
+        mQuery = mDatabase.getReference().child(GROCERYLISTSNODE)
+                .orderByChild(USERACCEPTEDIDNODE).equalTo(CurrentUser.getCurrentUser.getUserUID());
+        loadAllGroceryListsByStatus("accepted");
     }
 
     /**
@@ -167,6 +170,15 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
         return mUserIgnoredList;
     }
 
+    public ArrayList<GroceryListsModel> getOnlyWithStatusAccepted(ArrayList<GroceryListsModel> mGroceryList) {
+        ArrayList<GroceryListsModel> mAcceptedLists = new ArrayList<>();
+        for (int i = 0; i < mGroceryList.size(); i++) {
+            if(mGroceryList.get(i).getStatus().equals(GroceryListStatus.ACCEPTED)){
+                mAcceptedLists.add(mGroceryList.get(i));
+            }
+        }
+        return mAcceptedLists;
+    }
     /**
      * Usporedi korisničke ID-eve
      * @param mCurrentUser

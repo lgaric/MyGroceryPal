@@ -31,6 +31,10 @@ public class DelivererFragment extends Fragment {
                     }
                     break;
                 case R.id.accepted_deliverer_btn: //mFlag = 2
+                    if(mFlag != 2){
+                        mFlag = 2;
+                        showGroceryLists(new AcceptedDelivererFragment());
+                    }
                     break;
                 case R.id.ignored_client_btn: //mFlag = 3
                     if(mFlag != 3){

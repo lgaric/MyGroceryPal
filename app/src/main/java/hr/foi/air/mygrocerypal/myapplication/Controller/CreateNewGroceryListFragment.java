@@ -94,7 +94,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         mSpinnerStores.setOnItemSelectedListener(onItemSelectedListener);
 
         //PONOVI
-        if(getArguments() != null){
+        if(getArguments() != null && !mRepeat){
             mGroceryListsModel = (GroceryListsModel)getArguments().getSerializable("repeatGL");
             mGroceryListProductsModels = mGroceryListsModel.getProductsModels();
             mRepeat = true;
