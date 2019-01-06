@@ -12,6 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.SearchView;
+
+import com.example.filter.FilterObjects;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,11 +28,22 @@ import hr.foi.air.mygrocerypal.myapplication.Model.ProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class SelectProductsFragment extends Fragment implements SelectProductsListener{
-    private List<GroceryListProductsModel> mAllreadyAddedProducts = new ArrayList<>();
+    //lista vec dodanih proizvoda
+    public List<GroceryListProductsModel> mListOfAddedProducts = new ArrayList<>();
+
     private Button btnAddProductsToGroceryList;
     private SelectProductsHelper mSelectProductsHelper;
     private RecyclerView mRecyclerView;
     private SelectProductsAdapter mSelectProductsAdapter;
+    private ArrayList<ProductsModel> mProductsList;
+    private SearchView mSearchView;
+    //private Spinner mSpinner;
+
+    //pohrana liste filtriranih proizvoda
+    ArrayList<ProductsModel> filteredList = new ArrayList<>();
+
+    //genericka klasa za filtriranje proizvoda
+    FilterObjects<ProductsModel> filterObjects = new FilterObjects<>();
 
 
     @Nullable
@@ -47,42 +61,86 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
 
         mRecyclerView = view.findViewById(R.id.recycler_view);
         btnAddProductsToGroceryList = view.findViewById(R.id.addProductsToGroceryList);
+        mSearchView = view.findViewById(R.id.searchView);
+
+/*
+        mSpinner = view.findViewById(R.id.spinner);
+        ArrayList<String> temp = new ArrayList<>();
+        temp.add("Pića");
+        temp.add("Meso");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, temp);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(adapter);*/
 
         mSelectProductsHelper.loadProductsByStore(getArguments().getString("store_name"));
-        mAllreadyAddedProducts = (List<GroceryListProductsModel>)getArguments().getSerializable("list_of_products");
+        mListOfAddedProducts = (List<GroceryListProductsModel>)getArguments().getSerializable("list_of_products");
 
         btnAddProductsToGroceryList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<GroceryListProductsModel> listOfProducts = mSelectProductsAdapter.getmListOfProducts();
 
                 //ukoliko ne postoji prethodni fragment ne čini ništa!
                 if(getFragmentManager().getBackStackEntryCount() > 0){
                     Intent intent = new Intent(getContext(), SelectProductsFragment.class);
-                    intent.putExtra("groceryListOfProducts", (Serializable) listOfProducts);
+                    intent.putExtra("groceryListOfProducts", (Serializable) mListOfAddedProducts);
                     getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, intent);
                     getFragmentManager().popBackStack();
                 }
             }
         });
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if(mProductsList != null){
+                    filteredList = filterObjects.filterListByNames(mProductsList, newText);
+                    inflateAdapter(filteredList, true);
+                }
+
+                return false;
+            }
+        });
+/*
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                filteredList = filterObjects.filterListByCategories(mProductsList, "Pića");
+                inflateAdapter(filteredList);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });*/
     }
 
+    // dohvati listu proizvoda odabrane trgovine
     @Override
     public void productsListReceived(ArrayList<ProductsModel> mProductsList) {
-        if(mProductsList != null){
-            mRecyclerView.setAdapter(null);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-            InitializeAdapter(mProductsList);
-            mRecyclerView.setAdapter(mSelectProductsAdapter);
+        if (mProductsList != null) {
+            this.mProductsList = mProductsList;
+            inflateAdapter(mProductsList, false);
         }
     }
 
-    private void InitializeAdapter(ArrayList<ProductsModel> mProductsList){
-        if(mAllreadyAddedProducts == null)
-            mSelectProductsAdapter = new SelectProductsAdapter(mProductsList);
-        else
-            mSelectProductsAdapter = new SelectProductsAdapter(mProductsList, mAllreadyAddedProducts);
+    // proslijedi već dodane proizvode u adapter ako postoje
+    private void InitializeAdapter(ArrayList<ProductsModel> mProductsList, boolean filtered){
+        if(mListOfAddedProducts == null) mListOfAddedProducts = new ArrayList<>();
+        mSelectProductsAdapter = new SelectProductsAdapter(mProductsList, mListOfAddedProducts, filtered);
     }
 
+    // ispisi sve proizvode u recycler view
+    private void inflateAdapter(ArrayList<ProductsModel> mProductsList, boolean filtered){
+        mRecyclerView.setAdapter(null);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        InitializeAdapter(mProductsList, filtered);
+        mRecyclerView.setAdapter(mSelectProductsAdapter);
+    }
 }

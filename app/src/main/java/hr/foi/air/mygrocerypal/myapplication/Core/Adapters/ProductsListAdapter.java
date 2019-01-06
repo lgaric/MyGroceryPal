@@ -102,6 +102,8 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
                     if(mProduct != null && mProduct.getQuantity() >= 1){
                             mProduct.setQuantity(mProduct.getQuantity() - 1);
                             mProductQuantity.setText(Integer.toString(mProduct.getQuantity()));
+                            if(mProduct.getQuantity() == 0)
+                                mListOfProducts.remove(mProduct);
                     }
                     calculateTotalAmount();
                 }
