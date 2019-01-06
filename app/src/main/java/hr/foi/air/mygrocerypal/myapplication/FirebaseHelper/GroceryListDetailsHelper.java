@@ -39,6 +39,7 @@ public class GroceryListDetailsHelper extends FirebaseBaseHelper{
                         model.setGrocery_list_key(temp.getKey());
                         groceryListProducts.add(model);
                     }
+
                     if(mGroceryListsModel.getUser_accepted_id() != null)
                         getUserInformationGroceryList(groceryListProducts, mGroceryListsModel);
                     else
@@ -54,9 +55,14 @@ public class GroceryListDetailsHelper extends FirebaseBaseHelper{
             showInternetMessageWarning();
     }
 
+    /**
+     * Dohvati informacije korisnika koji je prihvatio grocery listu
+     * @param mGroceryListProducts
+     * @param mGroceryListsModel
+     */
     public void getUserInformationGroceryList(final ArrayList<GroceryListProductsModel> mGroceryListProducts, GroceryListsModel mGroceryListsModel) {
         if(isNetworkAvailable()) {
-            mQuery = mDatabase.getReference().child(USERNODE).child(mGroceryListsModel.getUser_id());
+            mQuery = mDatabase.getReference().child(USERNODE).child(mGroceryListsModel.getUser_accepted_id());
 
             mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

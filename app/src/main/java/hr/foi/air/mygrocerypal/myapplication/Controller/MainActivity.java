@@ -1,5 +1,6 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -91,21 +93,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void addUserInformationToNavigation(NavigationView mNavigationView){
         View headerView = mNavigationView.getHeaderView(0);
-        TextView username = (TextView) headerView.findViewById(R.id.nav_header_username);
-        TextView email = (TextView) headerView.findViewById(R.id.nav_header_email);
+        TextView username = headerView.findViewById(R.id.nav_header_username);
+        TextView email = headerView.findViewById(R.id.nav_header_email);
         username.setText(CurrentUser.getCurrentUser.getFirst_name() + " " + CurrentUser.getCurrentUser.getLast_name());
         email.setText(CurrentUser.getCurrentUser.getEmail());
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else if(getFragmentManager().getBackStackEntryCount() != 0){
             getFragmentManager().popBackStack();
         } else{
-            super.onBackPressed();
+            if(getSupportFragmentManager().findFragmentById(R.id.fragment_container) instanceof DelivererFragment)
+                endOfWork();
+            else
+                super.onBackPressed();
         }
     }
 
@@ -148,9 +153,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.navigation_logout:
                 mDrawer.closeDrawer(GravityCompat.START);
-                CurrentUser.getCurrentUser = null;
-                startActivity(new Intent(this, LoginActivity.class));
-                this.finish();
+                logout();
                 break;
             //Handle clicks on other (dynamicaly added drawer) items
             default:
@@ -206,6 +209,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void ClearBackStack(){
         while (getSupportFragmentManager().getBackStackEntryCount() > 0)
             getSupportFragmentManager().popBackStackImmediate();
+    }
+
+    /**
+     * Pitaj korisnika zeli li se odjaviti iz aplikacije
+     */
+    private void endOfWork(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Odjava?");
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("Da",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                logout();
+                            }
+                        })
+
+                .setNegativeButton("Ne", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    /**
+     * Odjava korisnika iz aplikacije i prikaz login Activitija
+     */
+    private void logout(){
+        CurrentUser.getCurrentUser = null;
+        startActivity(new Intent(this, LoginActivity.class));
+        this.finish();
     }
 }
 

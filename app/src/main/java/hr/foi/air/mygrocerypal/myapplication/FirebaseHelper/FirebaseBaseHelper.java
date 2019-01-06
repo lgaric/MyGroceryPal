@@ -20,6 +20,7 @@ public class FirebaseBaseHelper {
     protected static final String GROCERYLISTSTATUSNODE = "status";
     protected static final String USERACCEPTEDIDNODE = "user_accepted_id";
     protected static final String USERNODE = "users";
+    protected static final String USERIDNODE = "user_id";
     protected static final String ADDRESSNODE = "address";
     protected static final String TOWNNODE = "town";
     protected static final String LATITUDENODE = "latitude";

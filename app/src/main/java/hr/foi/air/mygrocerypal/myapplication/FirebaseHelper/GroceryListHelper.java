@@ -9,6 +9,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
@@ -22,15 +23,15 @@ public class GroceryListHelper extends FirebaseBaseHelper{
     }
 
     /**
-     * Dohvati sve GL-ove
+     * Dohvati sve GL-ove trenutnog korisnika
      * @param mGroceryListStatus
      */
-    public void loadGroceryLists(final GroceryListStatus mGroceryListStatus) {
+    public void loadGroceryLists(final GroceryListStatus mGroceryListStatus, final String userUID) {
         if (mGroceryListStatus == null)
             return;
 
         if(isNetworkAvailable()){
-            mQuery = mDatabase.getReference().child(GROCERYLISTSNODE);
+            mQuery = mDatabase.getReference().child(GROCERYLISTSNODE).orderByChild(USERIDNODE).equalTo(userUID);
 
             mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

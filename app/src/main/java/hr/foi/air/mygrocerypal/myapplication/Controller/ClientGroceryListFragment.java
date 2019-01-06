@@ -16,6 +16,7 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 import hr.foi.air.mygrocerypal.myapplication.Core.Adapters.GroceryListAdapter;
+import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.GroceryListHelper;
 import hr.foi.air.mygrocerypal.myapplication.Core.Listeners.GroceryListClickListener;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListListener;
@@ -66,9 +67,9 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
 
     private void showGroceryLists(){
         if(mActive)
-            mPastGroceryListHelper.loadGroceryLists(GroceryListStatus.ACCEPTED);
+            mPastGroceryListHelper.loadGroceryLists(GroceryListStatus.ACCEPTED, CurrentUser.getCurrentUser.getUserUID());
         else
-            mPastGroceryListHelper.loadGroceryLists(GroceryListStatus.FINISHED);
+            mPastGroceryListHelper.loadGroceryLists(GroceryListStatus.FINISHED, CurrentUser.getCurrentUser.getUserUID());
     }
 
     @Override
@@ -109,7 +110,7 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
     }
 
     private void loadGroceryListToRecyclerView(GroceryListStatus mStatus){
-        mPastGroceryListHelper.loadGroceryLists(mStatus);
+        mPastGroceryListHelper.loadGroceryLists(mStatus, CurrentUser.getCurrentUser.getUserUID());
     }
 
 
