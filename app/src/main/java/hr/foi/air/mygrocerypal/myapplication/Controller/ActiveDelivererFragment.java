@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import hr.foi.air.mygrocerypal.GPSLocation;
 import hr.foi.air.mygrocerypal.LocationListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.Adapters.DelivererGLAdapter;
+import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.DelivererGroceryListHelper;
 import hr.foi.air.mygrocerypal.myapplication.Core.Listeners.GroceryListOperationListener;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListStatusListener;
@@ -33,6 +34,7 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class ActiveDelivererFragment extends Fragment implements LocationListener, GroceryListOperationListener,
         GroceryListStatusListener {
+    private TextView mNoneActiveLists;
 
     SeekBar mSeekBar;
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -93,6 +95,7 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
         mRecyclerView = view.findViewById(R.id.grocery_lists);
         mRadius = view.findViewById(R.id.radius);
         mGpsSwitch = view.findViewById(R.id.gps_switch);
+        mNoneActiveLists = view.findViewById(R.id.noneDelivererActiveGL);
 
         mSeekBar.setOnSeekBarChangeListener(mSeekBarChangeListener);
         mSwipeRefreshLayout.setOnRefreshListener(mRefreshListener);
@@ -132,14 +135,16 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
      */
     private void showFilteredList(int mRadius){
         if(mAllActiveGroceryList != null){
-            ArrayList<GroceryListsModel> temporary;
+            ArrayList<GroceryListsModel> mFilteredList;
             if(CurrentUser.gpsLocation != null && mGpsSwitch.isChecked())
-                temporary = filterListUsingDistance(mRadius, CurrentUser.gpsLocation);
+                mFilteredList = filterListUsingDistance(mRadius, CurrentUser.gpsLocation);
             else
-                temporary = filterListUsingDistance(mRadius, getLocation(CurrentUser.getCurrentUser.getLatitude(),
+                mFilteredList = filterListUsingDistance(mRadius, getLocation(CurrentUser.getCurrentUser.getLatitude(),
                         CurrentUser.getCurrentUser.getLongitude(), "USERLOCATION"));
-            setmRecyclerView(temporary);
-        }
+            setRecyclerView(mFilteredList);
+            setTextVisibility(mFilteredList);
+        }else
+            mNoneActiveLists.setVisibility(View.VISIBLE);
     }
 
 
@@ -151,10 +156,10 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
      * @return
      */
     private Location getLocation(double mLatitude, double mLongitude, String mLocationName){
-        Location tempLocation = new Location(mLocationName);
-        tempLocation.setLatitude(mLatitude);
-        tempLocation.setLongitude(mLongitude);
-        return tempLocation;
+        Location mLocation = new Location(mLocationName);
+        mLocation.setLatitude(mLatitude);
+        mLocation.setLongitude(mLongitude);
+        return mLocation;
     }
 
     /**
@@ -164,7 +169,7 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
      * @return
      */
     private ArrayList<GroceryListsModel> filterListUsingDistance(int mRadius, Location mLocation){
-        ArrayList<GroceryListsModel> temporary = new ArrayList<>();
+        ArrayList<GroceryListsModel> mFilteredList = new ArrayList<>();
         for(int i = 0; i < mAllActiveGroceryList.size(); i++){
             Location groceryListLocation = getLocation(mAllActiveGroceryList.get(i).getLatitude(),
                     mAllActiveGroceryList.get(i).getLongitude(), "GROCERYLISTLOCATION");
@@ -172,16 +177,16 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
             float distance = mLocation.distanceTo(groceryListLocation) / 1000;
 
             if(distance < mRadius)
-                temporary.add(mAllActiveGroceryList.get(i));
+                mFilteredList.add(mAllActiveGroceryList.get(i));
         }
-        return temporary;
+        return mFilteredList;
     }
 
     /**
      * postavi adapter za recycleview
      * @param mGroceryList
      */
-    private void setmRecyclerView(ArrayList<GroceryListsModel> mGroceryList){
+    private void setRecyclerView(ArrayList<GroceryListsModel> mGroceryList){
         if(mGroceryList != null) {
             mRecyclerView.setAdapter(null);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -209,7 +214,7 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
     //IMPLEMENTACIJA INTERFEJSA
 
     @Override
-    public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList) {
+    public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList, GroceryListStatus mGroceryListStatus) {
         if(mGroceryList != null){
             mAllActiveGroceryList = mGroceryList;
             showFilteredList(Integer.parseInt(mRadius.getText().toString().trim()));
@@ -274,5 +279,12 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
 
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
         refreshRecyclerView();
+    }
+
+    private void setTextVisibility(ArrayList<GroceryListsModel> mGroceryList){
+        if(mGroceryList.size() > 0)
+            mNoneActiveLists.setVisibility(View.GONE);
+        else
+            mNoneActiveLists.setVisibility(View.VISIBLE);
     }
 }

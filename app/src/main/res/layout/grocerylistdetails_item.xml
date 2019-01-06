@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <TextView
-        style="@style/TextViewGroceryListItem"
+        style="@style/TextViewGroceryListItemTitle"
         android:id="@+id/name_of_productTxt"
         tools:text="NAZIV PROIZVODA"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>

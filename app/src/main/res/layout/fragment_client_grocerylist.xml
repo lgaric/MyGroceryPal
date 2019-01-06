@@ -37,6 +37,14 @@ POTREBNO JE SAMO MJENJATI FRAGMENT KOJI SE POZIVA U FRAMELAYOUT KOMPONENTI-->
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/noneClientGL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="Trenutno nemate kupovne liste."
+            android:textAlignment="center"/>
+
         <android.support.v4.widget.SwipeRefreshLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/swiperefreshPastLists"

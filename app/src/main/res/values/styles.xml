@@ -100,11 +100,16 @@
     <style name="TextViewGroceryListItem">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/advent_pro_thin</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small</item>
         <item name="android:layout_marginStart">@dimen/small_margin_in_app</item>
         <item name="android:textIsSelectable">false</item>
 
+    </style>
+
+    <style name="TextViewGroceryListItemTitle" parent="TextViewGroceryListItem">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!-- End of TextView styles-->

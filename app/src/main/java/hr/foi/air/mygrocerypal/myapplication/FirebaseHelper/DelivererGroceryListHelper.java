@@ -47,11 +47,11 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
                         groceryList.add(model);
                     }
                     if(mOption == "active")
-                        mGroceryListStatusListener.groceryListReceived(getAllActiveLists(groceryList));
+                        mGroceryListStatusListener.groceryListReceived(getAllActiveLists(groceryList), GroceryListStatus.ACCEPTED);
                     else if (mOption == "ignored")
-                        mGroceryListStatusListener.groceryListReceived(getAllUserIgnoredLists(groceryList));
+                        mGroceryListStatusListener.groceryListReceived(getAllUserIgnoredLists(groceryList), GroceryListStatus.ACCEPTED);
                     else if(mOption == "accepted")
-                        mGroceryListStatusListener.groceryListReceived(getOnlyWithStatusAccepted(groceryList));
+                        mGroceryListStatusListener.groceryListReceived(getOnlyWithStatusAccepted(groceryList), GroceryListStatus.ACCEPTED);
                 }
 
                 @Override

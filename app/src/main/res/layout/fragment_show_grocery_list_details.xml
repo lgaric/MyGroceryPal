@@ -27,7 +27,7 @@
 
             <TextView
                 android:id="@+id/storenameGroceryDetails"
-                style="@style/TextViewGroceryListItem"
+                style="@style/TextViewGroceryListItemTitle"
                 android:text="@string/storeSemicolon"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 

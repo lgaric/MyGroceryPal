@@ -29,7 +29,7 @@
         android:paddingLeft="10dp">
 
         <TextView
-            style="@style/TextViewGroceryListItem"
+            style="@style/TextViewGroceryListItemTitle"
             android:id="@+id/store_name"
             tools:text="Store name string"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"/>

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
     public class IgnoredDelivererFragment extends Fragment implements GroceryListOperationListener, GroceryListStatusListener{
 
+    private TextView mNoneIgnoredLists;
     //vars
     DelivererGroceryListHelper mDelivererGroceryListHelper;
     ArrayList<GroceryListsModel> mIgnoredGroceryList;
@@ -49,6 +51,7 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
         mSwipeRefreshLayout = view.findViewById(R.id.swipe_refresh_ignored);
         mRecyclerView = view.findViewById(R.id.grocery_lists_ignored);
+        mNoneIgnoredLists = view.findViewById(R.id.noneDelivererIgnoredGL);
 
         mSwipeRefreshLayout.setOnRefreshListener(mRefreshListener);
 
@@ -63,7 +66,7 @@ import hr.foi.air.mygrocerypal.myapplication.R;
     }
 
     @Override
-    public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList) {
+    public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList, GroceryListStatus mGroceryListStatus) {
         if(mGroceryList != null){
             mIgnoredGroceryList = mGroceryList;
             mRecyclerView.setAdapter(null);
@@ -71,7 +74,9 @@ import hr.foi.air.mygrocerypal.myapplication.R;
             DelivererGLAdapter adapter = new DelivererGLAdapter(mGroceryList, this,1);
             mRecyclerView.setAdapter(adapter);
             mSwipeRefreshLayout.setRefreshing(false);
-        }
+            setTextVisibility(mGroceryList);
+        }else
+            mNoneIgnoredLists.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -126,5 +131,12 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             refreshRecyclerView();
+        }
+
+        private void setTextVisibility(ArrayList<GroceryListsModel> mGroceryList){
+            if(mGroceryList.size() > 0)
+                mNoneIgnoredLists.setVisibility(View.GONE);
+            else
+                mNoneIgnoredLists.setVisibility(View.VISIBLE);
         }
     }

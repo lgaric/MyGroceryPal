@@ -20,7 +20,7 @@
 
                 <TextView
                     android:id="@+id/labelForStore"
-                    style="@style/TextInAppWhite"
+                    style="@style/TextViewWhite"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:textAlignment="textStart"
@@ -32,6 +32,7 @@
                     android:id="@+id/spinnerStores"
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:textAlignment="center"
                     android:layout_height="match_parent"/>
 
             </LinearLayout>
@@ -48,13 +49,13 @@
 
                     <RadioButton
                         android:id="@+id/radioButton"
-                        style="@style/TextInAppWhite"
+                        style="@style/TextViewWhite"
                         android:text="@string/myAddress"
                         android:checked="true" />
 
                     <RadioButton
                         android:id="@+id/radioButton2"
-                        style="@style/TextInAppWhite"
+                        style="@style/TextViewWhite"
                         android:text="@string/otherAddress" />
 
                 </RadioGroup>
@@ -93,7 +94,7 @@
                 style="@style/LinearLayoutRoundHorizontalDark">
 
                 <TextView
-                    style="@style/TextInAppWhite"
+                    style="@style/TextViewWhite"
                     android:id="@+id/labelForStartDate"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -112,7 +113,7 @@
                 style="@style/LinearLayoutRoundHorizontalDark">
 
                 <TextView
-                    style="@style/TextInAppWhite"
+                    style="@style/TextViewWhite"
                     android:id="@+id/labelCommision"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -135,7 +136,7 @@
 
                 <TextView
                     android:id="@+id/labelProducts"
-                    style="@style/TextInAppWhite"
+                    style="@style/TextViewWhite"
                     android:text="@string/addedProducts"/>
 
                 <!-- OVDJE IDE LISTA PROIZVODA-->
@@ -158,7 +159,7 @@
                 style="@style/LinearLayoutRoundHorizontalDark">
 
                 <TextView
-                    style="@style/TextInAppWhite"
+                    style="@style/TextViewWhite"
                     android:id="@+id/labelTotalPrice"
                     android:layout_width="0dp"
                     android:layout_weight="1"

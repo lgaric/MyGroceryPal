@@ -42,7 +42,7 @@ public class GroceryListHelper extends FirebaseBaseHelper{
                         model.setGrocerylist_key(temp.getKey());
                         groceryList.add(model);
                     }
-                    mGroceryListListener.groceryListReceived(filterList(groceryList, mGroceryListStatus));
+                    mGroceryListListener.groceryListReceived(filterList(groceryList, mGroceryListStatus), mGroceryListStatus);
                 }
 
                 @Override

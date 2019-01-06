@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.filter.FilterObjects;
 
@@ -43,6 +44,7 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
     private ArrayList<ProductsModel> mProductsList;
     private SearchView mSearchView;
     private Spinner mSpinner;
+    private TextView mNoneProducts;
 
     //pohrana liste filtriranih proizvoda
     ArrayList<ProductsModel> filteredList = new ArrayList<>();
@@ -67,7 +69,7 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
         mRecyclerView = view.findViewById(R.id.recycler_view);
         btnAddProductsToGroceryList = view.findViewById(R.id.addProductsToGroceryList);
         mSearchView = view.findViewById(R.id.searchView);
-
+        mNoneProducts = view.findViewById(R.id.noneProducts);
 
         mSpinner = view.findViewById(R.id.spinner);
         mSelectProductsHelper.loadProductCategories();
@@ -107,8 +109,9 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
                     }else
                         filteredList = filterObjects.filterListByNames(mProductsList, newText);
                     inflateAdapter(filteredList);
-                }
-
+                    setTextVisibility(filteredList);
+                }else
+                    mNoneProducts.setVisibility(View.GONE);
                 return false;
             }
         });
@@ -125,8 +128,10 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
                         if(mSearchView.getQuery().length() > 0)
                             filteredList = filterObjects.filterListByNames(filteredList, mSearchView.getQuery().toString());
                         inflateAdapter(filteredList);
+                        setTextVisibility(filteredList);
                     }else{
                         inflateAdapter(mProductsList);
+                        setTextVisibility(mProductsList);
                     }
                 }
             }
@@ -144,7 +149,9 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
         if (mProductsList != null) {
             this.mProductsList = mProductsList;
             inflateAdapter(mProductsList);
-        }
+            setTextVisibility(mProductsList);
+        }else
+            mNoneProducts.setVisibility(View.VISIBLE);
     }
 
     // dohvati listu svih kategorija
@@ -174,5 +181,13 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
 
         InitializeAdapter(mProductsList);
         mRecyclerView.setAdapter(mSelectProductsAdapter);
+    }
+
+    //Prikazuje tekst korisniku da ne postoje proizvodi po zadanom kriteriju
+    private void setTextVisibility(ArrayList<ProductsModel> list){
+        if(list.size() > 0)
+            mNoneProducts.setVisibility(View.GONE);
+        else
+            mNoneProducts.setVisibility(View.VISIBLE);
     }
 }

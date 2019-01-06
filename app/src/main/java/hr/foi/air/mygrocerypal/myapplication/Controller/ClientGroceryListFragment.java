@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,7 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
     private FloatingActionButton mFloatingButtonAdd;
     private RecyclerView mRecyclerView;
     private GroceryListAdapter mGroceryListAdapter;
+    private TextView noneClientGroceryLists;
     /*
     0 -> AKTUALNI GROCERYLISTS
     1 -> PROŠLI GROCERYLISTS
@@ -55,6 +57,7 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
         mSwipeRefreshLayout = view.findViewById(R.id.swiperefreshPastLists);
         mFloatingButtonAdd = view.findViewById(R.id.floatingButtonAdd);
         mRecyclerView = view.findViewById(R.id.recycler_view);
+        noneClientGroceryLists = view.findViewById(R.id.noneClientGL);
 
         mSwipeRefreshLayout.setOnRefreshListener(mRefreshListener);
 
@@ -127,7 +130,7 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
     }
 
     @Override
-    public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList) {
+    public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList, GroceryListStatus mGroceryListStatus) {
         if(mGroceryList != null){
             mRecyclerView.setAdapter(null);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -136,11 +139,31 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
 
             //MAKNI OZNAKU ZA OSVJEZAVANJE
             mSwipeRefreshLayout.setRefreshing(false);
+            setTextVisibility(mGroceryList, mGroceryListStatus);
+        }else if (mGroceryListStatus.equals(GroceryListStatus.ACCEPTED)){
+            noneClientGroceryLists.setText("Trenutno nemate aktivne kupovne liste.");
+            noneClientGroceryLists.setVisibility(View.VISIBLE);
+        }else{
+            noneClientGroceryLists.setText("Trenutno nemate prošle kupovne liste.");
+            noneClientGroceryLists.setVisibility(View.VISIBLE);
         }
+
     }
 
     @Override
     public void groceryListSelected(GroceryListsModel mGroceryListsModel) {
         loadFragmentDetails(mGroceryListsModel);
+    }
+
+    private void setTextVisibility(ArrayList<GroceryListsModel> mGroceryList, GroceryListStatus mGroceryListStatus){
+        if(mGroceryList.size() == 0 && mGroceryListStatus.equals(GroceryListStatus.ACCEPTED)){
+            noneClientGroceryLists.setText("Trenutno nemate aktivne kupovne liste.");
+            noneClientGroceryLists.setVisibility(View.VISIBLE);
+        }else if (mGroceryList.size() == 0 && mGroceryListStatus.equals(GroceryListStatus.FINISHED)){
+            noneClientGroceryLists.setText("Trenutno nemate prošle kupovne liste.");
+            noneClientGroceryLists.setVisibility(View.VISIBLE);
+        }else
+            noneClientGroceryLists.setVisibility(View.GONE);
+
     }
 }

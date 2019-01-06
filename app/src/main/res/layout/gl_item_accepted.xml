@@ -31,7 +31,7 @@
 
         <TextView
             android:id="@+id/store_name"
-            style="@style/TextViewGroceryListItem"
+            style="@style/TextViewGroceryListItemTitle"
             tools:text="Store name string"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 

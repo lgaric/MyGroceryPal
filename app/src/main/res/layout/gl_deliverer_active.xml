@@ -37,7 +37,7 @@
             android:layout_weight="0.68">
 
             <TextView
-                style="@style/TextViewGroceryListItem"
+                style="@style/TextViewGroceryListItemTitle"
                 android:id="@+id/store_name"
                 tools:text="Trgovina"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
