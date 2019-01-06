@@ -104,7 +104,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
 
     //PONOVI
-    private void fillDataonRepeatGL(){
+    private void fillDataOnRepeatGL(){
 
         Adapter adapter = mSpinnerStores.getAdapter();
         for (int i = 0; i < adapter.getCount(); i++){
@@ -253,7 +253,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
             //PONOVI
             if(mRepeat && mGroceryListsModel != null){
-                fillDataonRepeatGL();
+                fillDataOnRepeatGL();
             }
 
         }

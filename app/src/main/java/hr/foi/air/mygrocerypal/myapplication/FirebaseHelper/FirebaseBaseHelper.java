@@ -15,6 +15,7 @@ public class FirebaseBaseHelper {
     protected static final String PRODUCTSNODE  = "products";
     protected static final String STORESNODE  = "stores";
     protected static final String GROCERYLISTSNODE  = "grocerylists";
+    protected static final String CATEGORIESNODE = "categories";
     protected static final String GROCERYLISTPRODUCTSNODE  = "grocerylistproducts";
     protected static final String USERIGNOREDLISTNODE  = "userignoredlists";
     protected static final String GROCERYLISTSTATUSNODE = "status";
@@ -26,7 +27,6 @@ public class FirebaseBaseHelper {
     protected static final String LATITUDENODE = "latitude";
     protected static final String LONGITUDE = "longitude";
     protected static final String PHONENUMBERNODE = "phone_number";
-
 
     protected static final String NOINTERNETCONNECTIONMESSAGE  = "Potrebna je internet veza!";
 

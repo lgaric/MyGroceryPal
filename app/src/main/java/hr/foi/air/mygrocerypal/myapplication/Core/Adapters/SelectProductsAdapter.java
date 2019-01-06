@@ -21,12 +21,10 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
     private ArrayList<ProductsModel> mProductsList;
     private List<GroceryListProductsModel> mListOfAddedProducts;
     private int mProductQuantity = 0;
-    private boolean filtered;
 
-    public  SelectProductsAdapter(ArrayList<ProductsModel> mProductsList, List<GroceryListProductsModel> mListOfAddedProducts, boolean filtered){
+    public  SelectProductsAdapter(ArrayList<ProductsModel> mProductsList, List<GroceryListProductsModel> mListOfAddedProducts){
         this.mProductsList = mProductsList;
         this.mListOfAddedProducts = mListOfAddedProducts;
-        this.filtered = filtered;
     }
 
     @NonNull

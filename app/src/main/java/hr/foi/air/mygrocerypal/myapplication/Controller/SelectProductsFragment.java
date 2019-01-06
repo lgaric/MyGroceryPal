@@ -8,11 +8,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SearchView;
+import android.widget.Spinner;
 
 import com.example.filter.FilterObjects;
 
@@ -23,6 +27,7 @@ import java.util.List;
 import hr.foi.air.mygrocerypal.myapplication.Core.Adapters.SelectProductsAdapter;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.SelectProductsListener;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.SelectProductsHelper;
+import hr.foi.air.mygrocerypal.myapplication.Model.CategoriesModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.ProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
@@ -37,7 +42,7 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
     private SelectProductsAdapter mSelectProductsAdapter;
     private ArrayList<ProductsModel> mProductsList;
     private SearchView mSearchView;
-    //private Spinner mSpinner;
+    private Spinner mSpinner;
 
     //pohrana liste filtriranih proizvoda
     ArrayList<ProductsModel> filteredList = new ArrayList<>();
@@ -63,14 +68,9 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
         btnAddProductsToGroceryList = view.findViewById(R.id.addProductsToGroceryList);
         mSearchView = view.findViewById(R.id.searchView);
 
-/*
+
         mSpinner = view.findViewById(R.id.spinner);
-        ArrayList<String> temp = new ArrayList<>();
-        temp.add("Pića");
-        temp.add("Meso");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, temp);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mSpinner.setAdapter(adapter);*/
+        mSelectProductsHelper.loadProductCategories();
 
         mSelectProductsHelper.loadProductsByStore(getArguments().getString("store_name"));
         mListOfAddedProducts = (List<GroceryListProductsModel>)getArguments().getSerializable("list_of_products");
@@ -89,6 +89,7 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
             }
         });
 
+        //pretraga proizvoda upisom teksta u searchView
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -98,26 +99,43 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(mProductsList != null){
-                    filteredList = filterObjects.filterListByNames(mProductsList, newText);
-                    inflateAdapter(filteredList, true);
+                    if(mSpinner.getSelectedItem().toString() != "Categories"){
+                        //filter by category
+                        filteredList = filterObjects.filterListByCategories(mProductsList, mSpinner.getSelectedItem().toString());
+                        //filter by search
+                        filteredList = filterObjects.filterListByNames(filteredList, newText);
+                    }else
+                        filteredList = filterObjects.filterListByNames(mProductsList, newText);
+                    inflateAdapter(filteredList);
                 }
 
                 return false;
             }
         });
-/*
+
+        // pretraga proizvoda po kategoriji
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                filteredList = filterObjects.filterListByCategories(mProductsList, "Pića");
-                inflateAdapter(filteredList);
+                if(mProductsList != null){
+                    if(mSpinner.getSelectedItem().toString() != "Categories"){
+                        //filter by category
+                        filteredList = filterObjects.filterListByCategories(mProductsList, mSpinner.getSelectedItem().toString());
+                        //filter by search if needed
+                        if(mSearchView.getQuery().length() > 0)
+                            filteredList = filterObjects.filterListByNames(filteredList, mSearchView.getQuery().toString());
+                        inflateAdapter(filteredList);
+                    }else{
+                        inflateAdapter(mProductsList);
+                    }
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });*/
+        });
     }
 
     // dohvati listu proizvoda odabrane trgovine
@@ -125,22 +143,36 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
     public void productsListReceived(ArrayList<ProductsModel> mProductsList) {
         if (mProductsList != null) {
             this.mProductsList = mProductsList;
-            inflateAdapter(mProductsList, false);
+            inflateAdapter(mProductsList);
+        }
+    }
+
+    // dohvati listu svih kategorija
+    @Override
+    public void categoriesListReceived(ArrayList<CategoriesModel> mCategoriesList) {
+        if(mCategoriesList != null){
+            ArrayList<String> storeNames = new ArrayList<>();
+            for(int i = 0; i < mCategoriesList.size(); i++){
+                storeNames.add(mCategoriesList.get(i).getName());
+            }
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, storeNames);
+            mSpinner.setAdapter(adapter);
         }
     }
 
     // proslijedi već dodane proizvode u adapter ako postoje
-    private void InitializeAdapter(ArrayList<ProductsModel> mProductsList, boolean filtered){
+    private void InitializeAdapter(ArrayList<ProductsModel> mProductsList){
         if(mListOfAddedProducts == null) mListOfAddedProducts = new ArrayList<>();
-        mSelectProductsAdapter = new SelectProductsAdapter(mProductsList, mListOfAddedProducts, filtered);
+        mSelectProductsAdapter = new SelectProductsAdapter(mProductsList, mListOfAddedProducts);
     }
 
     // ispisi sve proizvode u recycler view
-    private void inflateAdapter(ArrayList<ProductsModel> mProductsList, boolean filtered){
+    private void inflateAdapter(ArrayList<ProductsModel> mProductsList){
         mRecyclerView.setAdapter(null);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        InitializeAdapter(mProductsList, filtered);
+        InitializeAdapter(mProductsList);
         mRecyclerView.setAdapter(mSelectProductsAdapter);
     }
 }
