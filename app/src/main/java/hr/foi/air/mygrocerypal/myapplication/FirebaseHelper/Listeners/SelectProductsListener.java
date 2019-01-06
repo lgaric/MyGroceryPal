@@ -8,6 +8,6 @@ import hr.foi.air.mygrocerypal.myapplication.Model.CategoriesModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.ProductsModel;
 
 public interface SelectProductsListener {
-    void productsListReceived(ArrayList<ProductsModel> mProductsList);
+    void productsListByStoreReceived(ArrayList<ProductsModel> mProductsList);
     void categoriesListReceived(ArrayList<CategoriesModel> mCategoriesList);
 }

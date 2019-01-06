@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -145,7 +144,7 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
 
     // dohvati listu proizvoda odabrane trgovine
     @Override
-    public void productsListReceived(ArrayList<ProductsModel> mProductsList) {
+    public void productsListByStoreReceived(ArrayList<ProductsModel> mProductsList) {
         if (mProductsList != null) {
             this.mProductsList = mProductsList;
             inflateAdapter(mProductsList);
@@ -169,7 +168,7 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
     }
 
     // proslijedi već dodane proizvode u adapter ako postoje
-    private void InitializeAdapter(ArrayList<ProductsModel> mProductsList){
+    private void initializeAdapter(ArrayList<ProductsModel> mProductsList){
         if(mListOfAddedProducts == null) mListOfAddedProducts = new ArrayList<>();
         mSelectProductsAdapter = new SelectProductsAdapter(mProductsList, mListOfAddedProducts);
     }
@@ -179,7 +178,7 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
         mRecyclerView.setAdapter(null);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        InitializeAdapter(mProductsList);
+        initializeAdapter(mProductsList);
         mRecyclerView.setAdapter(mSelectProductsAdapter);
     }
 

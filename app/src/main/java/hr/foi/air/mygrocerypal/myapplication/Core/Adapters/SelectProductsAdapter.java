@@ -71,7 +71,7 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
     public class SelectProductsHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private GroceryListProductsModel mProduct;
-        private int productPosition;
+        private int mProductPosition;
         private ProductsModel mProductsModel;
         private TextView mProductName, mProductPrice;
         private ImageButton btnIncreaseGroceryAmount, btnDecreaseGroceryAmount;
@@ -92,17 +92,17 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
             mProductQuantity.setOnFocusChangeListener(mOnFocusChangeListener);
         }
 
-        private void bindProduct(int mValue){
+        private void bindProduct(int mProductQuantity){
             mProduct = new GroceryListProductsModel();
             mProduct.setName(mProductsModel.getName());
             mProduct.setPrice(mProductsModel.getCurrent_price());
-            mProduct.setQuantity(mValue);
+            mProduct.setQuantity(mProductQuantity);
             mProduct.setBought(0);
             mProduct.setProduct_key(mProductsModel.getProduct_key());
         }
 
-        private void addSelectedProductToGroceryList(int mValue){
-            bindProduct(mValue);
+        private void addSelectedProductToGroceryList(int mProductQuantity){
+            bindProduct(mProductQuantity);
             mListOfAddedProducts.add(mProduct);
         }
 
@@ -116,7 +116,7 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
 
         public void bind(ProductsModel mProduct, List<GroceryListProductsModel> mListOfAddedProducts, int mProductQuantity, int position){
             this.mListOfAddedProducts = mListOfAddedProducts;
-            this.productPosition = position;
+            this.mProductPosition = position;
             this.mProductsModel = mProduct;
             this.mProductName.setText(mProduct.getName());
             this.mProductPrice.setText(Double.toString(mProduct.getCurrent_price()));
@@ -151,7 +151,7 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
                 mProductQuantity.setText("1");
             }else{
                 mProduct.setQuantity(mProduct.getQuantity() + 1);
-                mListOfAddedProducts.get(productPosition).setQuantity(mProduct.getQuantity());
+                mListOfAddedProducts.get(mProductPosition).setQuantity(mProduct.getQuantity());
                 mProductQuantity.setText(Integer.toString(mProduct.getQuantity()));
             }
         }
@@ -163,11 +163,11 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
             if(mProduct != null){
                 if(mProduct.getQuantity() > 1){
                     mProduct.setQuantity(mProduct.getQuantity() - 1);
-                    mListOfAddedProducts.get(productPosition).setQuantity(mProduct.getQuantity());
+                    mListOfAddedProducts.get(mProductPosition).setQuantity(mProduct.getQuantity());
                     mProductQuantity.setText(Integer.toString(mProduct.getQuantity()));
                 }
                 else{
-                    mListOfAddedProducts.remove(productPosition);
+                    mListOfAddedProducts.remove(mProductPosition);
                     mProduct = null;
                     mProductQuantity.setText("0");
                 }
@@ -188,7 +188,7 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
                 mProductQuantity.setText("0");
             }else if(currentQuantity > 0 && mProduct != null){
                 mProduct.setQuantity(currentQuantity);
-                mListOfAddedProducts.get(productPosition).setQuantity(mProduct.getQuantity());
+                mListOfAddedProducts.get(mProductPosition).setQuantity(mProduct.getQuantity());
             }
 
         }

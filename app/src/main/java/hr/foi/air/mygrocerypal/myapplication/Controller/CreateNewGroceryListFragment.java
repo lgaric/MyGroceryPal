@@ -55,13 +55,13 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     boolean mFirstEntry = false;
     boolean mRepeat = false;
     int mPositionInSpinner;
-    int flag = 0;
+    int mFlag = 0;
 
 
     //widgets
     private RadioGroup mRadioGroup;
     private RadioButton mRadioButton;
-    private EditText mAddress, mTown, mCommision;
+    private EditText mAddress, mTown, mCommission;
     private TextView mStartDate, mTotalPriceAmount, mLabelProducts;
     private Button btnAddProducts, btnConfirm;
     private Spinner mSpinnerStores;
@@ -75,7 +75,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         mTotalPriceAmount = view.findViewById(R.id.TotalPriceAmount);
         btnAddProducts = view.findViewById(R.id.btnAddProducts);
         btnConfirm = view.findViewById(R.id.btnConfirm);
-        mCommision = view.findViewById(R.id.commision);
+        mCommission = view.findViewById(R.id.commision);
         mStartDate = view.findViewById(R.id.startDate);
         mSpinnerStores = view.findViewById(R.id.spinnerStores);
         mAddress = view.findViewById(R.id.address);
@@ -113,7 +113,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 break;
             }
         }
-        mCommision.setText(mGroceryListsModel.getCommision());
+        mCommission.setText(mGroceryListsModel.getCommision());
         if(CurrentUser.getCurrentUser.getAddress().equals(mGroceryListsModel.getDelivery_address()) && CurrentUser.getCurrentUser.getTown().equals(mGroceryListsModel.getDelivery_town())){
             mRadioGroup.check(R.id.radioButton);
         }
@@ -186,7 +186,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 hideKeyboard(btnConfirm);
                 if(entered){
                     createGroceryList();
-                    mCreateNewGroceryListHelper.saveGL_withProducts(mGroceryListsModel, mGroceryListProductsModels);
+                    mCreateNewGroceryListHelper.saveGroceryListWithProducts(mGroceryListsModel, mGroceryListProductsModels);
                 }
                 break;
             default:
@@ -272,7 +272,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                     showDialogOnStoreChanged(false);
                 if(mSended){
                     mSpinnerStores.setSelection(mPositionInSpinner);//ako je u dialogbox odabran NE
-                    flag = 1;
+                    mFlag = 1;
                 }
             }
             if(mSended && mFirstEntry){
@@ -280,12 +280,12 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 mFirstEntry = false;
             }
             else{
-                if(flag == 0){
+                if(mFlag == 0){
                     mSelectedStoreName = parent.getItemAtPosition(position).toString();
                     mPositionInSpinner = parent.getSelectedItemPosition();
                 }
                 else{
-                    flag = 0;
+                    mFlag = 0;
                 }
             }
 
@@ -338,7 +338,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
             showToast("Odaberite početni datum prikazivanja!");
             entered = false;
         }
-        if(isNullOrBlank(mCommision.getText().toString())){
+        if(isNullOrBlank(mCommission.getText().toString())){
             showToast("Odaberite proviziju!");
             entered = false;
         }
@@ -365,7 +365,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
     public void createGroceryList(){
         mGroceryListsModel = new GroceryListsModel(
-                mCommision.getText().toString(),
+                mCommission.getText().toString(),
                 mAddress.getText().toString(), mTown.getText().toString(),
                 increaseCurrentDateBy(3),
                 mStartDate.getText().toString(),

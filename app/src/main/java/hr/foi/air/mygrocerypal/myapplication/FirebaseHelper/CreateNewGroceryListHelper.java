@@ -61,7 +61,7 @@ public class CreateNewGroceryListHelper extends FirebaseBaseHelper{
      * @param mGroceryListsModel
      * @param mGroceryListProductsModels
      */
-    public void saveGL_withProducts(GroceryListsModel mGroceryListsModel, List<GroceryListProductsModel> mGroceryListProductsModels){
+    public void saveGroceryListWithProducts(GroceryListsModel mGroceryListsModel, List<GroceryListProductsModel> mGroceryListProductsModels){
         if(isNetworkAvailable()){
             mReference = mDatabase.getReference().child(GROCERYLISTSNODE);
             DatabaseReference pushRef = mReference.push();
