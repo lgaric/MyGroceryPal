@@ -364,17 +364,20 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     }
 
     public void createGroceryList(){
-        mGroceryListsModel = new GroceryListsModel(
-                mCommission.getText().toString(),
-                mAddress.getText().toString(), mTown.getText().toString(),
-                increaseCurrentDateBy(3),
-                mStartDate.getText().toString(),
-                GroceryListStatus.CREATED,
-                mSelectedStoreName,
-                mTotalPriceAmount.getText().toString(),
-                CurrentUser.getCurrentUser.getUserUID(),
-                "-", CurrentUser.getCurrentUser.getLongitude(),
-                CurrentUser.getCurrentUser.getLatitude());
+        mGroceryListsModel= new GroceryListsModel();
+
+        mGroceryListsModel.setCommision(mCommission.getText().toString());
+        mGroceryListsModel.setDelivery_address(mAddress.getText().toString());
+        mGroceryListsModel.setDelivery_town(mTown.getText().toString());
+        mGroceryListsModel.setEnd_date(increaseCurrentDateBy(3));
+        mGroceryListsModel.setStart_date(mStartDate.getText().toString());
+        mGroceryListsModel.setStatus(GroceryListStatus.CREATED);
+        mGroceryListsModel.setStore_name(mSelectedStoreName);
+        mGroceryListsModel.setTotal_price(mTotalPriceAmount.getText().toString());
+        mGroceryListsModel.setUser_id(CurrentUser.getCurrentUser.getUserUID());
+        mGroceryListsModel.setUser_accepted_id("-");
+        mGroceryListsModel.setLongitude(CurrentUser.getCurrentUser.getLongitude());
+        mGroceryListsModel.setLatitude(CurrentUser.getCurrentUser.getLatitude());
     }
 
 
