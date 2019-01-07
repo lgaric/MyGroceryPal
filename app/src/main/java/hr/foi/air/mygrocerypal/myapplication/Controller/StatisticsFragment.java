@@ -32,6 +32,13 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
 
     public StatisticsFragment(){ }
 
+    /**
+     * OnCreateView metoda fragmenta
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +51,10 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
         return view;
     }
 
+    /**
+     * Metoda povezivanja objekata s XML-om
+     * @param view
+     */
     private void BindFragmentData(View view) {
         mPieChartView = view.findViewById(R.id.statistics_pie_chart);
 
@@ -60,6 +71,10 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
         mAverageDeliveryCommission = view.findViewById(R.id.averageDeliveryCommission);
     }
 
+    /**
+     * Implementacija metode GroceryListListener-a u kojoj se svi GL-ovi dijele na narucene i dostavljene na temelju ID-a korisnika
+     * @param mGroceryList
+     */
     @Override
     public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList) {
         if(mGroceryList != null) {
@@ -87,6 +102,13 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
         }
     }
 
+    /**
+     * Metoda u kojoj se dostavljeni GL-ovi ispisuju, zajedno sa statistikom
+     * @param mGroceryList
+     * @param totalDeliveryPrice
+     * @param numberOfDeliveries
+     * @param totalCommission
+     */
     private void GroceryListDeliveries(ArrayList<GroceryListsModel> mGroceryList, float totalDeliveryPrice,
                                        int numberOfDeliveries, float totalCommission) {
         if(mGroceryList == null) {
@@ -102,6 +124,13 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
         printOutGraph();
     }
 
+    /**
+     * Metoda u kojoj se naruceni GL-ovi ispisuju, zajedno sa statistikom
+     * @param mGroceryList
+     * @param totalOrderPriceWithProvision
+     * @param totalCommissionPrice
+     * @param numberOfOrders
+     */
     public void GroceryListOrders(ArrayList<GroceryListsModel> mGroceryList, float totalOrderPriceWithProvision,
                                   float totalCommissionPrice, int numberOfOrders) {
         if(mGroceryList == null) {
@@ -117,6 +146,9 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
         printOutGraph();
     }
 
+    /**
+     * Metoda za ispisivanje grafa
+     */
     private void printOutGraph() {
         PieChartData pieChartData = new PieChartData(mPieData);
         pieChartData.setHasLabels(true);
