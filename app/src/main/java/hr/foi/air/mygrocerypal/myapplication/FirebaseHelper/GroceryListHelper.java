@@ -62,7 +62,7 @@ public class GroceryListHelper extends FirebaseBaseHelper{
      * @param mStatus
      * @return
      */
-    private ArrayList<GroceryListsModel> filterList(ArrayList<GroceryListsModel> mGroceryListsModels, GroceryListStatus mStatus){
+    public ArrayList<GroceryListsModel> filterList(ArrayList<GroceryListsModel> mGroceryListsModels, GroceryListStatus mStatus){
         ArrayList<GroceryListsModel> mFilteredList = new ArrayList<>();
 
         // 1. skupina ACCEPTED I CREATED

@@ -149,7 +149,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.navigation_statistics:
                 mDrawer.closeDrawer(GravityCompat.START);
-                Toast.makeText(this, "Pritisnuli ste statistiku", Toast.LENGTH_LONG).show();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new StatisticsFragment())
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case R.id.navigation_logout:
                 mDrawer.closeDrawer(GravityCompat.START);
