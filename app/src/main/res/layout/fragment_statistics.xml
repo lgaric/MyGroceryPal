@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_marginBottom="15dp">
+                android:layout_marginBottom="8dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="12dp"
                 android:gravity="center">
                 <TextView
                     android:id="@+id/numberOfOrders"
@@ -58,7 +58,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="12dp"
                 android:gravity="center">
                 <TextView
                     android:id="@+id/totalOrderPriceWithProvision"
@@ -77,7 +77,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="12dp"
                 android:gravity="center">
                 <TextView
                     android:id="@+id/totalOrderCommissionPrice"
@@ -97,7 +97,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="12dp"
                 android:gravity="center">
                 <TextView
                     android:id="@+id/totalOrderPriceWithoutCommission"
@@ -117,7 +117,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="12dp"
                 android:gravity="center">
                 <TextView
                     android:id="@+id/averageOrderPrice"
@@ -137,7 +137,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="12dp"
                 android:gravity="center">
                 <lecho.lib.hellocharts.view.PieChartView
                     xmlns:android="http://schemas.android.com/apk/res/android"

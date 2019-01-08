@@ -54,6 +54,34 @@ public class GroceryListHelper extends FirebaseBaseHelper{
             showInternetMessageWarning();
     }
 
+    public void loadGroceryListsByGroceryListStatus(final GroceryListStatus mGroceryListStatus) {
+        if (mGroceryListStatus == null)
+            return;
+
+        if(isNetworkAvailable()){
+            mQuery = mDatabase.getReference().child(GROCERYLISTSNODE).orderByChild(USERIDNODE);
+
+            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    ArrayList<GroceryListsModel> groceryList = new ArrayList<>();
+                    for (DataSnapshot temp : dataSnapshot.getChildren()) {
+                        GroceryListsModel model = temp.getValue(GroceryListsModel.class);
+                        model.setGrocerylist_key(temp.getKey());
+                        groceryList.add(model);
+                    }
+                    mGroceryListListener.groceryListReceived(filterList(groceryList, mGroceryListStatus), mGroceryListStatus);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Do nothing
+                }
+            });
+        }else
+            showInternetMessageWarning();
+    }
+
     /**
      * Filtriranje u dvije skupine
      *  1. skupina ACCEPTED I CREATED

@@ -59,7 +59,10 @@
     <string name="delivererSemicolon">"Dobavljač: "</string>
     <string name="storeSemicolon">"Trgovina: "</string>
     <string name="commisionSemicolon">"Provizija: "</string>
-
+    <string name="orders">Narudžbe</string>
+    <string name="deliveries">Dostave</string>
+    <string name="ordersSemicolon">Narudžbe:</string>
+    <string name="deliveriesSemicolon">Dostave:</string>
 
 
     <string name="test_button" translatable="false">Test database</string>

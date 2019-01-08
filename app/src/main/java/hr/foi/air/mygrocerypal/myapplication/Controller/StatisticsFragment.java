@@ -47,7 +47,7 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
         BindFragmentData(view);
         mPieData = new ArrayList<>();
         mPastGroceryListHelper = new GroceryListHelper(this);
-        mPastGroceryListHelper.loadGroceryLists(GroceryListStatus.FINISHED);
+        mPastGroceryListHelper.loadGroceryListsByGroceryListStatus(GroceryListStatus.FINISHED);
         return view;
     }
 
@@ -69,37 +69,6 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
         mAverageDeliveryPrice  = view.findViewById(R.id.averageDeliveryPrice);
         mTotalDeliveryCommission = view.findViewById(R.id.totalDeliveryCommission);
         mAverageDeliveryCommission = view.findViewById(R.id.averageDeliveryCommission);
-    }
-
-    /**
-     * Implementacija metode GroceryListListener-a u kojoj se svi GL-ovi dijele na narucene i dostavljene na temelju ID-a korisnika
-     * @param mGroceryList
-     */
-    @Override
-    public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList) {
-        if(mGroceryList != null) {
-            ArrayList<GroceryListsModel> ordersList = new ArrayList<>();
-            ArrayList<GroceryListsModel> deliveriesList = new ArrayList<>();
-
-            float totalDeliveryPrice = 0, totalCommission = 0, totalOrderPriceWithProvision = 0, totalCommissionPrice= 0;
-            int numberOfDeliveries = 0, numberOfOrders = 0;
-
-            for (GroceryListsModel model: mGroceryList) {
-                if(model.getUser_id().equals(CurrentUser.getCurrentUser.getUserUID())) {
-                    totalOrderPriceWithProvision += Float.parseFloat(model.getTotal_price());
-                    totalCommissionPrice += Float.parseFloat(model.getCommision());
-                    numberOfOrders++;
-                    ordersList.add(model);
-                }else if(model.getUser_accepted_id().equals(CurrentUser.getCurrentUser.getUserUID())) {
-                    totalDeliveryPrice += Float.parseFloat(model.getTotal_price());
-                    totalCommission += Float.parseFloat(model.getCommision());
-                    numberOfDeliveries++;
-                    deliveriesList.add(model);
-                }
-            }
-            GroceryListOrders(ordersList, totalOrderPriceWithProvision, totalCommissionPrice, numberOfOrders);
-            GroceryListDeliveries(deliveriesList, totalDeliveryPrice, numberOfDeliveries, totalCommission);
-        }
     }
 
     /**
@@ -153,5 +122,37 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
         PieChartData pieChartData = new PieChartData(mPieData);
         pieChartData.setHasLabels(true);
         mPieChartView.setPieChartData(pieChartData);
+    }
+
+    /**
+     * Implementacija metode GroceryListListener-a u kojoj se svi GL-ovi dijele na narucene i dostavljene na temelju ID-a korisnika
+     * @param mGroceryList
+     * @param mGroceryListStatus
+     */
+    @Override
+    public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList, GroceryListStatus mGroceryListStatus) {
+        if(mGroceryList != null) {
+            ArrayList<GroceryListsModel> ordersList = new ArrayList<>();
+            ArrayList<GroceryListsModel> deliveriesList = new ArrayList<>();
+
+            float totalDeliveryPrice = 0, totalCommission = 0, totalOrderPriceWithProvision = 0, totalCommissionPrice= 0;
+            int numberOfDeliveries = 0, numberOfOrders = 0;
+
+            for (GroceryListsModel model: mGroceryList) {
+                if(model.getUser_id().equals(CurrentUser.getCurrentUser.getUserUID())) {
+                    totalOrderPriceWithProvision += Float.parseFloat(model.getTotal_price());
+                    totalCommissionPrice += Float.parseFloat(model.getCommision());
+                    numberOfOrders++;
+                    ordersList.add(model);
+                }else if(model.getUser_accepted_id().equals(CurrentUser.getCurrentUser.getUserUID())) {
+                    totalDeliveryPrice += Float.parseFloat(model.getTotal_price());
+                    totalCommission += Float.parseFloat(model.getCommision());
+                    numberOfDeliveries++;
+                    deliveriesList.add(model);
+                }
+            }
+            GroceryListOrders(ordersList, totalOrderPriceWithProvision, totalCommissionPrice, numberOfOrders);
+            GroceryListDeliveries(deliveriesList, totalDeliveryPrice, numberOfDeliveries, totalCommission);
+        }
     }
 }

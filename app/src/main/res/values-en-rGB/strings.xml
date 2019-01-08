@@ -60,8 +60,8 @@
     <string name="ignoreCaps">IGNORE</string>
     <string name="returnCaps">RETURN</string>
     <string name="repeatCaps">REPEAT</string>
-    <string name="orders">Narudžbe</string>
-    <string name="deliveries">Dostave</string>
+    <string name="orders">Orders</string>
+    <string name="deliveries">Deliveries</string>
     <string name="ordersSemicolon">Orders:</string>
     <string name="deliveriesSemicolon">Deliveries:</string>
 </resources>
