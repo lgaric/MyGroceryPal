@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/WrapHeightMatchWidth"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal">
+    
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight=".65">
+
+        <TextView
+            style="@style/TextViewGroceryListItemTitle"
+            android:id="@+id/name_of_productTxt"
+            tools:text="NAZIV PROIZVODA"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <TextView
+            style="@style/TextViewGroceryListItem"
+            android:id="@+id/bought"
+            tools:text="3" />
+
+        <TextView
+            style="@style/TextViewGroceryListItem"
+            android:id="@+id/qunatity"
+            tools:text="3" />
+
+        <TextView
+            style="@style/TextViewGroceryListItem"
+            android:id="@+id/price"
+            tools:text="15.69" />
+
+        <TextView
+            style="@style/TextViewGroceryListItem"
+            android:id="@+id/currentprice"
+            tools:text="15.69" />
+
+        <TextView
+            style="@style/TextViewGroceryListItem"
+            android:id="@+id/totalprice"
+            tools:text="15.69" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="0.35">
+
+        <Button
+            style="@style/ButtonLightBlue"
+            android:id="@+id/btnUpBought"
+            android:text="@string/plusCaps"
+            android:layout_height="40dp"/>
+
+        <Button
+            style="@style/ButtonLightBlue"
+            android:id="@+id/btnDownBought"
+            android:text="@string/minusCaps"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+
+</LinearLayout>

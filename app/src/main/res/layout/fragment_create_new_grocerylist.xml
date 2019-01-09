@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MatchBoth"
+    android:orientation="vertical">
+
+    <ScrollView style="@style/MatchBoth">
+
+        <LinearLayout
+            style="@style/MatchBoth"
+            android:orientation="vertical">
+
+            <LinearLayout
+                style="@style/WrapHeightMatchWidth"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/labelForStore"
+                    style="@style/TextViewBlack"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textAlignment="textStart"
+                    android:text="@string/pickStoreSemicolon"/>
+
+                <Spinner
+                    android:layout_margin="10dp"
+                    android:id="@+id/spinnerStores"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_height="match_parent"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/WrapHeightMatchWidth"
+                android:orientation="vertical"
+                android:gravity="start">
+
+                <RadioGroup
+                    style="@style/WrapBoth"
+                    android:id="@+id/rgroup">
+
+                    <RadioButton
+                        android:id="@+id/radioButton"
+                        style="@style/TextViewBlack"
+                        android:text="@string/myAddress"
+                        android:checked="true" />
+
+                    <RadioButton
+                        android:id="@+id/radioButton2"
+                        style="@style/TextViewBlack"
+                        android:text="@string/otherAddress" />
+
+                </RadioGroup>
+
+                <LinearLayout
+                    style="@style/WrapHeightMatchWidth"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/address"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        style="@style/LeftAndRightMargin"
+                        android:textSize="@dimen/item_size_text"
+                        android:hint="@string/address"
+                        android:textColor="@color/black"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:textColorHint="@color/black"/>
+
+                    <EditText
+                        android:id="@+id/town"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        style="@style/LeftAndRightMargin"
+                        android:textSize="@dimen/item_size_text"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/city"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/black"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/WrapHeightMatchWidth"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextViewBlack"
+                    android:id="@+id/labelForStartDate"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.25"
+                    android:gravity="left"
+                    android:text="@string/validFromSemicolon"/>
+
+                <TextView
+                    style="@style/EditTextWhite"
+                    android:background="@drawable/edit_text_with_underline"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.75"
+                    android:id="@+id/startDate"
+                    android:hint="@string/pickDate"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/WrapHeightMatchWidth"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextViewBlack"
+                    android:id="@+id/labelCommision"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.25"
+                    android:text="@string/commisionSemicolon"/>
+
+                <EditText
+                    style="@style/EditTextWhite"
+                    android:id="@+id/commision"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.75"
+                    android:inputType="number"
+                    android:imeOptions="actionDone"
+                    android:background="@drawable/edit_text_with_underline"
+                    android:hint="@string/croatianKuna"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/WrapHeightMatchWidth"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/labelProducts"
+                    style="@style/TextViewBigWhite"
+                    android:textColor="@color/black"
+                    android:text="@string/addedProducts"/>
+
+                <!-- OVDJE IDE LISTA PROIZVODA-->
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_view_products"
+                    android:background="@drawable/button_white_background"
+                    android:layout_margin="@dimen/small_margin_in_app"
+                    style="@style/MatchBoth"/>
+
+            </LinearLayout>
+
+            <Button
+                style="@style/ButtonLightBlue"
+                android:gravity="center"
+                android:id="@+id/btnAddProducts"
+                android:text="@string/addProduct"/>
+
+            <LinearLayout
+                style="@style/WrapHeightMatchWidth"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/TextViewBlack"
+                    android:id="@+id/labelTotalPrice"
+                    android:layout_width="0dp"
+                    android:layout_weight="0.25"
+                    android:text="@string/totalPriceSemicolon" />
+
+                <TextView
+                    android:id="@+id/TotalPriceAmount"
+                    style="@style/EditTextWhite"
+                    android:background="@drawable/edit_text_with_underline"
+                    android:layout_width="0dp"
+                    android:layout_weight=".75"/>
+            </LinearLayout>
+
+            <Button
+                style="@style/ButtonPink"
+                android:id="@+id/btnConfirm"
+                android:text="@string/confirm"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/WrapHeightMatchWidth"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/TextViewGroceryListItemTitle"
+        android:id="@+id/name_of_productTxt"
+        tools:text="NAZIV PROIZVODA"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+    <TextView
+        style="@style/TextViewGroceryListItem"
+        android:id="@+id/bought"
+        tools:text="3" />
+
+    <TextView
+        style="@style/TextViewGroceryListItem"
+        android:id="@+id/qunatity"
+        tools:text="3" />
+
+    <TextView
+        style="@style/TextViewGroceryListItem"
+        android:id="@+id/price"
+        tools:text="15.69" />
+
+    <TextView
+        style="@style/TextViewGroceryListItem"
+        android:id="@+id/totalprice"
+        tools:text="15.69" />
+
+</LinearLayout>

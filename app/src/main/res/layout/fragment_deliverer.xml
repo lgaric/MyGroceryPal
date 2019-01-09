@@ -1,17 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical" android:layout_width="match_parent"
-android:layout_height="match_parent">
+    android:orientation="vertical"
+    style="@style/MatchBoth">
 
-<!--<android.support.v7.widget.RecyclerView-->
-    <!--android:id="@+id/main_recycler"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:entries="@array/groceryListExamples"/>-->
-
-  <ListView
+  <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:entries="@array/groceryListExamples">
+      android:layout_height="50dp"
+      android:gravity="center"
+      android:orientation="horizontal">
 
-  </ListView>
+      <Button
+          style="@style/ButtonTabTopMenu"
+          android:layout_weight="1"
+          android:text="@string/activeCaps"
+          android:id="@+id/active_deliverer_btn"/>
+
+      <View
+          style="@style/verticalDivider" />
+
+      <Button
+          style="@style/ButtonTabTopMenu"
+          android:layout_weight="1"
+          android:text="@string/acceptedCaps"
+          android:id="@+id/accepted_deliverer_btn"/>
+
+      <View
+          style="@style/verticalDivider" />
+
+      <Button
+          style="@style/ButtonTabTopMenu"
+          android:layout_weight="1"
+          android:text="@string/ignoredCaps"
+          android:id="@+id/ignored_client_btn"/>
+
+  </LinearLayout>
+
+  <View
+      style="@style/horizontalDivider" />
+
+  <FrameLayout
+      android:id="@+id/show_grocery_lists"
+      style="@style/MatchBoth"/>
+
 </LinearLayout>

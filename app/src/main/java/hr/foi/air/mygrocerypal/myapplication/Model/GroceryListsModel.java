@@ -1,18 +1,56 @@
 package hr.foi.air.mygrocerypal.myapplication.Model;
 
-public class GroceryListsModel {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
+
+public class GroceryListsModel implements Serializable {
+    private String grocerylist_key;
     private String commision;
     private String delivery_address;
     private String delivery_town;
     private String end_date;
     private String start_date;
-    private String status;
+    private GroceryListStatus status;
     private String store_name;
     private String total_price;
     private String user_accepted_id;
-    private String user_accepted_name;
     private String user_id;
-    private String username;
+    private Double longitude;
+    private Double latitude;
+
+    private List<GroceryListProductsModel> productsModels;
+
+    public GroceryListsModel(){
+        productsModels = new ArrayList<>();
+    }
+
+
+    public void setGrocerylist_key(String grocerylist_key) {
+        this.grocerylist_key = grocerylist_key;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getGrocerylist_key() {
+        return grocerylist_key;
+    }
 
     public String getCommision() {
         return commision;
@@ -54,11 +92,11 @@ public class GroceryListsModel {
         this.start_date = start_date;
     }
 
-    public String getStatus() {
+    public GroceryListStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(GroceryListStatus status) {
         this.status = status;
     }
 
@@ -86,14 +124,6 @@ public class GroceryListsModel {
         this.user_accepted_id = user_accepted_id;
     }
 
-    public String getUser_accepted_name() {
-        return user_accepted_name;
-    }
-
-    public void setUser_accepted_name(String user_accepted_name) {
-        this.user_accepted_name = user_accepted_name;
-    }
-
     public String getUser_id() {
         return user_id;
     }
@@ -102,11 +132,11 @@ public class GroceryListsModel {
         this.user_id = user_id;
     }
 
-    public String getUsername() {
-        return username;
+    public List<GroceryListProductsModel> getProductsModels() {
+        return productsModels;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setProductsModels(List<GroceryListProductsModel> productsModels) {
+        this.productsModels = productsModels;
     }
 }

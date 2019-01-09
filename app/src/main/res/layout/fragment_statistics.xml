@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MatchBoth"
+    android:orientation="vertical">
+
+    <ScrollView
+        style="@style/WrapHeightMatchWidth"
+        android:fillViewport="true"
+        android:layout_weight="0.6"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            style="@style/MatchBoth">
+
+            <!-- NARUCITELJ START -->
+
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/WrapHeightMatchWidth"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:cardCornerRadius="@dimen/small_margin_in_app"
+                app:cardElevation="@dimen/small_margin_in_app"
+                android:foreground="?android:selectableItemBackground"
+                android:layout_margin="@dimen/small_margin_in_app">
+
+                <TextView
+                    style="@style/TextViewBigBlack"
+                    android:textSize="22sp"
+                    android:text="@string/ordersSemicolon"
+                    android:layout_margin="@dimen/small_margin_in_app" />
+
+            </android.support.v7.widget.CardView>
+
+            <TextView
+                android:id="@+id/numberOfOrders"
+                style="@style/TextViewBlack"
+                android:layout_margin="@dimen/small_margin_in_app"/>
+
+            <TextView
+                android:id="@+id/totalOrderPriceWithProvision"
+                style="@style/TextViewBlack"
+                android:layout_margin="@dimen/small_margin_in_app"/>
+
+            <TextView
+                android:id="@+id/totalOrderCommissionPrice"
+                style="@style/TextViewBlack"
+                android:layout_margin="@dimen/small_margin_in_app"/>
+
+            <TextView
+                android:id="@+id/totalOrderPriceWithoutCommission"
+                style="@style/TextViewBlack"
+                android:layout_margin="@dimen/small_margin_in_app"/>
+
+            <TextView
+                android:id="@+id/averageOrderPrice"
+                style="@style/TextViewBlack"
+                android:layout_margin="@dimen/small_margin_in_app"/>
+
+            <!-- DOBAVLJAC START -->
+
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/WrapHeightMatchWidth"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:cardCornerRadius="@dimen/small_margin_in_app"
+                app:cardElevation="@dimen/small_margin_in_app"
+                android:foreground="?android:selectableItemBackground"
+                android:layout_margin="@dimen/small_margin_in_app">
+
+                <TextView
+                    style="@style/TextViewBigBlack"
+                    android:text="@string/deliveriesSemicolon"
+                    android:textSize="22sp"
+                    android:layout_margin="@dimen/small_margin_in_app"/>
+
+            </android.support.v7.widget.CardView>
+
+
+            <TextView
+                android:id="@+id/numberOfDeliveries"
+                style="@style/TextViewBlack"
+                android:layout_margin="@dimen/small_margin_in_app"/>
+
+            <TextView
+                android:id="@+id/totalDeliveryPrice"
+                style="@style/TextViewBlack"
+                android:layout_margin="@dimen/small_margin_in_app"/>
+
+            <TextView
+                android:id="@+id/totalDeliveryCommission"
+                style="@style/TextViewBlack"
+                android:layout_margin="@dimen/small_margin_in_app"/>
+
+            <TextView
+                android:id="@+id/averageDeliveryPrice"
+                style="@style/TextViewBlack"
+                android:layout_margin="@dimen/small_margin_in_app"/>
+
+            <TextView
+                android:id="@+id/averageDeliveryCommission"
+                style="@style/TextViewBlack"
+                android:layout_margin="@dimen/small_margin_in_app"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        style="@style/MatchBoth"
+        android:layout_weight="0.4"
+        android:layout_height="0dp"
+        android:padding="@dimen/small_margin_in_app">
+
+        <lecho.lib.hellocharts.view.PieChartView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/statistics_pie_chart"
+            style="@style/MatchBoth" />
+
+    </LinearLayout>
+
+</LinearLayout>

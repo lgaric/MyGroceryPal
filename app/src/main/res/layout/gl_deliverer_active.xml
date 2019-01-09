@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- OVO JE JEDAN STORE ITEM -->
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="0dp"
+    android:layout_marginTop="5dp"
+    android:foreground="?android:selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- BOJA -->
+
+        <View
+            android:id="@+id/color_track"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            android:layout_weight=".02"/>
+
+        <!-- DETALJI GL-A -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="0.68">
+
+            <TextView
+                style="@style/TextViewGroceryListItemTitle"
+                android:id="@+id/store_name"
+                tools:text="Trgovina"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+            <TextView
+                style="@style/TextViewGroceryListItem"
+                android:id="@+id/price"
+                tools:text="Price: 500kn"/>
+
+            <TextView
+                style="@style/TextViewGroceryListItem"
+                android:id="@+id/commision"
+                tools:text="Commision: 25kn" />
+
+            <TextView
+                style="@style/TextViewGroceryListItem"
+                android:id="@+id/address"
+                tools:text="Delivery adress: Ulica 23" />
+
+            <TextView
+                style="@style/TextViewGroceryListItem"
+                android:id="@+id/delivery_town"
+                tools:text="Delivery town: Bjelovar" />
+
+        </LinearLayout>
+
+
+        <View
+            style="@style/verticalDivider"/>
+
+        <!-- GUMBOVI -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="0.3">
+
+                <Button
+                    style="@style/ButtonTabOperation"
+                    android:text="@string/acceptCaps"
+                    android:id="@+id/accept_gl"
+                    android:layout_weight="1"/>
+
+                <Button
+                    style="@style/ButtonTabOperation"
+                    android:text="@string/ignoreCaps"
+                    android:id="@+id/ignore_gl"
+                    android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

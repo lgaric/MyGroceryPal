@@ -14,25 +14,21 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/WrapHeightMatchWidth"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:src="@drawable/ic_person_black_24dp"
         android:layout_gravity="center"/>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/nav_header_username"
+        style="@style/WrapHeightMatchWidth"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="@string/nav_header_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:gravity="center"/>
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/nav_header_info"
+        android:id="@+id/nav_header_email"
+        style="@style/WrapBoth"
         android:layout_gravity="center"
         android:gravity="center"/>
 

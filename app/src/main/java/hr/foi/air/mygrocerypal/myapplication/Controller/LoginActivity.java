@@ -1,90 +1,87 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
-
-import hr.foi.air.mygrocerypal.myapplication.Core.BaseActivity;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.LoginHelper;
+import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.LoginListener;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends AppCompatActivity implements LoginListener {
+    private EditText mUsername, mPassword;
+    private LoginHelper mLoginHelper;
+    private LinearLayout mProgressLayout;
+    private LinearLayout mNameAndLogoApp;
 
-    private EditText username, password;
-    private FirebaseAuth mAuth;
-
+    /**
+     * Inicijalizacija
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        username = (EditText) findViewById(R.id.usernameLogin);
-        password = (EditText) findViewById(R.id.passwordLogin);
+        mUsername = findViewById(R.id.usernameLogin);
+        mPassword = findViewById(R.id.passwordLogin);
+        mProgressLayout = findViewById(R.id.linlaHeaderProgress);
+        mNameAndLogoApp = findViewById(R.id.logoAndAppname);
 
+        ProgressBar mProgressBar = findViewById(R.id.pbHeaderProgress);
+        mProgressBar.getIndeterminateDrawable().
+                setColorFilter(getResources().getColor(R.color.colorAccent), android.graphics.PorterDuff.Mode.MULTIPLY);
+
+        mLoginHelper = new LoginHelper(this);
     }
 
-    public void Login(View view){
-
-        String username = this.username.getText().toString().trim();
-        String password = this.password.getText().toString().trim();
-
-        if(username.isEmpty() || password.isEmpty()) {
-            showToast("Ispunite odgovarajuća polja!");
-            return;
-        }
-
-        mAuth = FirebaseAuth.getInstance();
-
-        mAuth.signInWithEmailAndPassword(username, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful())
-                        {
-                            if(mAuth.getCurrentUser().isEmailVerified()) {
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                LoginActivity.this.startActivity(intent);
-//                                ShowActivity(MainActivity.class);
-                            }
-                            else {
-                                showToast("Email nije verificiran");
-                            }
-                        }
-                        else{
-
-                            String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
-
-                            switch(errorCode) {
-                                case "ERROR_INVALID_EMAIL":
-                                    showToast("Neispravan Email");
-                                    break;
-                                case "ERROR_WRONG_PASSWORD":
-                                    showToast("Neispravna lozinka");
-                                    break;
-                                case "ERROR_USER_NOT_FOUND":
-                                    showToast("Nepostojeći korisnik");
-                                    break;
-                                default:
-                                    showToast("Greška");
-                                    break;
-                            }
-                        }
-                    }
-                });
+    /**
+     * Pokretanje postupka prijave korisnika
+     * @param view
+     */
+    public void login(View view){
+        mLoginHelper.login(mUsername.getText().toString(), mPassword.getText().toString(), mProgressLayout, mNameAndLogoApp);
     }
 
-    public void ShowRegister(View view) {
-        ShowActivity(RegisterActivity.class);
+    /**
+     * Prikazi Activity za registraciju korisnika
+     * @param view
+     */
+    public void showRegister(View view) {
+        startActivity(new Intent(this, RegistrationActivity.class));
+        this.finish();
     }
 
-    public void ShowRecoveryPassword(View view) {
-        ShowActivity(PasswordRecoveryActivity.class);
+    /**
+     * Prikazi Activity za obnovu lozinke
+     * @param view
+     */
+    public void showRecoveryPassword(View view) {
+        startActivity(new Intent(this,PasswordRecoveryActivity.class));
+        this.finish();
+    }
+
+    /**
+     * Prikazi razlog neuspjesne prijave
+     * @param mMessage
+     */
+    @Override
+    public void onStatusFailed(String mMessage) {
+        Toast.makeText(this, mMessage, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * Prijava je uspjesna. Otvori glavni Activity
+     */
+    @Override
+    public void onStatusSuccess() {
+        startActivity(new Intent(this, MainActivity.class));
+        this.finish();
     }
 }

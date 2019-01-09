@@ -17,10 +17,16 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.sonarqube" version "2.6"
+}
+
 allprojects {
     repositories {
         google()
         jcenter()
+
+        maven { url 'https://jitpack.io' }
     }
 }
 

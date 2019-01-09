@@ -1,44 +1,121 @@
 <resources>
     <string name="app_name">MyGroceryPal</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="zaboravljenaLozinka">Zaboravljena lozinka?</string>
-    <string name="registracija">Nemate račun? Registrirajte se</string>
-    <string name="prijava">Prijava</string>
-    <string name="MyGroceryPal">MyGroceryPal"</string>
-    <string name="registerUser">Registriraj se!</string>
-    <string name="test_button">Test database</string>
-    <string name="store_image">Store image</string>
-    <string name="preferences">Preferences</string>
-    <string name="title_activity_discount_details">Discount details</string>
-    <string name="cancel">Cancel</string>
-    <string name="delete">Delete</string>
-    <string name="removal_question">Do you wish to remove this item?</string>
+    <string name="forgotPassword">Zaboravljena lozinka?</string>
+    <string name="registrationOnLogin">Nemate račun? Registrirajte se!</string>
+    <string name="login">Prijava</string>
+    <string name="register">Registriraj se!</string>
+    <string name="firstname">Ime</string>
+    <string name="lastname">Prezime</string>
+    <string name="email">Email</string>
+    <string name="password">Lozinka</string>
+    <string name="repeatPassword">Ponovite lozinku</string>
+    <string name="address">Adresa</string>
+    <string name="city">Grad</string>
+    <string name="birthDate">Datum rođenja</string>
+    <string name="contact">Kontakt</string>
+    <string name="back">Povratak</string>
+    <string name="send">Pošalji</string>
+    <string name="confirm">Potvrdi</string>
+    <string name="pleaseInsertEmail">Molimo Vas, unesite Vašu e-mail adresu!</string>
+    <string name="activeCaps">AKTIVNI</string>
+    <string name="pastCaps">PROŠLI</string>
+    <string name="ignoredCaps">IGNORIRANI</string>
+    <string name="acceptedCaps">PRIHVAĆENI</string>
+    <string name="printLocation">ISPIŠI LOKACIJU</string>
+    <string name="acceptCaps">PRIHVATI</string>
+    <string name="ignoreCaps">IGNORIRAJ</string>
+    <string name="returnCaps">VRATI</string>
+    <string name="repeatCaps">PONOVI</string>
+    <string name="plusCaps" translatable="false">+</string>
+    <string name="minusCaps" translatable="false">-</string>
+    <string name="changeCaps">PROMIJENI</string>
+    <string name="changeHeadingCaps">PROMIJENA</string>
+    <string name="changePasswordCaps">PROMIJENI LOZINKU</string>
 
-    <string name="username">Username</string>
-    <string name="load_data_from">Load data from web service by default?</string>
-    <string name="app_lang_pref">Language preference</string>
 
-    <string name="navigation_drawer_open">Open drawer</string>
-    <string name="navigation_drawer_close">Close drawer</string>
+    <string name="store">Trgovina</string>
+    <string name="commission">"Provizija"</string>
+    <string name="croatianKuna">"Kuna"</string>
+    <string name="croatianKunaShort">"KN"</string>
+    <string name="addedProducts">"Dodani proizvodi"</string>
+    <string name="addProduct">"Dodaj proizvod"</string>
+    <string name="totalPriceSemicolon">"Ukupna cijena: "</string>
 
-    <string name="nav_header_title">MyGroceryPal</string>
-    <string name="nav_header_info">imeprezime@foi.hr</string>
+    <string name="deliverer">Dobavljač</string>
+    <string name="price">"Cijena: "</string>
+    <string name="client">Naručitelj</string>
+    <string name="more">Dodatno</string>
+    <string name="pay">Uplati</string>
+    <string name="statistics">Statistika</string>
+    <string name="logout">Odjavi se</string>
+    <string name="myAddress">"Moja adresa"</string>
+    <string name="otherAddress">"Druga adresa"</string>
+    <string name="pickDate">Odaberite datum</string>
+    <string name="boughtSemicolon">"Kupljeno: "</string>
+    <string name="contactSemicolon">"Kontakt: "</string>
+    <string name="pickStoreSemicolon">"Odaberite dućan: "</string>
+    <string name="validFromSemicolon">"Vrijedi od:</string>
+    <string name="delivererSemicolon">"Dobavljač: "</string>
+    <string name="storeSemicolon">"Trgovina: "</string>
+    <string name="commisionSemicolon">"Provizija: "</string>
+    <string name="orders">Narudžbe</string>
+    <string name="deliveries">Dostave</string>
+    <string name="ordersSemicolon">Narudžbe</string>
+    <string name="deliveriesSemicolon">Dostave</string>
+    <string name="delivererAcceptedGLMessage">Trenutno nemate prihvaćene kupovne liste.</string>
+    <string name="delivererActiveGLMessage">Trenutno nema aktivnih kupovnih lista u vašem području.</string>
+    <string name="delivererIgnoredGLMessage">Trenutno nemate ignorirane kupovne liste.</string>
 
-    <string name="menu_list">List view</string>
-    <string name="menu_map">Map view</string>
-    <string name="menu_about">About app</string>
-    <string name="action_settings">Settings</string>
 
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string-array name="groceryListExamples">
-        <item>Kruške</item>
-        <item>Jabuke</item>
-        <item>Šljive</item>
-        <item>Naranče</item>
-        <item>Mandarine</item>
-        <item>Lubenice</item>
+    <string name="test_button" translatable="false">Test database</string>
+    <string name="store_image" translatable="false">Store image</string>
+    <string name="preferences" translatable="false">Preferences</string>
+    <string name="app_lang_pref" translatable="false">Jezik</string>
+
+
+    <string name="cancel">Odustani</string>
+    <string name="delete">Obriši</string>
+
+    <string name="username">Korisničko ime</string>
+
+    <string name="navigation_drawer_open">Otvoren drawer</string>
+    <string name="navigation_drawer_close">Zatvoren drawer</string>
+
+    <string name="nav_header_info" translatable="false">imeprezime@foi.hr</string>
+
+
+    <string name="menu_about">O aplikaciji</string>
+    <string name="action_settings">Postavke</string>
+    <string name="progressBar" translatable="false">Progress Bar</string>
+
+
+    <string name="searchLocation">Lokacijsko traženje</string>
+
+    <string name="tab" translatable="false">\u0009</string>
+    <string name="commison">Provizija</string>
+
+
+    <!-- POLJE POSTAVKE / START -->
+
+    <string name="passwordArray">Lozinka</string>
+    <string name="cityArray">Grad/Adresa</string>
+    <string name="phoneArray">Mobitel</string>
+
+    <string-array name="settingsArray">
+        <item>@string/passwordArray</item>
+        <item>@string/cityArray</item>
+        <item>@string/phoneArray</item>
     </string-array>
+
+    <!-- POLJE POSTAVKE / END -->
+
+    <!-- SPINNER COLOR START -->
+
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- SPINNER END -->
 </resources>

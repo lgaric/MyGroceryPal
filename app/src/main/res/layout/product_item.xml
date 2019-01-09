@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    style="@style/WrapHeightMatchWidth">
+
+    <TextView
+        style="@style/EditTextItem"
+        android:textSize="@dimen/item_size_text"
+        android:id="@+id/productName"
+        android:gravity="center"
+        tools:text="Product name" />
+
+    <LinearLayout
+        style="@style/WrapHeightMatchWidth"
+        android:orientation="horizontal"
+        android:layout_below="@+id/productNameLayout">
+
+        <TextView
+            style="@style/EditTextItem"
+            android:layout_width="0dp"
+            android:id="@+id/productPrice"
+            android:gravity="center"
+            tools:text="Price"
+            android:textSize="@dimen/item_size_text"
+            android:layout_weight=".3" />
+
+        <ImageButton
+            style="@style/ButtonQuantity"
+            android:id="@+id/btnGroceryDecreaseAmount"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:src="@drawable/ic_remove_circle_outline_black_24dp"
+            android:layout_weight=".2" />
+
+        <EditText
+            style="@style/EditTextItem"
+            android:background="@drawable/edit_text_with_underline"
+            android:textSize="@dimen/item_size_text"
+            android:gravity="center"
+            android:id="@+id/productQuantity"
+            android:layout_width="0dp"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
+            android:layout_weight=".3"/>
+
+        <ImageButton
+            style="@style/ButtonQuantity"
+            android:id="@+id/btnGroceryIncreaseAmount"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_add_circle_outline_black_24dp"
+            android:layout_weight=".2"/>
+
+    </LinearLayout>
+
+</LinearLayout>
+

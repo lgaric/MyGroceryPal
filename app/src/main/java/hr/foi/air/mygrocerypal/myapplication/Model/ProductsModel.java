@@ -1,11 +1,12 @@
 package hr.foi.air.mygrocerypal.myapplication.Model;
 
-public class ProductsModel {
+import com.example.filter.FilterableObject;
+
+public class ProductsModel extends FilterableObject {
+    private String product_key;
     private String category_id;
-    private String category_name;
-    private String current_price;
+    private double current_price;
     private String image_url;
-    private String name;
     private String store_id;
     private String store_name;
 
@@ -25,11 +26,11 @@ public class ProductsModel {
         this.category_name = category_name;
     }
 
-    public String getCurrent_price() {
+    public double getCurrent_price() {
         return current_price;
     }
 
-    public void setCurrent_price(String current_price) {
+    public void setCurrent_price(double current_price) {
         this.current_price = current_price;
     }
 
@@ -63,5 +64,13 @@ public class ProductsModel {
 
     public void setStore_name(String store_name) {
         this.store_name = store_name;
+    }
+
+    public String getProduct_key() {
+        return product_key;
+    }
+
+    public void setProduct_key(String product_key) {
+        this.product_key = product_key;
     }
 }

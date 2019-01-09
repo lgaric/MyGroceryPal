@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- OVAJ LAYOUT SE KORISTI U ClientGroceryListFragment.java -->
+<!-- OVO JE ZAJEDNICKI FRAGMENT ZA PROSLE I SADAŠNJE GROCERY LISTE
+POTREBNO JE SAMO MJENJATI FRAGMENT KOJI SE POZIVA U FRAMELAYOUT KOMPONENTI-->
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/active_client_btn"
+                style="@style/ButtonTabTopMenu"
+                android:layout_weight="0.5"
+                android:text="@string/activeCaps"/>
+
+            <View
+                style="@style/verticalDivider" />
+
+            <Button
+                android:id="@+id/past_client_btn"
+                style="@style/ButtonTabTopMenu"
+                android:layout_weight="0.5"
+                android:text="@string/pastCaps"/>
+
+        </LinearLayout>
+
+        <View
+            style="@style/horizontalDivider" />
+
+        <TextView
+            android:id="@+id/noneClientGL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="Trenutno nemate kupovne liste."
+            android:textAlignment="center"/>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swiperefreshPastLists"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingButtonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_add_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

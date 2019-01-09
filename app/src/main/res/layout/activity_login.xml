@@ -1,14 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:name="hr.foi.air.mygrocerypal.myapplication.View.LoginFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/fragment"
-    tools:layout="@layout/fragment_login"
+    android:orientation="vertical"
+    android:background="@color/colorPrimaryDark"
     tools:context=".Controller.LoginActivity">
 
+    <LinearLayout
+        android:id="@+id/linlaHeaderProgress"
+        style="@style/WrapBoth"
+        android:layout_margin="@dimen/default_margin_in_app"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+        <ProgressBar
+            android:id="@+id/pbHeaderProgress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </ProgressBar>
+    </LinearLayout>
 
 
-</fragment>
+    <LinearLayout
+        style="@style/WrapHeightMatchWidth"
+        android:id="@+id/buttons"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true">
+
+        <EditText
+            style="@style/EditTextLogin"
+            android:id="@+id/usernameLogin"
+            android:hint="@string/username" />
+
+        <EditText
+            style="@style/EditTextLogin"
+            android:id="@+id/passwordLogin"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/forgotPasswordLogin"
+            style="@style/TextViewWhite"
+            android:text="@string/forgotPassword"
+            android:onClick="showRecoveryPassword"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/WrapHeightMatchWidth"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:id="@+id/logoAndAppname">
+
+        <ImageView
+            android:id="@+id/logoApp"
+            style="@style/AppLogoImage" />
+
+        <TextView
+            style="@style/TextViewBigWhite"
+            android:id="@+id/nameApp"
+            android:text="@string/app_name" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/WrapHeightMatchWidth"
+        android:layout_below="@+id/buttons"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/buttonLogin"
+            style="@style/ButtonLightBlue"
+            android:text="@string/login"
+            android:onClick="login"/>
+
+        <TextView
+            android:id="@+id/buttonLoginRegistration"
+            style="@style/TextViewWhite"
+            android:text="@string/registrationOnLogin"
+            android:onClick="showRegister"/>
+    </LinearLayout>
+
+</RelativeLayout>
