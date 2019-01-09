@@ -66,6 +66,8 @@
                         android:textSize="@dimen/item_size_text"
                         android:hint="@string/address"
                         android:textColor="@color/black"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
                         android:textColorHint="@color/black"/>
 
                     <EditText
@@ -74,6 +76,8 @@
                         android:layout_weight="1"
                         style="@style/LeftAndRightMargin"
                         android:textSize="@dimen/item_size_text"
+                        android:singleLine="true"
+                        android:imeOptions="actionDone"
                         android:layout_height="wrap_content"
                         android:hint="@string/city"
                         android:textColor="@color/black"

@@ -42,11 +42,11 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
         if(mListOfAddedProducts != null){
             ProductsModel allreadyAddedProduct = alleadyAddedProduct(mProductsList.get(position));
             if(allreadyAddedProduct != null)
-                selectProductsHolder.bind(allreadyAddedProduct, mListOfAddedProducts, mProductQuantity, position);
+                selectProductsHolder.bind(allreadyAddedProduct, mListOfAddedProducts, mProductQuantity);
             else
-                selectProductsHolder.bind(mProductsList.get(position), mListOfAddedProducts, 0, position);
+                selectProductsHolder.bind(mProductsList.get(position), mListOfAddedProducts, 0);
         }else
-            selectProductsHolder.bind(mProductsList.get(position), mListOfAddedProducts, 0, position);
+            selectProductsHolder.bind(mProductsList.get(position), mListOfAddedProducts, 0);
     }
 
     private ProductsModel alleadyAddedProduct(ProductsModel productsModel){
@@ -72,7 +72,6 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
     public class SelectProductsHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private GroceryListProductsModel mProduct;
-        private int mProductPosition;
         private ProductsModel mProductsModel;
         private TextView mProductName, mProductPrice;
         private ImageButton btnIncreaseGroceryAmount, btnDecreaseGroceryAmount;
@@ -115,9 +114,8 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
         };
 
 
-        public void bind(ProductsModel mProduct, List<GroceryListProductsModel> mListOfAddedProducts, int mProductQuantity, int position){
+        public void bind(ProductsModel mProduct, List<GroceryListProductsModel> mListOfAddedProducts, int mProductQuantity){
             this.mListOfAddedProducts = mListOfAddedProducts;
-            this.mProductPosition = position;
             this.mProductsModel = mProduct;
             this.mProductName.setText(mProduct.getName());
             this.mProductPrice.setText(Double.toString(mProduct.getCurrent_price()));
@@ -149,16 +147,13 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
         private void increaseAmount(){
             if(mProduct == null){
                 addSelectedProductToGroceryList(1);
-                Log.d("Check: Dodaj", mListOfAddedProducts.get(mProductPosition).getName());
                 mProductQuantity.setText("1");
             }else{
                 mProduct.setQuantity(mProduct.getQuantity() + 1);
-
-                Log.d("Check: Povecaj", mListOfAddedProducts.get(mProductPosition).getName());
-
-                mListOfAddedProducts.get(mProductPosition).setQuantity(mProduct.getQuantity());
+                mListOfAddedProducts.get(getProductPositionInList(mProduct)).setQuantity(mProduct.getQuantity());
                 mProductQuantity.setText(Integer.toString(mProduct.getQuantity()));
             }
+
         }
 
         /**
@@ -168,17 +163,26 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
             if(mProduct != null){
                 if(mProduct.getQuantity() > 1){
                     mProduct.setQuantity(mProduct.getQuantity() - 1);
-                    Log.d("Check: Smanji", mListOfAddedProducts.get(mProductPosition).getName());
-                    mListOfAddedProducts.get(mProductPosition).setQuantity(mProduct.getQuantity());
+                    mListOfAddedProducts.get(getProductPositionInList(mProduct)).setQuantity(mProduct.getQuantity());
                     mProductQuantity.setText(Integer.toString(mProduct.getQuantity()));
                 }
                 else{
-                    mListOfAddedProducts.remove(mProductPosition);
-                    Log.d("Check: Ukloni", mListOfAddedProducts.get(mProductPosition).getName());
+                    mListOfAddedProducts.remove(getProductPositionInList(mProduct));
                     mProduct = null;
                     mProductQuantity.setText("0");
                 }
             }
+
+        }
+
+        private int getProductPositionInList(GroceryListProductsModel mProduct){
+            int position = 0;
+            for(GroceryListProductsModel product : mListOfAddedProducts){
+                if(product.getName().equals(mProduct.getName()))
+                    return position;
+                position++;
+            }
+            return 0;
         }
 
         /**
@@ -187,17 +191,29 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
         private void updateQuantity(){
             int currentQuantity = Integer.parseInt(mProductQuantity.getText().toString());
 
-            if(currentQuantity == 0){
+            //ako korisnik izbrise sve iz EditTexta
+            if(isEmpty(mProductQuantity)){
                 if(mProduct != null){
-                    mListOfAddedProducts.remove(mProduct);
-                    mProduct = null;
+                    mProduct.setQuantity(0);
+                    mListOfAddedProducts.remove(getProductPositionInList(mProduct));
                 }
+                mProductQuantity.setText("0");
+            }else if (currentQuantity == 0 && mProduct != null){
+                mProduct.setQuantity(0);
+                mListOfAddedProducts.remove(getProductPositionInList(mProduct));
                 mProductQuantity.setText("0");
             }else if(currentQuantity > 0 && mProduct != null){
                 mProduct.setQuantity(currentQuantity);
-                mListOfAddedProducts.get(mProductPosition).setQuantity(mProduct.getQuantity());
+                mListOfAddedProducts.get(getProductPositionInList(mProduct)).setQuantity(mProduct.getQuantity());
+            }else if(currentQuantity > 0 && mProduct == null){
+                addSelectedProductToGroceryList(currentQuantity);
+                mProductQuantity.setText(Integer.toString(currentQuantity));
             }
+        }
 
+        private boolean isEmpty(EditText mEditText){
+            if(mEditText.getText().toString().trim().length() > 0) return false;
+            else return true;
         }
     }
 }
