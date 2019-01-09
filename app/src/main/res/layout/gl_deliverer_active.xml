@@ -64,6 +64,10 @@
 
         </LinearLayout>
 
+
+        <View
+            style="@style/verticalDivider"/>
+
         <!-- GUMBOVI -->
 
         <LinearLayout
@@ -72,18 +76,17 @@
             android:orientation="vertical"
             android:layout_weight="0.3">
 
-            <Button
-                style="@style/ButtonLightBlue"
-                android:text="@string/acceptCaps"
-                android:id="@+id/accept_gl"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/small_margin_in_app"/>
-            <Button
-                style="@style/ButtonLightBlue"
-                android:text="@string/ignoreCaps"
-                android:id="@+id/ignore_gl"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/small_margin_in_app"/>
+                <Button
+                    style="@style/ButtonTabOperation"
+                    android:text="@string/acceptCaps"
+                    android:id="@+id/accept_gl"
+                    android:layout_weight="1"/>
+
+                <Button
+                    style="@style/ButtonTabOperation"
+                    android:text="@string/ignoreCaps"
+                    android:id="@+id/ignore_gl"
+                    android:layout_weight="1"/>
 
         </LinearLayout>
 

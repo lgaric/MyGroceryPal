@@ -1,46 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+    android:orientation="vertical"
+    style="@style/WrapHeightMatchWidth"
+    android:layout_margin="@dimen/small_margin_in_app">
 
     <TextView
-        style="@style/EditTextWhite"
-        android:layout_width="0dp"
+        style="@style/EditTextItem"
+        android:textSize="@dimen/item_size_text"
         android:id="@+id/productName"
-        tools:text="Product name"
-        android:layout_weight=".3"/>
+        android:gravity="center"
+        tools:text="Product name" />
 
+    <LinearLayout
+        style="@style/WrapHeightMatchWidth"
+        android:orientation="horizontal"
+        android:layout_below="@+id/productNameLayout">
 
-    <ImageButton
-        style="@style/ButtonQuantity"
-        android:id="@+id/btnGroceryDecreaseAmount"
-        android:layout_width="0dp"
-        android:src="@drawable/ic_remove_circle_outline_black_24dp"
-        android:layout_weight=".1" />
+        <ImageButton
+            style="@style/ButtonQuantity"
+            android:id="@+id/btnGroceryDecreaseAmount"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:src="@drawable/ic_remove_circle_outline_black_24dp"
+            android:layout_weight=".2" />
 
-    <EditText
-        style="@style/EditTextWhite"
-        android:id="@+id/productQuantity"
-        tools:text="Quantity"
-        android:layout_width="0dp"
-        android:layout_weight=".1"/>
+        <EditText
+            style="@style/EditTextItem"
+            android:background="@drawable/edit_text_with_underline"
+            android:textSize="@dimen/item_size_text"
+            android:gravity="center"
+            android:id="@+id/productQuantity"
+            android:layout_width="0dp"
+            android:layout_weight=".3"/>
 
-    <ImageButton
-        style="@style/ButtonQuantity"
-        android:id="@+id/btnGroceryIncreaseAmount"
-        android:layout_width="0dp"
-        android:src="@drawable/ic_add_circle_outline_black_24dp"
-        android:layout_weight=".1"/>
+        <ImageButton
+            style="@style/ButtonQuantity"
+            android:id="@+id/btnGroceryIncreaseAmount"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_add_circle_outline_black_24dp"
+            android:layout_weight=".2"/>
 
-    <ImageButton
-        style="@style/ButtonQuantity"
-        android:id="@+id/groceryDelete"
-        android:layout_width="0dp"
-        android:src="@drawable/ic_delete_forever_black_24dp"
-        android:layout_weight=".1"/>
+        <ImageButton
+            style="@style/ButtonQuantity"
+            android:id="@+id/groceryDelete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_delete_forever_black_24dp"
+            android:layout_weight=".1"/>
+
+    </LinearLayout>
 
 </LinearLayout>

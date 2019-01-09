@@ -9,8 +9,7 @@
 
     <LinearLayout
         android:id="@+id/linlaHeaderProgress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/WrapBoth"
         android:layout_margin="@dimen/default_margin_in_app"
         android:gravity="center"
         android:orientation="vertical"
@@ -28,8 +27,7 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/WrapHeightMatchWidth"
         android:id="@+id/buttons"
         android:orientation="vertical"
         android:gravity="center"
@@ -55,8 +53,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/WrapHeightMatchWidth"
         android:orientation="vertical"
         android:layout_alignParentTop="true"
         android:id="@+id/logoAndAppname">
@@ -73,8 +70,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/WrapHeightMatchWidth"
         android:layout_below="@+id/buttons"
         android:orientation="vertical">
 
@@ -90,4 +86,5 @@
             android:text="@string/registrationOnLogin"
             android:onClick="showRegister"/>
     </LinearLayout>
+
 </RelativeLayout>

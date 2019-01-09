@@ -256,12 +256,13 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
             return;
 
         String phone = mPhoneNumber.getText().toString();
-        if(phone.length() != 8 && phone.length() != 9){
+        if(phone.length() != 10 && phone.length() != 9){
             Toast.makeText(getContext(), "Ovo nije broj mobilnog telefona", Toast.LENGTH_LONG).show();
             return;
         }
 
-        userInformationHelper.updateUserPhoneNumber(CurrentUser.getCurrentUser.getUserUID(), phone);
+        String result = userInformationHelper.updateUserPhoneNumber(CurrentUser.getCurrentUser.getUserUID(), phone);
+        Toast.makeText(getContext(), result, Toast.LENGTH_LONG).show();
     }
 
     /**

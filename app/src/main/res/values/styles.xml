@@ -1,6 +1,7 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <!-- Base application theme. START -->
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryDark</item>
@@ -24,16 +25,37 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-
-    <style name="MatchParent">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-    </style>
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+
+    <!-- Base application theme. END -->
+
+    <!-- Width and height START -->
+
+    <style name="MatchBoth">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="WrapBoth">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="WrapHeightMatchWidth">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MatchHeightWrapWidth">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <!-- Width and height END -->
 
     <!--EditText styles-->
 
@@ -62,6 +84,15 @@
         <item name="android:inputType">text</item>
     </style>
 
+    <style name="EditTextItem">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/item_size_text_header</item>
+    </style>
+
     <!-- End of EditText styles-->
 
     <!-- TextView styles-->
@@ -88,6 +119,10 @@
         <item name="android:textSize">@dimen/text_size_in_app</item>
     </style>
 
+    <style name="TextViewBlack" parent="TextViewWhite">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="TextViewBigWhite">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -95,6 +130,10 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/text_size_big_in_app</item>
+    </style>
+
+    <style name="TextViewBigBlack" parent="TextViewWhite">
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="TextViewGroceryListItem">
@@ -113,6 +152,14 @@
     </style>
 
     <!-- End of TextView styles-->
+
+    <!-- Margins -->
+
+
+    <style name="LeftAndRightMargin" parent="TextViewGroceryListItem">
+        <item name="android:layout_marginLeft">@dimen/small_margin_in_app</item>
+        <item name="android:layout_marginRight">@dimen/small_margin_in_app</item>
+    </style>
 
     <!--Layout styles -->
 
@@ -160,6 +207,20 @@
         <item name="android:background">@drawable/button_light_blue_background</item>
     </style>
 
+    <style name="ButtonTabTopMenu">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">@dimen/text_size_in_app</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="ButtonTabOperation" parent="ButtonTabTopMenu">
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
     <style name="ButtonPink">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -205,6 +266,18 @@
         <item name="android:layout_height">100sp</item>
         <item name="android:src">@mipmap/ic_launcher</item>
         <item name="android:layout_margin">@dimen/small_margin_in_app</item>
+    </style>
+
+    <style name="verticalDivider">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
+
+    <style name="horizontalDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">?android:attr/listDivider</item>
     </style>
 
     <!--End of Other styles-->

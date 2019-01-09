@@ -166,6 +166,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
      */
     public void showLogin(){
         startActivity(new Intent(this,LoginActivity.class));
+        this.finish();
     }
 
     /**

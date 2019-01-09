@@ -61,8 +61,12 @@
     <string name="commisionSemicolon">"Provizija: "</string>
     <string name="orders">Narudžbe</string>
     <string name="deliveries">Dostave</string>
-    <string name="ordersSemicolon">Narudžbe:</string>
-    <string name="deliveriesSemicolon">Dostave:</string>
+    <string name="ordersSemicolon">Narudžbe</string>
+    <string name="deliveriesSemicolon">Dostave</string>
+    <string name="delivererAcceptedGLMessage">Trenutno nemate prihvaćene kupovne liste.</string>
+    <string name="delivererActiveGLMessage">Trenutno nema aktivnih kupovnih lista u vašem području.</string>
+    <string name="delivererIgnoredGLMessage">Trenutno nemate ignorirane kupovne liste.</string>
+
 
 
     <string name="test_button" translatable="false">Test database</string>

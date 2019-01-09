@@ -11,4 +11,9 @@
     <dimen name="default_margin_in_app">10dp</dimen>
     <dimen name="small_margin_in_app">5dp</dimen>
     <dimen name="height_of_edit_text_in_app">40dp</dimen>
+    <dimen name="item_size_text_header">21dp</dimen>
+    <dimen name="item_size_text">16dp</dimen>
+    <dimen name="item_small_picture">30dp</dimen>
+    <dimen name="button_margin">70dp</dimen>
+
 </resources>

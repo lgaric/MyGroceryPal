@@ -1,50 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimaryDark">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MatchBoth">
 
     <LinearLayout
-        style="@style/LinearLayoutRoundVertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        style="@style/MatchBoth"
         android:background="@color/white"
+        android:layout_margin="@dimen/small_margin_in_app"
         android:orientation="vertical">
 
         <SearchView
             android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/WrapHeightMatchWidth"
             android:background="@drawable/shape_product_name"
-            android:layout_margin="@dimen/default_margin_in_app">
-        </SearchView>
+            android:layout_margin="@dimen/small_margin_in_app"/>
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin_in_app">
-
-        </Spinner>
-
+            style="@style/WrapHeightMatchWidth"
+            android:layout_margin="@dimen/small_margin_in_app"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin_in_app"
-            android:orientation="vertical">
+            style="@style/MatchBoth"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/button_margin">
 
-                <TextView
-                    android:id="@+id/listName"
-                    style="@style/TextViewBigWhite"
-                    android:text="Popis proizvoda"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:layout_margin="@dimen/default_margin_in_app"/>
+            <TextView
+                android:id="@+id/listName"
+                style="@style/TextViewBigWhite"
+                android:text="Popis proizvoda"
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/noneProducts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/WrapHeightMatchWidth"
                 android:visibility="gone"
                 android:text="Nema proizvoda prema zadanim kriterijima."
                 android:textAlignment="center"/>
@@ -52,17 +40,16 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/small_margin_in_app"/>
+                style="@style/MatchBoth" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/addProductsToGroceryList"
-            android:text="@string/addProduct"
-            style="@style/ButtonLightBlue" />
-
     </LinearLayout>
+
+    <Button
+        android:id="@+id/addProductsToGroceryList"
+        android:text="@string/addProduct"
+        style="@style/ButtonLightBlue"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

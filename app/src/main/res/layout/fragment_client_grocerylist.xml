@@ -19,23 +19,27 @@ POTREBNO JE SAMO MJENJATI FRAGMENT KOJI SE POZIVA U FRAMELAYOUT KOMPONENTI-->
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:layout_marginLeft="40sp"
-            android:layout_marginRight="40sp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/active_client_btn"
-                style="@style/ButtonLightBlue"
-                android:layout_weight="1"
+                style="@style/ButtonTabTopMenu"
+                android:layout_weight="0.5"
                 android:text="@string/activeCaps"/>
+
+            <View
+                style="@style/verticalDivider" />
 
             <Button
                 android:id="@+id/past_client_btn"
-                style="@style/ButtonLightBlue"
-                android:layout_weight="1"
+                style="@style/ButtonTabTopMenu"
+                android:layout_weight="0.5"
                 android:text="@string/pastCaps"/>
 
         </LinearLayout>
+
+        <View
+            style="@style/horizontalDivider" />
 
         <TextView
             android:id="@+id/noneClientGL"
@@ -49,7 +53,8 @@ POTREBNO JE SAMO MJENJATI FRAGMENT KOJI SE POZIVA U FRAMELAYOUT KOMPONENTI-->
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/swiperefreshPastLists"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="3dp">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"

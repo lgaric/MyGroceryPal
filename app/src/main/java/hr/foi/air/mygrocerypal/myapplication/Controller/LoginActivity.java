@@ -55,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
      */
     public void showRegister(View view) {
         startActivity(new Intent(this, RegistrationActivity.class));
+        this.finish();
     }
 
     /**
@@ -63,6 +64,7 @@ public class LoginActivity extends AppCompatActivity implements LoginListener {
      */
     public void showRecoveryPassword(View view) {
         startActivity(new Intent(this,PasswordRecoveryActivity.class));
+        this.finish();
     }
 
     /**

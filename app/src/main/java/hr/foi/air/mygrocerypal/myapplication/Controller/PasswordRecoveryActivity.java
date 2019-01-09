@@ -55,6 +55,7 @@ public class PasswordRecoveryActivity extends AppCompatActivity implements Passw
      */
     public void showLogin(){
         startActivity(new Intent(this,LoginActivity.class));
+        this.finish();
     }
 
     /**
@@ -74,6 +75,5 @@ public class PasswordRecoveryActivity extends AppCompatActivity implements Passw
     @Override
     public void onRecoveryFail(String mMessage) {
         Toast.makeText(PasswordRecoveryActivity.this, mMessage, Toast.LENGTH_LONG).show();
-
     }
 }

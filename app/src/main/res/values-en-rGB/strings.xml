@@ -62,6 +62,6 @@
     <string name="repeatCaps">REPEAT</string>
     <string name="orders">Orders</string>
     <string name="deliveries">Deliveries</string>
-    <string name="ordersSemicolon">Orders:</string>
-    <string name="deliveriesSemicolon">Deliveries:</string>
+    <string name="ordersSemicolon">Orders</string>
+    <string name="deliveriesSemicolon">Deliveries</string>
 </resources>

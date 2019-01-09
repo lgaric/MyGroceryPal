@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/MyGroceryPal.iml" filepath="$PROJECT_DIR$/MyGroceryPal.iml" />
       <module fileurl="file://$PROJECT_DIR$/MyGroceryPal_2.iml" filepath="$PROJECT_DIR$/MyGroceryPal_2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/filter/filter.iml" filepath="$PROJECT_DIR$/filter/filter.iml" />

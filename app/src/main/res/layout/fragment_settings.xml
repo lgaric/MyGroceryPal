@@ -1,27 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:ndroid="http://schemas.android.com/apk/res-auto"
+    style="@style/MatchBoth"
     android:orientation="vertical"
     tools:context=".Controller.SettingsFragment"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/white">
 
     <!-- ZAGLAVLJE IZBORNIK START -->
 
-    <TextView
-        style="@style/TextViewBigWhite"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/changeHeadingCaps"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/WrapHeightMatchWidth"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:cardCornerRadius="@dimen/small_margin_in_app"
+        app:cardElevation="@dimen/small_margin_in_app"
+        android:foreground="?android:selectableItemBackground"
+        android:layout_margin="@dimen/small_margin_in_app">
+
+        <TextView
+            style="@style/TextViewBigWhite"
+            android:textColor="@color/black"
+            android:text="@string/changeHeadingCaps"/>
+
+    </android.support.v7.widget.CardView>
 
     <Spinner
-        android:background="@drawable/button_light_blue_background"
         android:id="@+id/spinnerOptions"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_margin="10dp" />
+        style="@style/WrapHeightMatchWidth"
+        android:layout_margin="@dimen/default_margin_in_app"
+        android:layout_below="@id/cardView"/>
+
+    <View
+        style="@style/horizontalDivider"
+        android:layout_below="@id/spinnerOptions"/>
+
 
     <!-- ZAGLAVLJE IZBORNIK END -->
 
@@ -29,14 +44,13 @@
 
     <LinearLayout
         android:id="@+id/passwordRecoveryLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/WrapHeightMatchWidth"
+        android:layout_centerInParent="true"
         android:orientation="vertical">
 
         <TextView
             style="@style/TextViewBigWhite"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="@string/changePasswordCaps"/>
 
     </LinearLayout>
@@ -47,22 +61,24 @@
 
     <LinearLayout
         android:id="@+id/cityLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/WrapHeightMatchWidth"
         android:orientation="vertical"
+        android:layout_centerInParent="true"
         android:visibility="gone">
 
         <EditText
             style="@style/EditTextWhite"
             android:id="@+id/txtCity"
             android:focusable="false"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/default_margin_in_app"
+            android:background="@drawable/edit_text_with_underline"
             android:hint="grad"/>
 
         <EditText
             style="@style/EditTextWhite"
             android:id="@+id/txtAddress"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/default_margin_in_app"
+            android:background="@drawable/edit_text_with_underline"
             android:hint="adresa"/>
 
     </LinearLayout>
@@ -73,25 +89,29 @@
 
     <LinearLayout
         android:id="@+id/phoneNumberLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/WrapHeightMatchWidth"
         android:orientation="vertical"
+        android:layout_centerInParent="true"
         android:visibility="gone">
 
         <EditText
             style="@style/EditTextWhite"
             android:inputType="number"
             android:id="@+id/txtPhoneNumber"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/default_margin_in_app"
+            android:background="@drawable/edit_text_with_underline"
             android:hint="broj"/>
 
     </LinearLayout>
 
     <!-- MOBITEL END -->
 
+
     <Button
         style="@style/ButtonLightBlue"
         android:id="@+id/btnChangeProfile"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:text="@string/changeCaps"/>
 
-</LinearLayout>
+</RelativeLayout>
