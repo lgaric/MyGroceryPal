@@ -2,6 +2,7 @@ package hr.foi.air.mygrocerypal.myapplication.Core.Adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,9 +44,9 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
             if(allreadyAddedProduct != null)
                 selectProductsHolder.bind(allreadyAddedProduct, mListOfAddedProducts, mProductQuantity, position);
             else
-                selectProductsHolder.bind(mProductsList.get(position), mListOfAddedProducts, 0, 0);
+                selectProductsHolder.bind(mProductsList.get(position), mListOfAddedProducts, 0, position);
         }else
-            selectProductsHolder.bind(mProductsList.get(position), mListOfAddedProducts, 0, 0);
+            selectProductsHolder.bind(mProductsList.get(position), mListOfAddedProducts, 0, position);
     }
 
     private ProductsModel alleadyAddedProduct(ProductsModel productsModel){
@@ -148,9 +149,13 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
         private void increaseAmount(){
             if(mProduct == null){
                 addSelectedProductToGroceryList(1);
+                Log.d("Check: Dodaj", mListOfAddedProducts.get(mProductPosition).getName());
                 mProductQuantity.setText("1");
             }else{
                 mProduct.setQuantity(mProduct.getQuantity() + 1);
+
+                Log.d("Check: Povecaj", mListOfAddedProducts.get(mProductPosition).getName());
+
                 mListOfAddedProducts.get(mProductPosition).setQuantity(mProduct.getQuantity());
                 mProductQuantity.setText(Integer.toString(mProduct.getQuantity()));
             }
@@ -163,11 +168,13 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
             if(mProduct != null){
                 if(mProduct.getQuantity() > 1){
                     mProduct.setQuantity(mProduct.getQuantity() - 1);
+                    Log.d("Check: Smanji", mListOfAddedProducts.get(mProductPosition).getName());
                     mListOfAddedProducts.get(mProductPosition).setQuantity(mProduct.getQuantity());
                     mProductQuantity.setText(Integer.toString(mProduct.getQuantity()));
                 }
                 else{
                     mListOfAddedProducts.remove(mProductPosition);
+                    Log.d("Check: Ukloni", mListOfAddedProducts.get(mProductPosition).getName());
                     mProduct = null;
                     mProductQuantity.setText("0");
                 }

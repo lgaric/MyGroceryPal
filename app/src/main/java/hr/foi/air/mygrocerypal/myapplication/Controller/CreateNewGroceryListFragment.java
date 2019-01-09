@@ -215,9 +215,9 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     RadioGroup.OnCheckedChangeListener onCheckedChangeListener = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
-            mRadioButton = mRadioGroup.findViewById(checkedId);
+            mRadioButton = mRadioGroup.findViewById(R.id.radioButton);
 
-            if(mRadioButton.getText().equals("Moja adresa")){
+            if(mRadioButton.isChecked()){
                 mAddress.setEnabled(false);
                 mTown.setEnabled(false);
                 mAddress.setText(CurrentUser.getCurrentUser.getAddress());
@@ -249,8 +249,10 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 storeNames.add(mStores.get(i).getName());
             }
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, storeNames);
-            mSpinnerStores.setAdapter(adapter);
+            if(getActivity() != null){
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, storeNames);
+                mSpinnerStores.setAdapter(adapter);
+            }
 
             //PONOVI
             if(mRepeat && mGroceryListsModel != null){
