@@ -215,19 +215,6 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
         return filled;
     }
 
-    private void updateResources(String language) {
-        Locale temp;
-        if(language == null)
-            temp = Locale.getDefault();
-        else
-            temp = new Locale(language);
-        Locale.setDefault(temp);
-        Resources res = getContext().getResources();
-        Configuration config = new Configuration(res.getConfiguration());
-        config.locale = temp;
-        res.updateConfiguration(config, res.getDisplayMetrics());
-    }
-
     /**
      * Postavi novu lozinku
      */
@@ -288,7 +275,7 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
             mListOfCities = listOfCities;
 
             mSpinnerDialog = new SpinnerDialog(getActivity(), mListOfCities,
-                    "Odaberite grad", R.style.DialogAnimations_SmileWindow, "Zatvori");
+                    getResources().getString(R.string.chooseCity), R.style.DialogAnimations_SmileWindow, "Zatvori");
 
             mSpinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
                 @Override

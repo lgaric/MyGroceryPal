@@ -54,7 +54,7 @@
     <LinearLayout
         android:id="@+id/passwordRecoveryLayout"
         style="@style/WrapHeightMatchWidth"
-        android:layout_below="@id/spinnerOptions"
+        android:layout_below="@id/picture"
         android:orientation="vertical">
 
         <TextView
@@ -81,14 +81,14 @@
             android:focusable="false"
             android:layout_margin="@dimen/default_margin_in_app"
             android:background="@drawable/edit_text_with_underline"
-            android:hint="grad"/>
+            android:hint="@string/city"/>
 
         <EditText
             style="@style/EditTextWhite"
             android:id="@+id/txtAddress"
             android:layout_margin="@dimen/default_margin_in_app"
             android:background="@drawable/edit_text_with_underline"
-            android:hint="adresa"/>
+            android:hint="@string/address"/>
 
     </LinearLayout>
 
@@ -109,7 +109,7 @@
             android:id="@+id/txtPhoneNumber"
             android:layout_margin="@dimen/default_margin_in_app"
             android:background="@drawable/edit_text_with_underline"
-            android:hint="broj"/>
+            android:hint="@string/phoneArray"/>
 
     </LinearLayout>
 

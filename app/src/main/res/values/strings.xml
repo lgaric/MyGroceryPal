@@ -92,6 +92,7 @@
     <string name="amoutPaymentCaps">CIJENA: </string>
     <string name="waitingCaps">PRIČEKAJTE...</string>
     <string name="changeLanguage">Jezik aplikacije</string>
+    <string name="chooseCity">Odaberite grad</string>
 
     <string name="test_button" translatable="false">Test database</string>
     <string name="store_image" translatable="false">Store image</string>
