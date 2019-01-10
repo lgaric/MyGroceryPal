@@ -4,205 +4,210 @@
     style="@style/MatchBoth"
     android:orientation="vertical">
 
-
-    <LinearLayout
-        android:orientation="vertical"
-        style="@style/WrapHeightMatchWidth">
-
-        <!-- NARUCITELJ START -->
-
-        <android.support.v7.widget.CardView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            style="@style/WrapHeightMatchWidth"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            app:cardCornerRadius="@dimen/small_margin_in_app"
-            app:cardElevation="@dimen/small_margin_in_app"
-            android:foreground="?android:selectableItemBackground"
-            android:layout_margin="@dimen/small_margin_in_app">
-
-            <TextView
-                style="@style/TextViewBigBlack"
-                android:textSize="22sp"
-                android:text="@string/ordersSemicolon"
-                android:layout_margin="@dimen/small_margin_in_app" />
-
-        </android.support.v7.widget.CardView>
+    <ScrollView
+        style="@style/WrapHeightMatchWidth"
+        android:fillViewport="true"
+        android:layout_weight="0.7"
+        android:layout_height="0dp">
 
         <LinearLayout
-            style="@style/WrapHeightMatchWidth"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            style="@style/MatchBoth">
+
+            <!-- NARUCITELJ START -->
+
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/WrapHeightMatchWidth"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:cardCornerRadius="@dimen/small_margin_in_app"
+                app:cardElevation="@dimen/small_margin_in_app"
+                android:foreground="?android:selectableItemBackground"
+                android:layout_margin="@dimen/small_margin_in_app">
+
+                <TextView
+                    style="@style/TextViewBigBlack"
+                    android:textSize="22sp"
+                    android:text="@string/ordersSemicolon"
+                    android:layout_margin="@dimen/small_margin_in_app" />
+
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                style="@style/WrapHeightMatchWidth"
+                android:orientation="horizontal">
 
 
-            <TextView
-                android:id="@+id/numberOfOrdersTxt"
-                android:text="@string/numberOfOrders"
-                style="@style/LeftAndRightMarginCleanText"/>
+                <TextView
+                    android:id="@+id/numberOfOrdersTxt"
+                    android:text="@string/numberOfOrders"
+                    style="@style/LeftAndRightMarginCleanText"/>
 
-            <TextView
-                android:id="@+id/numberOfOrders"
-                style="@style/LeftAndRightMarginCleanNumbers"/>
+                <TextView
+                    android:id="@+id/numberOfOrders"
+                    style="@style/LeftAndRightMarginCleanNumbers"/>
 
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/WrapHeightMatchWidth"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/totalOrderPriceWithProvisionTxt"
+                    style="@style/LeftAndRightMarginCleanText"
+                    android:text="@string/totalValue"/>
+
+                <TextView
+                    android:id="@+id/totalOrderPriceWithProvision"
+                    style="@style/LeftAndRightMarginCleanNumbers"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/WrapHeightMatchWidth"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/totalOrderCommissionPriceTxt"
+                    android:text="@string/totalCommission"
+                    style="@style/LeftAndRightMarginCleanText"/>
+
+                <TextView
+                    android:id="@+id/totalOrderCommissionPrice"
+                    style="@style/LeftAndRightMarginCleanNumbers"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/WrapHeightMatchWidth"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/totalOrderPriceWithoutCommissionTxt"
+                    android:text="@string/totalOrderValueWithoutCommission"
+                    style="@style/LeftAndRightMarginCleanText"/>
+
+                <TextView
+                    android:id="@+id/totalOrderPriceWithoutCommission"
+                    style="@style/LeftAndRightMarginCleanNumbers"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/WrapHeightMatchWidth"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/averageOrderPriceTxt"
+                    android:text="@string/averageOrderValue"
+                    style="@style/LeftAndRightMarginCleanText"/>
+
+                <TextView
+                    android:id="@+id/averageOrderPrice"
+                    style="@style/LeftAndRightMarginCleanNumbers"/>
+
+            </LinearLayout>
+
+            <!-- DOBAVLJAC START -->
+
+            <android.support.v7.widget.CardView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/WrapHeightMatchWidth"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                app:cardCornerRadius="@dimen/small_margin_in_app"
+                app:cardElevation="@dimen/small_margin_in_app"
+                android:foreground="?android:selectableItemBackground"
+                android:layout_margin="@dimen/small_margin_in_app">
+
+                <TextView
+                    style="@style/TextViewBigBlack"
+                    android:text="@string/deliveriesSemicolon"
+                    android:textSize="22sp"
+                    android:layout_margin="@dimen/small_margin_in_app"/>
+
+            </android.support.v7.widget.CardView>
+
+            <LinearLayout
+                style="@style/WrapHeightMatchWidth"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/numberOfDeliveriesTxt"
+                    android:text="@string/numberOfDeliveries"
+                    style="@style/LeftAndRightMarginCleanText"/>
+
+                <TextView
+                    android:id="@+id/numberOfDeliveries"
+                    style="@style/LeftAndRightMarginCleanNumbers"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/WrapHeightMatchWidth"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/totalDeliveryPriceTxt"
+                    android:text="@string/totalValue"
+                    style="@style/LeftAndRightMarginCleanText"/>
+
+                <TextView
+                    android:id="@+id/totalDeliveryPrice"
+                    style="@style/LeftAndRightMarginCleanNumbers"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/WrapHeightMatchWidth"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/totalDeliveryCommissionTxt"
+                    android:text="@string/totalCommission"
+                    style="@style/LeftAndRightMarginCleanText"/>
+
+                <TextView
+                    android:id="@+id/totalDeliveryCommission"
+                    style="@style/LeftAndRightMarginCleanNumbers"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/WrapHeightMatchWidth"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/averageDeliveryPriceTxt"
+                    android:text="@string/averageDeliveryValue"
+                    style="@style/LeftAndRightMarginCleanText"/>
+
+                <TextView
+                    android:id="@+id/averageDeliveryPrice"
+                    style="@style/LeftAndRightMarginCleanNumbers"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/WrapHeightMatchWidth"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/averageDeliveryCommissionTxt"
+                    android:text="@string/averageDeliveryCommission"
+                    style="@style/LeftAndRightMarginCleanText"/>
+
+                <TextView
+                    android:id="@+id/averageDeliveryCommission"
+                    style="@style/LeftAndRightMarginCleanNumbers"/>
+
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            style="@style/WrapHeightMatchWidth"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/totalOrderPriceWithProvisionTxt"
-                style="@style/LeftAndRightMarginCleanText"
-                android:text="@string/totalValue"/>
-
-            <TextView
-                android:id="@+id/totalOrderPriceWithProvision"
-                style="@style/LeftAndRightMarginCleanNumbers"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/WrapHeightMatchWidth"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/totalOrderCommissionPriceTxt"
-                android:text="@string/totalCommission"
-                style="@style/LeftAndRightMarginCleanText"/>
-
-            <TextView
-                android:id="@+id/totalOrderCommissionPrice"
-                style="@style/LeftAndRightMarginCleanNumbers"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/WrapHeightMatchWidth"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/totalOrderPriceWithoutCommissionTxt"
-                android:text="@string/totalOrderValueWithoutCommission"
-                style="@style/LeftAndRightMarginCleanText"/>
-
-            <TextView
-                android:id="@+id/totalOrderPriceWithoutCommission"
-                style="@style/LeftAndRightMarginCleanNumbers"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/WrapHeightMatchWidth"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/averageOrderPriceTxt"
-                android:text="@string/averageOrderValue"
-                style="@style/LeftAndRightMarginCleanText"/>
-
-            <TextView
-                android:id="@+id/averageOrderPrice"
-                style="@style/LeftAndRightMarginCleanNumbers"/>
-
-        </LinearLayout>
-
-        <!-- DOBAVLJAC START -->
-
-        <android.support.v7.widget.CardView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            style="@style/WrapHeightMatchWidth"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            app:cardCornerRadius="@dimen/small_margin_in_app"
-            app:cardElevation="@dimen/small_margin_in_app"
-            android:foreground="?android:selectableItemBackground"
-            android:layout_margin="@dimen/small_margin_in_app">
-
-            <TextView
-                style="@style/TextViewBigBlack"
-                android:text="@string/deliveriesSemicolon"
-                android:textSize="22sp"
-                android:layout_margin="@dimen/small_margin_in_app"/>
-
-        </android.support.v7.widget.CardView>
-
-        <LinearLayout
-            style="@style/WrapHeightMatchWidth"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/numberOfDeliveriesTxt"
-                android:text="@string/numberOfDeliveries"
-                style="@style/LeftAndRightMarginCleanText"/>
-
-            <TextView
-                android:id="@+id/numberOfDeliveries"
-                style="@style/LeftAndRightMarginCleanNumbers"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/WrapHeightMatchWidth"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/totalDeliveryPriceTxt"
-                android:text="@string/totalValue"
-                style="@style/LeftAndRightMarginCleanText"/>
-
-            <TextView
-                android:id="@+id/totalDeliveryPrice"
-                style="@style/LeftAndRightMarginCleanNumbers"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/WrapHeightMatchWidth"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/totalDeliveryCommissionTxt"
-                android:text="@string/totalCommission"
-                style="@style/LeftAndRightMarginCleanText"/>
-
-            <TextView
-                android:id="@+id/totalDeliveryCommission"
-                style="@style/LeftAndRightMarginCleanNumbers"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/WrapHeightMatchWidth"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/averageDeliveryPriceTxt"
-                android:text="@string/averageDeliveryValue"
-                style="@style/LeftAndRightMarginCleanText"/>
-
-            <TextView
-                android:id="@+id/averageDeliveryPrice"
-                style="@style/LeftAndRightMarginCleanNumbers"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/WrapHeightMatchWidth"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/averageDeliveryCommissionTxt"
-                android:text="@string/averageDeliveryCommission"
-                style="@style/LeftAndRightMarginCleanText"/>
-
-            <TextView
-                android:id="@+id/averageDeliveryCommission"
-                style="@style/LeftAndRightMarginCleanNumbers"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         style="@style/MatchBoth"
-        android:layout_weight="0.4"
+        android:layout_weight="0.3"
         android:layout_height="0dp"
         android:padding="@dimen/small_margin_in_app">
 

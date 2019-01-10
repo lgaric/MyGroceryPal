@@ -1,8 +1,12 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
+import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +20,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 
 import hr.foi.air.mygrocerypal.LocationBasedOnAddress;
 import hr.foi.air.mygrocerypal.myapplication.Core.Cities;
@@ -67,17 +72,12 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             String selectedItem = (String)mOptionsSpinner.getItemAtPosition(position);
-            switch (selectedItem){
-                case "Lozinka":
-                    changeLayout(mPasswordRecoveryLayout, mCityRecoveryLayout, mPhoneRecoveryLayout);
-                    break;
-                case "Grad/Adresa":
-                    changeLayout(mCityRecoveryLayout, mPasswordRecoveryLayout, mPhoneRecoveryLayout);
-                    break;
-                case "Mobitel":
-                    changeLayout(mPhoneRecoveryLayout, mCityRecoveryLayout, mPasswordRecoveryLayout);
-                    break;
-            }
+            if(selectedItem.equals(getString(R.string.password)))
+                changeLayout(mPasswordRecoveryLayout, mCityRecoveryLayout, mPhoneRecoveryLayout);
+            else if(selectedItem.equals(getString(R.string.cityArray)))
+                changeLayout(mCityRecoveryLayout, mPasswordRecoveryLayout, mPhoneRecoveryLayout);
+            else if(selectedItem.equals(getString(R.string.phoneArray)))
+                changeLayout(mPhoneRecoveryLayout, mCityRecoveryLayout, mPasswordRecoveryLayout);
         }
 
         @Override
@@ -112,7 +112,7 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Settings");
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.settings));
 
         //ZAGLAVLJE SPINNER
         mOptionsSpinner = view.findViewById(R.id.spinnerOptions);
@@ -147,7 +147,7 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
 
     @Override
     public void onResume() {
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Settings");
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.settings));
         super.onResume();
     }
 
@@ -156,19 +156,12 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
      */
     private void doOperationOnClick(){
         String selectedItem = (String)mOptionsSpinner.getSelectedItem();
-        switch (selectedItem){
-            case "Lozinka":
-                setNewPassword();
-                break;
-            case "Grad/Adresa":
-                changeLayout(mCityRecoveryLayout, mPasswordRecoveryLayout, mPhoneRecoveryLayout);
-                setNewCity();
-                break;
-            case "Mobitel":
-                changeLayout(mPhoneRecoveryLayout, mCityRecoveryLayout, mPasswordRecoveryLayout);
-                setNewPhoneNumber();
-                break;
-        }
+        if(selectedItem.equals(getString(R.string.password)))
+            setNewPassword();
+        else if(selectedItem.equals(getString(R.string.cityArray)))
+            setNewCity();
+        else if(selectedItem.equals(getString(R.string.phoneArray)))
+            setNewPhoneNumber();
     }
 
     /**
@@ -198,7 +191,7 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
      * @param toHideFirst Layout koji zelimo sakriti
      * @param toHideSecond Layout koji zelimo sakriti
      */
-    private static <T extends View> void changeLayout(T toShow, T toHideFirst, T toHideSecond){
+    private void changeLayout(LinearLayout toShow, LinearLayout toHideFirst, LinearLayout toHideSecond){
         toShow.setVisibility(View.VISIBLE);
         toHideFirst.setVisibility(View.GONE);
         toHideSecond.setVisibility(View.GONE);
@@ -220,6 +213,19 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
         }
 
         return filled;
+    }
+
+    private void updateResources(String language) {
+        Locale temp;
+        if(language == null)
+            temp = Locale.getDefault();
+        else
+            temp = new Locale(language);
+        Locale.setDefault(temp);
+        Resources res = getContext().getResources();
+        Configuration config = new Configuration(res.getConfiguration());
+        config.locale = temp;
+        res.updateConfiguration(config, res.getDisplayMetrics());
     }
 
     /**

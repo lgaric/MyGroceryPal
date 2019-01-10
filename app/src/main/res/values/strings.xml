@@ -61,7 +61,7 @@
     <string name="totalCost">Ukupna cijena: </string>
 
 
-
+    <string name="settings">Postavke</string>
     <string name="deliverer">Dobavljač</string>
     <string name="price">"Cijena: "</string>
     <string name="client">Naručitelj</string>
@@ -91,6 +91,7 @@
     <string name="paymentCaps">PLAĆANJE</string>
     <string name="amoutPaymentCaps">CIJENA: </string>
     <string name="waitingCaps">PRIČEKAJTE...</string>
+    <string name="changeLanguage">Jezik aplikacije</string>
 
     <string name="test_button" translatable="false">Test database</string>
     <string name="store_image" translatable="false">Store image</string>

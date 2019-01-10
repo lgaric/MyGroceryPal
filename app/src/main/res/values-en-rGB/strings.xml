@@ -92,4 +92,9 @@
     <string name="delivererIgnoredGLMessage">Ignored grocery lists not found.</string>
     <string name="addGroceryList">Add grocery list</string>
     <string name="noProductsFound">Nothing found.</string>
+    <string name="paymentCaps">PAYMENT</string>
+    <string name="amoutPaymentCaps">PRICE: </string>
+    <string name="waitingCaps">WAIT...</string>
+    <string name="settings">Settings</string>
+    <string name="changeLanguage">Change language</string>
 </resources>
