@@ -72,28 +72,6 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
     }
 
     /**
-     * Metoda u kojoj se dostavljeni GL-ovi ispisuju, zajedno sa statistikom
-     * @param mGroceryList
-     * @param totalDeliveryPrice
-     * @param numberOfDeliveries
-     * @param totalCommission
-     */
-    private void GroceryListDeliveries(ArrayList<GroceryListsModel> mGroceryList, float totalDeliveryPrice,
-                                       int numberOfDeliveries, float totalCommission) {
-        if(mGroceryList == null) {
-            return;
-        }
-        mPieData.add(new SliceValue(totalDeliveryPrice, Color.CYAN).setLabel("Dostavljanje: " + Math.round(totalDeliveryPrice)));
-        mNumberOfDeliveries.setText(String.valueOf("Broj dostavljanja: " + numberOfDeliveries));
-        mTotalDeliveryPrice.setText(String.valueOf("Ukupna vrijednost dostavljanja: " + Math.round(totalDeliveryPrice) + " kn"));
-        mTotalDeliveryCommission.setText(String.valueOf("Ukupna provizija dostavljanja: " + Math.round(totalCommission) + " kn"));
-        mAverageDeliveryPrice.setText(String.valueOf("Prosjecna vrijednost dostavljanja: " + Math.round(totalDeliveryPrice/numberOfDeliveries) + " kn"));
-        mAverageDeliveryCommission.setText(String.valueOf("Prosjecna prozivizija dostavljanja: " + Math.round(totalCommission/numberOfDeliveries) + " kn"));
-
-        printOutGraph();
-    }
-
-    /**
      * Metoda u kojoj se naruceni GL-ovi ispisuju, zajedno sa statistikom
      * @param mGroceryList
      * @param totalOrderPriceWithProvision
@@ -106,14 +84,36 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
             return;
         }
         mPieData.add(new SliceValue(totalOrderPriceWithProvision, Color.MAGENTA).setLabel("Naručivanje: " + Math.round(totalOrderPriceWithProvision)));
-        mNumberOfOrders.setText(String.valueOf("Broj narudžbi: " + numberOfOrders));
-        mTotalOrderPriceWithProvision.setText(String.valueOf("Ukupna vrijednost narudžbi: " + Math.round(totalOrderPriceWithProvision) + " kn"));
-        mTotalOrderCommission.setText(String.valueOf("Ukupna provizija narudžbi: " + Math.round(totalCommissionPrice) + " kn"));
-        mTotalOrderPriceWithoutCommission.setText(String.valueOf("Ukupna vrijednost narudžbi bez provizije: " +
-                Math.round(totalOrderPriceWithProvision-totalCommissionPrice) + " kn"));
-        mAverageOrderPrice.setText(String.valueOf("Prosjek vrijednost narudžbi: " + Math.round(totalOrderPriceWithProvision/numberOfOrders) + " kn"));
+        mNumberOfOrders.setText(String.valueOf(numberOfOrders));
+        mTotalOrderPriceWithProvision.setText(String.valueOf(Math.round(totalOrderPriceWithProvision) + " kn"));
+        mTotalOrderCommission.setText(String.valueOf(Math.round(totalCommissionPrice) + " kn"));
+        mTotalOrderPriceWithoutCommission.setText(String.valueOf(Math.round(totalOrderPriceWithProvision-totalCommissionPrice) + " kn"));
+        mAverageOrderPrice.setText(String.valueOf(Math.round(totalOrderPriceWithProvision/numberOfOrders) + " kn"));
         printOutGraph();
     }
+
+    /**
+     * Metoda u kojoj se dostavljeni GL-ovi ispisuju, zajedno sa statistikom
+     * @param mGroceryList
+     * @param totalDeliveryPrice
+     * @param numberOfDeliveries
+     * @param totalCommission
+     */
+    private void GroceryListDeliveries(ArrayList<GroceryListsModel> mGroceryList, float totalDeliveryPrice,
+                                       int numberOfDeliveries, float totalCommission) {
+        if(mGroceryList == null) {
+            return;
+        }
+        mPieData.add(new SliceValue(totalDeliveryPrice, Color.CYAN).setLabel("Dostavljanje: " + Math.round(totalDeliveryPrice)));
+        mNumberOfDeliveries.setText(String.valueOf(numberOfDeliveries));
+        mTotalDeliveryPrice.setText(String.valueOf(Math.round(totalDeliveryPrice) + " kn"));
+        mTotalDeliveryCommission.setText(String.valueOf(Math.round(totalCommission) + " kn"));
+        mAverageDeliveryPrice.setText(String.valueOf(Math.round(totalDeliveryPrice/numberOfDeliveries) + " kn"));
+        mAverageDeliveryCommission.setText(String.valueOf(Math.round(totalCommission/numberOfDeliveries) + " kn"));
+
+        printOutGraph();
+    }
+
 
     /**
      * Metoda za ispisivanje grafa
@@ -122,6 +122,7 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
         PieChartData pieChartData = new PieChartData(mPieData);
         pieChartData.setHasLabels(true);
         mPieChartView.setPieChartData(pieChartData);
+        mPieChartView.setVisibility(View.VISIBLE);
     }
 
     /**

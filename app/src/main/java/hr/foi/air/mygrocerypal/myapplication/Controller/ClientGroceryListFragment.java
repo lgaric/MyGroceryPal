@@ -1,5 +1,6 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -82,6 +83,7 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
         super.onViewCreated(view, savedInstanceState);
         mActive = true;
         loadGroceryListToRecyclerView(GroceryListStatus.ACCEPTED);
+        btnActiveGrocerylist.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
     }
 
     @Override
@@ -91,12 +93,16 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
                 //AKO NISU PRIKAZANI AKTIVNI GL ONDA IH PRIKAZI
                 if(!mActive) {
                     loadGroceryListToRecyclerView(GroceryListStatus.ACCEPTED);
+                    btnActiveGrocerylist.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+                    btnPastGroceryList.setBackgroundColor(Color.WHITE);
                     mActive = true;
                 }
                 break;
             case R.id.past_client_btn:
                 if(mActive){
                     loadGroceryListToRecyclerView(GroceryListStatus.FINISHED);
+                    btnPastGroceryList.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+                    btnActiveGrocerylist.setBackgroundColor(Color.WHITE);
                     mActive = false;
                 }
                 break;

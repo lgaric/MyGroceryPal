@@ -1,111 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
     style="@style/MatchBoth"
     android:orientation="vertical">
 
-    <ScrollView
-        style="@style/WrapHeightMatchWidth"
-        android:fillViewport="true"
-        android:layout_weight="0.6"
-        android:layout_height="0dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        style="@style/WrapHeightMatchWidth">
+
+        <!-- NARUCITELJ START -->
+
+        <android.support.v7.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            style="@style/WrapHeightMatchWidth"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardCornerRadius="@dimen/small_margin_in_app"
+            app:cardElevation="@dimen/small_margin_in_app"
+            android:foreground="?android:selectableItemBackground"
+            android:layout_margin="@dimen/small_margin_in_app">
+
+            <TextView
+                style="@style/TextViewBigBlack"
+                android:textSize="22sp"
+                android:text="@string/ordersSemicolon"
+                android:layout_margin="@dimen/small_margin_in_app" />
+
+        </android.support.v7.widget.CardView>
 
         <LinearLayout
-            android:orientation="vertical"
-            style="@style/MatchBoth">
+            style="@style/WrapHeightMatchWidth"
+            android:orientation="horizontal">
 
-            <!-- NARUCITELJ START -->
 
-            <android.support.v7.widget.CardView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                style="@style/WrapHeightMatchWidth"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                app:cardCornerRadius="@dimen/small_margin_in_app"
-                app:cardElevation="@dimen/small_margin_in_app"
-                android:foreground="?android:selectableItemBackground"
-                android:layout_margin="@dimen/small_margin_in_app">
-
-                <TextView
-                    style="@style/TextViewBigBlack"
-                    android:textSize="22sp"
-                    android:text="@string/ordersSemicolon"
-                    android:layout_margin="@dimen/small_margin_in_app" />
-
-            </android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/numberOfOrdersTxt"
+                android:text="Broj narudžbi: "
+                style="@style/LeftAndRightMarginCleanText"/>
 
             <TextView
                 android:id="@+id/numberOfOrders"
-                style="@style/TextViewBlack"
-                android:layout_margin="@dimen/small_margin_in_app"/>
-
-            <TextView
-                android:id="@+id/totalOrderPriceWithProvision"
-                style="@style/TextViewBlack"
-                android:layout_margin="@dimen/small_margin_in_app"/>
-
-            <TextView
-                android:id="@+id/totalOrderCommissionPrice"
-                style="@style/TextViewBlack"
-                android:layout_margin="@dimen/small_margin_in_app"/>
-
-            <TextView
-                android:id="@+id/totalOrderPriceWithoutCommission"
-                style="@style/TextViewBlack"
-                android:layout_margin="@dimen/small_margin_in_app"/>
-
-            <TextView
-                android:id="@+id/averageOrderPrice"
-                style="@style/TextViewBlack"
-                android:layout_margin="@dimen/small_margin_in_app"/>
-
-            <!-- DOBAVLJAC START -->
-
-            <android.support.v7.widget.CardView
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                style="@style/WrapHeightMatchWidth"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                app:cardCornerRadius="@dimen/small_margin_in_app"
-                app:cardElevation="@dimen/small_margin_in_app"
-                android:foreground="?android:selectableItemBackground"
-                android:layout_margin="@dimen/small_margin_in_app">
-
-                <TextView
-                    style="@style/TextViewBigBlack"
-                    android:text="@string/deliveriesSemicolon"
-                    android:textSize="22sp"
-                    android:layout_margin="@dimen/small_margin_in_app"/>
-
-            </android.support.v7.widget.CardView>
-
-
-            <TextView
-                android:id="@+id/numberOfDeliveries"
-                style="@style/TextViewBlack"
-                android:layout_margin="@dimen/small_margin_in_app"/>
-
-            <TextView
-                android:id="@+id/totalDeliveryPrice"
-                style="@style/TextViewBlack"
-                android:layout_margin="@dimen/small_margin_in_app"/>
-
-            <TextView
-                android:id="@+id/totalDeliveryCommission"
-                style="@style/TextViewBlack"
-                android:layout_margin="@dimen/small_margin_in_app"/>
-
-            <TextView
-                android:id="@+id/averageDeliveryPrice"
-                style="@style/TextViewBlack"
-                android:layout_margin="@dimen/small_margin_in_app"/>
-
-            <TextView
-                android:id="@+id/averageDeliveryCommission"
-                style="@style/TextViewBlack"
-                android:layout_margin="@dimen/small_margin_in_app"/>
+                style="@style/LeftAndRightMarginCleanNumbers"/>
 
         </LinearLayout>
 
-    </ScrollView>
+        <LinearLayout
+            style="@style/WrapHeightMatchWidth"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/totalOrderPriceWithProvisionTxt"
+                style="@style/LeftAndRightMarginCleanText"
+                android:text="Ukupna vrijednost: "/>
+
+            <TextView
+                android:id="@+id/totalOrderPriceWithProvision"
+                style="@style/LeftAndRightMarginCleanNumbers"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/WrapHeightMatchWidth"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/totalOrderCommissionPriceTxt"
+                android:text="Ukupna provizija: "
+                style="@style/LeftAndRightMarginCleanText"/>
+
+            <TextView
+                android:id="@+id/totalOrderCommissionPrice"
+                style="@style/LeftAndRightMarginCleanNumbers"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/WrapHeightMatchWidth"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/totalOrderPriceWithoutCommissionTxt"
+                android:text="Ukupna vrijednost bez provizije: "
+                style="@style/LeftAndRightMarginCleanText"/>
+
+            <TextView
+                android:id="@+id/totalOrderPriceWithoutCommission"
+                style="@style/LeftAndRightMarginCleanNumbers"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/WrapHeightMatchWidth"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/averageOrderPriceTxt"
+                android:text="Prosječna vrijednost narudžbe: "
+                style="@style/LeftAndRightMarginCleanText"/>
+
+            <TextView
+                android:id="@+id/averageOrderPrice"
+                style="@style/LeftAndRightMarginCleanNumbers"/>
+
+        </LinearLayout>
+
+        <!-- DOBAVLJAC START -->
+
+        <android.support.v7.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            style="@style/WrapHeightMatchWidth"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:cardCornerRadius="@dimen/small_margin_in_app"
+            app:cardElevation="@dimen/small_margin_in_app"
+            android:foreground="?android:selectableItemBackground"
+            android:layout_margin="@dimen/small_margin_in_app">
+
+            <TextView
+                style="@style/TextViewBigBlack"
+                android:text="@string/deliveriesSemicolon"
+                android:textSize="22sp"
+                android:layout_margin="@dimen/small_margin_in_app"/>
+
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            style="@style/WrapHeightMatchWidth"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/numberOfDeliveriesTxt"
+                android:text="Broj dostavljanja: "
+                style="@style/LeftAndRightMarginCleanText"/>
+
+            <TextView
+                android:id="@+id/numberOfDeliveries"
+                style="@style/LeftAndRightMarginCleanNumbers"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/WrapHeightMatchWidth"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/totalDeliveryPriceTxt"
+                android:text="Ukupna vrijednost: "
+                style="@style/LeftAndRightMarginCleanText"/>
+
+            <TextView
+                android:id="@+id/totalDeliveryPrice"
+                style="@style/LeftAndRightMarginCleanNumbers"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/WrapHeightMatchWidth"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/totalDeliveryCommissionTxt"
+                android:text="Ukupna provizija: "
+                style="@style/LeftAndRightMarginCleanText"/>
+
+            <TextView
+                android:id="@+id/totalDeliveryCommission"
+                style="@style/LeftAndRightMarginCleanNumbers"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/WrapHeightMatchWidth"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/averageDeliveryPriceTxt"
+                android:text="Prosječna vrijednost dostavljanja: "
+                style="@style/LeftAndRightMarginCleanText"/>
+
+            <TextView
+                android:id="@+id/averageDeliveryPrice"
+                style="@style/LeftAndRightMarginCleanNumbers"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/WrapHeightMatchWidth"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/averageDeliveryCommissionTxt"
+                android:text="Prosječna vrijednost provizije: "
+                style="@style/LeftAndRightMarginCleanText"/>
+
+            <TextView
+                android:id="@+id/averageDeliveryCommission"
+                style="@style/LeftAndRightMarginCleanNumbers"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         style="@style/MatchBoth"
@@ -116,6 +209,7 @@
         <lecho.lib.hellocharts.view.PieChartView
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/statistics_pie_chart"
+            android:visibility="gone"
             style="@style/MatchBoth" />
 
     </LinearLayout>
