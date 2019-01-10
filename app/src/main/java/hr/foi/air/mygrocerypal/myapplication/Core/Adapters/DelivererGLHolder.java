@@ -14,8 +14,6 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class DelivererGLHolder extends RecyclerView.ViewHolder {
 
-    private static final String PRICE = "Cijena: ";
-    private static final String FEE = "Provizija: ";
     private static final String CURRENCY = " KN";
 
     private GroceryListsModel mGroceryListsModel;
@@ -25,6 +23,7 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
     private TextView mCommision;
     private TextView mAddress;
     private TextView mDeliveryTown;
+    private View view;
 
     Button btnAcceptGL;
     Button btnIgnoreGL;
@@ -62,6 +61,7 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
 
     public DelivererGLHolder(@NonNull View itemView, int type) {
         super(itemView);
+        view = itemView;
 
         Log.d("TROLL", Integer.toString(itemView.getId()));
         //POHRANI SVE POTREBNE INFORMACIJE
@@ -100,10 +100,10 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
 
         //POSTAVI VRIJEDNOST TEXTVIEWOVA
         this.mStore.setText(mGroceryListsModel.getStore_name());
-        this.mPrice.setText(PRICE + mGroceryListsModel.getTotal_price() + CURRENCY);
-        this.mCommision.setText(FEE + mGroceryListsModel.getCommision() + CURRENCY);
-        this.mAddress.setText("ADRESA: " + mGroceryListsModel.getDelivery_address());
-        this.mDeliveryTown.setText("GRAD: " + mGroceryListsModel.getDelivery_town());
+        this.mPrice.setText(view.getContext().getResources().getString(R.string.price) + "  " + mGroceryListsModel.getTotal_price() + CURRENCY);
+        this.mCommision.setText(view.getContext().getResources().getString(R.string.commison) +  "  " + mGroceryListsModel.getCommision() + CURRENCY);
+        this.mAddress.setText(view.getContext().getResources().getString(R.string.address) +  "  " + mGroceryListsModel.getDelivery_address());
+        this.mDeliveryTown.setText(view.getContext().getResources().getString(R.string.city) +  "  " + mGroceryListsModel.getDelivery_town());
 
         this.mGroceryListOperationListener = mGroceryListOperationListener;
     }

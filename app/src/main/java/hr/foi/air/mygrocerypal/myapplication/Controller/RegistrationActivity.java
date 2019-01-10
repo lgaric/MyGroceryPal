@@ -40,7 +40,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
 
     private TextView mDateOfBirth, mCities;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    private EditText mEmail, mPassword, mUsername, mFirstName, mLastName, mAddress, mContact, mRetypedPassword;
+    private EditText mEmail, mPassword, mUsername, mFirstName, mLastName, mAddress, mContact, mRetypedPassword, mUserIBAN;
     private Button btnRegister, btnBackToLogin;
 
     private RegistrationHelper mRegistrationHelper;
@@ -66,6 +66,8 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         mAddress = findViewById(R.id.addressRegistration);
         mDateOfBirth = findViewById(R.id.dateOfBirthRegistration);
         mContact = findViewById(R.id.contactRegistration);
+        mUserIBAN = findViewById(R.id.userIBAN);
+
 
         mCities =  findViewById(R.id.txtCity);
 
@@ -144,6 +146,16 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
             }
         });
 
+        mUserIBAN.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(mUserIBAN.getText().toString().trim().length() != 21)
+                        mUserIBAN.setError("Iban mora sadržavati 21 znamenku!");
+                }
+            }
+        });
+
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,6 +204,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
         newUser.setTown(mCities.getText().toString().trim());
         newUser.setPhone_number(mContact.getText().toString().trim());
         newUser.setBirth_date(mDateOfBirth.getText().toString().trim());
+        newUser.setUser_iban(mUserIBAN.getText().toString().trim());
         return newUser;
     }
 

@@ -63,6 +63,11 @@
                 android:inputType="textPassword" />
 
             <EditText
+                android:id="@+id/userIBAN"
+                style="@style/EditTextWhite"
+                android:hint="@string/userIban"/>
+
+            <EditText
                 android:id="@+id/emailRegistration"
                 style="@style/EditTextWhite"
                 android:hint="@string/email"

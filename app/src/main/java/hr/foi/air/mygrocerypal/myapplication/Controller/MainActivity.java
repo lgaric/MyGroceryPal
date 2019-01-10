@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -22,24 +21,21 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.InputStream;
-import java.util.List;
-
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.R;
-
-import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener {
     private Toolbar mToolbar;
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationView mNavigationView;
+    private boolean clientFragmentExists = false;
 
     // Fragmenti
     private DelivererFragment mDelivererFragment;
     private SettingsFragment mSettingsFragment;
     private ClientGroceryListFragment mClientGroceryListFragment;
+    private StatisticsFragment mStatisticsFragment;
 
     private int called = 0;
 
@@ -56,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("Deliverer");
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -74,10 +71,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackStackChanged() {
-        mDrawerToggle.setDrawerIndicatorEnabled(getSupportFragmentManager().getBackStackEntryCount() == 0);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(getSupportFragmentManager().getBackStackEntryCount() > 0);
-        mDrawerToggle.syncState();
+        if(!isMainFragment()){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            mDrawerToggle.setDrawerIndicatorEnabled(false);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            mDrawerToggle.syncState();
+
+        }else{
+            mDrawerToggle.setDrawerIndicatorEnabled(true);
+        }
+        logBackStack("Poslije");
     }
+
 
     @Override
     public void onPostCreate(Bundle savedInstanceState) {
@@ -114,17 +119,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if(getFragmentManager().getBackStackEntryCount() != 0){
+        } else if(getFragmentManager().getBackStackEntryCount() > 1 && clientFragmentExists){
             getFragmentManager().popBackStack();
-        } else{
-            if(getSupportFragmentManager().findFragmentById(R.id.fragment_container) instanceof DelivererFragment)
-                endOfWork();
-            else
-                super.onBackPressed();
+        } else if(getFragmentManager().getBackStackEntryCount() > 1 && !clientFragmentExists){
+            showFragment(mDelivererFragment);
+        } else if(isMainFragment())
+            endOfWork();
+        else
+            super.onBackPressed();
         }
+
+    /**
+     * Check if current fragment is main client or main deliverer fragment
+     * @return
+     */
+    private boolean isMainFragment(){
+        if(getSupportFragmentManager().findFragmentById(R.id.fragment_container) instanceof DelivererFragment
+                || getSupportFragmentManager().findFragmentById(R.id.fragment_container) instanceof ClientGroceryListFragment)
+            return true;
+        else return false;
     }
 
     @Override
@@ -156,16 +173,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mDrawer.closeDrawer(GravityCompat.START);
                 showFragment(mClientGroceryListFragment);
                 break;
-            case R.id.navigation_pay:
-                mDrawer.closeDrawer(GravityCompat.START);
-                Toast.makeText(this, "Pritisnuli ste uplati", Toast.LENGTH_LONG).show();
-                break;
             case R.id.navigation_statistics:
+                if(mStatisticsFragment == null) mStatisticsFragment = new StatisticsFragment();
                 mDrawer.closeDrawer(GravityCompat.START);
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new StatisticsFragment())
-                        .addToBackStack(null)
-                        .commit();
+                showFragment(mStatisticsFragment);
                 break;
             case R.id.navigation_logout:
                 mDrawer.closeDrawer(GravityCompat.START);
@@ -183,7 +194,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     View.OnClickListener mNavigationClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(getSupportFragmentManager().getBackStackEntryCount() == 0) {
+
+            if(isMainFragment()) {
                 mDrawer.openDrawer(GravityCompat.START);
             }
             else{
@@ -192,37 +204,62 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     };
 
+    private void logBackStack(String msg){
+        Log.d("Check: Stack ---", msg);
+        for(int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++)
+            Log.d("Check: ", (i+1) +  ".Fragment " + getSupportFragmentManager().getBackStackEntryAt(i).getName());
+
+    }
+
     /**
      * Ako fragment nije kreiran, kreiraj fragment i prikazi. Inace prikazi vec kreirani fragment.
      * @param newFragment
      */
     private void showFragment(Fragment newFragment){
 
-        if(newFragment instanceof DelivererFragment){
-            ClearBackStack();
-            return;
-        }
-
         FragmentManager mFragmentManager = getSupportFragmentManager();
-        String fragmentClassName = newFragment.getClass().getName();
+        String fragmentClassName = newFragment.getClass().getSimpleName();
+        String currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container).getClass().getSimpleName();
         Fragment existingFragment = mFragmentManager.findFragmentByTag(fragmentClassName);
 
-        if(existingFragment == null){
+        if(currentFragment.equals(fragmentClassName))
+            return;
+        else if(newFragment instanceof DelivererFragment){
+            clientFragmentExists = false;
+            clearBackStack();
+        }else if (newFragment instanceof ClientGroceryListFragment){
+            clientFragmentExists = true;
+            setClientFragment(mFragmentManager);
+        }else if (existingFragment != null) {
+            //ako je vec kreiran vrati se na taj fragment
+            getSupportFragmentManager().popBackStack(existingFragment.getClass().getSimpleName(), 0);
+        }else{
+            //ako nije kreiran, kreiraj i stavi na stack
             mFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, newFragment, fragmentClassName)
-                    .addToBackStack(null)
-                    .commit();
-        }else{
-            mFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, existingFragment, fragmentClassName)
+                    .addToBackStack(fragmentClassName)
                     .commit();
         }
+
+    }
+
+    /**
+     * Brisi BackStack i postavi klijenta na pocetak
+     * @param mFragmentManager
+     */
+    private void setClientFragment(FragmentManager mFragmentManager){
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0)
+            clearBackStack();
+        mFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, mClientGroceryListFragment, mClientGroceryListFragment.getClass().getSimpleName())
+                .addToBackStack(mClientGroceryListFragment.getClass().getSimpleName())
+                .commit();
     }
 
     /**
      * Brisi sve s BackStack-a osim i prikazi DelivererFragment
      */
-    private void ClearBackStack(){
+    private void clearBackStack(){
         while (getSupportFragmentManager().getBackStackEntryCount() > 0)
             getSupportFragmentManager().popBackStackImmediate();
     }

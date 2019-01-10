@@ -24,6 +24,7 @@ POTREBNO JE SAMO MJENJATI FRAGMENT KOJI SE POZIVA U FRAMELAYOUT KOMPONENTI-->
             <Button
                 android:id="@+id/active_client_btn"
                 style="@style/ButtonTabTopMenu"
+                android:background="@color/colorPrimaryLight"
                 android:layout_weight="0.5"
                 android:text="@string/activeCaps"/>
 
