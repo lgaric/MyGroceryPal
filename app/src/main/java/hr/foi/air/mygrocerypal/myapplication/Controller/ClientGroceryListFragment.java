@@ -52,6 +52,7 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_client_grocerylist, container, false);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Client");
 
         btnActiveGrocerylist = view.findViewById(R.id.active_client_btn);
         btnPastGroceryList = view.findViewById(R.id.past_client_btn);
@@ -67,6 +68,12 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
         mFloatingButtonAdd.setOnClickListener(this);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Client");
+        super.onResume();
     }
 
     private void showGroceryLists(){

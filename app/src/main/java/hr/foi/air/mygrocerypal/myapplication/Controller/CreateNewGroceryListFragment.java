@@ -72,6 +72,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_new_grocerylist, container, false);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Add grocery list");
 
         mTotalPriceAmount = view.findViewById(R.id.TotalPriceAmount);
         btnAddProducts = view.findViewById(R.id.btnAddProducts);
@@ -101,6 +102,12 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
             mRepeat = true;
         }
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Add grocery list");
+        super.onResume();
     }
 
 
@@ -148,8 +155,6 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
 
     }
-
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){

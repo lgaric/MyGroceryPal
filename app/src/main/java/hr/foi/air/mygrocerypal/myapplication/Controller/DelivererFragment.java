@@ -59,10 +59,17 @@ public class DelivererFragment extends Fragment {
         }
     };
 
+    @Override
+    public void onResume() {
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Deliverer");
+        super.onResume();
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_deliverer, container, false);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Deliverer");
 
         btnActive = view.findViewById(R.id.active_deliverer_btn);
         btnAccepted = view.findViewById(R.id.accepted_deliverer_btn);

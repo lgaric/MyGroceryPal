@@ -112,6 +112,7 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Settings");
 
         //ZAGLAVLJE SPINNER
         mOptionsSpinner = view.findViewById(R.id.spinnerOptions);
@@ -142,6 +143,12 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
         userInformationHelper = new UserInformationHelper(getContext());
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Settings");
+        super.onResume();
     }
 
     /**
