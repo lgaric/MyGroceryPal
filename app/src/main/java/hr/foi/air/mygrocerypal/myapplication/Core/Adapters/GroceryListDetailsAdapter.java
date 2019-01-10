@@ -38,7 +38,7 @@ public class GroceryListDetailsAdapter extends RecyclerView.Adapter<GroceryListD
                     .inflate(R.layout.grocerylistdetails_item, viewGroup, false);
         }
 
-        return new GroceryListDetailsHolder(view, mGroceryList);
+        return new GroceryListDetailsHolder(view, mGroceryList, deliverer);
     }
 
     @Override

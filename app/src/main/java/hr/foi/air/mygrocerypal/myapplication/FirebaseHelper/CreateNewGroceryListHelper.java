@@ -1,5 +1,6 @@
 package hr.foi.air.mygrocerypal.myapplication.FirebaseHelper;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -22,7 +23,11 @@ public class CreateNewGroceryListHelper extends FirebaseBaseHelper{
     private AddGroceryListListener mAddGroceryListListener;
 
     public CreateNewGroceryListHelper(AddGroceryListListener mAddGroceryListListener){
-        this.mContext = ((Fragment)mAddGroceryListListener).getContext();
+        if(mAddGroceryListListener instanceof Fragment)
+            this.mContext = ((Fragment)mAddGroceryListListener).getContext();
+        else
+            this.mContext = (Context)mAddGroceryListListener;
+
         this.mAddGroceryListListener = mAddGroceryListListener;
     }
 

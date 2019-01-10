@@ -1,9 +1,10 @@
 package hr.foi.air.mygrocerypal.myapplication.Model;
 
 
+import java.io.Serializable;
 import java.util.List;
 
-public class UserModel {
+public class UserModel implements Serializable {
     private String userUID;
     private String first_name;
     private String last_name;
@@ -14,6 +15,7 @@ public class UserModel {
     private String address;
     private String phone_number;
     private String birth_date;
+    private String user_iban;
     private Double longitude;
     private Double latitude;
     List<String> ignoredLists;
@@ -114,6 +116,14 @@ public class UserModel {
 
     public void setBirth_date(String birth_date) {
         this.birth_date = birth_date;
+    }
+
+    public String getUser_iban() {
+        return user_iban;
+    }
+
+    public void setUser_iban(String user_iban) {
+        this.user_iban = user_iban;
     }
 
     public List<String> getIgnoredLists() {

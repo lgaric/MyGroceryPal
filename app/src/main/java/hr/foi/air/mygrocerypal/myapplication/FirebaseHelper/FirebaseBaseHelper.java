@@ -27,6 +27,7 @@ public class FirebaseBaseHelper {
     protected static final String LATITUDENODE = "latitude";
     protected static final String LONGITUDE = "longitude";
     protected static final String PHONENUMBERNODE = "phone_number";
+    protected static final String BOUGHTNODE = "bought";
 
     protected static final String NOINTERNETCONNECTIONMESSAGE  = "Potrebna je internet veza!";
 

@@ -27,14 +27,23 @@
 
     </android.support.v7.widget.CardView>
 
+
     <Spinner
         android:id="@+id/spinnerOptions"
         style="@style/WrapHeightMatchWidth"
         android:layout_margin="@dimen/default_margin_in_app"
         android:layout_below="@id/cardView"/>
 
+
+
     <View
         style="@style/horizontalDivider"
+        android:layout_below="@id/spinnerOptions"/>
+
+    <ImageView
+        style="@style/WrapHeightMatchWidth"
+        android:id="@+id/picture"
+        android:src="@drawable/ic_settings_black_settings_24dp"
         android:layout_below="@id/spinnerOptions"/>
 
 
@@ -45,7 +54,7 @@
     <LinearLayout
         android:id="@+id/passwordRecoveryLayout"
         style="@style/WrapHeightMatchWidth"
-        android:layout_centerInParent="true"
+        android:layout_below="@id/picture"
         android:orientation="vertical">
 
         <TextView
@@ -63,7 +72,7 @@
         android:id="@+id/cityLayout"
         style="@style/WrapHeightMatchWidth"
         android:orientation="vertical"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/picture"
         android:visibility="gone">
 
         <EditText
@@ -72,14 +81,14 @@
             android:focusable="false"
             android:layout_margin="@dimen/default_margin_in_app"
             android:background="@drawable/edit_text_with_underline"
-            android:hint="grad"/>
+            android:hint="@string/city"/>
 
         <EditText
             style="@style/EditTextWhite"
             android:id="@+id/txtAddress"
             android:layout_margin="@dimen/default_margin_in_app"
             android:background="@drawable/edit_text_with_underline"
-            android:hint="adresa"/>
+            android:hint="@string/address"/>
 
     </LinearLayout>
 
@@ -91,7 +100,7 @@
         android:id="@+id/phoneNumberLayout"
         style="@style/WrapHeightMatchWidth"
         android:orientation="vertical"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/picture"
         android:visibility="gone">
 
         <EditText
@@ -100,7 +109,7 @@
             android:id="@+id/txtPhoneNumber"
             android:layout_margin="@dimen/default_margin_in_app"
             android:background="@drawable/edit_text_with_underline"
-            android:hint="broj"/>
+            android:hint="@string/phoneArray"/>
 
     </LinearLayout>
 

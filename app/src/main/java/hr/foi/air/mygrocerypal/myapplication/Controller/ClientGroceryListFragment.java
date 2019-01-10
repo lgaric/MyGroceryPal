@@ -1,5 +1,6 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -51,6 +52,7 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_client_grocerylist, container, false);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.client));
 
         btnActiveGrocerylist = view.findViewById(R.id.active_client_btn);
         btnPastGroceryList = view.findViewById(R.id.past_client_btn);
@@ -68,6 +70,12 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
         return view;
     }
 
+    @Override
+    public void onResume() {
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.client));
+        super.onResume();
+    }
+
     private void showGroceryLists(){
         if(mActive)
             mPastGroceryListHelper.loadGroceryLists(GroceryListStatus.ACCEPTED, CurrentUser.getCurrentUser.getUserUID());
@@ -82,6 +90,7 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
         super.onViewCreated(view, savedInstanceState);
         mActive = true;
         loadGroceryListToRecyclerView(GroceryListStatus.ACCEPTED);
+        btnActiveGrocerylist.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
     }
 
     @Override
@@ -91,12 +100,16 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
                 //AKO NISU PRIKAZANI AKTIVNI GL ONDA IH PRIKAZI
                 if(!mActive) {
                     loadGroceryListToRecyclerView(GroceryListStatus.ACCEPTED);
+                    btnActiveGrocerylist.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+                    btnPastGroceryList.setBackgroundColor(Color.WHITE);
                     mActive = true;
                 }
                 break;
             case R.id.past_client_btn:
                 if(mActive){
                     loadGroceryListToRecyclerView(GroceryListStatus.FINISHED);
+                    btnPastGroceryList.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+                    btnActiveGrocerylist.setBackgroundColor(Color.WHITE);
                     mActive = false;
                 }
                 break;

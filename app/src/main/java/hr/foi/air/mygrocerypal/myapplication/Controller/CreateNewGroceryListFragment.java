@@ -42,6 +42,7 @@ import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
+import hr.foi.air.mygrocerypal.myapplication.PaymentHelper.PaymentActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class CreateNewGroceryListFragment extends Fragment implements AddGroceryListListener, View.OnClickListener {
@@ -72,6 +73,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_new_grocerylist, container, false);
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.addGroceryList));
 
         mTotalPriceAmount = view.findViewById(R.id.TotalPriceAmount);
         btnAddProducts = view.findViewById(R.id.btnAddProducts);
@@ -101,6 +103,12 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
             mRepeat = true;
         }
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.addGroceryList));
+        super.onResume();
     }
 
 
@@ -149,8 +157,6 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
     }
 
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
@@ -187,6 +193,17 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 hideKeyboard(btnConfirm);
                 if(entered){
                     createGroceryList();
+
+                    /*
+                    Double totalPrice = Double.parseDouble(mGroceryListsModel.getCommision())
+                            + Double.parseDouble(mGroceryListsModel.getTotal_price());
+                    Intent i = new Intent(getActivity(), PaymentActivity.class);
+                    i.putExtra("TOTAL_PAYMENT", totalPrice);
+                    i.putExtra("MODEL_GL", mGroceryListsModel);
+                    i.putExtra("GL_PRODUCTS", new ArrayList<>(mGroceryListProductsModels));
+                    startActivity(i);
+                    */
+
                     mCreateNewGroceryListHelper.saveGroceryListWithProducts(mGroceryListsModel, mGroceryListProductsModels);
                 }
                 break;

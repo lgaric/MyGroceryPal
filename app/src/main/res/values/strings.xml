@@ -24,6 +24,7 @@
     <string name="acceptedCaps">PRIHVAĆENI</string>
     <string name="printLocation">ISPIŠI LOKACIJU</string>
     <string name="acceptCaps">PRIHVATI</string>
+    <string name="confirmCaps">POTVRDI</string>
     <string name="ignoreCaps">IGNORIRAJ</string>
     <string name="returnCaps">VRATI</string>
     <string name="repeatCaps">PONOVI</string>
@@ -32,6 +33,8 @@
     <string name="changeCaps">PROMIJENI</string>
     <string name="changeHeadingCaps">PROMIJENA</string>
     <string name="changePasswordCaps">PROMIJENI LOZINKU</string>
+    <string name="userIban">IBAN</string>
+    <string name="currency">Kn</string>
 
 
     <string name="store">Trgovina</string>
@@ -40,8 +43,25 @@
     <string name="croatianKunaShort">"KN"</string>
     <string name="addedProducts">"Dodani proizvodi"</string>
     <string name="addProduct">"Dodaj proizvod"</string>
+    <string name="addProducts">"Dodaj proizvode"</string>
     <string name="totalPriceSemicolon">"Ukupna cijena: "</string>
+    <string name="numberOfOrders">"Broj narudžbi: "</string>
+    <string name="totalValue">"Ukupna vrijednost: "</string>
+    <string name="totalCommission">Ukupna provizija: </string>
+    <string name="totalOrderValueWithoutCommission">Ukupna vrijednost bez provizije: </string>
+    <string name="averageOrderValue">Prosječna vrijednost narudžbe: </string>
+    <string name="numberOfDeliveries">Broj dostavljanja: </string>
+    <string name="averageDeliveryValue">Prosječna vrijednost dostavljanja: </string>
+    <string name="averageDeliveryCommission">Prosječna vrijednost provizije: </string>
 
+    <string name="bought">Kupljeno: </string>
+    <string name="quantity">Količina: </string>
+    <string name="productPrice">Cijena proizvoda: </string>
+    <string name="currentPrice">Trenutna cijena: </string>
+    <string name="totalCost">Ukupna cijena: </string>
+
+
+    <string name="settings">Postavke</string>
     <string name="deliverer">Dobavljač</string>
     <string name="price">"Cijena: "</string>
     <string name="client">Naručitelj</string>
@@ -63,11 +83,16 @@
     <string name="deliveries">Dostave</string>
     <string name="ordersSemicolon">Narudžbe</string>
     <string name="deliveriesSemicolon">Dostave</string>
+    <string name="noProductsFound">Nema proizvoda prema zadanim kriterijima.</string>
+    <string name="addGroceryList">Nova kupovna lista</string>
     <string name="delivererAcceptedGLMessage">Trenutno nemate prihvaćene kupovne liste.</string>
     <string name="delivererActiveGLMessage">Trenutno nema aktivnih kupovnih lista u vašem području.</string>
     <string name="delivererIgnoredGLMessage">Trenutno nemate ignorirane kupovne liste.</string>
-
-
+    <string name="paymentCaps">PLAĆANJE</string>
+    <string name="amoutPaymentCaps">CIJENA: </string>
+    <string name="waitingCaps">PRIČEKAJTE...</string>
+    <string name="changeLanguage">Jezik aplikacije</string>
+    <string name="chooseCity">Odaberite grad</string>
 
     <string name="test_button" translatable="false">Test database</string>
     <string name="store_image" translatable="false">Store image</string>
