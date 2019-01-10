@@ -83,4 +83,12 @@
     <string name="totalCost">Total cost: </string>
     <string name="confirmCaps">CONFIRM</string>
     <string name="currency">Kn</string>
+    <string name="addProducts">"Add products"</string>
+    <string name="passwordArray">Password</string>
+    <string name="cityArray">City/Address</string>
+    <string name="phoneArray">Phone</string>
+    <string name="delivererAcceptedGLMessage">Accepted grocery lists not found.</string>
+    <string name="delivererActiveGLMessage">Active grocery lists not found in your area.</string>
+    <string name="delivererIgnoredGLMessage">Ignored grocery lists not found.</string>
+    <string name="addGroceryList">Add grocery list</string>
 </resources>

@@ -58,13 +58,13 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_select_products, container, false);
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Add products");
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.addProducts));
         return rootView;
     }
 
     @Override
     public void onResume() {
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Add products");
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.addProducts));
         super.onResume();
     }
 

@@ -34,7 +34,7 @@
                 android:id="@+id/noneProducts"
                 style="@style/WrapHeightMatchWidth"
                 android:visibility="gone"
-                android:text="Nema proizvoda prema zadanim kriterijima."
+                android:text="@string/noProductsFound"
                 android:textAlignment="center"/>
 
 

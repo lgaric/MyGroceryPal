@@ -61,7 +61,7 @@ public class DelivererFragment extends Fragment {
 
     @Override
     public void onResume() {
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Deliverer");
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.deliverer));
         super.onResume();
     }
 
@@ -69,7 +69,7 @@ public class DelivererFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_deliverer, container, false);
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Deliverer");
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.deliverer));
 
         btnActive = view.findViewById(R.id.active_deliverer_btn);
         btnAccepted = view.findViewById(R.id.accepted_deliverer_btn);

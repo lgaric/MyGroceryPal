@@ -43,6 +43,7 @@
     <string name="croatianKunaShort">"KN"</string>
     <string name="addedProducts">"Dodani proizvodi"</string>
     <string name="addProduct">"Dodaj proizvod"</string>
+    <string name="addProducts">"Dodaj proizvode"</string>
     <string name="totalPriceSemicolon">"Ukupna cijena: "</string>
     <string name="numberOfOrders">"Broj narudžbi: "</string>
     <string name="totalValue">"Ukupna vrijednost: "</string>
@@ -82,6 +83,8 @@
     <string name="deliveries">Dostave</string>
     <string name="ordersSemicolon">Narudžbe</string>
     <string name="deliveriesSemicolon">Dostave</string>
+    <string name="noProductsFound">Nema proizvoda prema zadanim kriterijima.</string>
+    <string name="addGroceryList">Nova kupovna lista</string>
     <string name="delivererAcceptedGLMessage">Trenutno nemate prihvaćene kupovne liste.</string>
     <string name="delivererActiveGLMessage">Trenutno nema aktivnih kupovnih lista u vašem području.</string>
     <string name="delivererIgnoredGLMessage">Trenutno nemate ignorirane kupovne liste.</string>
