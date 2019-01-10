@@ -64,4 +64,8 @@
     <string name="deliveries">Deliveries</string>
     <string name="ordersSemicolon">Orders</string>
     <string name="deliveriesSemicolon">Deliveries</string>
+    <string name="changeCaps">CHANGE</string>
+    <string name="changeHeadingCaps">CHANGE</string>
+    <string name="changePasswordCaps">CHANGE PASSWORD</string>
+    <string name="userIban">IBAN</string>
 </resources>

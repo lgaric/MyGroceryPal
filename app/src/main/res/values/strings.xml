@@ -32,6 +32,7 @@
     <string name="changeCaps">PROMIJENI</string>
     <string name="changeHeadingCaps">PROMIJENA</string>
     <string name="changePasswordCaps">PROMIJENI LOZINKU</string>
+    <string name="userIban">IBAN</string>
 
 
     <string name="store">Trgovina</string>

@@ -102,7 +102,8 @@ public class RegistrationHelper extends FirebaseBaseHelper{
                 mNewUser.getUsername().length() > 0 && mNewUser.getTown().length() > 0 &&
                 mNewUser.getAddress().length() > 0 && mNewUser.getPhone_number().length() > 0 &&
                 mNewUser.getBirth_date().length() > 0 && ValidateInputs.validateEmail(mNewUser.getEmail())
-                && ValidateInputs.validatePassword(mNewUser.getPassword()) && ValidateInputs.validateRetypedPassword(mNewUser.getPassword(), mRetypedPassword))
+                && ValidateInputs.validatePassword(mNewUser.getPassword()) && ValidateInputs.validateRetypedPassword(mNewUser.getPassword(), mRetypedPassword)
+                && mNewUser.getUser_iban().length() == 21)
             return true;
         else
             return false;
