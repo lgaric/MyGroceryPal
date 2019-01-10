@@ -47,6 +47,7 @@ POTREBNO JE SAMO MJENJATI FRAGMENT KOJI SE POZIVA U FRAMELAYOUT KOMPONENTI-->
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
+            android:layout_margin="@dimen/default_margin_in_app"
             android:text="Trenutno nemate kupovne liste."
             android:textAlignment="center"/>
 

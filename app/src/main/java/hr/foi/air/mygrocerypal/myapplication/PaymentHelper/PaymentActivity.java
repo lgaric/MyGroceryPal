@@ -41,7 +41,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentListene
     private Payment mPayment;
     private String mToken;
 
-    private Double mTotalPayment;
+    private Double mTotalPayment = 0.0;
     private GroceryListsModel mModel;
     private UserModel mUserModel;
 
@@ -64,9 +64,15 @@ public class PaymentActivity extends AppCompatActivity implements PaymentListene
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            mTotalPayment = extras.getDouble("TOTAL_PAYMENT");
+            //mTotalPayment = extras.getDouble("TOTAL_PAYMENT");
             mModel = (GroceryListsModel) extras.getSerializable("MODEL_GL");
             mUserModel = (UserModel) extras.getSerializable("USER_MODEL");
+
+            for(GroceryListProductsModel product: mModel.getProductsModels())
+                mTotalPayment += product.getPrice() * product.getBought();
+
+            mTotalPayment += Double.parseDouble(mModel.getCommision());
+
             mPrice.setText(mPrice.getText() + " " + String.format("%.2f", mTotalPayment) + " KN");
             new Token(this).execute();
         }
