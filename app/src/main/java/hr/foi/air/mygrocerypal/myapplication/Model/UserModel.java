@@ -1,9 +1,10 @@
 package hr.foi.air.mygrocerypal.myapplication.Model;
 
 
+import java.io.Serializable;
 import java.util.List;
 
-public class UserModel {
+public class UserModel implements Serializable {
     private String userUID;
     private String first_name;
     private String last_name;

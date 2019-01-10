@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private SettingsFragment mSettingsFragment;
     private ClientGroceryListFragment mClientGroceryListFragment;
 
-
+    private int called = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +89,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(called == 0){
+            Log.d("ONSTART", "MAINACTIVITY PRVI PUT");
+            called++;
+        }
+        else {
+            Log.d("ONSTART", "MAINACTIVITY DRUGI PUT");
+            showFragment(mDelivererFragment);
+        }
     }
 
     private void addUserInformationToNavigation(NavigationView mNavigationView){

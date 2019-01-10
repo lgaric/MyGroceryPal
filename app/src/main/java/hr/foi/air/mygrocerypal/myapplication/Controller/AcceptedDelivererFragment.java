@@ -98,6 +98,7 @@ public class AcceptedDelivererFragment extends Fragment implements GroceryListOp
     private void showGroceryListDetails(GroceryListsModel mGroceryListsModel){
         Bundle bundle = new Bundle();
         bundle.putSerializable("GROCERY_LIST_MODEL", mGroceryListsModel);
+        bundle.putBoolean("IS_DELIVERER", true);
         ShowGroceryListDetailsFragment fragment = new ShowGroceryListDetailsFragment();
         fragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()

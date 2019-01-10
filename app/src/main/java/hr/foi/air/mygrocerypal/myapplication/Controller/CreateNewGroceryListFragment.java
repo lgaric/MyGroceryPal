@@ -42,6 +42,7 @@ import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
+import hr.foi.air.mygrocerypal.myapplication.PaymentHelper.PaymentActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class CreateNewGroceryListFragment extends Fragment implements AddGroceryListListener, View.OnClickListener {
@@ -187,6 +188,17 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 hideKeyboard(btnConfirm);
                 if(entered){
                     createGroceryList();
+
+                    /*
+                    Double totalPrice = Double.parseDouble(mGroceryListsModel.getCommision())
+                            + Double.parseDouble(mGroceryListsModel.getTotal_price());
+                    Intent i = new Intent(getActivity(), PaymentActivity.class);
+                    i.putExtra("TOTAL_PAYMENT", totalPrice);
+                    i.putExtra("MODEL_GL", mGroceryListsModel);
+                    i.putExtra("GL_PRODUCTS", new ArrayList<>(mGroceryListProductsModels));
+                    startActivity(i);
+                    */
+
                     mCreateNewGroceryListHelper.saveGroceryListWithProducts(mGroceryListsModel, mGroceryListProductsModels);
                 }
                 break;

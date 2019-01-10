@@ -37,6 +37,12 @@
         style="@style/horizontalDivider"
         android:layout_below="@id/spinnerOptions"/>
 
+    <ImageView
+        style="@style/WrapHeightMatchWidth"
+        android:id="@+id/picture"
+        android:src="@drawable/ic_settings_black_settings_24dp"
+        android:layout_below="@id/spinnerOptions"/>
+
 
     <!-- ZAGLAVLJE IZBORNIK END -->
 
@@ -45,7 +51,7 @@
     <LinearLayout
         android:id="@+id/passwordRecoveryLayout"
         style="@style/WrapHeightMatchWidth"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/picture"
         android:orientation="vertical">
 
         <TextView
@@ -63,7 +69,7 @@
         android:id="@+id/cityLayout"
         style="@style/WrapHeightMatchWidth"
         android:orientation="vertical"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/picture"
         android:visibility="gone">
 
         <EditText
@@ -91,7 +97,7 @@
         android:id="@+id/phoneNumberLayout"
         style="@style/WrapHeightMatchWidth"
         android:orientation="vertical"
-        android:layout_centerInParent="true"
+        android:layout_below="@+id/picture"
         android:visibility="gone">
 
         <EditText

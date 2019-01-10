@@ -1,6 +1,7 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,6 +25,7 @@ import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
+import hr.foi.air.mygrocerypal.myapplication.PaymentHelper.PaymentActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class ShowGroceryListDetailsFragment extends Fragment implements GroceryListDetailsListener {
@@ -32,6 +34,7 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
 
     private GroceryListDetailsHelper mProductsController;
     private GroceryListsModel mGroceryListsModel;
+    private UserModel mDelivererModel;
 
     private LinearLayout mColorOfHeaderGroceryDetails;
 
@@ -40,6 +43,8 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
 
     private Button btnAgainCommit;
 
+    private Boolean mDeliverer = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,6 +52,8 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
         mGroceryListsModel = (GroceryListsModel)getArguments().getSerializable("GROCERY_LIST_MODEL");
         mProductsController =  new GroceryListDetailsHelper(this);
         mProductsController.loadGroceryListProducts(mGroceryListsModel);
+        if(getArguments().containsKey("IS_DELIVERER"))
+            mDeliverer = getArguments().getBoolean("IS_DELIVERER");
 
         return inflater.inflate(R.layout.fragment_show_grocery_list_details, container, false);
     }
@@ -87,7 +94,7 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
         if(mGroceryListsModel.getStatus() != GroceryListStatus.FINISHED)
             mButtonText.setText("POTVRDI");
 
-        if(mGroceryListsModel.getStatus() == GroceryListStatus.CREATED)
+        if(mGroceryListsModel.getStatus() == GroceryListStatus.CREATED || mDeliverer)
             mButtonText.setVisibility(View.GONE);
     }
 
@@ -106,11 +113,12 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
             mGroceryListsModel.setProductsModels(mGroceryListProducts);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-            GroceryListDetailsAdapter v2 = new GroceryListDetailsAdapter(mGroceryListsModel, false);
+            GroceryListDetailsAdapter v2 = new GroceryListDetailsAdapter(mGroceryListsModel, mDeliverer);
             mRecyclerView.setAdapter(v2);
         }
 
         if (mGroceryListUser != null){
+            mDelivererModel = mGroceryListUser;
             mFirstName.append(mGroceryListUser.getFirst_name() + " " + mGroceryListUser.getLast_name());
             mContact.append(mGroceryListUser.getPhone_number());
         }else{
@@ -119,9 +127,24 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
         }
     }
 
+    /**
+     * Click listener
+     */
     private View.OnClickListener btnListenerAgainCommit = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            doOperation();
+        }
+    };
+
+    /**
+     * Napravi operaciju na pritisak gumba
+     * Ako je na gumbu text Ponovi, ponavlja se GL
+     * Inace izvrsi transakciju
+     */
+    private void doOperation(){
+        String buttonText = btnAgainCommit.getText().toString();
+        if(buttonText.equals(getResources().getString(R.string.repeatCaps))) {
             CreateNewGroceryListFragment createNewGroceryListFragment = new CreateNewGroceryListFragment();
             Bundle bundle = new Bundle();
             bundle.putSerializable("repeatGL", mGroceryListsModel);
@@ -131,5 +154,14 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
                     .addToBackStack(null)
                     .commit();
         }
-    };
+        else{
+            Double totalPrice = Double.parseDouble(mGroceryListsModel.getCommision())
+                    + Double.parseDouble(mGroceryListsModel.getTotal_price());
+            Intent i = new Intent(getActivity(), PaymentActivity.class);
+            i.putExtra("USER_MODEL", mDelivererModel);
+            i.putExtra("TOTAL_PAYMENT", totalPrice);
+            i.putExtra("MODEL_GL", mGroceryListsModel);
+            startActivity(i);
+        }
+    }
 }

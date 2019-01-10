@@ -59,7 +59,7 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
         }
     };
 
-    public GroceryListDetailsHolder(@NonNull View itemView, GroceryListsModel groceryModel) {
+    public GroceryListDetailsHolder(@NonNull View itemView, GroceryListsModel groceryModel, boolean deliverer) {
         super(itemView);
 
         this.mNameOfProduct = itemView.findViewById(R.id.name_of_productTxt);
@@ -69,7 +69,7 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
         this.mTotalPrice = itemView.findViewById(R.id.totalprice);
 
 
-        if(groceryModel.getStatus() == GroceryListStatus.ACCEPTED) {
+        if(groceryModel.getStatus() == GroceryListStatus.ACCEPTED && !deliverer) {
             this.btnUpBought = itemView.findViewById(R.id.btnUpBought);
             this.btnDownBought = itemView.findViewById(R.id.btnDownBought);
 

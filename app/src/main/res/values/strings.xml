@@ -66,8 +66,9 @@
     <string name="delivererAcceptedGLMessage">Trenutno nemate prihvaćene kupovne liste.</string>
     <string name="delivererActiveGLMessage">Trenutno nema aktivnih kupovnih lista u vašem području.</string>
     <string name="delivererIgnoredGLMessage">Trenutno nemate ignorirane kupovne liste.</string>
-
-
+    <string name="paymentCaps">PLAĆANJE</string>
+    <string name="amoutPaymentCaps">CIJENA: </string>
+    <string name="waitingCaps">PRIČEKAJTE...</string>
 
     <string name="test_button" translatable="false">Test database</string>
     <string name="store_image" translatable="false">Store image</string>
