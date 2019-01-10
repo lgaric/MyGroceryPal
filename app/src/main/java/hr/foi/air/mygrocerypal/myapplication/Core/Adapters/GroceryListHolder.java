@@ -14,8 +14,6 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class GroceryListHolder extends RecyclerView.ViewHolder {
 
-    private static final String PRICE = "Cijena: ";
-    private static final String FEE = "Provizija: ";
     private static final String CURRENCY = " KN";
 
     private GroceryListsModel mGroceryListsModel;
@@ -25,6 +23,7 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
     private TextView mStore;
     private TextView mPrice;
     private TextView mCommision;
+    private View view;
 
     //ONCLICKLISTENER -> ANDROID INTERFACE
     private View.OnClickListener onclick = new View.OnClickListener() {
@@ -37,6 +36,7 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
 
     public GroceryListHolder(@NonNull View itemView) {
             super(itemView);
+            view = itemView;
 
             mColorTrack = itemView.findViewById(R.id.color_track);
 
@@ -50,8 +50,8 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
         public void bind(GroceryListsModel mGroceryListsModel, GroceryListClickListener mGroceryListClickListener){
             this.mGroceryListsModel = mGroceryListsModel;
             mStore.setText(mGroceryListsModel.getStore_name());
-            mPrice.setText(PRICE + mGroceryListsModel.getTotal_price() + CURRENCY);
-            mCommision.setText(FEE + mGroceryListsModel.getCommision() + CURRENCY);
+            mPrice.setText(view.getContext().getResources().getString(R.string.totalCost) + " " + mGroceryListsModel.getTotal_price() + CURRENCY);
+            mCommision.setText(view.getContext().getResources().getString(R.string.commison) + " " + mGroceryListsModel.getCommision() + CURRENCY);
 
             setColorOfTrack();
 
@@ -60,11 +60,11 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
 
         private void setColorOfTrack(){
             if(mGroceryListsModel.getStatus() == GroceryListStatus.FINISHED)
-                mColorTrack.setBackgroundColor(Color.parseColor("#0E314F"));
+                mColorTrack.setBackgroundColor(view.getContext().getResources().getColor(R.color.colorPrimaryDark));
             else if(mGroceryListsModel.getStatus() == GroceryListStatus.CREATED)
-                mColorTrack.setBackgroundColor(Color.parseColor("#D81B60"));
+                mColorTrack.setBackgroundColor(view.getContext().getResources().getColor(R.color.colorAccent));
             else
-                mColorTrack.setBackgroundColor(Color.parseColor("#447eb1"));
+                mColorTrack.setBackgroundColor(view.getContext().getResources().getColor(R.color.colorPrimary));
         }
 
 }

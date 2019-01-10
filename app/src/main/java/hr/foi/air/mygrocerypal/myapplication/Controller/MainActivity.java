@@ -160,10 +160,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 mDrawer.closeDrawer(GravityCompat.START);
                 showFragment(mClientGroceryListFragment);
                 break;
-            case R.id.navigation_pay:
-                mDrawer.closeDrawer(GravityCompat.START);
-                Toast.makeText(this, "Pritisnuli ste uplati", Toast.LENGTH_LONG).show();
-                break;
             case R.id.navigation_statistics:
                 if(mStatisticsFragment == null) mStatisticsFragment = new StatisticsFragment();
                 mDrawer.closeDrawer(GravityCompat.START);

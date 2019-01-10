@@ -81,4 +81,6 @@
     <string name="productPrice">Product price: </string>
     <string name="currentPrice">Current price: </string>
     <string name="totalCost">Total cost: </string>
+    <string name="confirmCaps">CONFIRM</string>
+    <string name="currency">Kn</string>
 </resources>
