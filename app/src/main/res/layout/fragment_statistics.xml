@@ -35,7 +35,7 @@
 
             <TextView
                 android:id="@+id/numberOfOrdersTxt"
-                android:text="Broj narudžbi: "
+                android:text="@string/numberOfOrders"
                 style="@style/LeftAndRightMarginCleanText"/>
 
             <TextView
@@ -51,7 +51,7 @@
             <TextView
                 android:id="@+id/totalOrderPriceWithProvisionTxt"
                 style="@style/LeftAndRightMarginCleanText"
-                android:text="Ukupna vrijednost: "/>
+                android:text="@string/totalValue"/>
 
             <TextView
                 android:id="@+id/totalOrderPriceWithProvision"
@@ -65,7 +65,7 @@
 
             <TextView
                 android:id="@+id/totalOrderCommissionPriceTxt"
-                android:text="Ukupna provizija: "
+                android:text="@string/totalCommission"
                 style="@style/LeftAndRightMarginCleanText"/>
 
             <TextView
@@ -80,7 +80,7 @@
 
             <TextView
                 android:id="@+id/totalOrderPriceWithoutCommissionTxt"
-                android:text="Ukupna vrijednost bez provizije: "
+                android:text="@string/totalOrderValueWithoutCommission"
                 style="@style/LeftAndRightMarginCleanText"/>
 
             <TextView
@@ -95,7 +95,7 @@
 
             <TextView
                 android:id="@+id/averageOrderPriceTxt"
-                android:text="Prosječna vrijednost narudžbe: "
+                android:text="@string/averageOrderValue"
                 style="@style/LeftAndRightMarginCleanText"/>
 
             <TextView
@@ -129,7 +129,7 @@
 
             <TextView
                 android:id="@+id/numberOfDeliveriesTxt"
-                android:text="Broj dostavljanja: "
+                android:text="@string/numberOfDeliveries"
                 style="@style/LeftAndRightMarginCleanText"/>
 
             <TextView
@@ -144,7 +144,7 @@
 
             <TextView
                 android:id="@+id/totalDeliveryPriceTxt"
-                android:text="Ukupna vrijednost: "
+                android:text="@string/totalValue"
                 style="@style/LeftAndRightMarginCleanText"/>
 
             <TextView
@@ -159,7 +159,7 @@
 
             <TextView
                 android:id="@+id/totalDeliveryCommissionTxt"
-                android:text="Ukupna provizija: "
+                android:text="@string/totalCommission"
                 style="@style/LeftAndRightMarginCleanText"/>
 
             <TextView
@@ -174,7 +174,7 @@
 
             <TextView
                 android:id="@+id/averageDeliveryPriceTxt"
-                android:text="Prosječna vrijednost dostavljanja: "
+                android:text="@string/averageDeliveryValue"
                 style="@style/LeftAndRightMarginCleanText"/>
 
             <TextView
@@ -189,7 +189,7 @@
 
             <TextView
                 android:id="@+id/averageDeliveryCommissionTxt"
-                android:text="Prosječna vrijednost provizije: "
+                android:text="@string/averageDeliveryCommission"
                 style="@style/LeftAndRightMarginCleanText"/>
 
             <TextView

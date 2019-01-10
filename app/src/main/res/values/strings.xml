@@ -42,6 +42,22 @@
     <string name="addedProducts">"Dodani proizvodi"</string>
     <string name="addProduct">"Dodaj proizvod"</string>
     <string name="totalPriceSemicolon">"Ukupna cijena: "</string>
+    <string name="numberOfOrders">"Broj narudžbi: "</string>
+    <string name="totalValue">"Ukupna vrijednost: "</string>
+    <string name="totalCommission">Ukupna provizija: </string>
+    <string name="totalOrderValueWithoutCommission">Ukupna vrijednost bez provizije: </string>
+    <string name="averageOrderValue">Prosječna vrijednost narudžbe: </string>
+    <string name="numberOfDeliveries">Broj dostavljanja: </string>
+    <string name="averageDeliveryValue">Prosječna vrijednost dostavljanja: </string>
+    <string name="averageDeliveryCommission">Prosječna vrijednost provizije: </string>
+
+    <string name="bought">Kupljeno: </string>
+    <string name="quantity">Količina: </string>
+    <string name="productPrice">Cijena proizvoda: </string>
+    <string name="currentPrice">Trenutna cijena: </string>
+    <string name="totalCost">Ukupna cijena: </string>
+
+
 
     <string name="deliverer">Dobavljač</string>
     <string name="price">"Cijena: "</string>
