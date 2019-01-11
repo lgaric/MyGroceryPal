@@ -36,7 +36,7 @@
             <TextView
                 style="@style/TextViewGroceryListItem"
                 android:id="@+id/commisionGroceryDetails"
-                android:text="@string/commison"/>
+                android:text="@string/commisson"/>
 
             <TextView
                 style="@style/TextViewGroceryListItem"

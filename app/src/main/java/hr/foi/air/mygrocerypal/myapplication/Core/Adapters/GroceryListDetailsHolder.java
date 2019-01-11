@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.List;
+
 import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
@@ -20,6 +22,7 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
     private TextView mNameOfProduct, mBought, mQuantity, mPrice, mTotalPrice, mCurrentPrice;
     private Button btnUpBought, btnDownBought;
     private View view;
+    private GroceryListsModel mGroceryListsModel;
 
     private View.OnClickListener btnClickListener = new View.OnClickListener() {
         @Override
@@ -31,6 +34,7 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
                         mModel.setBought(mModel.getBought() + 1);
                         mBought.setText(v.getContext().getResources().getString(R.string.bought) + " " + Integer.toString(mModel.getBought()));
                         mCurrentPrice.setText(v.getContext().getResources().getString(R.string.currentPrice) + " " + String.format("%.2f", mModel.getBought() * mModel.getPrice()) + CURRENCY);
+                        updateProductQuantityInList(mModel);
                     }
 
                     Log.d("GROCERYDETAILSHOLDERUP", "GUMB UP: " + mModel.getGrocery_list_key());
@@ -42,6 +46,7 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
                         mModel.setBought(mModel.getBought() - 1);
                         mBought.setText(v.getContext().getResources().getString(R.string.bought) + " " + Integer.toString(mModel.getBought()));
                         mCurrentPrice.setText(v.getContext().getResources().getString(R.string.currentPrice) + " " + String.format("%.2f", mModel.getBought() * mModel.getPrice()) + CURRENCY);
+                        updateProductQuantityInList(mModel);
                     }
 
                     Log.d("GROCERYDETAILSHOLDERUP", "GUMB DOWN: " + mModel.getGrocery_list_key());
@@ -58,6 +63,7 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
     public GroceryListDetailsHolder(@NonNull View itemView, GroceryListsModel groceryModel, boolean deliverer) {
         super(itemView);
         view = itemView;
+        this.mGroceryListsModel = groceryModel;
         this.mNameOfProduct = itemView.findViewById(R.id.name_of_productTxt);
         this.mBought = itemView.findViewById(R.id.bought);
         this.mPrice = itemView.findViewById(R.id.price);
@@ -90,5 +96,20 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
             this.mCurrentPrice.setText(view.getContext().getResources().getString(R.string.currentPrice) + " " + String.format("%.2f", model.getPrice() * model.getBought()) + CURRENCY);
         }
         this.mTotalPrice.setText(view.getContext().getResources().getString(R.string.totalCost) + " " + String.format("%.2f", model.getPrice() * model.getQuantity()) + CURRENCY);
+    }
+
+    private int getProductPositionInList(GroceryListProductsModel mProduct){
+        List<GroceryListProductsModel> temp = mGroceryListsModel.getProductsModels();
+        int position = 0;
+        for(GroceryListProductsModel product : temp){
+            if(product.getName().equals(mProduct.getName()))
+                return position;
+            position++;
+        }
+        return 0;
+    }
+
+    private void updateProductQuantityInList(GroceryListProductsModel mModel){
+        mGroceryListsModel.getProductsModels().get(getProductPositionInList(mModel)).setQuantity(mModel.getQuantity());
     }
 }

@@ -108,7 +108,7 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(mProductsList != null){
-                    if(mSpinner.getSelectedItem().toString() != "Categories"){
+                    if(mSpinner.getSelectedItem().toString() != getResources().getString(R.string.chooseCategory)){
                         //filter by category
                         filteredList = filterObjects.filterListByCategories(mProductsList, mSpinner.getSelectedItem().toString());
                         //filter by search
@@ -128,7 +128,7 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(mProductsList != null){
-                    if(mSpinner.getSelectedItem().toString() != "Categories"){
+                    if(mSpinner.getSelectedItem().toString() != getResources().getString(R.string.chooseCategory)){
                         //filter by category
                         filteredList = filterObjects.filterListByCategories(mProductsList, mSpinner.getSelectedItem().toString());
                         //filter by search if needed

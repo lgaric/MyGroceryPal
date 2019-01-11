@@ -44,7 +44,7 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Statistics");
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.statistics));
         BindFragmentData(view);
         mPieData = new ArrayList<>();
         mPastGroceryListHelper = new GroceryListHelper(this);
@@ -54,7 +54,7 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
 
     @Override
     public void onResume() {
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle("Statistics");
+        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.statistics));
         super.onResume();
     }
 
@@ -90,12 +90,12 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
         if(mGroceryList == null) {
             return;
         }
-        mPieData.add(new SliceValue(totalOrderPriceWithProvision, Color.MAGENTA).setLabel("Naručivanje: " + Math.round(totalOrderPriceWithProvision)));
+        mPieData.add(new SliceValue(totalOrderPriceWithProvision, Color.MAGENTA).setLabel(getResources().getString(R.string.ordering) + Math.round(totalOrderPriceWithProvision)));
         mNumberOfOrders.setText(String.valueOf(numberOfOrders));
-        mTotalOrderPriceWithProvision.setText(String.valueOf(Math.round(totalOrderPriceWithProvision) + " kn"));
-        mTotalOrderCommission.setText(String.valueOf(Math.round(totalCommissionPrice) + " kn"));
-        mTotalOrderPriceWithoutCommission.setText(String.valueOf(Math.round(totalOrderPriceWithProvision-totalCommissionPrice) + " kn"));
-        mAverageOrderPrice.setText(String.valueOf(Math.round(totalOrderPriceWithProvision/numberOfOrders) + " kn"));
+        mTotalOrderPriceWithProvision.setText(String.valueOf(Math.round(totalOrderPriceWithProvision) + getResources().getString(R.string.currency)));
+        mTotalOrderCommission.setText(String.valueOf(Math.round(totalCommissionPrice) + getResources().getString(R.string.currency)));
+        mTotalOrderPriceWithoutCommission.setText(String.valueOf(Math.round(totalOrderPriceWithProvision-totalCommissionPrice) + getResources().getString(R.string.currency)));
+        mAverageOrderPrice.setText(String.valueOf(Math.round(totalOrderPriceWithProvision/numberOfOrders) + getResources().getString(R.string.currency)));
         printOutGraph();
     }
 
@@ -111,12 +111,12 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
         if(mGroceryList == null) {
             return;
         }
-        mPieData.add(new SliceValue(totalDeliveryPrice, Color.CYAN).setLabel("Dostavljanje: " + Math.round(totalDeliveryPrice)));
+        mPieData.add(new SliceValue(totalDeliveryPrice, Color.CYAN).setLabel(getResources().getString(R.string.delivering) + Math.round(totalDeliveryPrice)));
         mNumberOfDeliveries.setText(String.valueOf(numberOfDeliveries));
-        mTotalDeliveryPrice.setText(String.valueOf(Math.round(totalDeliveryPrice) + " kn"));
-        mTotalDeliveryCommission.setText(String.valueOf(Math.round(totalCommission) + " kn"));
-        mAverageDeliveryPrice.setText(String.valueOf(Math.round(totalDeliveryPrice/numberOfDeliveries) + " kn"));
-        mAverageDeliveryCommission.setText(String.valueOf(Math.round(totalCommission/numberOfDeliveries) + " kn"));
+        mTotalDeliveryPrice.setText(String.valueOf(Math.round(totalDeliveryPrice) + getResources().getString(R.string.currency)));
+        mTotalDeliveryCommission.setText(String.valueOf(Math.round(totalCommission) + getResources().getString(R.string.currency)));
+        mAverageDeliveryPrice.setText(String.valueOf(Math.round(totalDeliveryPrice/numberOfDeliveries) + getResources().getString(R.string.currency)));
+        mAverageDeliveryCommission.setText(String.valueOf(Math.round(totalCommission/numberOfDeliveries) + getResources().getString(R.string.currency)));
 
         printOutGraph();
     }

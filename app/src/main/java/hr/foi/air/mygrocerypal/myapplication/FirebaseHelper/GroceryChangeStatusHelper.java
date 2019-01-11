@@ -6,6 +6,7 @@ import android.widget.Toast;
 import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
+import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class GroceryChangeStatusHelper extends FirebaseBaseHelper{
 
@@ -33,12 +34,12 @@ public class GroceryChangeStatusHelper extends FirebaseBaseHelper{
                 return true;
             }
             catch (Exception e){
-                Toast.makeText(mContext, "Došlo je do pogreške", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, mContext.getResources().getString(R.string.defaultErrorMessage), Toast.LENGTH_LONG).show();
                 return false;
             }
         }
         else {
-            Toast.makeText(mContext, NOINTERNETCONNECTIONMESSAGE, Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, mContext.getResources().getString(R.string.noInternetConnectionMessage), Toast.LENGTH_LONG).show();
             return false;
         }
     }

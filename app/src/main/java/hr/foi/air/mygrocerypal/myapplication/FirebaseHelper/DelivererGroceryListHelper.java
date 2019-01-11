@@ -19,6 +19,7 @@ import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListOperation;
 import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
+import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class DelivererGroceryListHelper extends FirebaseBaseHelper{
     GroceryListStatusListener mGroceryListStatusListener;
@@ -92,20 +93,20 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
         if(isNetworkAvailable()){
             if(GroceryListStatus.valueOf(mGroceryListStatus).equals(GroceryListStatus.ACCEPTED)
                     || GroceryListStatus.valueOf(mGroceryListStatus).equals(GroceryListStatus.FINISHED)) {
-                return "Kupovna lista je već prihvaćena";
+                return mContext.getResources().getString(R.string.groceryListAllreadyAccepted);
             }
 
             try{
                 mReference = mDatabase.getReference();
                 mReference.child(GROCERYLISTSNODE).child(mGroceryListID).child(GROCERYLISTSTATUSNODE).setValue(GroceryListStatus.ACCEPTED);
                 mReference.child(GROCERYLISTSNODE).child(mGroceryListID).child(USERACCEPTEDIDNODE).setValue(CurrentUser.getCurrentUser.getUserUID());
-                return "Prihvaćen odabir";
+                return mContext.getResources().getString(R.string.groceryListAccepted);
             }catch(Exception e) {
                 Log.e(getClass().toString(), e.getMessage());
-                return "Greška prilikom prihvaćanja narudžbe";
+                return mContext.getResources().getString(R.string.acceptGLError);
             }
         }else
-            return NOINTERNETCONNECTIONMESSAGE;
+            return mContext.getResources().getString(R.string.noInternetConnectionMessage);
     }
 
     /**
@@ -222,13 +223,13 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
                         .child(mGroceryListID);
                 mReference.setValue(true);
                 CurrentUser.getCurrentUser.getIgnoredLists().add(mGroceryListID);
-                return "Lista ignorirana!";
+                return mContext.getResources().getString(R.string.listIgnored);
             }catch(Exception e) {
                 Log.e(getClass().toString(), e.getMessage());
-                return "Greška prilikom ignoriranja narudžbe!";
+                return mContext.getResources().getString(R.string.listIgnoredError);
             }
         }else
-            return NOINTERNETCONNECTIONMESSAGE;
+            return mContext.getResources().getString(R.string.noInternetConnectionMessage);
 
     }
 
@@ -238,12 +239,12 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
                 mDatabase.getReference().child(USERIGNOREDLISTNODE).child(CurrentUser.getCurrentUser.getUserUID())
                         .child(mGroceryListKey).removeValue();
                 CurrentUser.getCurrentUser.getIgnoredLists().remove(mGroceryListKey);
-                return "Lista vraćena!";
+                return mContext.getResources().getString(R.string.listReturned);
             }catch (Exception e){
                 Log.e(getClass().toString(), e.getMessage());
-                return "Greška prilikom ignoriranja narudžbe";
+                return mContext.getResources().getString(R.string.listReturnedError);
             }
         }else
-            return NOINTERNETCONNECTIONMESSAGE;
+            return mContext.getResources().getString(R.string.noInternetConnectionMessage);
     }
 }

@@ -101,7 +101,7 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
         //POSTAVI VRIJEDNOST TEXTVIEWOVA
         this.mStore.setText(mGroceryListsModel.getStore_name());
         this.mPrice.setText(view.getContext().getResources().getString(R.string.price) + "  " + mGroceryListsModel.getTotal_price() + CURRENCY);
-        this.mCommision.setText(view.getContext().getResources().getString(R.string.commison) +  "  " + mGroceryListsModel.getCommision() + CURRENCY);
+        this.mCommision.setText(view.getContext().getResources().getString(R.string.commisson) +  "  " + mGroceryListsModel.getCommision() + CURRENCY);
         this.mAddress.setText(view.getContext().getResources().getString(R.string.address) +  "  " + mGroceryListsModel.getDelivery_address());
         this.mDeliveryTown.setText(view.getContext().getResources().getString(R.string.city) +  "  " + mGroceryListsModel.getDelivery_town());
 

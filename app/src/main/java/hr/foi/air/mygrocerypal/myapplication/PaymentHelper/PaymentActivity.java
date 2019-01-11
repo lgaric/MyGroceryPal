@@ -116,17 +116,17 @@ public class PaymentActivity extends AppCompatActivity implements PaymentListene
                     sendPayments();
                 }
                 else {
-                    Toast.makeText(this, "Došlo je do pogreške prilikom plaćanja", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, getResources().getString(R.string.paymentFailed), Toast.LENGTH_LONG).show();
                     this.mWaiting.setVisibility(View.GONE);
                 }
 
             } else if (resultCode == PaymentActivity.RESULT_CANCELED) {
-                Toast.makeText(this, "Odgođeno", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.postponed), Toast.LENGTH_LONG).show();
                 this.mWaiting.setVisibility(View.GONE);
             } else {
                 Exception error = (Exception) data.getSerializableExtra(DropInActivity.EXTRA_ERROR);
                 Log.d("ERROR_PAYMENT", error.getMessage());
-                Toast.makeText(this, "Došlo je do pogreške prilikom plaćanja", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getResources().getString(R.string.paymentFailed), Toast.LENGTH_LONG).show();
                 this.mWaiting.setVisibility(View.GONE);
             }
         }
@@ -157,21 +157,21 @@ public class PaymentActivity extends AppCompatActivity implements PaymentListene
                             String str = new String(responseBody, "UTF-8");
                             Log.d("RESULT", str);
                             if(str.contains("Successful"))
-                                showFinalMessage("Transakcija uspješno obavljena", true);
+                                showFinalMessage(getResources().getString(R.string.paymentSuccess), true);
 
                             else
-                                showFinalMessage("Došlo je do pogreške prilikom plaćanja", false);
+                                showFinalMessage(getResources().getString(R.string.paymentFailed), false);
                         }
                         catch (Exception e){
                             Log.d("CONVERT_EXCEPTION", e.getMessage());
-                            showFinalMessage("Došlo je do pogreške prilikom plaćanja", false);
+                            showFinalMessage(getResources().getString(R.string.paymentFailed), false);
                         }
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                         Log.d("ONFAILURE_EXCEPTION", error.getMessage());
-                        showFinalMessage("Došlo je do pogreške prilikom plaćanja", false);
+                        showFinalMessage(getResources().getString(R.string.paymentFailed), false);
                     }
                 }
         );

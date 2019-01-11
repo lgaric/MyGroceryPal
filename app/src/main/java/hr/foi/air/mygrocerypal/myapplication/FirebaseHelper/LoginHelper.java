@@ -21,6 +21,7 @@ import java.util.List;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.LoginListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
+import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class LoginHelper extends FirebaseBaseHelper{
     private LoginListener mLoginListener;
@@ -79,16 +80,16 @@ public class LoginHelper extends FirebaseBaseHelper{
 
         switch(mError) {
             case "ERROR_INVALID_EMAIL":
-                errorMessage ="Neispravan Email";
+                errorMessage =mContext.getResources().getString(R.string.emailLoginError);
                 break;
             case "ERROR_WRONG_PASSWORD":
-                errorMessage = "Neispravna lozinka";
+                errorMessage = mContext.getResources().getString(R.string.passwordLoginError);
                 break;
             case "ERROR_USER_NOT_FOUND":
-                errorMessage = "Nepostojeći korisnik";
+                errorMessage = mContext.getResources().getString(R.string.userNotFoundError);
                 break;
             default:
-                errorMessage = "Greška";
+                errorMessage = mContext.getResources().getString(R.string.defaultErrorMessage);
                 break;
         }
 

@@ -154,10 +154,10 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
             mSwipeRefreshLayout.setRefreshing(false);
             setTextVisibility(mGroceryList, mGroceryListStatus);
         }else if (mGroceryListStatus.equals(GroceryListStatus.ACCEPTED)){
-            noneClientGroceryLists.setText("Trenutno nemate aktivne kupovne liste.");
+            noneClientGroceryLists.setText(getResources().getString(R.string.clientActiveGLMessage));
             noneClientGroceryLists.setVisibility(View.VISIBLE);
         }else{
-            noneClientGroceryLists.setText("Trenutno nemate prošle kupovne liste.");
+            noneClientGroceryLists.setText(getResources().getString(R.string.clientPastGLMessage));
             noneClientGroceryLists.setVisibility(View.VISIBLE);
         }
 
@@ -170,10 +170,10 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
 
     private void setTextVisibility(ArrayList<GroceryListsModel> mGroceryList, GroceryListStatus mGroceryListStatus){
         if(mGroceryList.size() == 0 && mGroceryListStatus.equals(GroceryListStatus.ACCEPTED)){
-            noneClientGroceryLists.setText("Trenutno nemate aktivne kupovne liste.");
+            noneClientGroceryLists.setText(getResources().getString(R.string.clientActiveGLMessage));
             noneClientGroceryLists.setVisibility(View.VISIBLE);
         }else if (mGroceryList.size() == 0 && mGroceryListStatus.equals(GroceryListStatus.FINISHED)){
-            noneClientGroceryLists.setText("Trenutno nemate prošle kupovne liste.");
+            noneClientGroceryLists.setText(getResources().getString(R.string.clientPastGLMessage));
             noneClientGroceryLists.setVisibility(View.VISIBLE);
         }else
             noneClientGroceryLists.setVisibility(View.GONE);

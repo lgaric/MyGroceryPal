@@ -17,7 +17,7 @@
         <item
             android:id="@+id/navigation_settings"
             android:icon="@drawable/ic_settings_black_24dp"
-            android:title="@string/action_settings" />
+            android:title="@string/actionSettings" />
 
     </group>
     <item android:title="@string/more">

@@ -17,6 +17,7 @@ import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.AddGrocery
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
+import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class CreateNewGroceryListHelper extends FirebaseBaseHelper{
 
@@ -48,7 +49,6 @@ public class CreateNewGroceryListHelper extends FirebaseBaseHelper{
                     }
 
                     mAddGroceryListListener.storesReceived(stores);
-                    Log.d("getAllStores", "sizeStores" + Integer.toString(stores.size()));
                 }
 
                 @Override
@@ -73,8 +73,6 @@ public class CreateNewGroceryListHelper extends FirebaseBaseHelper{
             pushRef.setValue(mGroceryListsModel);
             String generated_GL_key = pushRef.getKey();
 
-            Log.d("generated_GL_key", generated_GL_key);
-
             //Upis proizvoda za taj GL u firebase
             if(!isNullOrBlank(generated_GL_key)){
                 for (GroceryListProductsModel product: mGroceryListProductsModels) {
@@ -82,10 +80,10 @@ public class CreateNewGroceryListHelper extends FirebaseBaseHelper{
                     product.setProduct_key(null);
                     refProducts.setValue(product);
                 }
-                mAddGroceryListListener.groceryListAddedToDatabase(true, "Uspješno kreirano!");
+                mAddGroceryListListener.groceryListAddedToDatabase(true, mContext.getResources().getString(R.string.saveSuccess));
             }
             else{
-                mAddGroceryListListener.groceryListAddedToDatabase(true, "Greška prilikom upisa!");
+                mAddGroceryListListener.groceryListAddedToDatabase(true, mContext.getResources().getString(R.string.saveFail));
             }
         }else
             showInternetMessageWarning();

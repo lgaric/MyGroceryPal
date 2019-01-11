@@ -193,17 +193,6 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 hideKeyboard(btnConfirm);
                 if(entered){
                     createGroceryList();
-
-                    /*
-                    Double totalPrice = Double.parseDouble(mGroceryListsModel.getCommision())
-                            + Double.parseDouble(mGroceryListsModel.getTotal_price());
-                    Intent i = new Intent(getActivity(), PaymentActivity.class);
-                    i.putExtra("TOTAL_PAYMENT", totalPrice);
-                    i.putExtra("MODEL_GL", mGroceryListsModel);
-                    i.putExtra("GL_PRODUCTS", new ArrayList<>(mGroceryListProductsModels));
-                    startActivity(i);
-                    */
-
                     mCreateNewGroceryListHelper.saveGroceryListWithProducts(mGroceryListsModel, mGroceryListProductsModels);
                 }
                 break;
@@ -245,8 +234,8 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
                 mTown.setEnabled(true);
                 mAddress.getText().clear();
                 mTown.getText().clear();
-                mAddress.setHint("Upišite drugu adresu");
-                mTown.setHint("Upišite grad");
+                mAddress.setHint(getResources().getString(R.string.anotherAddress));
+                mTown.setHint(getResources().getString(R.string.anotherCity));
 
                 //PONOVI
                 if(mGroceryListsModel != null){
@@ -343,35 +332,35 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
         boolean entered = true;
         if(isNullOrBlank(mSelectedStoreName)){
-            showToast("Odaberite dućan!");
+            showToast(getResources().getString(R.string.chooseStore));
             entered = false;
 
         }
         if(isNullOrBlank(mAddress.getText().toString())){
-            showToast("Odaberite adresu!");
+            showToast(getResources().getString(R.string.chooseAddress));
             entered = false;
         }
         if(isNullOrBlank(mTown.getText().toString())){
-            showToast("Odaberite grad!");
+            showToast(getResources().getString(R.string.chooseCity));
             entered = false;
         }
         if(isNullOrBlank(mStartDate.toString())){
-            showToast("Odaberite početni datum prikazivanja!");
+            showToast(getResources().getString(R.string.chooseStartDate));
             entered = false;
         }
         if(isNullOrBlank(mCommission.getText().toString())){
-            showToast("Odaberite proviziju!");
+            showToast(getResources().getString(R.string.chooseCommission));
             entered = false;
         }
         checkProductsQuantity();//ako je količina 0 briše iz liste
         if(mGroceryListProductsModels != null){
             if(mGroceryListProductsModels.size() < 1){
-                showToast("Morate odabrati barem jedan proizvod!");
+                showToast(getResources().getString(R.string.atLeastOneProduct));
                 entered = false;
             }
         }
         else{
-            showToast("Lista proizvoda nije primljena!");
+            showToast(getResources().getString(R.string.noProductListError));
             entered = false;
         }
 
@@ -418,10 +407,10 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     public void showDialogOnStoreChanged(boolean mFlag){
         if(mFlag) {
             new AlertDialog.Builder(getActivity())
-                    .setTitle("Promjena dućana")
-                    .setMessage("Mijenjanje dućana briše listu proizvoda. Jeste li sigurni da želite promijeniti dućan?")
-                    .setNegativeButton("Ne", null)
-                    .setPositiveButton("Da", new DialogInterface.OnClickListener() {
+                    .setTitle(getResources().getString(R.string.storeChangeTitle))
+                    .setMessage(getResources().getString(R.string.storeChangeMessage))
+                    .setNegativeButton(getResources().getString(R.string.no), null)
+                    .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             if (mProductsListAdapter != null && mGroceryListProductsModels != null) {

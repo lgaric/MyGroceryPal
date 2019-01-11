@@ -1,6 +1,5 @@
 package hr.foi.air.mygrocerypal.myapplication.Core.Adapters;
 
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -51,7 +50,7 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
             this.mGroceryListsModel = mGroceryListsModel;
             mStore.setText(mGroceryListsModel.getStore_name());
             mPrice.setText(view.getContext().getResources().getString(R.string.totalCost) + " " + mGroceryListsModel.getTotal_price() + CURRENCY);
-            mCommision.setText(view.getContext().getResources().getString(R.string.commison) + " " + mGroceryListsModel.getCommision() + CURRENCY);
+            mCommision.setText(view.getContext().getResources().getString(R.string.commisson) + " " + mGroceryListsModel.getCommision() + CURRENCY);
 
             setColorOfTrack();
 

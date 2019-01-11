@@ -244,7 +244,7 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
             Toast.makeText(getContext(), result, Toast.LENGTH_LONG).show();
         }
         else{
-            Toast.makeText(getContext(), "Pogreska kod dohvacanja adrese", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getResources().getString(R.string.fetchAddressError), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -257,7 +257,7 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
 
         String phone = mPhoneNumber.getText().toString();
         if(phone.length() != 10 && phone.length() != 9){
-            Toast.makeText(getContext(), "Ovo nije broj mobilnog telefona", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getResources().getString(R.string.phoneError), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -275,12 +275,11 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
             mListOfCities = listOfCities;
 
             mSpinnerDialog = new SpinnerDialog(getActivity(), mListOfCities,
-                    getResources().getString(R.string.chooseCity), R.style.DialogAnimations_SmileWindow, "Zatvori");
+                    getResources().getString(R.string.chooseCity), R.style.DialogAnimations_SmileWindow, getResources().getString(R.string.close));
 
             mSpinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
                 @Override
                 public void onClick(String item, int position) {
-                    Toast.makeText(getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
                     mCity.setText(item);
                 }
             });

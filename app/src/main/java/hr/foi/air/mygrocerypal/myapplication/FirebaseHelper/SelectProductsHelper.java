@@ -9,9 +9,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import hr.foi.air.mygrocerypal.myapplication.Controller.MainActivity;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.SelectProductsListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.CategoriesModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.ProductsModel;
+import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class SelectProductsHelper extends FirebaseBaseHelper{
     private SelectProductsListener mSelectProductsListener;
@@ -65,7 +67,7 @@ public class SelectProductsHelper extends FirebaseBaseHelper{
                     ArrayList<CategoriesModel> categories = new ArrayList<>();
                     CategoriesModel title = new CategoriesModel();
                     title.setCategory_id("1");
-                    title.setName("Categories");
+                    title.setName(mContext.getResources().getString(R.string.chooseCategory));
                     categories.add(title);
                     for (DataSnapshot temp : dataSnapshot.getChildren()){
                         CategoriesModel categoriesModel = temp.getValue(CategoriesModel.class);

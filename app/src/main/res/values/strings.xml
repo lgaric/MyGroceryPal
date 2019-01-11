@@ -5,8 +5,8 @@
     <string name="registrationOnLogin">Nemate račun? Registrirajte se!</string>
     <string name="login">Prijava</string>
     <string name="register">Registriraj se!</string>
-    <string name="firstname">Ime</string>
-    <string name="lastname">Prezime</string>
+    <string name="firstName">Ime</string>
+    <string name="lastName">Prezime</string>
     <string name="email">Email</string>
     <string name="password">Lozinka</string>
     <string name="repeatPassword">Ponovite lozinku</string>
@@ -34,7 +34,7 @@
     <string name="changeHeadingCaps">PROMIJENA</string>
     <string name="changePasswordCaps">PROMIJENI LOZINKU</string>
     <string name="userIban">IBAN</string>
-    <string name="currency">Kn</string>
+    <string name="currency"> Kn</string>
 
 
     <string name="store">Trgovina</string>
@@ -78,7 +78,7 @@
     <string name="validFromSemicolon">"Vrijedi od:</string>
     <string name="delivererSemicolon">"Dobavljač: "</string>
     <string name="storeSemicolon">"Trgovina: "</string>
-    <string name="commisionSemicolon">"Provizija: "</string>
+    <string name="commissionSemicolon">"Provizija: "</string>
     <string name="orders">Narudžbe</string>
     <string name="deliveries">Dostave</string>
     <string name="ordersSemicolon">Narudžbe</string>
@@ -89,37 +89,102 @@
     <string name="delivererActiveGLMessage">Trenutno nema aktivnih kupovnih lista u vašem području.</string>
     <string name="delivererIgnoredGLMessage">Trenutno nemate ignorirane kupovne liste.</string>
     <string name="paymentCaps">PLAĆANJE</string>
-    <string name="amoutPaymentCaps">CIJENA: </string>
+    <string name="amountPaymentCaps">CIJENA: </string>
     <string name="waitingCaps">PRIČEKAJTE...</string>
     <string name="changeLanguage">Jezik aplikacije</string>
     <string name="chooseCity">Odaberite grad</string>
+    <string name="chooseCategory">Odaberite kategoriju</string>
+    <string name="ordering">Naručivanje: </string>
+    <string name="delivering">Dostavljanje: </string>
 
-    <string name="test_button" translatable="false">Test database</string>
-    <string name="store_image" translatable="false">Store image</string>
+    <string name="testButton" translatable="false">Test database</string>
+    <string name="storeImage" translatable="false">Store image</string>
     <string name="preferences" translatable="false">Preferences</string>
-    <string name="app_lang_pref" translatable="false">Jezik</string>
+    <string name="appLangPref" translatable="false">Jezik</string>
 
+    <string name="paymentFailed">Došlo je do pogreške prilikom plaćanja</string>
+    <string name="paymentSuccess">Transakcija uspješno obavljena</string>
+    <string name="clientActiveGLMessage">Trenutno nemate aktivne kupovne liste.</string>
+    <string name="clientPastGLMessage">Trenutno nemate prošle kupovne liste.</string>
+    <string name="getGroceryListError">Pogreška prilikom dohvata Grocery List ID-a</string>
+    <string name="defaultErrorMessage">Došlo je do greške!</string>
+    <string name="anotherAddress">Upišite drugu adresu</string>
+    <string name="anotherCity">Upišite grad</string>
+    <string name="chooseStore">Odaberite dućan!</string>
+    <string name="chooseAddress">Odaberite adresu!</string>
+    <string name="chooseTown">Odaberite grad!</string>
+    <string name="chooseStartDate">Odaberite početni datum prikazivanja!</string>
+    <string name="chooseCommission">Odaberite proviziju!</string>
+    <string name="atLeastOneProduct">Morate odabrati barem jedan proizvod!</string>
+    <string name="noProductListError">Lista proizvoda nije primljena!</string>
+    <string name="storeChangeTitle">Promjena dućana</string>
+    <string name="storeChangeMessage">Mijenjanje dućana briše listu proizvoda. Jeste li sigurni da želite promijeniti dućan?</string>
+    <string name="groceryListAllreadyAccepted">Kupovna lista je već prihvaćena!</string>
+    <string name="groceryListAccepted">Kupovna lista je prihvaćena!</string>
+    <string name="yes">Da</string>
+    <string name="no">Ne</string>
+    <string name="logOutQuestion">Odjava?</string>
+    <string name="obligatory">Obavezno polje!</string>
+    <string name="close">Zatvori</string>
+    <string name="saveSuccess">Uspješno kreirano!</string>
+    <string name="saveFail">Greška prilikom upisa!</string>
+    <string name="acceptGLError">Greška prilikom prihvaćanja narudžbe</string>
+    <string name="listIgnored">Lista ignorirana!</string>
+    <string name="listIgnoredError">Greška prilikom ignoriranja narudžbe!</string>
+    <string name="listReturned">Lista vraćena!</string>
+    <string name="listReturnedError">Greška prilikom vraćanja narudžbe!</string>
+    <string name="noInternetConnectionMessage">Potrebna je internet veza!</string>
+
+    <!-- User Errors -->
+
+    <string name="emailError">Molimo unesite ispravnu email adresu!</string>
+    <string name="passwordError">Minimalno 6 slova i jedan specijalni znak!</string>
+    <string name="retypedPasswordError">Lozinke ne odgovaraju!</string>
+    <string name="ibanError">Iban mora sadržavati 21 znamenku!</string>
+    <string name="phoneError">Ovo nije ispravan broj mobilnog telefona</string>
+    <string name="fetchAddressError">Pogreska kod dohvacanja adrese</string>
+
+    <!-- Login Errors -->
+
+    <string name="emailLoginError">Neispravan Email</string>
+    <string name="passwordLoginError">Neispravna lozinka</string>
+    <string name="userNotFoundError">Nepostojeći korisnik. Registrirajte se!</string>
+
+
+    <string name="pwRecoverySuccess">Link za promjenu lozinke je poslan. Provjerite email!</string>
+    <string name="pwRecoveryFail">Došlo je do greške, provjerite ispravnost email-a!</string>
+    <string name="checkInputMessage">Molimo pravilno ispunite sve podatke!</string>
+    <string name="fetchLocationError">Greška prilikom dohvaćanja lokacije!</string>
+    <string name="usernameInUse">Korisničko ime je već u upotrebi!</string>
+    <string name="emailInUse">Već postoji račun s navedenom email adresom! Login?</string>
+    <string name="registrationSuccess">Registracija uspješna. Molimo potvrdite email!</string>
+    <string name="registrationFail">Greška prilikom registracije!</string>
+    <string name="addressChangeSuccess">Adresa uspješno promijenjena!</string>
+    <string name="addressChangeFail">Greška prilikom promijene adrese!</string>
+    <string name="phoneChangeSuccess">Broj uspješno promijenjen!</string>
+    <string name="phoneChangeFail">Greška prilikom promijene broja!</string>
+    <string name="postponed">Odgođeno!</string>
 
     <string name="cancel">Odustani</string>
     <string name="delete">Obriši</string>
 
     <string name="username">Korisničko ime</string>
 
-    <string name="navigation_drawer_open">Otvoren drawer</string>
-    <string name="navigation_drawer_close">Zatvoren drawer</string>
+    <string name="navigationDrawerOpen">Otvoren drawer</string>
+    <string name="navigationDrawerClose">Zatvoren drawer</string>
 
-    <string name="nav_header_info" translatable="false">imeprezime@foi.hr</string>
+    <string name="navHeaderInfo" translatable="false">imeprezime@foi.hr</string>
 
 
-    <string name="menu_about">O aplikaciji</string>
-    <string name="action_settings">Postavke</string>
+    <string name="menuAbout">O aplikaciji</string>
+    <string name="actionSettings">Postavke</string>
     <string name="progressBar" translatable="false">Progress Bar</string>
 
 
     <string name="searchLocation">Lokacijsko traženje</string>
 
     <string name="tab" translatable="false">\u0009</string>
-    <string name="commison">Provizija</string>
+    <string name="commisson">Provizija</string>
 
 
     <!-- POLJE POSTAVKE / START -->

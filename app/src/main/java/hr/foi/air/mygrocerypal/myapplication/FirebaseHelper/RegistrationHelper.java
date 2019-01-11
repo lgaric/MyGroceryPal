@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 import hr.foi.air.mygrocerypal.LocationBasedOnAddress;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.RegistrationListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
+import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class RegistrationHelper extends FirebaseBaseHelper{
     private RegistrationListener mRegistrationListener;
@@ -35,7 +36,7 @@ public class RegistrationHelper extends FirebaseBaseHelper{
             user.setLongitude(userLocation.getLongitude());
             user.setLatitude(userLocation.getLatitude());
         }else{
-            mRegistrationListener.onRegistrationFail("Greška prilikom dohvaćanja lokacije!");
+            mRegistrationListener.onRegistrationFail(mContext.getResources().getString(R.string.fetchLocationError));
             return;
         }
 
@@ -47,7 +48,7 @@ public class RegistrationHelper extends FirebaseBaseHelper{
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     //username exists
                     if (dataSnapshot.getChildrenCount() > 0) {
-                        mRegistrationListener.showToastRegistration("Korisničko ime je već u upotrebi!");
+                        mRegistrationListener.showToastRegistration(mContext.getResources().getString(R.string.usernameInUse));
                     } else {
                         mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -57,11 +58,11 @@ public class RegistrationHelper extends FirebaseBaseHelper{
                                     mDatabase.getReference().child("users").child(uId).setValue(user);
                                     mAuth.getCurrentUser().sendEmailVerification();
                                     mAuth.signOut();
-                                    mRegistrationListener.onRegistrationSuccess("Registracija uspješna. Molimo potvrdite email!");
+                                    mRegistrationListener.onRegistrationSuccess(mContext.getResources().getString(R.string.registrationSuccess));
                                 } else if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-                                    mRegistrationListener.onRegistrationFail("Već postoji račun s navedenom email adresom!");
+                                    mRegistrationListener.onRegistrationFail(mContext.getResources().getString(R.string.emailInUse));
                                 } else {
-                                    mRegistrationListener.onRegistrationFail("Greška prilikom registracije!");
+                                    mRegistrationListener.onRegistrationFail(mContext.getResources().getString(R.string.registrationFail));
                                 }
                             }
                         });
@@ -88,7 +89,7 @@ public class RegistrationHelper extends FirebaseBaseHelper{
         if (InputCorrect(mNewUser, mRetypedPassword))
             registration(mNewUser);
         else
-            mRegistrationListener.onRegistrationFail("Molimo pravilno ispunite sve podatke!");
+            mRegistrationListener.onRegistrationFail(mContext.getResources().getString(R.string.checkInputMessage));
     }
 
     /**

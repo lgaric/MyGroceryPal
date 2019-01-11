@@ -38,11 +38,11 @@
             <EditText
                 android:id="@+id/firstnameRegistration"
                 style="@style/EditTextWhite"
-                android:hint="@string/firstname"/>
+                android:hint="@string/firstName"/>
 
             <EditText
                 android:id="@+id/lastnameRegistration"
-                android:hint="@string/lastname"
+                android:hint="@string/lastName"
                 style="@style/EditTextWhite" />
 
             <EditText

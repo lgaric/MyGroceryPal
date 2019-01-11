@@ -109,9 +109,9 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                 if(!hasFocus){
                     if(mEmail.getText().toString().trim().length() > 0){
                         boolean validationSuccess = ValidateInputs.validateEmail(mEmail.getText().toString().trim());
-                        if(!validationSuccess) mEmail.setError("Molimo unesite ispravnu email adresu!");
+                        if(!validationSuccess) mEmail.setError(getResources().getString(R.string.emailError));
                     }else {
-                        mEmail.setError(OBLIGATORY);
+                        mEmail.setError(getResources().getString(R.string.obligatory));
                     }
                 }
             }
@@ -124,9 +124,9 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                     if (mPassword.getText().toString().trim().length() > 0) {
                         boolean validationSuccess = ValidateInputs.validatePassword(mPassword.getText().toString().trim());
                         if (!validationSuccess)
-                            mPassword.setError("Minimalno 6 slova i jedan specijalni znak!");
+                            mPassword.setError(getResources().getString(R.string.passwordError));
                     } else {
-                        mPassword.setError(OBLIGATORY);
+                        mPassword.setError(getResources().getString(R.string.obligatory));
                     }
                 }
             }
@@ -138,9 +138,9 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
                 if(!hasFocus){
                     if(mRetypedPassword.getText().toString().trim().length() > 0){
                         boolean validationSuccess = ValidateInputs.validateRetypedPassword(mPassword.getText().toString().trim(), mRetypedPassword.getText().toString().trim());
-                        if(!validationSuccess) mRetypedPassword.setError("Lozinke ne odgovaraju!");
+                        if(!validationSuccess) mRetypedPassword.setError(getResources().getString(R.string.retypedPasswordError));
                     }else{
-                        mRetypedPassword.setError(OBLIGATORY);
+                        mRetypedPassword.setError(getResources().getString(R.string.obligatory));
                     }
                 }
             }
@@ -151,7 +151,7 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
                     if(mUserIBAN.getText().toString().trim().length() != 21)
-                        mUserIBAN.setError("Iban mora sadržavati 21 znamenku!");
+                        mUserIBAN.setError(getResources().getString(R.string.ibanError));
                 }
             }
         });
@@ -235,11 +235,10 @@ public class RegistrationActivity extends AppCompatActivity implements Registrat
     public void citiesLoaded(ArrayList<String> listOfCities) {
         if(listOfCities != null) {
             mListOfCities = listOfCities;
-            mSpinnerDialog = new SpinnerDialog(RegistrationActivity.this, mListOfCities, "Odaberite grad", R.style.DialogAnimations_SmileWindow, "Zatvori");
+            mSpinnerDialog = new SpinnerDialog(RegistrationActivity.this, mListOfCities, getResources().getString(R.string.chooseCity), R.style.DialogAnimations_SmileWindow, "Zatvori");
             mSpinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
                 @Override
                 public void onClick(String item, int position) {
-                    Toast.makeText(RegistrationActivity.this, "Selected: " + item, Toast.LENGTH_LONG).show();
                     mCities.setText(item);
                 }
             });

@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Deliverer");
+        getSupportActionBar().setTitle(getResources().getString(R.string.deliverer));
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.navigationDrawerOpen, R.string.navigationDrawerClose);
         mDrawer.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
@@ -100,20 +100,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onStart() {
         super.onStart();
         if(called == 0){
-            Log.d("ONSTART", "MAINACTIVITY PRVI PUT");
             called++;
         }
         else {
-            Log.d("ONSTART", "MAINACTIVITY DRUGI PUT");
             showFragment(mDelivererFragment);
         }
     }
 
     private void addUserInformationToNavigation(NavigationView mNavigationView){
+        String userFullName = CurrentUser.getCurrentUser.getFirst_name() + " " + CurrentUser.getCurrentUser.getLast_name();
         View headerView = mNavigationView.getHeaderView(0);
         TextView username = headerView.findViewById(R.id.nav_header_username);
         TextView email = headerView.findViewById(R.id.nav_header_email);
-        username.setText(CurrentUser.getCurrentUser.getFirst_name() + " " + CurrentUser.getCurrentUser.getLast_name());
+        username.setText(userFullName);
         email.setText(CurrentUser.getCurrentUser.getEmail());
     }
 
@@ -184,7 +183,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             //Handle clicks on other (dynamicaly added drawer) items
             default:
-                Toast.makeText(this, "Nepotreban pritisak", Toast.LENGTH_LONG).show();
                 break;
         }
         return true;
@@ -269,17 +267,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     private void endOfWork(){
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Odjava?");
+        alertDialogBuilder.setTitle(getResources().getString(R.string.logOutQuestion));
         alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton("Da",
+                .setPositiveButton(getResources().getString(R.string.yes),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 logout();
                             }
                         })
 
-                .setNegativeButton("Ne", new DialogInterface.OnClickListener() {
+                .setNegativeButton(getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }

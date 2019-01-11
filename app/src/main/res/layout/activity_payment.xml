@@ -35,7 +35,7 @@
             android:id="@+id/totalPrice"
             style="@style/TextViewBigWhite"
             android:textColor="@color/black"
-            android:text="@string/amoutPaymentCaps"/>
+            android:text="@string/amountPaymentCaps"/>
 
         <LinearLayout
             style="@style/WrapHeightMatchWidth"
@@ -58,6 +58,6 @@
         style="@style/ButtonLightBlue"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="PLATI"/>
+        android:text="@string/pay"/>
 
 </RelativeLayout>

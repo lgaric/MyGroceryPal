@@ -8,6 +8,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.PasswordRecoveryListener;
+import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class PasswordRecoveryHelper extends FirebaseBaseHelper{
     private PasswordRecoveryListener mPasswordRecoveryListener;
@@ -35,14 +36,14 @@ public class PasswordRecoveryHelper extends FirebaseBaseHelper{
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    mPasswordRecoveryListener.onRecoverySuccess("Link za promjenu lozinke je poslan. Provjerite email!");
+                                    mPasswordRecoveryListener.onRecoverySuccess(mContext.getResources().getString(R.string.pwRecoverySuccess));
                                 } else {
-                                    mPasswordRecoveryListener.onRecoveryFail("Došlo je do greške, provjerite ispravnost email-a!");
+                                    mPasswordRecoveryListener.onRecoveryFail(mContext.getResources().getString(R.string.pwRecoveryFail));
                                 }
                             }
                         });
             } else {
-                mPasswordRecoveryListener.onRecoveryFail("Unesite ispravnu email adresu!");
+                mPasswordRecoveryListener.onRecoveryFail(mContext.getResources().getString(R.string.emailError));
             }
         }
         else

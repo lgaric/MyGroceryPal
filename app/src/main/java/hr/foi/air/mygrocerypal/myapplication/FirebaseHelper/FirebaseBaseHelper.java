@@ -10,6 +10,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import hr.foi.air.mygrocerypal.myapplication.R;
+
 public class FirebaseBaseHelper {
     //Firebase tablice
     protected static final String PRODUCTSNODE  = "products";
@@ -28,8 +30,6 @@ public class FirebaseBaseHelper {
     protected static final String LONGITUDE = "longitude";
     protected static final String PHONENUMBERNODE = "phone_number";
     protected static final String BOUGHTNODE = "bought";
-
-    protected static final String NOINTERNETCONNECTIONMESSAGE  = "Potrebna je internet veza!";
 
 
     //Firebase varijable
@@ -53,7 +53,7 @@ public class FirebaseBaseHelper {
 
     protected void showInternetMessageWarning(){
         if(mContext != null){
-            Toast.makeText(mContext, NOINTERNETCONNECTIONMESSAGE, Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, mContext.getResources().getString(R.string.noInternetConnectionMessage), Toast.LENGTH_LONG).show();
         }
     }
 

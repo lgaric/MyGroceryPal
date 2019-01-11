@@ -119,16 +119,16 @@ import hr.foi.air.mygrocerypal.myapplication.R;
     public void groceryListStatusReceived(String mGroceryListID, String mGroceryListStatus, GroceryListOperation mOperation) {
         String message = "";
         if(mGroceryListStatus.equals("")) {
-            Toast.makeText(getActivity(), "Pogreška prilikom dohvata Grocery List ID-a", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.getGroceryListError), Toast.LENGTH_SHORT).show();
             return;
         }else if(!GroceryListStatus.valueOf(mGroceryListStatus).equals(GroceryListStatus.CREATED)){
-            Toast.makeText(getActivity(), "Kupovna lista je već prihvaćena", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.groceryListAllreadyAccepted), Toast.LENGTH_SHORT).show();
             CurrentUser.getCurrentUser.getIgnoredLists().remove(mGroceryListID);
             return;
         }else if(mOperation == GroceryListOperation.RETURN)
             message = mDelivererGroceryListHelper.returnGroceryListFromIgnored(mGroceryListID);
         else
-            message = "Došlo je do greške!";
+            message = getResources().getString(R.string.defaultErrorMessage);
 
             Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
             refreshRecyclerView();

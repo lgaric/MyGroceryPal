@@ -4,6 +4,8 @@ import android.content.Context;
 import android.location.Location;
 import android.util.Log;
 
+import hr.foi.air.mygrocerypal.myapplication.R;
+
 public class UserInformationHelper extends FirebaseBaseHelper {
 
     public UserInformationHelper(Context context){
@@ -25,13 +27,13 @@ public class UserInformationHelper extends FirebaseBaseHelper {
                 mDatabase.getReference().child(USERNODE).child(userID).child(TOWNNODE).setValue(town);
                 mDatabase.getReference().child(USERNODE).child(userID).child(LATITUDENODE).setValue(location.getLatitude());
                 mDatabase.getReference().child(USERNODE).child(userID).child(LONGITUDE).setValue(location.getLongitude());
-                return "Adresa uspješno promijenjena!";
+                return mContext.getResources().getString(R.string.addressChangeSuccess);
             }catch(Exception e) {
                 Log.e(getClass().toString(), e.getMessage());
-                return "Greška prilikom promijene adrese!";
+                return mContext.getResources().getString(R.string.addressChangeFail);
             }
         }else
-            return NOINTERNETCONNECTIONMESSAGE;
+            return mContext.getResources().getString(R.string.noInternetConnectionMessage);
     }
 
     /**
@@ -44,12 +46,12 @@ public class UserInformationHelper extends FirebaseBaseHelper {
         if(isNetworkAvailable()){
             try{
                 mDatabase.getReference().child(USERNODE).child(userID).child(PHONENUMBERNODE).setValue(newPhoneNumber);
-                return "Broj uspješno promijenjen!";
+                return mContext.getResources().getString(R.string.phoneChangeSuccess);
             }catch(Exception e) {
                 Log.e(getClass().toString(), e.getMessage());
-                return "Greška prilikom promijene broja!";
+                return mContext.getResources().getString(R.string.phoneChangeFail);
             }
         }else
-            return NOINTERNETCONNECTIONMESSAGE;
+            return mContext.getResources().getString(R.string.noInternetConnectionMessage);
     }
 }

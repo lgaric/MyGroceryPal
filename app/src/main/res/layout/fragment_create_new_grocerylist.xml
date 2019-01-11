@@ -118,7 +118,7 @@
                     android:id="@+id/labelCommision"
                     android:layout_width="0dp"
                     android:layout_weight="0.25"
-                    android:text="@string/commisionSemicolon"/>
+                    android:text="@string/commissionSemicolon"/>
 
                 <EditText
                     style="@style/EditTextWhite"
