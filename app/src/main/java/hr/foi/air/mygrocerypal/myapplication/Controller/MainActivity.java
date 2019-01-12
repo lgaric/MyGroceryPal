@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Ako fragment nije kreiran, kreiraj fragment i prikazi. Inace prikazi vec kreirani fragment.
      * @param newFragment
      */
-    private void showFragment(Fragment newFragment){
+    public void showFragment(Fragment newFragment){
 
         FragmentManager mFragmentManager = getSupportFragmentManager();
         String fragmentClassName = newFragment.getClass().getSimpleName();

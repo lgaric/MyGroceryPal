@@ -2,7 +2,6 @@ package hr.foi.air.mygrocerypal.myapplication.Core.Adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,19 +38,19 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
 
     @Override
     public void onBindViewHolder(@NonNull final SelectProductsHolder selectProductsHolder, int position) {
-        if(mListOfAddedProducts != null){
-            ProductsModel allreadyAddedProduct = alleadyAddedProduct(mProductsList.get(position));
-            if(allreadyAddedProduct != null)
-                selectProductsHolder.bind(allreadyAddedProduct, mListOfAddedProducts, mProductQuantity);
+        if(mListOfAddedProducts.size() > 0){
+            ProductsModel alreadyAddedProduct = alreadyAddedProduct(mProductsList.get(position));
+            if(alreadyAddedProduct != null)
+                selectProductsHolder.bind(alreadyAddedProduct, mListOfAddedProducts, mProductQuantity);
             else
                 selectProductsHolder.bind(mProductsList.get(position), mListOfAddedProducts, 0);
         }else
             selectProductsHolder.bind(mProductsList.get(position), mListOfAddedProducts, 0);
     }
 
-    private ProductsModel alleadyAddedProduct(ProductsModel productsModel){
+    private ProductsModel alreadyAddedProduct(ProductsModel productsModel){
         for(GroceryListProductsModel product : mListOfAddedProducts){
-            if(productsModel.getProduct_key().equals(product.getProduct_key())){
+            if(productsModel.getName().equals(product.getName())){
                 mProductQuantity = product.getQuantity();
                 return productsModel;
             }

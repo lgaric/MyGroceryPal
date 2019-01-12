@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,6 +124,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
             }
         }
         mCommission.setText(mGroceryListsModel.getCommision());
+        mGroceryListProductsModels = mGroceryListsModel.getProductsModels();
         if(CurrentUser.getCurrentUser.getAddress().equals(mGroceryListsModel.getDelivery_address()) && CurrentUser.getCurrentUser.getTown().equals(mGroceryListsModel.getDelivery_town())){
             mRadioGroup.check(R.id.radioButton);
         }

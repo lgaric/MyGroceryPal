@@ -36,7 +36,7 @@ public class GroceryListDetailsHelper extends FirebaseBaseHelper{
                     ArrayList<GroceryListProductsModel> groceryListProducts = new ArrayList<>();
                     for (DataSnapshot temp : dataSnapshot.getChildren()) {
                         GroceryListProductsModel model = temp.getValue(GroceryListProductsModel.class);
-                        model.setGrocery_list_key(temp.getKey());
+                        model.setProduct_key(temp.getKey());
                         groceryListProducts.add(model);
                     }
 
