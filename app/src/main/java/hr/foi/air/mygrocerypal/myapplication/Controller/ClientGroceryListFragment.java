@@ -29,12 +29,12 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 public class ClientGroceryListFragment extends Fragment implements View.OnClickListener, GroceryListListener, GroceryListClickListener {
 
     private GroceryListHelper mPastGroceryListHelper;
-    private Button btnActiveGrocerylist, btnPastGroceryList;
+    private Button btnActiveGroceryList, btnPastGroceryList;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private FloatingActionButton mFloatingButtonAdd;
     private RecyclerView mRecyclerView;
     private GroceryListAdapter mGroceryListAdapter;
-    private TextView noneClientGroceryLists;
+    private TextView mNoneClientGroceryLists;
     /*
     0 -> AKTUALNI GROCERYLISTS
     1 -> PROŠLI GROCERYLISTS
@@ -54,16 +54,16 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
         View view = inflater.inflate(R.layout.fragment_client_grocerylist, container, false);
         ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.client));
 
-        btnActiveGrocerylist = view.findViewById(R.id.active_client_btn);
+        btnActiveGroceryList = view.findViewById(R.id.active_client_btn);
         btnPastGroceryList = view.findViewById(R.id.past_client_btn);
         mSwipeRefreshLayout = view.findViewById(R.id.swiperefreshPastLists);
         mFloatingButtonAdd = view.findViewById(R.id.floatingButtonAdd);
         mRecyclerView = view.findViewById(R.id.recycler_view);
-        noneClientGroceryLists = view.findViewById(R.id.noneClientGL);
+        mNoneClientGroceryLists = view.findViewById(R.id.noneClientGL);
 
         mSwipeRefreshLayout.setOnRefreshListener(mRefreshListener);
 
-        btnActiveGrocerylist.setOnClickListener(this);
+        btnActiveGroceryList.setOnClickListener(this);
         btnPastGroceryList.setOnClickListener(this);
         mFloatingButtonAdd.setOnClickListener(this);
 
@@ -90,7 +90,7 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
         super.onViewCreated(view, savedInstanceState);
         mActive = true;
         loadGroceryListToRecyclerView(GroceryListStatus.ACCEPTED);
-        btnActiveGrocerylist.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+        btnActiveGroceryList.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
     }
 
     @Override
@@ -100,7 +100,7 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
                 //AKO NISU PRIKAZANI AKTIVNI GL ONDA IH PRIKAZI
                 if(!mActive) {
                     loadGroceryListToRecyclerView(GroceryListStatus.ACCEPTED);
-                    btnActiveGrocerylist.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+                    btnActiveGroceryList.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
                     btnPastGroceryList.setBackgroundColor(Color.WHITE);
                     mActive = true;
                 }
@@ -109,7 +109,7 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
                 if(mActive){
                     loadGroceryListToRecyclerView(GroceryListStatus.FINISHED);
                     btnPastGroceryList.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
-                    btnActiveGrocerylist.setBackgroundColor(Color.WHITE);
+                    btnActiveGroceryList.setBackgroundColor(Color.WHITE);
                     mActive = false;
                 }
                 break;
@@ -154,11 +154,11 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
             mSwipeRefreshLayout.setRefreshing(false);
             setTextVisibility(mGroceryList, mGroceryListStatus);
         }else if (mGroceryListStatus.equals(GroceryListStatus.ACCEPTED)){
-            noneClientGroceryLists.setText(getResources().getString(R.string.clientActiveGLMessage));
-            noneClientGroceryLists.setVisibility(View.VISIBLE);
+            mNoneClientGroceryLists.setText(getResources().getString(R.string.clientActiveGLMessage));
+            mNoneClientGroceryLists.setVisibility(View.VISIBLE);
         }else{
-            noneClientGroceryLists.setText(getResources().getString(R.string.clientPastGLMessage));
-            noneClientGroceryLists.setVisibility(View.VISIBLE);
+            mNoneClientGroceryLists.setText(getResources().getString(R.string.clientPastGLMessage));
+            mNoneClientGroceryLists.setVisibility(View.VISIBLE);
         }
 
     }
@@ -170,13 +170,13 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
 
     private void setTextVisibility(ArrayList<GroceryListsModel> mGroceryList, GroceryListStatus mGroceryListStatus){
         if(mGroceryList.size() == 0 && mGroceryListStatus.equals(GroceryListStatus.ACCEPTED)){
-            noneClientGroceryLists.setText(getResources().getString(R.string.clientActiveGLMessage));
-            noneClientGroceryLists.setVisibility(View.VISIBLE);
+            mNoneClientGroceryLists.setText(getResources().getString(R.string.clientActiveGLMessage));
+            mNoneClientGroceryLists.setVisibility(View.VISIBLE);
         }else if (mGroceryList.size() == 0 && mGroceryListStatus.equals(GroceryListStatus.FINISHED)){
-            noneClientGroceryLists.setText(getResources().getString(R.string.clientPastGLMessage));
-            noneClientGroceryLists.setVisibility(View.VISIBLE);
+            mNoneClientGroceryLists.setText(getResources().getString(R.string.clientPastGLMessage));
+            mNoneClientGroceryLists.setVisibility(View.VISIBLE);
         }else
-            noneClientGroceryLists.setVisibility(View.GONE);
+            mNoneClientGroceryLists.setVisibility(View.GONE);
 
     }
 }

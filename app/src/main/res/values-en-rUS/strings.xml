@@ -11,7 +11,7 @@
     <string name="email">Email</string>
     <string name="city">Town</string>
     <string name="ignoredCaps">IGNORED</string>
-    <string name="firstName">Firstname</string>
+    <string name="firstName">First name</string>
     <string name="printLocation">PRINT LOCATION</string>
     <string name="contact">Contact</string>
     <string name="username">Username</string>
@@ -30,11 +30,11 @@
     <string name="send">Send</string>
     <string name="actionSettings">Settings</string>
     <string name="back">Back</string>
-    <string name="lastName">Lastname</string>
+    <string name="lastName">Last name</string>
     <string name="acceptedCaps">ACCEPTED</string>
     <string name="login">Login</string>
     <string name="pastCaps">PAST</string>
-    <string name="commisson">"Commision: "</string>
+    <string name="commisson">"Commission: "</string>
     <string name="register">Register!</string>
     <string name="statistics">Statistics</string>
     <string name="store">Store</string>
@@ -44,7 +44,7 @@
     <string name="navigationDrawerClose">Close drawer</string>
     <string name="contactSemicolon">"Contact: "</string>
     <string name="confirm">Confirm</string>
-    <string name="commission">Commision</string>
+    <string name="commission">Commission</string>
     <string name="croatianKuna">Kuna</string>
     <string name="croatianKunaShort">KN</string>
     <string name="addedProducts">Added products</string>
@@ -55,7 +55,7 @@
     <string name="pickDate">Choose date</string>
     <string name="pickStoreSemicolon">"Choose store: "</string>
     <string name="validFromSemicolon">"Valid from: "</string>
-    <string name="commissionSemicolon">"Commison: "</string>
+    <string name="commissionSemicolon">"Commission: "</string>
     <string name="acceptCaps">ACCEPT</string>
     <string name="ignoreCaps">IGNORE</string>
     <string name="returnCaps">RETURN</string>
@@ -115,7 +115,7 @@
     <string name="noProductListError">Product list not received!</string>
     <string name="storeChangeTitle">Change store</string>
     <string name="storeChangeMessage">Changing store deletes current list of products. Are you sure?</string>
-    <string name="groceryListAllreadyAccepted">Grocery list allready accepted!</string>
+    <string name="groceryListAlreadyAccepted">Grocery list already accepted!</string>
     <string name="groceryListAccepted">Grocery list is accepted!</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -130,7 +130,7 @@
     <string name="listReturned">Order returned!</string>
     <string name="listReturnedError">Unexpected error while returning order!</string>
     <string name="noInternetConnectionMessage">Internet connection is required!</string>
-    <string name="chooseCategory">Choose categorz</string>
+    <string name="chooseCategory">Choose category</string>
     <string name="ordering">Ordering: </string>
     <string name="delivering">Delivering: </string>
     <string name="emailError">Email is incorrect!</string>
@@ -146,10 +146,10 @@
     <string name="pwRecoveryFail">Unexpected error occurred, check typed email!</string>
     <string name="checkInputMessage">Please fill all data correctly!</string>
     <string name="fetchLocationError">Error while fetching location!</string>
-    <string name="usernameInUse">Username allready exists.</string>
+    <string name="usernameInUse">Username already exists.</string>
     <string name="emailInUse">Account with that email address already exists. Login?</string>
     <string name="registrationSuccess">Registration successful. Confirmation email has been sent!</string>
-    <string name="registrationFail">Unexpected error while registrating!</string>
+    <string name="registrationFail">Unexpected error while registering!</string>
     <string name="addressChangeSuccess">Address changed successfully!</string>
     <string name="addressChangeFail">Unexpected error while changing address!</string>
     <string name="phoneChangeSuccess">Phone number changed successfully!</string>

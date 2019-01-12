@@ -119,7 +119,7 @@
     <string name="noProductListError">Lista proizvoda nije primljena!</string>
     <string name="storeChangeTitle">Promjena dućana</string>
     <string name="storeChangeMessage">Mijenjanje dućana briše listu proizvoda. Jeste li sigurni da želite promijeniti dućan?</string>
-    <string name="groceryListAllreadyAccepted">Kupovna lista je već prihvaćena!</string>
+    <string name="groceryListAlreadyAccepted">Kupovna lista je već prihvaćena!</string>
     <string name="groceryListAccepted">Kupovna lista je prihvaćena!</string>
     <string name="yes">Da</string>
     <string name="no">Ne</string>

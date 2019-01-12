@@ -93,7 +93,7 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
         if(isNetworkAvailable()){
             if(GroceryListStatus.valueOf(mGroceryListStatus).equals(GroceryListStatus.ACCEPTED)
                     || GroceryListStatus.valueOf(mGroceryListStatus).equals(GroceryListStatus.FINISHED)) {
-                return mContext.getResources().getString(R.string.groceryListAllreadyAccepted);
+                return mContext.getResources().getString(R.string.groceryListAlreadyAccepted);
             }
 
             try{

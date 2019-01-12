@@ -36,7 +36,6 @@ import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 public class RegistrationActivity extends AppCompatActivity implements RegistrationListener, CitiesListener {
     ArrayList<String> mListOfCities;
     SpinnerDialog mSpinnerDialog;
-    private static final String OBLIGATORY  = "Obavezno polje!";
 
     private TextView mDateOfBirth, mCities;
     private DatePickerDialog.OnDateSetListener mDateSetListener;

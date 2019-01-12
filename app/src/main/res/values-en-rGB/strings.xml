@@ -5,8 +5,8 @@
     <string name="registrationOnLogin">Don\'t have account? Register!</string>
     <string name="login">Login</string>
     <string name="register">Register!</string>
-    <string name="firstName">Firstname</string>
-    <string name="lastName">Lastname</string>
+    <string name="firstName">First name</string>
+    <string name="lastName">Last name</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="repeatPassword">Repeat password</string>
@@ -25,7 +25,7 @@
     <string name="printLocation" translatable="false">PRINT LOCATION</string>
     <string name="storeSemicolon" translatable="false">"Store: "</string>
     <string name="store" translatable="false">Store</string>
-    <string name="commisson" translatable="false">"Commision: "</string>
+    <string name="commisson" translatable="false">"Commission: "</string>
     <string name="delivererSemicolon" translatable="false">"Deliverer: "</string>
     <string name="deliverer" translatable="false">Deliverer</string>
     <string name="price" translatable="false">"Price: "</string>
@@ -44,7 +44,7 @@
     <string name="actionSettings">Settings</string>
     <string name="searchLocation" translatable="false">Search location</string>
     <string name="confirm">Confirm</string>
-    <string name="commission">Commision</string>
+    <string name="commission">Commission</string>
     <string name="croatianKuna">Kuna</string>
     <string name="croatianKunaShort">KN</string>
     <string name="addedProducts">Added products</string>
@@ -55,7 +55,7 @@
     <string name="pickDate">Choose date</string>
     <string name="pickStoreSemicolon">"Choose store: "</string>
     <string name="validFromSemicolon">"Valid from: "</string>
-    <string name="commissionSemicolon">"Commison: "</string>
+    <string name="commissionSemicolon">"Commission: "</string>
     <string name="acceptCaps">ACCEPT</string>
     <string name="ignoreCaps">IGNORE</string>
     <string name="returnCaps">RETURN</string>
@@ -116,12 +116,12 @@
     <string name="noProductListError">Product list not received!</string>
     <string name="storeChangeTitle">Change store</string>
     <string name="storeChangeMessage">Changing store deletes current list of products. Are you sure?</string>
-    <string name="groceryListAllreadyAccepted">Grocery list allready accepted!</string>
+    <string name="groceryListAlreadyAccepted">Grocery list already accepted!</string>
     <string name="groceryListAccepted">Grocery list is accepted!</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="logOutQuestion">Log out?</string>
-    <string name="obligatory">Oligatory!</string>
+    <string name="obligatory">Obligatory!</string>
     <string name="close">Close</string>
     <string name="saveSuccess">Created successfully!</string>
     <string name="saveFail">Error has occurred!</string>
@@ -131,7 +131,7 @@
     <string name="listReturned">Order returned!</string>
     <string name="listReturnedError">Unexpected error while returning order!</string>
     <string name="noInternetConnectionMessage">Internet connection is required!</string>
-    <string name="chooseCategory">Choose categorz</string>
+    <string name="chooseCategory">Choose category</string>
     <string name="ordering">Ordering: </string>
     <string name="delivering">Delivering: </string>
     <string name="emailError">Email is incorrect!</string>
@@ -147,10 +147,10 @@
     <string name="pwRecoveryFail">Unexpected error occurred, check typed email!</string>
     <string name="checkInputMessage">Please fill all data correctly!</string>
     <string name="fetchLocationError">Error while fetching location!</string>
-    <string name="usernameInUse">Username allready exists.</string>
+    <string name="usernameInUse">Username already exists.</string>
     <string name="emailInUse">Account with that email address already exists. Login?</string>
     <string name="registrationSuccess">Registration successful. Confirmation email has been sent!</string>
-    <string name="registrationFail">Unexpected error while registrating!</string>
+    <string name="registrationFail">Unexpected error while registering!</string>
     <string name="addressChangeSuccess">Address changed successfully!</string>
     <string name="addressChangeFail">Unexpected error while changing address!</string>
     <string name="phoneChangeSuccess">Phone number changed successfully!</string>

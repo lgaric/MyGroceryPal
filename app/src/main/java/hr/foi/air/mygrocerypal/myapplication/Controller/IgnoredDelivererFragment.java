@@ -122,7 +122,7 @@ import hr.foi.air.mygrocerypal.myapplication.R;
             Toast.makeText(getActivity(), getResources().getString(R.string.getGroceryListError), Toast.LENGTH_SHORT).show();
             return;
         }else if(!GroceryListStatus.valueOf(mGroceryListStatus).equals(GroceryListStatus.CREATED)){
-            Toast.makeText(getActivity(), getResources().getString(R.string.groceryListAllreadyAccepted), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getResources().getString(R.string.groceryListAlreadyAccepted), Toast.LENGTH_SHORT).show();
             CurrentUser.getCurrentUser.getIgnoredLists().remove(mGroceryListID);
             return;
         }else if(mOperation == GroceryListOperation.RETURN)

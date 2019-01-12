@@ -19,7 +19,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.R;
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationView mNavigationView;
-    private boolean clientFragmentExists = false;
+    private boolean mClientFragmentExists = false;
 
     // Fragmenti
     private DelivererFragment mDelivererFragment;
@@ -122,9 +121,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else if(getFragmentManager().getBackStackEntryCount() > 1 && clientFragmentExists){
+        } else if(getFragmentManager().getBackStackEntryCount() > 1 && mClientFragmentExists){
             getFragmentManager().popBackStack();
-        } else if(getFragmentManager().getBackStackEntryCount() > 1 && !clientFragmentExists){
+        } else if(getFragmentManager().getBackStackEntryCount() > 1 && !mClientFragmentExists){
             showFragment(mDelivererFragment);
         } else if(isMainFragment())
             endOfWork();
@@ -223,10 +222,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(currentFragment.equals(fragmentClassName))
             return;
         else if(newFragment instanceof DelivererFragment){
-            clientFragmentExists = false;
+            mClientFragmentExists = false;
             clearBackStack();
         }else if (newFragment instanceof ClientGroceryListFragment){
-            clientFragmentExists = true;
+            mClientFragmentExists = true;
             setClientFragment(mFragmentManager);
         }else if (existingFragment != null) {
             //ako je vec kreiran vrati se na taj fragment
