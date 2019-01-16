@@ -277,7 +277,7 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
             //Ako je fragment već kreiran, ako su dohvaćeni podaci o proizvodima i ako je dućan jednak odabranom itemu u spinneru
             if(!mFirstEntry && mSended && mSelectedStoreName != null && parent.getItemAtPosition(position) != null && (!mSelectedStoreName.equals(parent.getItemAtPosition(position).toString()))){
-                if(mProductsListAdapter.getItemCount() > 0)
+                if(mProductsListAdapter != null && mProductsListAdapter.getItemCount() > 0)
                     showDialogOnStoreChanged(true);
                 else
                     showDialogOnStoreChanged(false);
