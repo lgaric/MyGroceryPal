@@ -27,7 +27,7 @@ public class GroceryChangeStatusHelper extends FirebaseBaseHelper{
 
                 for(GroceryListProductsModel productsModel : mModel.getProductsModels()){
                     mDatabase.getReference().child(GROCERYLISTPRODUCTSNODE).child(mModel.getGrocerylist_key())
-                            .child(productsModel.getGrocery_list_key())
+                            .child(productsModel.getProduct_key())
                             .child(BOUGHTNODE).setValue(productsModel.getBought());
                 }
 

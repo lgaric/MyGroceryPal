@@ -125,7 +125,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentListene
                 this.mWaiting.setVisibility(View.GONE);
             } else {
                 Exception error = (Exception) data.getSerializableExtra(DropInActivity.EXTRA_ERROR);
-                Log.d("ERROR_PAYMENT", error.getMessage());
+                Log.d("ERROR ONACTIVITYSRESULT", error.getMessage());
                 Toast.makeText(this, getResources().getString(R.string.paymentFailed), Toast.LENGTH_LONG).show();
                 this.mWaiting.setVisibility(View.GONE);
             }
@@ -144,9 +144,8 @@ public class PaymentActivity extends AppCompatActivity implements PaymentListene
         params.put("order_id", mModel.getGrocerylist_key());
         params.put("amount", mPayment.getmAmount());
         params.put("deliverer_name", mUserModel.getFirst_name() + " " + mUserModel.getLast_name());
-        params.put("deliverer_bank_account", "HR011401533");
-        params.put("deliverer_phone", mUserModel.getPhone_number());
         params.put("deliverer_uid", mUserModel.getUserUID());
+        params.put("deliverer_phone", mUserModel.getPhone_number());
 
         client.post(CHECKOUT, params,
                 new AsyncHttpResponseHandler() {
@@ -155,10 +154,9 @@ public class PaymentActivity extends AppCompatActivity implements PaymentListene
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         try {
                             String str = new String(responseBody, "UTF-8");
-                            Log.d("RESULT", str);
+                            Log.d("RESULT POST-a", str);
                             if(str.contains("Successful"))
                                 showFinalMessage(getResources().getString(R.string.paymentSuccess), true);
-
                             else
                                 showFinalMessage(getResources().getString(R.string.paymentFailed), false);
                         }
@@ -170,7 +168,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentListene
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        Log.d("ONFAILURE_EXCEPTION", error.getMessage());
+                        Log.d("ONFAILURE POST", error.getMessage());
                         showFinalMessage(getResources().getString(R.string.paymentFailed), false);
                     }
                 }
