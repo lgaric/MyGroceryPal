@@ -15,11 +15,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.filter.CategoryFilter;
+import com.example.filter.Filter;
 import com.example.filter.FilterObjects;
+import com.example.filter.NameFilter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,12 +49,13 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
     private SearchView mSearchView;
     private Spinner mSpinner;
     private TextView mNoneProducts;
+    private ImageButton mChangeSearchingType;
 
     //pohrana liste filtriranih proizvoda
     ArrayList<ProductsModel> filteredList = new ArrayList<>();
 
     //genericka klasa za filtriranje proizvoda
-    FilterObjects<ProductsModel> filterObjects = new FilterObjects<>();
+    Filter mFilterInterface = new NameFilter();
 
 
     @Nullable
@@ -73,16 +78,22 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
         super.onViewCreated(view, savedInstanceState);
         mSelectProductsHelper = new SelectProductsHelper(this);
 
+        mChangeSearchingType = view.findViewById(R.id.changeSearcingType);
         mRecyclerView = view.findViewById(R.id.recycler_view);
         btnAddProductsToGroceryList = view.findViewById(R.id.addProductsToGroceryList);
         mSearchView = view.findViewById(R.id.searchView);
         mNoneProducts = view.findViewById(R.id.noneProducts);
-
         mSpinner = view.findViewById(R.id.spinner);
         mSelectProductsHelper.loadProductCategories();
-
         mSelectProductsHelper.loadProductsByStore(getArguments().getString("store_name"));
         mListOfAddedProducts = (List<GroceryListProductsModel>)getArguments().getSerializable("list_of_products");
+
+        mChangeSearchingType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                changeSearchingType();
+            }
+        });
 
         btnAddProductsToGroceryList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,33 +118,22 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if(mProductsList != null){
-                    if(mSpinner.getSelectedItem().toString() != getResources().getString(R.string.chooseCategory)){
-                        //filter by category
-                        filteredList = filterObjects.filterListByCategories(mProductsList, mSpinner.getSelectedItem().toString());
-                        //filter by search
-                        filteredList = filterObjects.filterListByNames(filteredList, newText);
-                    }else
-                        filteredList = filterObjects.filterListByNames(mProductsList, newText);
-                    inflateAdapter(filteredList);
-                    setTextVisibility(filteredList);
-                }else
-                    mNoneProducts.setVisibility(View.GONE);
+                searhByName(newText);
                 return false;
             }
         });
 
         // pretraga proizvoda po kategoriji
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @SuppressWarnings("unchecked")
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(mProductsList != null){
                     if(mSpinner.getSelectedItem().toString() != getResources().getString(R.string.chooseCategory)){
-                        //filter by category
-                        filteredList = filterObjects.filterListByCategories(mProductsList, mSpinner.getSelectedItem().toString());
-                        //filter by search if needed
-                        if(mSearchView.getQuery().length() > 0)
-                            filteredList = filterObjects.filterListByNames(filteredList, mSearchView.getQuery().toString());
+                        if(mFilterInterface.getClass() != CategoryFilter.class)
+                            mFilterInterface = new CategoryFilter();
+                        filteredList = (ArrayList<ProductsModel>) mFilterInterface.filter(mProductsList, mSpinner.getSelectedItem().toString());
                         inflateAdapter(filteredList);
                         setTextVisibility(filteredList);
                     }else{
@@ -148,6 +148,39 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
 
             }
         });
+    }
+
+    //pretraga proizvoda upisom teksta u searchView
+    @SuppressWarnings("unchecked")
+    void searhByName(String searchBy){
+        if(mProductsList != null){
+
+            if(mFilterInterface.getClass() != NameFilter.class)
+                mFilterInterface = new NameFilter();
+
+            filteredList = (ArrayList<ProductsModel>) mFilterInterface.filter(mProductsList, searchBy);
+            inflateAdapter(filteredList);
+            setTextVisibility(filteredList);
+        }else
+            mNoneProducts.setVisibility(View.GONE);
+    }
+
+    //promijeni nacin trazenja proizvoda
+    void changeSearchingType(){
+        if(mSpinner.getVisibility() == View.GONE) {
+            mSpinner.setVisibility(View.VISIBLE);
+            mSearchView.setVisibility(View.GONE);
+            mSpinner.setSelection(0, false);
+            inflateAdapter(mProductsList);
+            setTextVisibility(mProductsList);
+        }
+        else{
+            mSpinner.setVisibility(View.GONE);
+            mSearchView.setVisibility(View.VISIBLE);
+            mSearchView.setQuery("", false);
+            inflateAdapter(mProductsList);
+            setTextVisibility(mProductsList);
+        }
     }
 
     // dohvati listu proizvoda odabrane trgovine

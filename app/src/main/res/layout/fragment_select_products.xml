@@ -8,16 +8,34 @@
         android:layout_margin="@dimen/small_margin_in_app"
         android:orientation="vertical">
 
-        <SearchView
-            android:id="@+id/searchView"
+        <LinearLayout
             style="@style/WrapHeightMatchWidth"
-            android:background="@drawable/shape_product_name"
-            android:layout_margin="@dimen/small_margin_in_app"/>
+            android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/spinner"
-            style="@style/WrapHeightMatchWidth"
-            android:layout_margin="@dimen/small_margin_in_app"/>
+            <ImageButton
+                android:id="@+id/changeSearcingType"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"
+                android:src="@drawable/ic_navigate_next_black_24dp"
+                android:background="@color/white"/>
+
+            <SearchView
+                android:id="@+id/searchView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:background="@drawable/shape_product_name"
+                android:layout_margin="@dimen/small_margin_in_app"/>
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.9"
+                android:visibility="gone"
+                android:layout_margin="@dimen/small_margin_in_app"/>
+        </LinearLayout>
 
         <LinearLayout
             style="@style/MatchBoth"
