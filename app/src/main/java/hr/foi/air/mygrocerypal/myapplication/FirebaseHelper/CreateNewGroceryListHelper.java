@@ -23,6 +23,10 @@ public class CreateNewGroceryListHelper extends FirebaseBaseHelper{
 
     private AddGroceryListListener mAddGroceryListListener;
 
+    /**
+     * Konstruktor
+     * @param mAddGroceryListListener
+     */
     public CreateNewGroceryListHelper(AddGroceryListListener mAddGroceryListListener){
         if(mAddGroceryListListener instanceof Fragment)
             this.mContext = ((Fragment)mAddGroceryListListener).getContext();
@@ -91,6 +95,11 @@ public class CreateNewGroceryListHelper extends FirebaseBaseHelper{
 
     }
 
+    /**
+     * Provjeravanje ispravnosti
+     * @param s
+     * @return
+     */
     private boolean isNullOrBlank(String s)
     {
         return (s == null || s.trim().equals(""));

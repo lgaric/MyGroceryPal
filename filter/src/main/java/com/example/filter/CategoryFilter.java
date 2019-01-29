@@ -6,6 +6,12 @@ import java.util.ArrayList;
 
 public class CategoryFilter implements Filter {
 
+    /**
+     * Filtriranje
+     * @param listOfObjects
+     * @param filterBy
+     * @return
+     */
     @Override
     public ArrayList<? extends FilterableObject> filter(ArrayList<? extends FilterableObject> listOfObjects, String filterBy) {
         if(listOfObjects == null)

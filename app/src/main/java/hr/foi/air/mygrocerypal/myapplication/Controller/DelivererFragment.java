@@ -59,6 +59,9 @@ public class DelivererFragment extends Fragment {
         }
     };
 
+    /**
+     * Nastavljanje izvodenja fragmenta
+     */
     @Override
     public void onResume() {
         ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.deliverer));
@@ -66,6 +69,13 @@ public class DelivererFragment extends Fragment {
     }
 
 
+    /**
+     * Kreiranje viewa fragemnta
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_deliverer, container, false);
@@ -88,6 +98,10 @@ public class DelivererFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Prikaz GL-ova
+     * @param mFragment
+     */
     public void showGroceryLists(Fragment mFragment){
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.show_grocery_lists, mFragment)

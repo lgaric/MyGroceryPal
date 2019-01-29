@@ -13,6 +13,11 @@ import java.util.Locale;
 
 public class AddressBasedOnLocation {
 
+    /**
+     * Konstruktor
+     * @param activity
+     * @param fragment
+     */
     public AddressBasedOnLocation(Activity activity, Fragment fragment) {
         this.locationListener = (LocationListener) fragment;
         this.activity = activity;

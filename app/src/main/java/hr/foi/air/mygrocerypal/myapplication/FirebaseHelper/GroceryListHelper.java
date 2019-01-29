@@ -17,6 +17,10 @@ import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 public class GroceryListHelper extends FirebaseBaseHelper{
     private GroceryListListener mGroceryListListener;
 
+    /**
+     * Konstruktor
+     * @param mGroceryListListener
+     */
     public GroceryListHelper(GroceryListListener mGroceryListListener){
         this.mContext = ((Fragment)mGroceryListListener).getContext();
         this.mGroceryListListener = mGroceryListListener;
@@ -54,6 +58,10 @@ public class GroceryListHelper extends FirebaseBaseHelper{
             showInternetMessageWarning();
     }
 
+    /**
+     * Dohvacanje GL-ova prema statusu
+     * @param mGroceryListStatus
+     */
     public void loadGroceryListsByGroceryListStatus(final GroceryListStatus mGroceryListStatus) {
         if (mGroceryListStatus == null)
             return;

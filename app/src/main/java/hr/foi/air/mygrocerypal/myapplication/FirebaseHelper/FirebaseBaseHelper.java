@@ -39,11 +39,18 @@ public class FirebaseBaseHelper {
     protected Query mQuery;
     protected Context mContext;
 
+    /**
+     * Konstruktor
+     */
     public FirebaseBaseHelper() {
         mDatabase = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
     }
 
+    /**
+     * Provjera interneta
+     * @return
+     */
     protected Boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -51,6 +58,9 @@ public class FirebaseBaseHelper {
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
+    /**
+     * Poruka o nepovezanosti
+     */
     protected void showInternetMessageWarning(){
         if(mContext != null){
             Toast.makeText(mContext, mContext.getResources().getString(R.string.noInternetConnectionMessage), Toast.LENGTH_LONG).show();

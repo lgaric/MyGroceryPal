@@ -13,6 +13,10 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 public class PasswordRecoveryHelper extends FirebaseBaseHelper{
     private PasswordRecoveryListener mPasswordRecoveryListener;
 
+    /**
+     * Konstruktor
+     * @param mPasswordRecoveryListener
+     */
     public PasswordRecoveryHelper(PasswordRecoveryListener mPasswordRecoveryListener){
         if(mPasswordRecoveryListener instanceof Fragment){
             this.mContext = ((Fragment) mPasswordRecoveryListener).getContext();

@@ -8,6 +8,10 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
+    /**
+     * Inicijalizacija
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

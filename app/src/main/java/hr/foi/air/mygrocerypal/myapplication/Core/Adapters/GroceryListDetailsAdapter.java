@@ -15,11 +15,22 @@ public class GroceryListDetailsAdapter extends RecyclerView.Adapter<GroceryListD
     GroceryListsModel mGroceryList;
     boolean deliverer;
 
+    /**
+     * Konstruktor
+     * @param mGroceryList
+     * @param deliverer
+     */
     public GroceryListDetailsAdapter(GroceryListsModel mGroceryList, boolean deliverer){
         this.mGroceryList = mGroceryList;
         this.deliverer = deliverer;
     }
 
+    /**
+     * Inicijalizacija
+     * @param viewGroup
+     * @param i
+     * @return
+     */
     @NonNull
     @Override
     public GroceryListDetailsHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -41,11 +52,20 @@ public class GroceryListDetailsAdapter extends RecyclerView.Adapter<GroceryListD
         return new GroceryListDetailsHolder(view, mGroceryList, deliverer);
     }
 
+    /**
+     * Bindanje view holdera
+     * @param groceryListHolder
+     * @param i
+     */
     @Override
     public void onBindViewHolder(@NonNull GroceryListDetailsHolder groceryListHolder, int i) {
         groceryListHolder.bind(mGroceryList.getProductsModels().get(i));
     }
 
+    /**
+     * Broj GL-ova
+     * @return
+     */
     @Override
     public int getItemCount() {
         return mGroceryList.getProductsModels().size();

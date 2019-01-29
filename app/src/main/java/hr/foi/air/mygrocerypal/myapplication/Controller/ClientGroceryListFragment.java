@@ -48,6 +48,13 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
         }
     };
 
+    /**
+     * Kreiranje ClientGroceryList fragmenta
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,12 +77,18 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
         return view;
     }
 
+    /**
+     * Metoda koja se aktivira prilikom povratka u fragment
+     */
     @Override
     public void onResume() {
         ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.client));
         super.onResume();
     }
 
+    /**
+     * Prikazivanje GL-ova
+     */
     private void showGroceryLists(){
         if(mActive)
             mPastGroceryListHelper.loadGroceryLists(GroceryListStatus.ACCEPTED, CurrentUser.getCurrentUser.getUserUID());
@@ -83,6 +96,11 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
             mPastGroceryListHelper.loadGroceryLists(GroceryListStatus.FINISHED, CurrentUser.getCurrentUser.getUserUID());
     }
 
+    /**
+     * Kreiranje view-a fragmenta
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
@@ -93,6 +111,10 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
         btnActiveGroceryList.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
     }
 
+    /**
+     * Metoda usmjeravanja pritiska na ekran
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -125,12 +147,19 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
         }
     }
 
+    /**
+     * Meotda za upisivanje GL-ova u RecyclerView
+     * @param mStatus
+     */
     private void loadGroceryListToRecyclerView(GroceryListStatus mStatus){
         mPastGroceryListHelper.loadGroceryLists(mStatus, CurrentUser.getCurrentUser.getUserUID());
     }
 
 
-    //NEZANIMA NAS
+    /**
+     * Upisivanje detalja fragmenta
+     * @param mGroceryListsModel
+     */
     private void loadFragmentDetails(GroceryListsModel mGroceryListsModel){
         Bundle bundle = new Bundle();
         bundle.putSerializable("GROCERY_LIST_MODEL", mGroceryListsModel);
@@ -142,6 +171,11 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
                 .commit();
     }
 
+    /**
+     * Dobivanje Grocery Listi
+     * @param mGroceryList
+     * @param mGroceryListStatus
+     */
     @Override
     public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList, GroceryListStatus mGroceryListStatus) {
         if(mGroceryList != null){
@@ -163,11 +197,20 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
 
     }
 
+    /**
+     * Odabir pojedine grocery liste
+     * @param mGroceryListsModel
+     */
     @Override
     public void groceryListSelected(GroceryListsModel mGroceryListsModel) {
         loadFragmentDetails(mGroceryListsModel);
     }
 
+    /**
+     * Postavljanje vidljivosti grocery lista
+     * @param mGroceryList
+     * @param mGroceryListStatus
+     */
     private void setTextVisibility(ArrayList<GroceryListsModel> mGroceryList, GroceryListStatus mGroceryListStatus){
         if(mGroceryList.size() == 0 && mGroceryListStatus.equals(GroceryListStatus.ACCEPTED)){
             mNoneClientGroceryLists.setText(getResources().getString(R.string.clientActiveGLMessage));

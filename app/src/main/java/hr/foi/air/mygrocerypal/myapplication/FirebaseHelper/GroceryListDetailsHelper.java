@@ -17,6 +17,10 @@ import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 public class GroceryListDetailsHelper extends FirebaseBaseHelper{
     private GroceryListDetailsListener mGroceryListDetailsListener;
 
+    /**
+     * Konstruktor
+     * @param mGroceryListDetailsListener
+     */
     public GroceryListDetailsHelper(GroceryListDetailsListener mGroceryListDetailsListener) {
         this.mContext = ((Fragment)mGroceryListDetailsListener).getContext();
         this.mGroceryListDetailsListener = mGroceryListDetailsListener;

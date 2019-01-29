@@ -39,6 +39,12 @@ public class FilterObjects<T extends FilterableObject> {
         return temp;
     }
 
+    /**
+     * Filtriranje liste po kategoriji
+     * @param mListOfObjects
+     * @param mFilterBy
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public ArrayList<T> filterListByCategories(ArrayList<T> mListOfObjects, String mFilterBy) {
         if(mListOfObjects == null)

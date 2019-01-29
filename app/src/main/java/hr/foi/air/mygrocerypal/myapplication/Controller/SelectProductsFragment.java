@@ -58,6 +58,13 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
     Filter mFilterInterface = new NameFilter();
 
 
+    /**
+     * Inicijalizacija
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -67,12 +74,20 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
         return rootView;
     }
 
+    /**
+     * Nastavljanje fragmenta
+     */
     @Override
     public void onResume() {
         ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.addProducts));
         super.onResume();
     }
 
+    /**
+     * Inicijalizacija
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -150,7 +165,10 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
         });
     }
 
-    //pretraga proizvoda upisom teksta u searchView
+    /**
+     * pretraga proizvoda upisom teksta u searchView
+     * @param searchBy
+     */
     @SuppressWarnings("unchecked")
     void searhByName(String searchBy){
         if(mProductsList != null){
@@ -165,7 +183,9 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
             mNoneProducts.setVisibility(View.GONE);
     }
 
-    //promijeni nacin trazenja proizvoda
+    /**
+     * promijeni nacin trazenja proizvoda
+     */
     void changeSearchingType(){
         if(mSpinner.getVisibility() == View.GONE) {
             mSpinner.setVisibility(View.VISIBLE);
@@ -183,7 +203,10 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
         }
     }
 
-    // dohvati listu proizvoda odabrane trgovine
+    /**
+     * dohvati listu proizvoda odabrane trgovine
+     * @param mProductsList
+     */
     @Override
     public void productsListByStoreReceived(ArrayList<ProductsModel> mProductsList) {
         if (mProductsList != null) {
@@ -194,7 +217,10 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
             mNoneProducts.setVisibility(View.VISIBLE);
     }
 
-    // dohvati listu svih kategorija
+    /**
+     * dohvati listu svih kategorija
+     * @param mCategoriesList
+     */
     @Override
     public void categoriesListReceived(ArrayList<CategoriesModel> mCategoriesList) {
         if(mCategoriesList != null){
@@ -208,13 +234,19 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
         }
     }
 
-    // proslijedi već dodane proizvode u adapter ako postoje
+    /**
+     * proslijedi već dodane proizvode u adapter ako postoje
+     * @param mProductsList
+     */
     private void initializeAdapter(ArrayList<ProductsModel> mProductsList){
         if(mListOfAddedProducts == null) mListOfAddedProducts = new ArrayList<>();
         mSelectProductsAdapter = new SelectProductsAdapter(mProductsList, mListOfAddedProducts);
     }
 
-    // ispisi sve proizvode u recycler view
+    /**
+     * ispisi sve proizvode u recycler view
+     * @param mProductsList
+     */
     private void inflateAdapter(ArrayList<ProductsModel> mProductsList){
         mRecyclerView.setAdapter(null);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -223,7 +255,10 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
         mRecyclerView.setAdapter(mSelectProductsAdapter);
     }
 
-    //Prikazuje tekst korisniku da ne postoje proizvodi po zadanom kriteriju
+    /**
+     * Prikazuje tekst korisniku da ne postoje proizvodi po zadanom kriteriju
+     * @param list
+     */
     private void setTextVisibility(ArrayList<ProductsModel> list){
         if(list.size() > 0)
             mNoneProducts.setVisibility(View.GONE);

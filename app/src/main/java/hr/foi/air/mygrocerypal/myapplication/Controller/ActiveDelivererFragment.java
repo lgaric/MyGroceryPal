@@ -85,6 +85,13 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
         }
     };
 
+    /**
+     * Metoda kreiranje ActiveDeliverer fragmenta
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -111,6 +118,9 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
         return view;
     }
 
+    /**
+     * Ukljucivanje GPS-a
+     */
     public void turnOnGps(){
         if (mGpsLocation == null) {
             mGpsLocation = new GPSLocation(getActivity(), this);
@@ -212,8 +222,11 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
     }
 
 
-    //IMPLEMENTACIJA INTERFEJSA
-
+    /**
+     * metoda preko koje se dobivaju GL-ovi putem listenera
+     * @param mGroceryList
+     * @param mGroceryListStatus
+     */
     @Override
     public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList, GroceryListStatus mGroceryListStatus) {
         if(mGroceryList != null){
@@ -246,6 +259,11 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
             mGpsSwitch.setChecked(false);
     }
 
+    /**
+     * Pritisak gumba na pojedini GL
+     * @param mGroceryListsModel
+     * @param mOperation
+     */
     @Override
     public void buttonPressedOnGroceryList(GroceryListsModel mGroceryListsModel, GroceryListOperation mOperation) {
         switch (mOperation){
@@ -264,6 +282,12 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
     }
 
 
+    /**
+     * Dobivanje statusa pojedine grocery liste
+     * @param mGroceryListID
+     * @param mGroceryListStatus
+     * @param mOperation
+     */
     @Override
     public void groceryListStatusReceived(String mGroceryListID, String mGroceryListStatus, GroceryListOperation mOperation) {
         String message = "";
@@ -282,6 +306,10 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
         refreshRecyclerView();
     }
 
+    /**
+     * Postavljanje vidljivosti grocery lista
+     * @param mGroceryList
+     */
     private void setTextVisibility(ArrayList<GroceryListsModel> mGroceryList){
         if(mGroceryList.size() > 0)
             mNoneActiveLists.setVisibility(View.GONE);

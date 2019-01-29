@@ -44,6 +44,13 @@ import hr.foi.air.mygrocerypal.myapplication.R;
         }
     };
 
+        /**
+         * Kreiranje view-a fragmenta
+         * @param inflater
+         * @param container
+         * @param savedInstanceState
+         * @return
+         */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,6 +72,11 @@ import hr.foi.air.mygrocerypal.myapplication.R;
         return view;
     }
 
+    /**
+     * Dobivanje GL-ova
+     * @param mGroceryList
+     * @param mGroceryListStatus
+     */
     @Override
     public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList, GroceryListStatus mGroceryListStatus) {
         if(mGroceryList != null){
@@ -79,6 +91,11 @@ import hr.foi.air.mygrocerypal.myapplication.R;
             mNoneIgnoredLists.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Pritisak na GL
+     * @param mGroceryListsModel
+     * @param mOperation
+     */
     @Override
     public void buttonPressedOnGroceryList(GroceryListsModel mGroceryListsModel, GroceryListOperation mOperation) {
         switch(mOperation){
@@ -110,11 +127,20 @@ import hr.foi.air.mygrocerypal.myapplication.R;
                 .commit();
     }
 
+    /**
+     * Osvjezi, dohvati novo zapisane GL-ove iz baze
+     */
     private void refreshRecyclerView(){
         if(mDelivererGroceryListHelper != null)
             mDelivererGroceryListHelper.getAllIgnoredGroceryLists();
     }
 
+    /**
+     * Dobivanje statusa za GL-ove
+     * @param mGroceryListID
+     * @param mGroceryListStatus
+     * @param mOperation
+     */
     @Override
     public void groceryListStatusReceived(String mGroceryListID, String mGroceryListStatus, GroceryListOperation mOperation) {
         String message = "";
@@ -134,6 +160,10 @@ import hr.foi.air.mygrocerypal.myapplication.R;
             refreshRecyclerView();
         }
 
+        /**
+         * Postavljanje vidljivosti grocery lista
+         * @param mGroceryList
+         */
         private void setTextVisibility(ArrayList<GroceryListsModel> mGroceryList){
             if(mGroceryList.size() > 0)
                 mNoneIgnoredLists.setVisibility(View.GONE);

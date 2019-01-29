@@ -41,6 +41,13 @@ public class AcceptedDelivererFragment extends Fragment implements GroceryListOp
         }
     };
 
+    /**
+     * Metoda za kreiranje AcceptedDeliverer fragmenta
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,6 +68,11 @@ public class AcceptedDelivererFragment extends Fragment implements GroceryListOp
         return view;
     }
 
+    /**
+     * Metoda koja se poziva klikom na pojedini Grocery List
+     * @param mGroceryListsModel
+     * @param mOperation
+     */
     @Override
     public void buttonPressedOnGroceryList(GroceryListsModel mGroceryListsModel, GroceryListOperation mOperation) {
         switch(mOperation){
@@ -72,11 +84,22 @@ public class AcceptedDelivererFragment extends Fragment implements GroceryListOp
         }
     }
 
+    /**
+     * Override metode iz listenera za dobivene statuse GL-ova
+     * @param mGroceryListID
+     * @param mGroceryListStatus
+     * @param mOperation
+     */
     @Override
     public void groceryListStatusReceived(String mGroceryListID, String mGroceryListStatus, GroceryListOperation mOperation) {
 
     }
 
+    /**
+     * Override metode iz listenera za dobivene GL-ove
+     * @param mGroceryList
+     * @param mGroceryListStatus
+     */
     @Override
     public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList, GroceryListStatus mGroceryListStatus) {
         if(mGroceryList != null) {
@@ -107,11 +130,18 @@ public class AcceptedDelivererFragment extends Fragment implements GroceryListOp
                 .commit();
     }
 
+    /**
+     * Pullldown za refreshanje grocery lista
+     */
     private void refreshRecyclerView(){
         if(mDelivererGroceryListHelper != null)
             mDelivererGroceryListHelper.getAllAcceptedListsByCurrentUser();
     }
 
+    /**
+     * Postavljanje vidljivosti grocery lista
+     * @param mGroceryList
+     */
     private void setTextVisibility(ArrayList<GroceryListsModel> mGroceryList){
         if(mGroceryList.size() > 0)
             mNoneAcceptedLists.setVisibility(View.GONE);

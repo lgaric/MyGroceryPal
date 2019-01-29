@@ -28,6 +28,10 @@ public class LoginHelper extends FirebaseBaseHelper{
     private LinearLayout mProgress;
     private LinearLayout mNameAndLogoApp;
 
+    /**
+     * Konstruktor
+     * @param mLoginListener
+     */
     public LoginHelper(LoginListener mLoginListener){
         this.mContext = (Context) mLoginListener;
         this.mLoginListener = mLoginListener;

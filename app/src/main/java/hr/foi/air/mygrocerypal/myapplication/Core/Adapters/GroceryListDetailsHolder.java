@@ -60,6 +60,12 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
         }
     };
 
+    /**
+     * Konstruktor
+     * @param itemView
+     * @param groceryModel
+     * @param deliverer
+     */
     public GroceryListDetailsHolder(@NonNull View itemView, GroceryListsModel groceryModel, boolean deliverer) {
         super(itemView);
         view = itemView;
@@ -84,6 +90,10 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
 
     }
 
+    /**
+     * Bindanje
+     * @param model
+     */
     public void bind(GroceryListProductsModel model){
         this.mModel = model;
 
@@ -98,6 +108,11 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
         this.mTotalPrice.setText(view.getContext().getResources().getString(R.string.totalCost) + " " + String.format("%.2f", model.getPrice() * model.getQuantity()) + CURRENCY);
     }
 
+    /**
+     * Dobivanje pozicije proizvoda na listi
+     * @param mProduct
+     * @return
+     */
     private int getProductPositionInList(GroceryListProductsModel mProduct){
         List<GroceryListProductsModel> temp = mGroceryListsModel.getProductsModels();
         int position = 0;
@@ -109,6 +124,10 @@ public class GroceryListDetailsHolder extends RecyclerView.ViewHolder {
         return 0;
     }
 
+    /**
+     * Azuriranje kolicine proizvoda na listi
+     * @param mModel
+     */
     private void updateProductQuantityInList(GroceryListProductsModel mModel){
         mGroceryListsModel.getProductsModels().get(getProductPositionInList(mModel)).setQuantity(mModel.getQuantity());
     }

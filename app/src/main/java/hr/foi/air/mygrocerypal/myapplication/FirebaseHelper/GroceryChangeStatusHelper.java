@@ -10,6 +10,10 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class GroceryChangeStatusHelper extends FirebaseBaseHelper{
 
+    /**
+     * Konstruktor
+     * @param context
+     */
     public GroceryChangeStatusHelper(Context context){
         this.mContext = context;
     }
