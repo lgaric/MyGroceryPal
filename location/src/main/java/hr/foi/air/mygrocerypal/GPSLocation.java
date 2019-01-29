@@ -161,6 +161,10 @@ public class GPSLocation {
                 }).check();
     }
 
+    /**
+     * Postavljanje poruke pogreske
+     * @param errorMessage
+     */
     private void setErrorMessage(String errorMessage)
     {
         locationListener.dataNotReceived(errorMessage);
