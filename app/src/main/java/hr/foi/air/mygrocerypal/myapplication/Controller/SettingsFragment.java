@@ -145,6 +145,9 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
         return view;
     }
 
+    /**
+     * Nastavljanje izvodenja fragmenta
+     */
     @Override
     public void onResume() {
         ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.settings));

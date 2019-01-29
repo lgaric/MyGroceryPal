@@ -48,6 +48,11 @@ public class GPSLocation {
     private LocationListener locationListener;
     private String errorMessage;
 
+    /**
+     * Konstruktor
+     * @param activity
+     * @param locationListener
+     */
     public GPSLocation(Activity activity, LocationListener locationListener) {
         this.mCurrentActivity = activity;
         this.locationListener = locationListener;

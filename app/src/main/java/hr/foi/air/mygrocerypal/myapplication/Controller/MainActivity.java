@@ -38,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private int called = 0;
 
+    /**
+     * Inicijalizacija
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme_NoActionBar);
@@ -68,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mToolbar.setNavigationOnClickListener(mNavigationClick);
     }
 
+    /**
+     * Promjena back stacka
+     */
     @Override
     public void onBackStackChanged() {
         if(!isMainFragment()){
@@ -83,18 +90,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+    /**
+     * Kreiranje posta
+     * @param savedInstanceState
+     */
     @Override
     public void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         mDrawerToggle.syncState();
     }
 
+    /**
+     * Promjena konfiguracije
+     * @param newConfig
+     */
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    /**
+     * Start
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -106,6 +124,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    /**
+     * Upisivanje Userovih informacija u navigaciju
+     * @param mNavigationView
+     */
     private void addUserInformationToNavigation(NavigationView mNavigationView){
         String userFullName = CurrentUser.getCurrentUser.getFirst_name() + " " + CurrentUser.getCurrentUser.getLast_name();
         View headerView = mNavigationView.getHeaderView(0);
@@ -115,6 +137,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         email.setText(CurrentUser.getCurrentUser.getEmail());
     }
 
+    /**
+     * Pritisak nazad u navigaciji
+     */
     @Override
     public void onBackPressed() {
 
@@ -132,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
     /**
-     * Check if current fragment is main client or main deliverer fragment
+     * Provjera jeli trenutni fragment main fragment ili main deliverer fragment
      * @return
      */
     private boolean isMainFragment(){
@@ -142,16 +167,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         else return false;
     }
 
+    /**
+     * Kreiranje options izbornika
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;
     }
 
+    /**
+     * Odabir pojedine stavke options izbornika
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Odabir pojedine stavke navigacijskog izbornika
+     * @param menuItem
+     * @return
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
@@ -187,7 +227,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-    // Hamburger and back button
+    /**
+     * Hamburger and back button
+     */
     View.OnClickListener mNavigationClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -201,6 +243,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     };
 
+    /**
+     * Upisivanje poruka u Log
+     * @param msg
+     */
     private void logBackStack(String msg){
         Log.d("Check: Stack ---", msg);
         for(int i = 0; i < getSupportFragmentManager().getBackStackEntryCount(); i++)

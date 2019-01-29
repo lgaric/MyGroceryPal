@@ -33,6 +33,10 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
     };
         private GroceryListClickListener mGroceryListClickListener;
 
+    /**
+     * Konstruktor
+     * @param itemView
+     */
     public GroceryListHolder(@NonNull View itemView) {
             super(itemView);
             view = itemView;
@@ -46,7 +50,12 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
             itemView.setOnClickListener(onclick);
         }
 
-        public void bind(GroceryListsModel mGroceryListsModel, GroceryListClickListener mGroceryListClickListener){
+    /**
+     * Bindanje
+     * @param mGroceryListsModel
+     * @param mGroceryListClickListener
+     */
+    public void bind(GroceryListsModel mGroceryListsModel, GroceryListClickListener mGroceryListClickListener){
             this.mGroceryListsModel = mGroceryListsModel;
             mStore.setText(mGroceryListsModel.getStore_name());
             mPrice.setText(view.getContext().getResources().getString(R.string.totalCost) + " " + mGroceryListsModel.getTotal_price() + CURRENCY);
@@ -57,7 +66,10 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
             this.mGroceryListClickListener = mGroceryListClickListener;
         }
 
-        private void setColorOfTrack(){
+    /**
+     * Postavljanje boje pored GL-a koja govori o njegovom statusu
+     */
+    private void setColorOfTrack(){
             if(mGroceryListsModel.getStatus() == GroceryListStatus.FINISHED)
                 mColorTrack.setBackgroundColor(view.getContext().getResources().getColor(R.color.colorPrimaryDark));
             else if(mGroceryListsModel.getStatus() == GroceryListStatus.CREATED)

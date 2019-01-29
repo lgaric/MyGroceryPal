@@ -45,6 +45,13 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
 
     private Boolean mDeliverer = false;
 
+    /**
+     * Inicijalizacija
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,6 +65,11 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
         return inflater.inflate(R.layout.fragment_show_grocery_list_details, container, false);
     }
 
+    /**
+     * Povezivanje s XML-om
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -84,12 +96,19 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
         setGroceryListDetailsHeader();
     }
 
+    /**
+     * Postavljanje headera za GL-ove
+     */
     private void setGroceryListDetailsHeader(){
         mStoreName.append(mGroceryListsModel.getStore_name());
         mTotalPrice.append(mGroceryListsModel.getTotal_price() + CURRENCY);
         mCommision.append(mGroceryListsModel.getCommision() + CURRENCY);
     }
 
+    /**
+     * Postavljane teksta pojedinog buttona
+     * @param mButtonText
+     */
     private void setButtonText(Button mButtonText){
         if(mGroceryListsModel.getStatus() != GroceryListStatus.FINISHED)
             mButtonText.setText(getActivity().getResources().getString(R.string.confirmCaps));
@@ -98,6 +117,10 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
             mButtonText.setVisibility(View.GONE);
     }
 
+    /**
+     * Promjena boje za pojedini GL
+     * @param mLayout
+     */
     private void setHeaderColor(LinearLayout mLayout){
         if(mGroceryListsModel.getStatus() == GroceryListStatus.ACCEPTED)
             mLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
@@ -107,6 +130,11 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
             mLayout.setBackgroundColor(getResources().getColor(R.color.colorAccent));
     }
 
+    /**
+     * Dobivanje popisa stavki GL-a
+     * @param mGroceryListUser
+     * @param mGroceryListProducts
+     */
     @Override
     public void groceryListDetailsReceived(@Nullable UserModel mGroceryListUser, ArrayList<GroceryListProductsModel> mGroceryListProducts) {
         if(mGroceryListProducts != null) {

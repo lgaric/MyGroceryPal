@@ -20,12 +20,20 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
     private List<GroceryListProductsModel> mListOfAddedProducts;//nova verzija
     TextView mTotalTextView;
 
+    /**
+     * Konstruktor
+     * @param productsList
+     * @param total
+     */
     public  ProductsListAdapter(List<GroceryListProductsModel> productsList, TextView total){
         mListOfAddedProducts = productsList;
         mTotalTextView = total;
         calculateTotalAmount();
     }
 
+    /**
+     * Ukupan iznos
+     */
     private void calculateTotalAmount(){
         double totalAmount = 0;
         for (GroceryListProductsModel product: mListOfAddedProducts) {
@@ -34,11 +42,22 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
         mTotalTextView.setText(roundToTwoDecimalPlaces(totalAmount));
     }
 
+    /**
+     * Zaokruzivanje iznosa na dvije decimale
+     * @param value
+     * @return
+     */
     private String roundToTwoDecimalPlaces(double value){
         double roundedValue = Math.round(value*100)/100.00;
         return Double.toString(roundedValue);
     }
 
+    /**
+     * Inicijalizacija
+     * @param viewGroup
+     * @param i
+     * @return
+     */
     @NonNull
     @Override
     public ProductsListHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -48,23 +67,40 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
         return new ProductsListHolder(view);
     }
 
+    /**
+     * Bindanje
+     * @param productsListHolder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull final ProductsListHolder productsListHolder, int position) {
         productsListHolder.bind(mListOfAddedProducts.get(position), mListOfAddedProducts);
     }
 
+    /**
+     * Dobivanje kolicine proizvoda
+     * @return
+     */
     @Override
     public int getItemCount() {
         return mListOfAddedProducts.size();
     }
 
+    /*
+    Dobivanje liste proizvoda
+     */
     public GroceryListProductsModel getItem(int position){
         return mListOfAddedProducts.get(position);
     }
 
+    /**
+     * Dobivanje liste dodanih proizvoda
+     * @return
+     */
     public List<GroceryListProductsModel> getmListOfAddedProducts(){
         return mListOfAddedProducts;
     }
+
 
 
     public class ProductsListHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -75,6 +111,10 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
         private EditText mProductQuantity;
         private List<GroceryListProductsModel> mListOfAddedProducts;
 
+        /**
+         * Konstruktor
+         * @param itemView
+         */
         public ProductsListHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -96,11 +136,21 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
         }
 
 
+        /**
+         * Provjeravanje postojanja unesenih podataka
+         * @param mEditText
+         * @return
+         */
         private boolean isEmpty(EditText mEditText){
             if(mEditText.getText().toString().trim().length() > 0) return false;
             else return true;
         }
 
+        /**
+         * Bindanje
+         * @param mProduct
+         * @param mListOfProducts
+         */
         public void bind(GroceryListProductsModel mProduct, List<GroceryListProductsModel> mListOfProducts){
             this.mListOfAddedProducts = mListOfProducts;
             this.mProduct = mProduct;
@@ -109,6 +159,11 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
             this.mProductQuantity.setText(Integer.toString(mProduct.getQuantity()));
         }
 
+        /**
+         * Dobivanje pozicije proizvoda
+         * @param mProduct
+         * @return
+         */
         private int getProductPositionInList(GroceryListProductsModel mProduct){
             int position = 0;
             for(GroceryListProductsModel product : mListOfAddedProducts){
@@ -166,6 +221,9 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
             calculateTotalAmount();
         }
 
+        /**
+         * Brisanje proizvoda s liste
+         */
         private void deleteGroceryFromList(){
             mListOfAddedProducts.remove(getProductPositionInList(mProduct));//izbrisao iz liste
             notifyItemRemoved(getAdapterPosition());
@@ -173,6 +231,10 @@ public class ProductsListAdapter extends RecyclerView.Adapter<ProductsListAdapte
             calculateTotalAmount();
         }
 
+        /**
+         * Odabir metode prilikom klika
+         * @param v
+         */
         @Override
         public void onClick(View v) {
             switch (v.getId()){

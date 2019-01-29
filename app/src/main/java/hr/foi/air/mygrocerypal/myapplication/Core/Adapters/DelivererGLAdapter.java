@@ -17,19 +17,29 @@ public class DelivererGLAdapter extends RecyclerView.Adapter<DelivererGLHolder> 
     private ArrayList<GroceryListsModel> mGroceryListsModels;
     private GroceryListOperationListener mGroceryListOperationListener;
 
-    /*
-        0 - AKTIVNI GL DOSTAVLJAC
-        1 - IGNORIRANI GL DOSTAVLJAC
-        2 - PRIHVACENI GL DOSTAVLJAC
-    */
     int mType;
 
+    /**
+     * Adapter
+     * @param groceryList
+     * @param mGroceryListOperationListener
+     * @param mType
+     */
     public DelivererGLAdapter(ArrayList<GroceryListsModel> groceryList, GroceryListOperationListener mGroceryListOperationListener, int mType){
         this.mGroceryListOperationListener = mGroceryListOperationListener;
         this.mGroceryListsModels = groceryList;
         this.mType = mType;
     }
 
+    /**
+     * Kreiranje ViewHolder-a
+     * 0 - AKTIVNI GL DOSTAVLJAC
+     * 1 - IGNORIRANI GL DOSTAVLJAC
+     * 2 - PRIHVACENI GL DOSTAVLJAC
+     * @param viewGroup
+     * @param i
+     * @return
+     */
     @NonNull
     @Override
     public DelivererGLHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -51,11 +61,20 @@ public class DelivererGLAdapter extends RecyclerView.Adapter<DelivererGLHolder> 
         return new DelivererGLHolder(view, mType);
     }
 
+    /**
+     * Bindanje ViewHolder-a
+     * @param groceryListHolder
+     * @param i
+     */
     @Override
     public void onBindViewHolder(@NonNull DelivererGLHolder groceryListHolder, int i) {
         groceryListHolder.bind(this.mGroceryListsModels.get(i), this.mGroceryListOperationListener);
     }
 
+    /**
+     * Broj GL-a
+     * @return
+     */
     @Override
     public int getItemCount() {
         return mGroceryListsModels.size();

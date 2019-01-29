@@ -19,6 +19,11 @@ public class Cities extends AsyncTask<Void, Void, ArrayList<String>> {
     private CitiesListener mListener;
     private Context mContext;
 
+    /**
+     * Konstruktor
+     * @param listener
+     * @param context
+     */
     public Cities(CitiesListener listener, Context context){
         this.mListener = listener;
         this.mContext = context;

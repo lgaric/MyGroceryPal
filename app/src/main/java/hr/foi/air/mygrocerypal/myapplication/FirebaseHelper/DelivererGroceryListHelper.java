@@ -27,6 +27,10 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
     DateFormat mDateFormat = new SimpleDateFormat("dd/MM/yyyy");
     Date mCurrentDate = new Date();
 
+    /**
+     * Konstruktor
+     * @param mGroceryListStatusListener
+     */
     public DelivererGroceryListHelper(GroceryListStatusListener mGroceryListStatusListener){
         this.mContext = ((Fragment)mGroceryListStatusListener).getContext();
         this.mGroceryListStatusListener = mGroceryListStatusListener;
@@ -64,18 +68,27 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
             showInternetMessageWarning();
     }
 
+    /**
+     * Aktivni GL-ovi
+     */
     public void getAllActiveGroceryLists(){
         mQuery = mDatabase.getReference().child(GROCERYLISTSNODE)
                 .orderByChild(GROCERYLISTSTATUSNODE).equalTo(GroceryListStatus.CREATED.toString());
         loadAllGroceryListsByStatus("active");
     }
 
+    /**
+     * Ignorirani GL-ovi
+     */
     public void getAllIgnoredGroceryLists(){
         mQuery = mDatabase.getReference().child(GROCERYLISTSNODE)
                 .orderByChild(GROCERYLISTSTATUSNODE).equalTo(GroceryListStatus.CREATED.toString());
         loadAllGroceryListsByStatus("ignored");
     }
 
+    /**
+     * Prihvaceni GL-ovi
+     */
     public void getAllAcceptedListsByCurrentUser(){
         mQuery = mDatabase.getReference().child(GROCERYLISTSNODE)
                 .orderByChild(USERACCEPTEDIDNODE).equalTo(CurrentUser.getCurrentUser.getUserUID());
@@ -171,6 +184,11 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
         return mUserIgnoredList;
     }
 
+    /**
+     * GL-ovi s statusom prihvacenih
+     * @param mGroceryList
+     * @return
+     */
     public ArrayList<GroceryListsModel> getOnlyWithStatusAccepted(ArrayList<GroceryListsModel> mGroceryList) {
         ArrayList<GroceryListsModel> mAcceptedLists = new ArrayList<>();
         for (int i = 0; i < mGroceryList.size(); i++) {
@@ -216,6 +234,11 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
             return false;
     }
 
+    /**
+     * Ignoriraj GL
+     * @param mGroceryListID
+     * @return
+     */
     public String ignoreGroceryList(String mGroceryListID) {
         if(isNetworkAvailable()){
             try{
@@ -233,6 +256,11 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
 
     }
 
+    /**
+     * Ponisti ignoriranje Gla
+     * @param mGroceryListKey
+     * @return
+     */
     public String returnGroceryListFromIgnored(String mGroceryListKey) {
         if(isNetworkAvailable()){
             try {

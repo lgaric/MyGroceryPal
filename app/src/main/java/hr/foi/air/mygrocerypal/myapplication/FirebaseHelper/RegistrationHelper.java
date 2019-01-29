@@ -20,6 +20,10 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 public class RegistrationHelper extends FirebaseBaseHelper{
     private RegistrationListener mRegistrationListener;
 
+    /**
+     * Konstruktor
+     * @param mRegistrationListener
+     */
     public RegistrationHelper(RegistrationListener mRegistrationListener) {
         this.mContext = (Context) mRegistrationListener;
         this.mRegistrationListener = mRegistrationListener;

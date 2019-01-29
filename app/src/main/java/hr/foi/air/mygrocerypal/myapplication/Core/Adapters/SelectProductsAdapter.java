@@ -22,11 +22,22 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
     private List<GroceryListProductsModel> mListOfAddedProducts;
     private int mProductQuantity = 0;
 
+    /**
+     * Konstruktor
+     * @param mProductsList
+     * @param mListOfAddedProducts
+     */
     public  SelectProductsAdapter(ArrayList<ProductsModel> mProductsList, List<GroceryListProductsModel> mListOfAddedProducts){
         this.mProductsList = mProductsList;
         this.mListOfAddedProducts = mListOfAddedProducts;
     }
 
+    /**
+     * Inicijalizacija
+     * @param viewGroup
+     * @param i
+     * @return
+     */
     @NonNull
     @Override
     public SelectProductsHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -36,6 +47,11 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
         return new SelectProductsHolder(view);
     }
 
+    /**
+     * Bindanje
+     * @param selectProductsHolder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull final SelectProductsHolder selectProductsHolder, int position) {
         if(mListOfAddedProducts.size() > 0){
@@ -48,6 +64,11 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
             selectProductsHolder.bind(mProductsList.get(position), mListOfAddedProducts, 0);
     }
 
+    /**
+     * Dodavanje vec postojeceg proizvoda na listu
+     * @param productsModel
+     * @return
+     */
     private ProductsModel alreadyAddedProduct(ProductsModel productsModel){
         for(GroceryListProductsModel product : mListOfAddedProducts){
             if(productsModel.getName().equals(product.getName())){
@@ -58,14 +79,24 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
         return null;
     }
 
+    /**
+     * Broj proizvoda
+     * @return
+     */
     @Override
     public int getItemCount() {
         return mProductsList.size();
     }
 
+    /**
+     * Dobivanje proizvoda po poziciji
+     * @param position
+     * @return
+     */
     public ProductsModel getItem(int position){
         return mProductsList.get(position);
     }
+
 
 
     public class SelectProductsHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -77,6 +108,10 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
         private EditText mProductQuantity;
         private List<GroceryListProductsModel> mListOfAddedProducts;
 
+        /**
+         * Konstruktor
+         * @param itemView
+         */
         public SelectProductsHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -91,6 +126,10 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
             mProductQuantity.setOnFocusChangeListener(mOnFocusChangeListener);
         }
 
+        /**
+         * Bindanje
+         * @param mProductQuantity
+         */
         private void bindProduct(int mProductQuantity){
             mProduct = new GroceryListProductsModel();
             mProduct.setName(mProductsModel.getName());
@@ -100,6 +139,10 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
             mProduct.setProduct_key(mProductsModel.getProduct_key());
         }
 
+        /**
+         * Dodavanje proizvoda na listu
+         * @param mProductQuantity
+         */
         private void addSelectedProductToGroceryList(int mProductQuantity){
             bindProduct(mProductQuantity);
             mListOfAddedProducts.add(mProduct);
@@ -113,6 +156,12 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
         };
 
 
+        /**
+         * Bindanje
+         * @param mProduct
+         * @param mListOfAddedProducts
+         * @param mProductQuantity
+         */
         public void bind(ProductsModel mProduct, List<GroceryListProductsModel> mListOfAddedProducts, int mProductQuantity){
             this.mListOfAddedProducts = mListOfAddedProducts;
             this.mProductsModel = mProduct;
@@ -126,6 +175,10 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
                 this.mProductQuantity.setText("0");
         }
 
+        /**
+         * Klik na zaslon
+         * @param v
+         */
         @Override
         public void onClick(View v) {
             switch (v.getId()){
@@ -174,6 +227,11 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
 
         }
 
+        /**
+         * Dobivanje pozicije proizvoda u listi
+         * @param mProduct
+         * @return
+         */
         private int getProductPositionInList(GroceryListProductsModel mProduct){
             int position = 0;
             for(GroceryListProductsModel product : mListOfAddedProducts){
@@ -210,6 +268,11 @@ public class SelectProductsAdapter extends RecyclerView.Adapter<SelectProductsAd
             }
         }
 
+        /**
+         * Provjera postojanja unesenog teksta
+         * @param mEditText
+         * @return
+         */
         private boolean isEmpty(EditText mEditText){
             if(mEditText.getText().toString().trim().length() > 0) return false;
             else return true;

@@ -30,6 +30,9 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
     TextView mNumberOfDeliveries, mAverageDeliveryPrice, mTotalDeliveryCommission, mAverageDeliveryCommission, mTotalDeliveryPrice;
     GroceryListHelper mPastGroceryListHelper;
 
+    /**
+     * Konstruktor
+     */
     public StatisticsFragment(){ }
 
     /**
@@ -52,6 +55,9 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
         return view;
     }
 
+    /**
+     * Nastavljanje izvodenja fragmenta
+     */
     @Override
     public void onResume() {
         ((MainActivity)getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.statistics));

@@ -18,6 +18,10 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 public class SelectProductsHelper extends FirebaseBaseHelper{
     private SelectProductsListener mSelectProductsListener;
 
+    /**
+     * Konstruktor
+     * @param mSelectProductsListener
+     */
     public SelectProductsHelper(SelectProductsListener mSelectProductsListener){
         this.mContext = ((Fragment) mSelectProductsListener).getContext();
         this.mSelectProductsListener = mSelectProductsListener;
@@ -58,6 +62,9 @@ public class SelectProductsHelper extends FirebaseBaseHelper{
             showInternetMessageWarning();
     }
 
+    /**
+     * Dohvat kategorija proizvoda
+     */
     public void loadProductCategories(){
         if(isNetworkAvailable()){
             mQuery = mDatabase.getReference().child(CATEGORIESNODE);

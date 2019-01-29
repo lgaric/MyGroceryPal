@@ -31,7 +31,9 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
 
     private GroceryListOperationListener mGroceryListOperationListener;
 
-    //PROSLIJEDI FRAGMENTU ODABRANU INSTANCU GroceryListModel-a
+    /**
+     * Proslijedi fragmentu odabranu instancu GroceryListModel-a
+     */
     private View.OnClickListener btnGroceryListDetails = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -39,7 +41,9 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
         }
     };
 
-    //GUMBOVI NA CARDVIEW (PRIHVATI, IGNORIRAJ, VRATI)
+    /**
+     * Gumbovi na cardview (PRIHVATI, IGNORIRAJ, VRATI)
+     */
     private View.OnClickListener btnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -59,6 +63,11 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
         }
     };
 
+    /**
+     * Konstruktor
+     * @param itemView
+     * @param type
+     */
     public DelivererGLHolder(@NonNull View itemView, int type) {
         super(itemView);
         view = itemView;
@@ -77,6 +86,11 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(btnGroceryListDetails);
     }
 
+    /**
+     * Povezivanje buttona i metoda
+     * @param mType
+     * @param mItemView
+     */
     private void setButtonsListener(int mType, View mItemView){
         switch (mType){
             case 0: //AKTIVNI GROCERYLISTI
@@ -95,6 +109,11 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
         }
     }
 
+    /**
+     * Bindanje
+     * @param mGroceryListsModel
+     * @param mGroceryListOperationListener
+     */
     public void bind(GroceryListsModel mGroceryListsModel, GroceryListOperationListener mGroceryListOperationListener){
         this.mGroceryListsModel = mGroceryListsModel;
 

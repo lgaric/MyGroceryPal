@@ -8,6 +8,10 @@ import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class UserInformationHelper extends FirebaseBaseHelper {
 
+    /**
+     * Konstruktor
+     * @param context
+     */
     public UserInformationHelper(Context context){
         this.mContext = context;
     }

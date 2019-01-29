@@ -70,6 +70,13 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     private Spinner mSpinnerStores;
     private RecyclerView mRecyclerView;
 
+    /**
+     * Inicijalizacija
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -106,6 +113,9 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         return view;
     }
 
+    /**
+     * Povratak u fragment
+     */
     @Override
     public void onResume() {
         ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.addGroceryList));
@@ -113,7 +123,9 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     }
 
 
-    //PONOVI
+    /**
+     * Metoda za ponovno kreiranje postojeceg proslog GL-a
+     */
     private void fillDataOnRepeatGL(){
 
         Adapter adapter = mSpinnerStores.getAdapter();
@@ -134,7 +146,12 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
     }
 
-
+    /**
+     * Metoda Fragment klase za dobivanje rezultata Activityja
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
 
@@ -145,6 +162,9 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
     }
 
+    /**
+     * Start fragmenta
+     */
     @Override
     public void onStart() {
 
@@ -159,6 +179,11 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
     }
 
+    /**
+     * Metoda nakon kreiranja View-a fragmenta za dohvacanje svih trgovina
+     * @param view
+     * @param savedInstanceState
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
@@ -169,6 +194,10 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
 
     }
 
+    /**
+     * Preusmjeravanje pritiska na zaslon na pojedinu funkcionalnost
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch(v.getId()){
@@ -203,6 +232,9 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         }
     }
 
+    /**
+     * Provjera broja proizvoda
+     */
     private void checkProductsQuantity(){
         if(mGroceryListProductsModels != null){
             int size = mGroceryListProductsModels.size();
@@ -215,6 +247,10 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         }
     }
 
+    /**
+     * Sakrivanje tipkovnice
+     * @param mButton
+     */
     private void hideKeyboard(Button mButton){
         InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(mButton.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
@@ -248,7 +284,10 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         }
     };
 
-
+    /**
+     * Dobivanje popisa trgovina
+     * @param mStores
+     */
     @Override
     public void storesReceived(ArrayList<StoresModel> mStores) {
         if(mStores != null){
@@ -272,6 +311,13 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     }
     AdapterView.OnItemSelectedListener onItemSelectedListener= new AdapterView.OnItemSelectedListener(){
 
+        /**
+         * Odabir pojedinog itema
+         * @param parent
+         * @param view
+         * @param position
+         * @param id
+         */
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -309,6 +355,10 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     };
 
 
+    /**
+     * Dobivanje liste proizvoda
+     * @param mProductsList
+     */
     @Override
     public void productsListReceived(List<GroceryListProductsModel> mProductsList) {
         if(mProductsList != null){
@@ -320,6 +370,11 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         }
     }
 
+    /**
+     * Metoda prikazivanja uspjesnog upisa GL-a u bazu podataka
+     * @param mSuccess
+     * @param mMessage
+     */
     @Override
     public void groceryListAddedToDatabase(boolean mSuccess, String mMessage) {
         showToast(mMessage);
@@ -329,7 +384,10 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         }
     }
 
-
+    /**
+     * Provjera ispravnosti podataka
+     * @return
+     */
     public boolean checkData(){
 
         boolean entered = true;
@@ -370,11 +428,19 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         return  entered;
     }
 
+    /**
+     * Provjera ispravnosti stringa
+     * @param s
+     * @return
+     */
     private boolean isNullOrBlank(String s)
     {
         return (s == null || s.trim().equals(""));
     }
 
+    /**
+     * Kreiranje GL-a
+     */
     public void createGroceryList(){
         mGroceryListsModel= new GroceryListsModel();
 
@@ -393,6 +459,11 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
     }
 
 
+    /**
+     * Kreiranje datuma isteka Gl-a
+     * @param mValue
+     * @return
+     */
     public String increaseCurrentDateBy(int mValue){
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
@@ -402,10 +473,18 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         return endDate;
     }
 
+    /**
+     * Prikaz poruke na ekran
+     * @param mMessage
+     */
     public void showToast(String mMessage){
         Toast.makeText(getActivity(), mMessage, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Prikazivanje dialoga na promjenu trgovine
+     * @param mFlag
+     */
     public void showDialogOnStoreChanged(boolean mFlag){
         if(mFlag) {
             new AlertDialog.Builder(getActivity())
@@ -432,6 +511,10 @@ public class CreateNewGroceryListFragment extends Fragment implements AddGrocery
         }
     }
 
+    /**
+     * Metoda za dobivanje formata datuma
+     * @return
+     */
     private String getDate(){
         Date today = Calendar.getInstance().getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
