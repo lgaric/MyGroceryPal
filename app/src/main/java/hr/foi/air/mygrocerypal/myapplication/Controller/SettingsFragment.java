@@ -1,12 +1,8 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
-import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +16,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
 
-import hr.foi.air.mygrocerypal.LocationBasedOnAddress;
+import hr.foi.air.mygrocerypal.myapplication.Core.LocationBasedOnAddress;
 import hr.foi.air.mygrocerypal.myapplication.Core.Cities;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Core.Listeners.CitiesListener;

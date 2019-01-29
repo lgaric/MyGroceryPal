@@ -1,4 +1,4 @@
-package hr.foi.air.mygrocerypal;
+package hr.foi.air.mygrocerypal.myapplication.Core;
 
 import android.content.Context;
 import android.location.Address;

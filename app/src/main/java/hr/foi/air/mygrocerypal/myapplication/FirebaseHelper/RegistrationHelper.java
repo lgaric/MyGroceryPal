@@ -12,7 +12,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import hr.foi.air.mygrocerypal.LocationBasedOnAddress;
+import hr.foi.air.mygrocerypal.myapplication.Core.LocationBasedOnAddress;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.RegistrationListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
