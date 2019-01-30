@@ -172,15 +172,12 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
     @SuppressWarnings("unchecked")
     void searhByName(String searchBy){
         if(mProductsList != null){
-
             if(mFilterInterface.getClass() != NameFilter.class)
                 mFilterInterface = new NameFilter();
-
             filteredList = (ArrayList<ProductsModel>) mFilterInterface.filter(mProductsList, searchBy);
             inflateAdapter(filteredList);
             setTextVisibility(filteredList);
-        }else
-            mNoneProducts.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -211,10 +208,11 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
     public void productsListByStoreReceived(ArrayList<ProductsModel> mProductsList) {
         if (mProductsList != null) {
             this.mProductsList = mProductsList;
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
             inflateAdapter(mProductsList);
             setTextVisibility(mProductsList);
-        }else
-            mNoneProducts.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
@@ -229,7 +227,7 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
                 storeNames.add(mCategoriesList.get(i).getName());
             }
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, storeNames);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, storeNames);
             mSpinner.setAdapter(adapter);
         }
     }
@@ -239,7 +237,8 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
      * @param mProductsList
      */
     private void initializeAdapter(ArrayList<ProductsModel> mProductsList){
-        if(mListOfAddedProducts == null) mListOfAddedProducts = new ArrayList<>();
+        if(mListOfAddedProducts == null)
+            mListOfAddedProducts = new ArrayList<>();
         mSelectProductsAdapter = new SelectProductsAdapter(mProductsList, mListOfAddedProducts);
     }
 
@@ -249,8 +248,6 @@ public class SelectProductsFragment extends Fragment implements SelectProductsLi
      */
     private void inflateAdapter(ArrayList<ProductsModel> mProductsList){
         mRecyclerView.setAdapter(null);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         initializeAdapter(mProductsList);
         mRecyclerView.setAdapter(mSelectProductsAdapter);
     }
