@@ -20,20 +20,12 @@
                 android:src="@drawable/ic_navigate_next_black_24dp"
                 android:background="@color/white"/>
 
-            <SearchView
-                android:id="@+id/searchView"
+            <FrameLayout
+                android:id="@+id/modul"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="45dp"
                 android:layout_weight="0.9"
                 android:background="@drawable/shape_product_name"
-                android:layout_margin="@dimen/small_margin_in_app"/>
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.9"
-                android:visibility="gone"
                 android:layout_margin="@dimen/small_margin_in_app"/>
         </LinearLayout>
 
