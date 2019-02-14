@@ -3,6 +3,7 @@ package hr.foi.air.mygrocerypal.myapplication;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +15,7 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
+import hr.foi.air.mygrocerypal.myapplication.Controller.ActiveDelivererFragment;
 import hr.foi.air.mygrocerypal.myapplication.Controller.ClientGroceryListFragment;
 import hr.foi.air.mygrocerypal.myapplication.Controller.DelivererFragment;
 import hr.foi.air.mygrocerypal.myapplication.Controller.LoginActivity;
@@ -38,13 +40,9 @@ public class NavigationManager {
 
     private NavigationManager(){
         navigationItems = new ArrayList<>();
-        Log.d("NavigationManager", "DelivererFragment");
         navigationItems.add(new DelivererFragment());
-        Log.d("NavigationManager", "ClientGroceryListFragment");
         navigationItems.add(new ClientGroceryListFragment());
-        Log.d("NavigationManager", "StatisticsFragment");
         navigationItems.add(new StatisticsFragment());
-        Log.d("NavigationManager", "SettingsFragment");
         navigationItems.add(new SettingsFragment());
     }
 
@@ -68,7 +66,8 @@ public class NavigationManager {
     {
         for (int i = 0; i < navigationItems.size(); i++) {
             NavigationItem item = navigationItems.get(i);
-            navigationView.getMenu().add(dynamicGroupId, i, i+1, item.getName(activity))
+            navigationView.getMenu()
+                    .add(dynamicGroupId, i, i+1, item.getName(activity))
                     .setCheckable(true).setIcon(item.getIcon(activity));
         }
     }
@@ -105,7 +104,6 @@ public class NavigationManager {
                                 logout();
                             }
                         })
-
                 .setNegativeButton(activity.getString(R.string.no), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
@@ -122,5 +120,19 @@ public class NavigationManager {
         CurrentUser.getCurrentUser = null;
         activity.startActivity(new Intent(activity, LoginActivity.class));
         activity.finish();
+    }
+
+    /**
+     * Dohvati fragment koji radi s GPS-om
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    public void locationResult(int requestCode, int resultCode, Intent data){
+        Fragment item = navigationItems.get(0).getFragment();
+        if(item instanceof DelivererFragment){
+            ActiveDelivererFragment frag = ((DelivererFragment)item).getActiveDelivererFragment();
+            frag.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

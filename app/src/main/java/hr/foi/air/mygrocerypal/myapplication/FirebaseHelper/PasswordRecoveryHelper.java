@@ -40,14 +40,17 @@ public class PasswordRecoveryHelper extends FirebaseBaseHelper{
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
-                                    mPasswordRecoveryListener.onRecoverySuccess(mContext.getResources().getString(R.string.pwRecoverySuccess));
+                                    if(mPasswordRecoveryListener != null)
+                                        mPasswordRecoveryListener.onRecoverySuccess(mContext.getResources().getString(R.string.pwRecoverySuccess));
                                 } else {
-                                    mPasswordRecoveryListener.onRecoveryFail(mContext.getResources().getString(R.string.pwRecoveryFail));
+                                    if(mPasswordRecoveryListener != null)
+                                        mPasswordRecoveryListener.onRecoveryFail(mContext.getResources().getString(R.string.pwRecoveryFail));
                                 }
                             }
                         });
             } else {
-                mPasswordRecoveryListener.onRecoveryFail(mContext.getResources().getString(R.string.emailError));
+                if(mPasswordRecoveryListener != null)
+                    mPasswordRecoveryListener.onRecoveryFail(mContext.getResources().getString(R.string.emailError));
             }
         }
         else

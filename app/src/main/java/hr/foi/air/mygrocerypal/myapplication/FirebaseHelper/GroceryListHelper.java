@@ -46,7 +46,8 @@ public class GroceryListHelper extends FirebaseBaseHelper{
                         model.setGrocerylist_key(temp.getKey());
                         groceryList.add(model);
                     }
-                    mGroceryListListener.groceryListReceived(filterList(groceryList, mGroceryListStatus), mGroceryListStatus);
+                    if(mGroceryListListener != null)
+                        mGroceryListListener.groceryListReceived(filterList(groceryList, mGroceryListStatus), mGroceryListStatus);
                 }
 
                 @Override
@@ -78,7 +79,8 @@ public class GroceryListHelper extends FirebaseBaseHelper{
                         model.setGrocerylist_key(temp.getKey());
                         groceryList.add(model);
                     }
-                    mGroceryListListener.groceryListReceived(filterList(groceryList, mGroceryListStatus), mGroceryListStatus);
+                    if(mGroceryListListener != null)
+                        mGroceryListListener.groceryListReceived(filterList(groceryList, mGroceryListStatus), mGroceryListStatus);
                 }
 
                 @Override

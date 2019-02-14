@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import hr.foi.air.mygrocerypal.GPSLocation;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.NavigationManager;
 import hr.foi.air.mygrocerypal.myapplication.R;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationView mNavigationView;
-    private int called = 0;
+    private boolean firstCall = false;
 
     /**
      * Inicijalizacija
@@ -99,8 +100,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onStart() {
         super.onStart();
-        if(called == 0)
-            called++;
+        if(!firstCall)
+            firstCall = true;
         else
             NavigationManager.getInstance().startMainModule();
     }
@@ -189,6 +190,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
     };
+
+    /**
+     * GPS dozvola
+     * For a better experience, turn on device location...(NO THANKS / OK)
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == GPSLocation.REQUEST_CHECK_SETTINGS)
+            NavigationManager.getInstance().locationResult(requestCode, resultCode, data);
+    }
 
 }
 

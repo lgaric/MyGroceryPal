@@ -3,10 +3,15 @@ package hr.foi.air.mygrocerypal;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Looper;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,12 +35,11 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-public class GPSLocation {
-
+public class GPSLocation{
     private static final String TAG = "Geolocating";
     private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 120000;
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 120000;
-    private static final int REQUEST_CHECK_SETTINGS = 100;
+    public static final int REQUEST_CHECK_SETTINGS = 100;
 
     private FusedLocationProviderClient mFusedLocationClient;
     private SettingsClient mSettingsClient;
@@ -50,11 +54,14 @@ public class GPSLocation {
 
     /**
      * Konstruktor
-     * @param activity
      * @param locationListener
      */
-    public GPSLocation(Activity activity, LocationListener locationListener) {
-        this.mCurrentActivity = activity;
+    public GPSLocation(LocationListener locationListener) {
+        if(locationListener instanceof Fragment)
+            this.mCurrentActivity = ((Fragment) locationListener).getActivity();
+        else{
+            this.mCurrentActivity = (Activity) locationListener;
+        }
         this.locationListener = locationListener;
         init();
     }
@@ -71,7 +78,9 @@ public class GPSLocation {
             public void onLocationResult(LocationResult locationResult) {
                 super.onLocationResult(locationResult);
                 mCurrentLocation = locationResult.getLastLocation();
-                locationListener.locationReceived(mCurrentLocation);
+                setErrorMessage("+");
+                if(locationListener != null)
+                    locationListener.locationReceived(mCurrentLocation);
             }
         };
 
@@ -98,7 +107,7 @@ public class GPSLocation {
                     @Override
                     public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
                         Log.i(TAG, "Svi zahtjevi za dohvat lokacije su zadovoljeni.");
-
+                        setErrorMessage("+");
                         if(!mRequestingLocationUpdates) {
                             mFusedLocationClient.requestLocationUpdates(mLocationRequest,
                                     mLocationCallback, Looper.myLooper());
@@ -109,12 +118,12 @@ public class GPSLocation {
                 .addOnFailureListener(mCurrentActivity, new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
                             int statusCode = ((ApiException) e).getStatusCode();
                             switch (statusCode) {
                                 case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
                                     errorMessage = "Nisu ispunjeni lokacijski zahtjevi aplikacije";
                                     Log.i(TAG, errorMessage);
+                                    setErrorMessage("-");
                                     try {
                                         ResolvableApiException rae = (ResolvableApiException) e;
                                         rae.startResolutionForResult(mCurrentActivity, REQUEST_CHECK_SETTINGS);
@@ -126,14 +135,12 @@ public class GPSLocation {
                                 case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
                                     errorMessage = "Potrebno je namjestiti lokacijske postavke aplikacije";
                                     Log.e(TAG, errorMessage);
-
                                     Toast.makeText(mCurrentActivity, errorMessage, Toast.LENGTH_LONG).show();
+                                    setErrorMessage("-");
                                     break;
-
                                 default:
                                     errorMessage = "Dogodila se neočekivana greška!";
                                     Log.e(TAG, errorMessage);
-
                             }
                             setErrorMessage(errorMessage);
 
@@ -156,7 +163,7 @@ public class GPSLocation {
                     public void onPermissionDenied(PermissionDeniedResponse response) {
                         if (response.isPermanentlyDenied()) {
                             errorMessage = "openSettings";
-                            setErrorMessage(errorMessage);
+                            setErrorMessage("-");
                         }
                     }
                     @Override
@@ -172,6 +179,7 @@ public class GPSLocation {
      */
     private void setErrorMessage(String errorMessage)
     {
-        locationListener.dataNotReceived(errorMessage);
+        if(locationListener != null)
+            locationListener.dataNotReceived(errorMessage);
     }
 }

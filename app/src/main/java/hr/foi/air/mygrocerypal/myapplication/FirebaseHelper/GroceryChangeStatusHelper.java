@@ -43,7 +43,7 @@ public class GroceryChangeStatusHelper extends FirebaseBaseHelper{
             }
         }
         else {
-            Toast.makeText(mContext, mContext.getResources().getString(R.string.noInternetConnectionMessage), Toast.LENGTH_LONG).show();
+            showInternetMessageWarning();
             return false;
         }
     }

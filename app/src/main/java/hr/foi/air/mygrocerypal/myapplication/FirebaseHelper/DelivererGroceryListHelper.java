@@ -22,7 +22,7 @@ import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class DelivererGroceryListHelper extends FirebaseBaseHelper{
-    GroceryListStatusListener mGroceryListStatusListener;
+    private GroceryListStatusListener mGroceryListStatusListener;
 
     DateFormat mDateFormat = new SimpleDateFormat("dd/MM/yyyy");
     Date mCurrentDate = new Date();
@@ -51,12 +51,18 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
                         model.setGrocerylist_key(temp.getKey());
                         groceryList.add(model);
                     }
-                    if(mOption == "active")
-                        mGroceryListStatusListener.groceryListReceived(getAllActiveLists(groceryList), GroceryListStatus.ACCEPTED);
-                    else if (mOption == "ignored")
-                        mGroceryListStatusListener.groceryListReceived(getAllUserIgnoredLists(groceryList), GroceryListStatus.ACCEPTED);
-                    else if(mOption == "accepted")
-                        mGroceryListStatusListener.groceryListReceived(getOnlyWithStatusAccepted(groceryList), GroceryListStatus.ACCEPTED);
+                    if(mOption == "active") {
+                        if(mGroceryListStatusListener != null)
+                            mGroceryListStatusListener.groceryListReceived(getAllActiveLists(groceryList), GroceryListStatus.ACCEPTED);
+                    }
+                    else if (mOption == "ignored") {
+                        if(mGroceryListStatusListener != null)
+                            mGroceryListStatusListener.groceryListReceived(getAllUserIgnoredLists(groceryList), GroceryListStatus.ACCEPTED);
+                    }
+                    else if(mOption == "accepted") {
+                        if(mGroceryListStatusListener != null)
+                            mGroceryListStatusListener.groceryListReceived(getOnlyWithStatusAccepted(groceryList), GroceryListStatus.ACCEPTED);
+                    }
                 }
 
                 @Override

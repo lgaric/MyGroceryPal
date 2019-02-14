@@ -49,7 +49,8 @@ public class SelectProductsHelper extends FirebaseBaseHelper{
                         productsList.add(product);
                     }
 
-                    mSelectProductsListener.productsListByStoreReceived(productsList);
+                    if(mSelectProductsListener != null)
+                        mSelectProductsListener.productsListByStoreReceived(productsList);
                 }
 
                 @Override
@@ -81,8 +82,8 @@ public class SelectProductsHelper extends FirebaseBaseHelper{
                         categoriesModel.setCategory_id(temp.getKey());
                         categories.add(categoriesModel);
                     }
-
-                    mSelectProductsListener.categoriesListReceived(categories);
+                    if(mSelectProductsListener != null)
+                        mSelectProductsListener.categoriesListReceived(categories);
                 }
 
                 @Override

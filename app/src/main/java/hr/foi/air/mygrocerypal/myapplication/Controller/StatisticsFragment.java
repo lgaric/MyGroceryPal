@@ -51,7 +51,6 @@ public class StatisticsFragment extends Fragment implements GroceryListListener,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getResources().getString(R.string.statistics));
         BindFragmentData(view);
         mPieData = new ArrayList<>();
         mPastGroceryListHelper = new GroceryListHelper(this);

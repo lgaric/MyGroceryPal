@@ -13,8 +13,7 @@ public class ValidateInputs {
      * @return
      */
     public static boolean validateEmail(String mEmail){
-        String email = mEmail;
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        if(!Patterns.EMAIL_ADDRESS.matcher(mEmail).matches()){
             return false;
         }else return true;
     }
@@ -25,8 +24,7 @@ public class ValidateInputs {
      * @return
      */
     public static boolean validatePassword(String mPassword){
-        String password = mPassword;
-        if (!PASSWORD_PATTERN.matcher(password).matches()){
+        if (!PASSWORD_PATTERN.matcher(mPassword).matches()){
             return false;
         }else return true;
     }
@@ -38,9 +36,7 @@ public class ValidateInputs {
      * @return
      */
     public static boolean validateRetypedPassword(String mPassword, String mRetypedPassword){
-        String firstPassword = mPassword;
-        String secondPassword = mRetypedPassword;
-        if(!firstPassword.equals(secondPassword)){
+        if(!mPassword.equals(mRetypedPassword)){
             return false;
         }else return true;
     }

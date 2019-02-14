@@ -47,7 +47,8 @@ public class GroceryListDetailsHelper extends FirebaseBaseHelper{
                     if(mGroceryListsModel.getUser_accepted_id() != null)
                         getUserInformationGroceryList(groceryListProducts, mGroceryListsModel);
                     else
-                        mGroceryListDetailsListener.groceryListDetailsReceived(null, groceryListProducts);
+                        if(mGroceryListDetailsListener != null)
+                            mGroceryListDetailsListener.groceryListDetailsReceived(null, groceryListProducts);
                 }
 
                 @Override
@@ -72,7 +73,8 @@ public class GroceryListDetailsHelper extends FirebaseBaseHelper{
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     UserModel model = dataSnapshot.getValue(UserModel.class);
-                    mGroceryListDetailsListener.groceryListDetailsReceived(model, mGroceryListProducts);
+                    if(mGroceryListDetailsListener != null)
+                        mGroceryListDetailsListener.groceryListDetailsReceived(model, mGroceryListProducts);
                 }
 
                 @Override

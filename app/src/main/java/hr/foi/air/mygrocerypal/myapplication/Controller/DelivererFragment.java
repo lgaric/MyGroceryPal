@@ -21,8 +21,8 @@ import hr.foi.air.mygrocerypal.myapplication.R;
  * Fragment koji se otvara prilikom ulazka u aplikaciju i pritiskom na gumb Deliverer u drawerlayotu / izborniku
  */
 public class DelivererFragment extends Fragment implements NavigationItem {
-    Button btnAccepted, btnActive, btnIgnored;
-    ArrayList<Fragment> delivererFragments;
+    private Button btnAccepted, btnActive, btnIgnored;
+    private ArrayList<Fragment> delivererFragments;
     int mFlag;
 
     /**
@@ -159,5 +159,20 @@ public class DelivererFragment extends Fragment implements NavigationItem {
     @Override
     public Drawable getIcon(Context context) {
         return context.getDrawable(R.drawable.ic_person_black_24dp);
+    }
+
+    /**
+     * Dohvati active deliverer fragment
+     * @return
+     */
+    public ActiveDelivererFragment getActiveDelivererFragment(){
+        ActiveDelivererFragment fragment = null;
+        for(Fragment frag : delivererFragments){
+            if(frag instanceof ActiveDelivererFragment){
+                fragment = (ActiveDelivererFragment) frag;
+                break;
+            }
+        }
+        return fragment;
     }
 }

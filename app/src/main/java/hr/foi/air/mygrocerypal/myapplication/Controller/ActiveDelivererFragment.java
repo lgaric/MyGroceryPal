@@ -1,6 +1,12 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -115,6 +121,8 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
         else
             mDelivererGroceryListHelper.getAllActiveGroceryLists();
 
+        getContext().registerReceiver(mGpsSwitchStateReceiver, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
+
         return view;
     }
 
@@ -123,7 +131,7 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
      */
     public void turnOnGps(){
         if (mGpsLocation == null) {
-            mGpsLocation = new GPSLocation(getActivity(), this);
+            mGpsLocation = new GPSLocation(this);
             mGpsLocation.startLocationButtonClick();
         }
         else
@@ -254,9 +262,12 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
      */
     @Override
     public void dataNotReceived(String mErrorMessage) {
-        Log.d("GPSERROR", mErrorMessage);
-        if(mGpsSwitch.isChecked())
+        if(mErrorMessage.equals("-"))
             mGpsSwitch.setChecked(false);
+        else if(mErrorMessage.equals("+"))
+            mGpsSwitch.setChecked(true);
+        else
+            Log.d("GPSERROR", mErrorMessage);
     }
 
     /**
@@ -316,4 +327,52 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
         else
             mNoneActiveLists.setVisibility(View.VISIBLE);
     }
+
+    /**
+     * Da li je korisnik prihvatio da se ukljuci GPS ?
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode)
+        {
+            case GPSLocation.REQUEST_CHECK_SETTINGS:
+                switch (resultCode)
+                {
+                    case Activity.RESULT_OK:
+                        dataNotReceived("+");
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        dataNotReceived("-");
+                        break;
+                    default:
+                        break;
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getContext().unregisterReceiver(mGpsSwitchStateReceiver);
+    }
+
+    /**
+     * Prati da li je korisnik rucno iskljucio GPS
+     */
+    private BroadcastReceiver mGpsSwitchStateReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
+                LocationManager locationManager = (LocationManager) context.getSystemService(context.LOCATION_SERVICE);
+                if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    dataNotReceived("-");
+                    mGpsSwitch.setChecked(false);
+                }
+            }
+        }
+    };
 }

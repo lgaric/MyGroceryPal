@@ -20,7 +20,6 @@ import hr.foi.air.mygrocerypal.myapplication.Model.StoresModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class CreateNewGroceryListHelper extends FirebaseBaseHelper{
-
     private AddGroceryListListener mAddGroceryListListener;
 
     /**
@@ -51,8 +50,8 @@ public class CreateNewGroceryListHelper extends FirebaseBaseHelper{
                         storesModel.setStore_id(temp.getKey());
                         stores.add(storesModel);
                     }
-
-                    mAddGroceryListListener.storesReceived(stores);
+                    if(mAddGroceryListListener != null)
+                        mAddGroceryListListener.storesReceived(stores);
                 }
 
                 @Override
@@ -84,10 +83,12 @@ public class CreateNewGroceryListHelper extends FirebaseBaseHelper{
                     product.setProduct_key(null);
                     refProducts.setValue(product);
                 }
-                mAddGroceryListListener.groceryListAddedToDatabase(true, mContext.getResources().getString(R.string.saveSuccess));
+                if(mAddGroceryListListener != null)
+                    mAddGroceryListListener.groceryListAddedToDatabase(true, mContext.getResources().getString(R.string.saveSuccess));
             }
             else{
-                mAddGroceryListListener.groceryListAddedToDatabase(true, mContext.getResources().getString(R.string.saveFail));
+                if(mAddGroceryListListener != null)
+                    mAddGroceryListListener.groceryListAddedToDatabase(true, mContext.getResources().getString(R.string.saveFail));
             }
         }else
             showInternetMessageWarning();
