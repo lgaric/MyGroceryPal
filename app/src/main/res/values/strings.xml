@@ -1,4 +1,9 @@
 <resources>
+    <string name="statistics_fragment">Statistika</string>
+    <string name="settings_fragment">Postavke</string>
+    <string name="deliverer_fragment">Dostavljac</string>
+    <string name="client_fragment">Naručitelj</string>
+
     <string name="app_name">MyGroceryPal</string>
 
     <string name="forgotPassword">Zaboravljena lozinka?</string>

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="statistics_fragment">Statistics</string>
+    <string name="settings_fragment">Settings</string>
+    <string name="deliverer_fragment">Deliverer</string>
+    <string name="client_fragment">Client</string>
+
     <string name="app_name">MyGroceryPal</string>
     <string name="forgotPassword">Forgot password?</string>
     <string name="registrationOnLogin">Don\'t have account? Register!</string>

@@ -1,9 +1,12 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +20,13 @@ import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.GroceryListHelper;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
+import hr.foi.air.mygrocerypal.myapplication.NavigationItem;
 import hr.foi.air.mygrocerypal.myapplication.R;
 import lecho.lib.hellocharts.model.PieChartData;
 import lecho.lib.hellocharts.model.SliceValue;
 import lecho.lib.hellocharts.view.PieChartView;
 
-public class StatisticsFragment extends Fragment implements GroceryListListener {
+public class StatisticsFragment extends Fragment implements GroceryListListener, NavigationItem {
 
     PieChartView mPieChartView;
     List<SliceValue> mPieData;
@@ -52,6 +56,7 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
         mPieData = new ArrayList<>();
         mPastGroceryListHelper = new GroceryListHelper(this);
         mPastGroceryListHelper.loadGroceryListsByGroceryListStatus(GroceryListStatus.FINISHED);
+        Log.d("StatisticsFragment", "StatisticsFragment");
         return view;
     }
 
@@ -168,5 +173,20 @@ public class StatisticsFragment extends Fragment implements GroceryListListener 
             GroceryListOrders(ordersList, totalOrderPriceWithProvision, totalCommissionPrice, numberOfOrders);
             GroceryListDeliveries(deliveriesList, totalDeliveryPrice, numberOfDeliveries, totalCommission);
         }
+    }
+
+    @Override
+    public String getName(Context context) {
+        return context.getString(R.string.statistics_fragment);
+    }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
+    }
+
+    @Override
+    public Drawable getIcon(Context context) {
+        return context.getDrawable(R.drawable.ic_trending_up_black_24dp);
     }
 }

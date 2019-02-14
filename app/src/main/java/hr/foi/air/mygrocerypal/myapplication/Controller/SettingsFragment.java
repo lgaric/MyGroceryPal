@@ -1,8 +1,11 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,11 +27,12 @@ import hr.foi.air.mygrocerypal.myapplication.Core.Listeners.CitiesListener;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.PasswordRecoveryListener;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.PasswordRecoveryHelper;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.UserInformationHelper;
+import hr.foi.air.mygrocerypal.myapplication.NavigationItem;
 import hr.foi.air.mygrocerypal.myapplication.R;
 import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
 import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 
-public class SettingsFragment extends Fragment implements CitiesListener, PasswordRecoveryListener{
+public class SettingsFragment extends Fragment implements CitiesListener, PasswordRecoveryListener, NavigationItem {
 
     //ZAGLAVLJE
     private Spinner mOptionsSpinner;
@@ -136,7 +140,7 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
         fillSpinner(mOptions, mOptionsSpinner);
 
         userInformationHelper = new UserInformationHelper(getContext());
-
+        Log.d("SettingsFragment", "SettingsFragment");
         return view;
     }
 
@@ -302,4 +306,18 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
         Toast.makeText(getContext(), mMessage, Toast.LENGTH_LONG).show();
     }
 
+    @Override
+    public String getName(Context context) {
+        return context.getString(R.string.settings_fragment);
+    }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
+    }
+
+    @Override
+    public Drawable getIcon(Context context) {
+        return context.getDrawable(R.drawable.ic_settings_black_settings_24dp);
+    }
 }

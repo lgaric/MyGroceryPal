@@ -1,32 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
-
-        <item
-            android:id="@+id/navigation_deliverer"
-            android:icon="@drawable/ic_directions_car_black_24dp"
-            android:title="@string/deliverer" />
-        <item
-            android:id="@+id/navigation_client"
-            android:icon="@drawable/ic_add_shopping_cart_black_24dp"
-            android:title="@string/client" />
-        <item
-            android:id="@+id/navigation_statistics"
-            android:icon="@drawable/ic_trending_up_black_24dp"
-            android:title="@string/statistics" />
-        <item
-            android:id="@+id/navigation_settings"
-            android:icon="@drawable/ic_settings_black_24dp"
-            android:title="@string/actionSettings" />
-
+    <group
+        android:id="@+id/dynamic_group"
+        android:orderInCategory="0"
+        android:checkableBehavior="single">
     </group>
-    <item android:title="@string/more">
-        <menu>
-            <item
-                android:id="@+id/navigation_logout"
-                android:icon="@drawable/ic_power_settings_new_black_24dp"
-                android:title="@string/logout" />
-        </menu>
-    </item>
+
+    <group
+        android:id="@+id/additional_group"
+        android:orderInCategory="100"
+        android:checkableBehavior="none">
+        <item android:title="Additional">
+            <menu>
+                <item
+                    android:id="@+id/menu_about"
+                    android:icon="@android:drawable/ic_menu_info_details"
+                    android:title="About" />
+                <item
+                    android:id="@+id/menu_logout"
+                    android:icon="@android:drawable/ic_menu_info_details"
+                    android:title="@string/logout" />
+            </menu>
+        </item>
+    </group>
 
 </menu>

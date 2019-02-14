@@ -1,6 +1,8 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +27,11 @@ import hr.foi.air.mygrocerypal.myapplication.Core.Listeners.GroceryListClickList
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListListener;
 import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
+import hr.foi.air.mygrocerypal.myapplication.NavigationItem;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
-public class ClientGroceryListFragment extends Fragment implements View.OnClickListener, GroceryListListener, GroceryListClickListener {
+public class ClientGroceryListFragment extends Fragment implements View.OnClickListener, GroceryListListener,
+        GroceryListClickListener, NavigationItem {
 
     private GroceryListHelper mPastGroceryListHelper;
     private Button btnActiveGroceryList, btnPastGroceryList;
@@ -35,11 +40,7 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
     private RecyclerView mRecyclerView;
     private GroceryListAdapter mGroceryListAdapter;
     private TextView mNoneClientGroceryLists;
-    /*
-    0 -> AKTUALNI GROCERYLISTS
-    1 -> PROŠLI GROCERYLISTS
-     */
-    boolean mActive;
+    int mFlag = 0;
 
     private SwipeRefreshLayout.OnRefreshListener mRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
@@ -74,6 +75,7 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
         btnPastGroceryList.setOnClickListener(this);
         mFloatingButtonAdd.setOnClickListener(this);
 
+        Log.d("ClientGroceryListFragme", "ClientGroceryListFragment");
         return view;
     }
 
@@ -90,7 +92,7 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
      * Prikazivanje GL-ova
      */
     private void showGroceryLists(){
-        if(mActive)
+        if(mFlag == 0)
             mPastGroceryListHelper.loadGroceryLists(GroceryListStatus.ACCEPTED, CurrentUser.getCurrentUser.getUserUID());
         else
             mPastGroceryListHelper.loadGroceryLists(GroceryListStatus.FINISHED, CurrentUser.getCurrentUser.getUserUID());
@@ -103,12 +105,11 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
-        mPastGroceryListHelper = new GroceryListHelper(this);
         super.onViewCreated(view, savedInstanceState);
-        mActive = true;
-        loadGroceryListToRecyclerView(GroceryListStatus.ACCEPTED);
-        btnActiveGroceryList.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+        if(mPastGroceryListHelper == null)
+            mPastGroceryListHelper = new GroceryListHelper(this);
+        setBtnColor();
+        showGroceryLists();
     }
 
     /**
@@ -119,20 +120,17 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.active_client_btn:
-                //AKO NISU PRIKAZANI AKTIVNI GL ONDA IH PRIKAZI
-                if(!mActive) {
-                    loadGroceryListToRecyclerView(GroceryListStatus.ACCEPTED);
-                    btnActiveGroceryList.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
-                    btnPastGroceryList.setBackgroundColor(Color.WHITE);
-                    mActive = true;
+                if(mFlag != 0) {
+                    mFlag = 0;
+                    setBtnColor();
+                    showGroceryLists();
                 }
                 break;
             case R.id.past_client_btn:
-                if(mActive){
-                    loadGroceryListToRecyclerView(GroceryListStatus.FINISHED);
-                    btnPastGroceryList.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
-                    btnActiveGroceryList.setBackgroundColor(Color.WHITE);
-                    mActive = false;
+                if(mFlag != 1){
+                    mFlag = 1;
+                    setBtnColor();
+                    showGroceryLists();
                 }
                 break;
             case R.id.floatingButtonAdd:
@@ -147,14 +145,16 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
         }
     }
 
-    /**
-     * Metoda za upisivanje GL-ova u RecyclerView
-     * @param mStatus
-     */
-    private void loadGroceryListToRecyclerView(GroceryListStatus mStatus){
-        mPastGroceryListHelper.loadGroceryLists(mStatus, CurrentUser.getCurrentUser.getUserUID());
+    private void setBtnColor(){
+        if(mFlag == 0){
+            btnActiveGroceryList.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+            btnPastGroceryList.setBackgroundColor(Color.WHITE);
+        }
+        else {
+            btnPastGroceryList.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
+            btnActiveGroceryList.setBackgroundColor(Color.WHITE);
+        }
     }
-
 
     /**
      * Upisivanje detalja fragmenta
@@ -183,8 +183,6 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             mGroceryListAdapter = new GroceryListAdapter(mGroceryList, this);
             mRecyclerView.setAdapter(mGroceryListAdapter);
-
-            //MAKNI OZNAKU ZA OSVJEZAVANJE
             mSwipeRefreshLayout.setRefreshing(false);
             setTextVisibility(mGroceryList, mGroceryListStatus);
         }else if (mGroceryListStatus.equals(GroceryListStatus.ACCEPTED)){
@@ -221,5 +219,20 @@ public class ClientGroceryListFragment extends Fragment implements View.OnClickL
         }else
             mNoneClientGroceryLists.setVisibility(View.GONE);
 
+    }
+
+    @Override
+    public String getName(Context context) {
+        return context.getString(R.string.client_fragment);
+    }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
+    }
+
+    @Override
+    public Drawable getIcon(Context context) {
+        return context.getDrawable(R.drawable.ic_add_shopping_cart_black_24dp);
     }
 }
