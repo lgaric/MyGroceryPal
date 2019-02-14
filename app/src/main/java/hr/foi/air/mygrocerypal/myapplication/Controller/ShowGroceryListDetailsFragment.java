@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -42,6 +43,8 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
     private RecyclerView mRecyclerView;
 
     private Button btnAgainCommit;
+
+    private ProgressBar mProgressBar;
 
     private Boolean mDeliverer = false;
 
@@ -86,6 +89,8 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
 
         //LISTVIEW
         mRecyclerView = view.findViewById(R.id.listOfItemsGroceryDetails);
+
+        mProgressBar = view.findViewById(R.id.progress);
 
         //BUTTON
         btnAgainCommit = view.findViewById(R.id.againCommitbtn);
@@ -138,6 +143,7 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
     @Override
     public void groceryListDetailsReceived(@Nullable UserModel mGroceryListUser, ArrayList<GroceryListProductsModel> mGroceryListProducts) {
         if(mGroceryListProducts != null) {
+            mProgressBar.setVisibility(View.GONE);
             mGroceryListsModel.setProductsModels(mGroceryListProducts);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));

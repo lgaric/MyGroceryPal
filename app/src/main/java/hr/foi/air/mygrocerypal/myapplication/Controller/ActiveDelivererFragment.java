@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,9 +38,10 @@ import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListOperation;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
+import hr.foi.air.mygrocerypal.myapplication.SecondNavigationItem;
 
 public class ActiveDelivererFragment extends Fragment implements LocationListener, GroceryListOperationListener,
-        GroceryListStatusListener {
+        GroceryListStatusListener, SecondNavigationItem {
     private TextView mNoneActiveLists;
 
     SeekBar mSeekBar;
@@ -225,6 +227,7 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
         fragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .commit();
     }
@@ -375,4 +378,14 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
             }
         }
     };
+
+    @Override
+    public String getName(Context context) {
+        return context.getResources().getString(R.string.activeCaps);
+    }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
+    }
 }

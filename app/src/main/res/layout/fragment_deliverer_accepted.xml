@@ -24,7 +24,9 @@
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/grocery_lists_accepted"
+                android:layoutAnimation="@anim/layout_for_first_animation"
                 style="@style/MatchBoth"/>
+
         </LinearLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>

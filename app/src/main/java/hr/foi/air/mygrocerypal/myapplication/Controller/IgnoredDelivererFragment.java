@@ -1,9 +1,11 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,9 +26,10 @@ import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListOperati
 import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
+import hr.foi.air.mygrocerypal.myapplication.SecondNavigationItem;
 
-    public class IgnoredDelivererFragment extends Fragment implements GroceryListOperationListener, GroceryListStatusListener{
-
+public class IgnoredDelivererFragment extends Fragment implements GroceryListOperationListener,
+        GroceryListStatusListener, SecondNavigationItem{
     private TextView mNoneIgnoredLists;
     //vars
     DelivererGroceryListHelper mDelivererGroceryListHelper;
@@ -123,6 +126,7 @@ import hr.foi.air.mygrocerypal.myapplication.R;
         fragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .commit();
     }
@@ -170,4 +174,14 @@ import hr.foi.air.mygrocerypal.myapplication.R;
             else
                 mNoneIgnoredLists.setVisibility(View.VISIBLE);
         }
+
+    @Override
+    public String getName(Context context) {
+        return context.getResources().getString(R.string.ignoredCaps);
     }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
+    }
+}

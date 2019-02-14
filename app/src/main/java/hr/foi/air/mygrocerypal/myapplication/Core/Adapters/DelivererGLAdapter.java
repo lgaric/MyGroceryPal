@@ -53,9 +53,13 @@ public class DelivererGLAdapter extends RecyclerView.Adapter<DelivererGLHolder> 
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.gl_item_ignored, viewGroup, false);
         }
-        else{ //PRIHVACENI -> STAVI SVOJ LAYOUT
+        else if(mType == 2){ //PRIHVACENI -> STAVI SVOJ LAYOUT
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.gl_item_accepted, viewGroup, false);
+        }
+        else{
+            view = LayoutInflater.from(viewGroup.getContext())
+                    .inflate(R.layout.gl_item_finished, viewGroup, false);
         }
 
         return new DelivererGLHolder(view, mType);

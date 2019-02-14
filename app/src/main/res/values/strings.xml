@@ -26,6 +26,7 @@
     <string name="activeCaps">AKTIVNI</string>
     <string name="pastCaps">PROŠLI</string>
     <string name="ignoredCaps">IGNORIRANI</string>
+    <string name="finishedCaps">DOSTAVLJENI</string>
     <string name="acceptedCaps">PRIHVAĆENI</string>
     <string name="printLocation">ISPIŠI LOKACIJU</string>
     <string name="acceptCaps">PRIHVATI</string>

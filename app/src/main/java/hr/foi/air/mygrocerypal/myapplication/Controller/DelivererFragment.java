@@ -7,23 +7,29 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import hr.foi.air.mygrocerypal.myapplication.NavigationItem;
 import hr.foi.air.mygrocerypal.myapplication.R;
+import hr.foi.air.mygrocerypal.myapplication.SecondNavigationItem;
+import hr.foi.air.mygrocerypal.myapplication.TopNavigation;
 
 /**
  * Fragment koji se otvara prilikom ulazka u aplikaciju i pritiskom na gumb Deliverer u drawerlayotu / izborniku
  */
-public class DelivererFragment extends Fragment implements NavigationItem {
-    private Button btnAccepted, btnActive, btnIgnored;
-    private ArrayList<Fragment> delivererFragments;
-    int mFlag;
+public class DelivererFragment extends Fragment implements NavigationItem, TopNavigation {
+    private ImageButton previousBtn, nextBtn;
+    private TextView currentFragmentName;
+    private ArrayList<SecondNavigationItem> delivererFragments;
+    private int currentArrayIndex = 0;
 
     /**
      * Pritisak na gumb Active, Accepted, Ignored
@@ -32,26 +38,19 @@ public class DelivererFragment extends Fragment implements NavigationItem {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.active_deliverer_btn: //mFlag = 0
-                    if(mFlag != 0){
-                        mFlag = 0;
-                        showGroceryLists(delivererFragments.get(mFlag));
-                        changeBtnColor(mFlag);
-                    }
+                case R.id.previous_fragment:
+                    if(currentArrayIndex == 0)
+                        currentArrayIndex = delivererFragments.size() - 1;
+                    else
+                        currentArrayIndex--;
+                    changeFragment(delivererFragments.get(currentArrayIndex).getFragment());
                     break;
-                case R.id.accepted_deliverer_btn: //mFlag = 1
-                    if(mFlag != 1){
-                        mFlag = 1;
-                        showGroceryLists(delivererFragments.get(mFlag));
-                        changeBtnColor(mFlag);
-                    }
-                    break;
-                case R.id.ignored_client_btn: //mFlag = 2
-                    if(mFlag != 2){
-                        mFlag = 2;
-                        showGroceryLists(delivererFragments.get(mFlag));
-                        changeBtnColor(mFlag);
-                    }
+                case R.id.next_fragment:
+                    if(currentArrayIndex == delivererFragments.size() - 1)
+                        currentArrayIndex = 0;
+                    else
+                        currentArrayIndex++;
+                    changeFragment(delivererFragments.get(currentArrayIndex).getFragment());
                     break;
                 default:
                     Log.d("CLICKDELIVERERFRAGMENT", "PRITISNUT JE: " + Integer.toString(v.getId()));
@@ -59,28 +58,6 @@ public class DelivererFragment extends Fragment implements NavigationItem {
             }
         }
     };
-
-    /**
-     * Promijena boje pritisnutog gumba
-     * @param flag
-     */
-    private void changeBtnColor(int flag){
-        if(flag == 0){
-            btnActive.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
-            btnAccepted.setBackgroundColor(Color.WHITE);
-            btnIgnored.setBackgroundColor(Color.WHITE);
-        }
-        else if(flag == 1){
-            btnAccepted.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
-            btnActive.setBackgroundColor(Color.WHITE);
-            btnIgnored.setBackgroundColor(Color.WHITE);
-        }
-        else {
-            btnIgnored.setBackgroundColor(getResources().getColor(R.color.colorPrimaryLight));
-            btnActive.setBackgroundColor(Color.WHITE);
-            btnAccepted.setBackgroundColor(Color.WHITE);
-        }
-    }
 
     /**
      * Nastavljanje izvodenja fragmenta, postavljanje naslova u activityju
@@ -101,20 +78,18 @@ public class DelivererFragment extends Fragment implements NavigationItem {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_deliverer, container, false);
-        ((MainActivity)getActivity()).getSupportActionBar().setTitle(getActivity().getResources().getString(R.string.deliverer));
 
-        btnActive = view.findViewById(R.id.active_deliverer_btn);
-        btnAccepted = view.findViewById(R.id.accepted_deliverer_btn);
-        btnIgnored = view.findViewById(R.id.ignored_client_btn);
+        previousBtn = view.findViewById(R.id.previous_fragment);
+        nextBtn = view.findViewById(R.id.next_fragment);
+        currentFragmentName = view.findViewById(R.id.current_fragment_name);
+        currentFragmentName.setGravity(Gravity.CENTER);
 
-        btnActive.setOnClickListener(clickListener);
-        btnAccepted.setOnClickListener(clickListener);
-        btnIgnored.setOnClickListener(clickListener);
+        previousBtn.setOnClickListener(clickListener);
+        nextBtn.setOnClickListener(clickListener);
 
         setUpDelivererFragments();
-        showGroceryLists(delivererFragments.get(mFlag));
+        changeFragment(delivererFragments.get(currentArrayIndex).getFragment());
 
-        Log.d("DelivererFragment", "DelivererFragment");
         return view;
     }
 
@@ -125,25 +100,24 @@ public class DelivererFragment extends Fragment implements NavigationItem {
      * IgnoredDelivererFragment -> ignorirani gl-ovi
      */
     private void setUpDelivererFragments(){
-        if(delivererFragments != null) {
-            changeBtnColor(mFlag);
+        if(delivererFragments != null)
             return;
-        }
         delivererFragments = new ArrayList<>();
         delivererFragments.add(new ActiveDelivererFragment());
         delivererFragments.add(new AcceptedDelivererFragment());
         delivererFragments.add(new IgnoredDelivererFragment());
+        delivererFragments.add(new FinishedDelivererFragment());
     }
 
-    /**
-     * Prikaz novog fragmenta unutar fragmenta DelivererFragment
-     * @param mFragment
-     */
-    public void showGroceryLists(Fragment mFragment){
-        getChildFragmentManager().beginTransaction()
-                .replace(R.id.show_grocery_lists, mFragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .commit();
+    public ActiveDelivererFragment getActiveDelivererFragment(){
+        ActiveDelivererFragment fragment = null;
+        for(SecondNavigationItem frag : delivererFragments){
+            if(frag instanceof ActiveDelivererFragment){
+                fragment = (ActiveDelivererFragment) frag;
+                break;
+            }
+        }
+        return fragment;
     }
 
     @Override
@@ -161,18 +135,17 @@ public class DelivererFragment extends Fragment implements NavigationItem {
         return context.getDrawable(R.drawable.ic_person_black_24dp);
     }
 
-    /**
-     * Dohvati active deliverer fragment
-     * @return
-     */
-    public ActiveDelivererFragment getActiveDelivererFragment(){
-        ActiveDelivererFragment fragment = null;
-        for(Fragment frag : delivererFragments){
-            if(frag instanceof ActiveDelivererFragment){
-                fragment = (ActiveDelivererFragment) frag;
-                break;
-            }
-        }
-        return fragment;
+    @Override
+    public void changeFragment(Fragment item) {
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.show_grocery_lists, item)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit();
+        changeNavigationName(delivererFragments.get(currentArrayIndex).getName(getContext()));
+    }
+
+    @Override
+    public void changeNavigationName(String name) {
+        currentFragmentName.setText(name);
     }
 }

@@ -262,6 +262,40 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
 
     }
 
+    public void getUserFinishedGroceryLists(){
+        mQuery = mDatabase.getReference().child(GROCERYLISTSNODE)
+                .orderByChild(USERACCEPTEDIDNODE).equalTo(CurrentUser.getCurrentUser.getUserUID());
+
+        if(isNetworkAvailable()){
+            mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    ArrayList<GroceryListsModel> groceryList = new ArrayList<>();
+                    for (DataSnapshot temp : dataSnapshot.getChildren()) {
+                        GroceryListsModel model = temp.getValue(GroceryListsModel.class);
+                        model.setGrocerylist_key(temp.getKey());
+                        groceryList.add(model);
+                    }
+
+                    ArrayList<GroceryListsModel> temp = new ArrayList<>();
+                    for (GroceryListsModel model : groceryList) {
+                        if(model.getStatus() == GroceryListStatus.FINISHED)
+                            temp.add(model);
+                    }
+
+                    if(mGroceryListStatusListener != null)
+                        mGroceryListStatusListener.groceryListReceived(temp, GroceryListStatus.FINISHED);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    // Do nothing
+                }
+            });
+        }else
+            showInternetMessageWarning();
+    }
+
     /**
      * Ponisti ignoriranje Gla
      * @param mGroceryListKey

@@ -9,30 +9,35 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             style="@style/ButtonTabTopMenu"
-            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_weight=".2"
             android:text="@string/activeCaps"
-            android:background="@color/colorPrimaryLight"
-            android:id="@+id/active_deliverer_btn"/>
+            android:src="@drawable/navigation_left_24dp"
+            android:id="@+id/previous_fragment"/>
 
         <View
             style="@style/verticalDivider" />
 
-        <Button
+        <TextView
             style="@style/ButtonTabTopMenu"
-            android:layout_weight="1"
-            android:text="@string/acceptedCaps"
-            android:id="@+id/accepted_deliverer_btn"/>
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="0dp"
+            android:layout_weight=".6"
+            android:id="@+id/current_fragment_name"/>
 
         <View
             style="@style/verticalDivider" />
 
-        <Button
+        <ImageButton
             style="@style/ButtonTabTopMenu"
-            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_weight=".2"
             android:text="@string/ignoredCaps"
-            android:id="@+id/ignored_client_btn"/>
+            android:src="@drawable/navigation_right_24dp"
+            android:id="@+id/next_fragment"/>
 
     </LinearLayout>
 

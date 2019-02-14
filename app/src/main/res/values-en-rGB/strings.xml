@@ -5,6 +5,7 @@
     <string name="deliverer_fragment">Deliverer</string>
     <string name="client_fragment">Client</string>
 
+    <string name="finishedCaps">DELIVERED</string>
     <string name="app_name">MyGroceryPal</string>
     <string name="forgotPassword">Forgot password?</string>
     <string name="registrationOnLogin">Don\'t have account? Register!</string>

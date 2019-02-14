@@ -1,9 +1,11 @@
 package hr.foi.air.mygrocerypal.myapplication.Controller;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,8 +24,10 @@ import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.DelivererGroceryList
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListStatusListener;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
+import hr.foi.air.mygrocerypal.myapplication.SecondNavigationItem;
 
-public class AcceptedDelivererFragment extends Fragment implements GroceryListOperationListener, GroceryListStatusListener {
+public class AcceptedDelivererFragment extends Fragment implements GroceryListOperationListener, GroceryListStatusListener
+    , SecondNavigationItem {
     private TextView mNoneAcceptedLists;
 
     //vars
@@ -126,6 +130,7 @@ public class AcceptedDelivererFragment extends Fragment implements GroceryListOp
         fragment.setArguments(bundle);
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 .addToBackStack(null)
                 .commit();
     }
@@ -147,5 +152,15 @@ public class AcceptedDelivererFragment extends Fragment implements GroceryListOp
             mNoneAcceptedLists.setVisibility(View.GONE);
         else
             mNoneAcceptedLists.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public String getName(Context context) {
+        return context.getResources().getString(R.string.acceptedCaps);
+    }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
     }
 }
