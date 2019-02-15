@@ -75,6 +75,10 @@
         android:layout_below="@+id/picture"
         android:visibility="gone">
 
+        <TextView
+            android:id="@+id/currentAddress"
+            style="@style/TextViewBlack" />
+
         <EditText
             style="@style/EditTextWhite"
             android:id="@+id/txtCity"
@@ -102,6 +106,10 @@
         android:orientation="vertical"
         android:layout_below="@+id/picture"
         android:visibility="gone">
+
+        <TextView
+            android:id="@+id/currentPhone"
+            style="@style/TextViewBlack" />
 
         <EditText
             style="@style/EditTextWhite"

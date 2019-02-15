@@ -30,22 +30,15 @@ import hr.foi.air.mygrocerypal.myapplication.PaymentHelper.PaymentActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class ShowGroceryListDetailsFragment extends Fragment implements GroceryListDetailsListener {
-
     private static String CURRENCY = " kn";
-
     private GroceryListDetailsHelper mProductsController;
     private GroceryListsModel mGroceryListsModel;
     private UserModel mDelivererModel;
-
     private LinearLayout mColorOfHeaderGroceryDetails;
-
-    private TextView mStoreName, mFirstName, mTotalPrice, mCommision,  mContact;
+    private TextView mStoreName, mFirstName, mTotalPrice, mCommision,  mContact, mOrderID, mDate;
     private RecyclerView mRecyclerView;
-
     private Button btnAgainCommit;
-
     private ProgressBar mProgressBar;
-
     private Boolean mDeliverer = false;
 
     /**
@@ -86,6 +79,8 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
         mTotalPrice = view.findViewById(R.id.priceGroceryDetails);
         mCommision = view.findViewById(R.id.commisionGroceryDetails);
         mContact = view.findViewById(R.id.contactGroceryDetails);
+        mOrderID = view.findViewById(R.id.order_id);
+        mDate = view.findViewById(R.id.order_date);
 
         //LISTVIEW
         mRecyclerView = view.findViewById(R.id.listOfItemsGroceryDetails);
@@ -106,6 +101,8 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
      */
     private void setGroceryListDetailsHeader(){
         mStoreName.append(mGroceryListsModel.getStore_name());
+        mOrderID.append(mGroceryListsModel.getGrocerylist_key());
+        mDate.append(mGroceryListsModel.getStart_date());
         mTotalPrice.append(mGroceryListsModel.getTotal_price() + CURRENCY);
         mCommision.append(mGroceryListsModel.getCommision() + CURRENCY);
     }

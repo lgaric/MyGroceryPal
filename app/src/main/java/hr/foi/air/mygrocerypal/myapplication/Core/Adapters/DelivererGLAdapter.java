@@ -45,15 +45,15 @@ public class DelivererGLAdapter extends RecyclerView.Adapter<DelivererGLHolder> 
     public DelivererGLHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view;
 
-        if(mType == 0) { //AKTIVNI
+        if(mType == 0) {
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.gl_deliverer_active, viewGroup, false);
         }
-        else if(mType == 1){ //IGNORIRANI -> STAVI SVOJ LAYOUT
+        else if(mType == 1){
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.gl_item_ignored, viewGroup, false);
         }
-        else if(mType == 2){ //PRIHVACENI -> STAVI SVOJ LAYOUT
+        else if(mType == 2){
             view = LayoutInflater.from(viewGroup.getContext())
                     .inflate(R.layout.gl_item_accepted, viewGroup, false);
         }

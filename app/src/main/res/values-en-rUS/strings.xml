@@ -5,6 +5,8 @@
     <string name="deliverer_fragment">Deliverer</string>
     <string name="client_fragment">Client</string>
 
+    <string name="date">Date:  </string>
+    <string name="orderID">ID:  </string>
     <string name="finishedCaps">DELIVERED</string>
     <string name="app_name">MyGroceryPal</string>
     <string name="address">Address</string>

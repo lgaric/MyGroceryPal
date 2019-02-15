@@ -19,15 +19,17 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
     private GroceryListsModel mGroceryListsModel;
 
     private TextView mStore;
+    private TextView mOrderID;
+    private TextView mOrderDate;
     private TextView mPrice;
     private TextView mCommision;
     private TextView mAddress;
     private TextView mDeliveryTown;
     private View view;
 
-    Button btnAcceptGL;
-    Button btnIgnoreGL;
-    Button btnReturnGL;
+    private Button btnAcceptGL;
+    private Button btnIgnoreGL;
+    private Button btnReturnGL;
 
     private GroceryListOperationListener mGroceryListOperationListener;
 
@@ -72,17 +74,15 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
         super(itemView);
         view = itemView;
 
-        Log.d("TROLL", Integer.toString(itemView.getId()));
-        //POHRANI SVE POTREBNE INFORMACIJE
         this.mStore = itemView.findViewById(R.id.store_name);
+        this.mOrderID = itemView.findViewById(R.id.order_id);
+        this.mOrderDate = itemView.findViewById(R.id.order_date);
         this.mPrice = itemView.findViewById(R.id.price);
         this.mCommision = itemView.findViewById(R.id.commision);
         this.mAddress = itemView.findViewById(R.id.address);
         this.mDeliveryTown = itemView.findViewById(R.id.delivery_town);
 
         setButtonsListener(type, itemView);
-
-        //AKO NEKO PRITISNE NA GROCERYLIST I ŽELI VIDJETI DETALJE(OVO SE NE ODNOSI NA GUMB)
         itemView.setOnClickListener(btnGroceryListDetails);
     }
 
@@ -117,8 +117,9 @@ public class DelivererGLHolder extends RecyclerView.ViewHolder {
     public void bind(GroceryListsModel mGroceryListsModel, GroceryListOperationListener mGroceryListOperationListener){
         this.mGroceryListsModel = mGroceryListsModel;
 
-        //POSTAVI VRIJEDNOST TEXTVIEWOVA
         this.mStore.setText(mGroceryListsModel.getStore_name());
+        this.mOrderID.setText(view.getContext().getResources().getString(R.string.orderID) + "  " + mGroceryListsModel.getGrocerylist_key());
+        this.mOrderDate.setText(view.getContext().getResources().getString(R.string.date) + "  " + mGroceryListsModel.getStart_date());
         this.mPrice.setText(view.getContext().getResources().getString(R.string.price) + "  " + mGroceryListsModel.getTotal_price() + CURRENCY);
         this.mCommision.setText(view.getContext().getResources().getString(R.string.commisson) +  "  " + mGroceryListsModel.getCommision() + CURRENCY);
         this.mAddress.setText(view.getContext().getResources().getString(R.string.address) +  "  " + mGroceryListsModel.getDelivery_address());

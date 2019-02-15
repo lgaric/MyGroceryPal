@@ -67,6 +67,8 @@
     <string name="totalCost">Ukupna cijena: </string>
 
 
+    <string name="date">Datum:</string>
+    <string name="orderID">ID:</string>
     <string name="settings">Postavke</string>
     <string name="deliverer">Dobavljač</string>
     <string name="price">"Cijena: "</string>

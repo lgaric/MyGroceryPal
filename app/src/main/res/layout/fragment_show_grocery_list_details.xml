@@ -29,9 +29,20 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
             <TextView
+                android:id="@+id/order_id"
+                style="@style/TextViewGroceryListItem"
+                android:text="@string/orderID"/>
+
+            <TextView
                 style="@style/TextViewGroceryListItem"
                 android:id="@+id/priceGroceryDetails"
                 android:text="@string/price"/>
+
+            <TextView
+                style="@style/TextViewGroceryListItem"
+                android:id="@+id/order_date"
+                android:text="@string/date"/>
+
 
             <TextView
                 style="@style/TextViewGroceryListItem"

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -33,34 +34,20 @@ import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
 import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 
 public class SettingsFragment extends Fragment implements CitiesListener, PasswordRecoveryListener, NavigationItem {
-
-    //ZAGLAVLJE
     private Spinner mOptionsSpinner;
-
-    //LOZINKA
     private LinearLayout mPasswordRecoveryLayout;
-
-    //GRADOVI
     private LinearLayout mCityRecoveryLayout;
     private SpinnerDialog mSpinnerDialog;
+    private TextView mCurrentAddress;
+    private TextView mCurrentPhone;
     private EditText mCity;
     private EditText mAddress;
-
-    //BROJ
     private LinearLayout mPhoneRecoveryLayout;
     private EditText mPhoneNumber;
-
-    //GUMB
     private Button mChangeButton;
-
-    //PODACI
     private ArrayList<String> mOptions;
     private ArrayList<String> mListOfCities;
-
-    //OBNOVA LOZINKE
     private PasswordRecoveryHelper passwordRecoveryHelper;
-
-    //ONBNOVA ADRESE I TELEFONA
     private UserInformationHelper userInformationHelper;
 
     /**
@@ -121,12 +108,17 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
 
         //GRADOVI
         mCityRecoveryLayout = view.findViewById(R.id.cityLayout);
+        mCurrentAddress = view.findViewById(R.id.currentAddress);
         mCity = view.findViewById(R.id.txtCity);
         mAddress = view.findViewById(R.id.txtAddress);
+        String address = CurrentUser.getCurrentUser.getAddress() + ", " + CurrentUser.getCurrentUser.getTown();
+        mCurrentAddress.setText(address);
 
         //MOBITEL
         mPhoneRecoveryLayout = view.findViewById(R.id.phoneNumberLayout);
+        mCurrentPhone = view.findViewById(R.id.currentPhone);
         mPhoneNumber = view.findViewById(R.id.txtPhoneNumber);
+        mCurrentPhone.setText(CurrentUser.getCurrentUser.getPhone_number());
 
         //GUMB PROMIJENI
         mChangeButton = view.findViewById(R.id.btnChangeProfile);
@@ -240,10 +232,14 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
                 + city + ", Croatia", getContext());
 
         if(newPoint != null){
-            String result = userInformationHelper
-                    .updateUserAdress(CurrentUser.getCurrentUser.getUserUID(), address, city, newPoint);
-
-            Toast.makeText(getContext(), result, Toast.LENGTH_LONG).show();
+            if(!userInformationHelper.updateUserAdress(CurrentUser.getCurrentUser.getUserUID(), address, city, newPoint))
+                return;
+            CurrentUser.getCurrentUser.setAddress(address);
+            CurrentUser.getCurrentUser.setTown(city);
+            CurrentUser.getCurrentUser.setLatitude(newPoint.getLatitude());
+            CurrentUser.getCurrentUser.setLongitude(newPoint.getLongitude());
+            String temp = CurrentUser.getCurrentUser.getAddress() + ", " + CurrentUser.getCurrentUser.getTown();
+            mCurrentAddress.setText(temp);
         }
         else{
             Toast.makeText(getContext(), getResources().getString(R.string.fetchAddressError), Toast.LENGTH_LONG).show();
@@ -263,8 +259,10 @@ public class SettingsFragment extends Fragment implements CitiesListener, Passwo
             return;
         }
 
-        String result = userInformationHelper.updateUserPhoneNumber(CurrentUser.getCurrentUser.getUserUID(), phone);
-        Toast.makeText(getContext(), result, Toast.LENGTH_LONG).show();
+        if(userInformationHelper.updateUserPhoneNumber(CurrentUser.getCurrentUser.getUserUID(), phone)) {
+            mCurrentPhone.setText(phone);
+            CurrentUser.getCurrentUser.setPhone_number(phone);
+        }
     }
 
     /**

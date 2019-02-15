@@ -115,7 +115,6 @@ public class FinishedDelivererFragment extends Fragment implements GroceryListOp
                 .commit();
     }
 
-
     //DEBELI INTERFEJSI SU MI NAJDRAZI
     @Override
     public void groceryListStatusReceived(String mGroceryListID, String mGroceryListStatus, GroceryListOperation mOperation) {
