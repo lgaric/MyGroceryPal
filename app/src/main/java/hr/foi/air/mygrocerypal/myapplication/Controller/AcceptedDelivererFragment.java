@@ -59,7 +59,7 @@ public class AcceptedDelivererFragment extends Fragment implements GroceryListOp
         mSwipeRefreshLayout = view.findViewById(R.id.swipe_refresh_accepted);
         mRecyclerView = view.findViewById(R.id.grocery_lists_accepted);
         mNoneAcceptedLists = view.findViewById(R.id.noneDelivererAcceptedGL);
-
+        mRecyclerView.setVisibility(View.INVISIBLE);
         mSwipeRefreshLayout.setOnRefreshListener(mRefreshListener);
 
         if(mDelivererGroceryListHelper == null){
@@ -108,11 +108,12 @@ public class AcceptedDelivererFragment extends Fragment implements GroceryListOp
     public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList, GroceryListStatus mGroceryListStatus) {
         if(mGroceryList != null) {
             mAcceptedGroceryList = mGroceryList;
+            mSwipeRefreshLayout.setRefreshing(false);
             mRecyclerView.setAdapter(null);
+            mRecyclerView.setVisibility(View.VISIBLE);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             DelivererGLAdapter adapter = new DelivererGLAdapter(mGroceryList, this, 2);
             mRecyclerView.setAdapter(adapter);
-            mSwipeRefreshLayout.setRefreshing(false);
             setTextVisibility(mGroceryList);
         }else
             mNoneAcceptedLists.setVisibility(View.VISIBLE);

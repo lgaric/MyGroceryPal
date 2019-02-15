@@ -111,6 +111,7 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
         mRadius = view.findViewById(R.id.radius);
         mGpsSwitch = view.findViewById(R.id.gps_switch);
         mNoneActiveLists = view.findViewById(R.id.noneDelivererActiveGL);
+        mRecyclerView.setVisibility(View.INVISIBLE);
 
         mSeekBar.setOnSeekBarChangeListener(mSeekBarChangeListener);
         mSwipeRefreshLayout.setOnRefreshListener(mRefreshListener);
@@ -209,6 +210,7 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
     private void setRecyclerView(ArrayList<GroceryListsModel> mGroceryList){
         if(mGroceryList != null) {
             mRecyclerView.setAdapter(null);
+            mRecyclerView.setVisibility(View.VISIBLE);
             mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             DelivererGLAdapter adapter = new DelivererGLAdapter(mGroceryList, this,0);
             mRecyclerView.setAdapter(adapter);
@@ -242,8 +244,8 @@ public class ActiveDelivererFragment extends Fragment implements LocationListene
     public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList, GroceryListStatus mGroceryListStatus) {
         if(mGroceryList != null){
             mAllActiveGroceryList = mGroceryList;
-            showFilteredList(Integer.parseInt(mRadius.getText().toString().trim()));
             mSwipeRefreshLayout.setRefreshing(false);
+            showFilteredList(Integer.parseInt(mRadius.getText().toString().trim()));
         }
     }
 

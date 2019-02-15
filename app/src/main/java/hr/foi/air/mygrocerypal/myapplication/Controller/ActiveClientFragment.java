@@ -34,6 +34,9 @@ public class ActiveClientFragment extends Fragment implements SecondNavigationIt
     private GroceryListHelper mPastGroceryListHelper;
     private ArrayList<GroceryListsModel> mGroceryList;
 
+    //TODO
+    //Filtrirati da lista sadrzi samo GL-ove novije od 2 dana
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -75,7 +78,6 @@ public class ActiveClientFragment extends Fragment implements SecondNavigationIt
             this.mGroceryList = mGroceryList;
             setRecyclerView();
         }
-        setTextVisibility();
     }
 
     public void setRecyclerView(){
@@ -87,6 +89,8 @@ public class ActiveClientFragment extends Fragment implements SecondNavigationIt
             mRecycleView.setAdapter(mGroceryListAdapter);
             mSwipeRefresh.setRefreshing(false);
         }
+        else
+            setTextVisibility();
     }
 
     @Override

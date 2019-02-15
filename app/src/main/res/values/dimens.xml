@@ -19,6 +19,6 @@
     <dimen name="zeroDP">0dp</dimen>
     <dimen name="one">1</dimen>
 
-    <integer name="animation_duration">500</integer>
+    <integer name="animation_duration">300</integer>
 
 </resources>

@@ -43,6 +43,7 @@ public class FinishedDelivererFragment extends Fragment implements GroceryListOp
         recyclerView = view.findViewById(R.id.recycler_view);
         message = view.findViewById(R.id.finishedItemsMessage);
         refreshLayout.setOnRefreshListener(mRefreshListener);
+        recyclerView.setVisibility(View.INVISIBLE);
 
         mDelivererGroceryListHelper = new DelivererGroceryListHelper(this);
         mDelivererGroceryListHelper.getUserFinishedGroceryLists();
@@ -75,11 +76,12 @@ public class FinishedDelivererFragment extends Fragment implements GroceryListOp
     public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList, GroceryListStatus mGroceryListStatus) {
         if(mGroceryList != null){
             groceryLists = mGroceryList;
+            refreshLayout.setRefreshing(false);
             recyclerView.setAdapter(null);
+            recyclerView.setVisibility(View.VISIBLE);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             DelivererGLAdapter adapter = new DelivererGLAdapter(mGroceryList, this,4);
             recyclerView.setAdapter(adapter);
-            refreshLayout.setRefreshing(false);
             setTextVisibility(mGroceryList);
         }
     }

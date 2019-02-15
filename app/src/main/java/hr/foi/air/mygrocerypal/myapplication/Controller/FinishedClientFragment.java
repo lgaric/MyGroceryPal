@@ -75,7 +75,6 @@ public class FinishedClientFragment extends Fragment implements SecondNavigation
             this.mGroceryList = mGroceryList;
             setRecyclerView();
         }
-        setTextVisibility();
     }
 
     public void setRecyclerView(){
@@ -87,6 +86,8 @@ public class FinishedClientFragment extends Fragment implements SecondNavigation
             mRecycleView.setAdapter(mGroceryListAdapter);
             mSwipeRefresh.setRefreshing(false);
         }
+        else
+            setTextVisibility();
     }
 
     @Override

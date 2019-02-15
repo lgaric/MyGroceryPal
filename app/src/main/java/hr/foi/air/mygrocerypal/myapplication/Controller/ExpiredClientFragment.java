@@ -34,6 +34,9 @@ public class ExpiredClientFragment extends Fragment implements SecondNavigationI
     private GroceryListHelper mPastGroceryListHelper;
     private ArrayList<GroceryListsModel> mGroceryList;
 
+    //TODO
+    //Filtrirati da lista sadrzi samo GL-ove starije od 2 dana
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -75,7 +78,6 @@ public class ExpiredClientFragment extends Fragment implements SecondNavigationI
             this.mGroceryList = mGroceryList;
             setRecyclerView();
         }
-        setTextVisibility();
     }
 
     public void setRecyclerView(){
@@ -87,6 +89,8 @@ public class ExpiredClientFragment extends Fragment implements SecondNavigationI
             mRecycleView.setAdapter(mGroceryListAdapter);
             mSwipeRefresh.setRefreshing(false);
         }
+        else
+            setTextVisibility();
     }
 
     @Override
