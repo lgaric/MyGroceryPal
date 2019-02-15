@@ -100,10 +100,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onStart() {
         super.onStart();
+        /*
         if(!firstCall)
             firstCall = true;
         else
             NavigationManager.getInstance().startMainModule();
+            */
     }
 
     /**
