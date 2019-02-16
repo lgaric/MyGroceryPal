@@ -23,15 +23,17 @@ import android.widget.TextView;
 import hr.foi.air.mygrocerypal.GPSLocation;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
 import hr.foi.air.mygrocerypal.myapplication.NavigationManager;
+import hr.foi.air.mygrocerypal.myapplication.PaymentHelper.PaymentActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         FragmentManager.OnBackStackChangedListener {
+    private boolean restart;
+    public static final int PAYMENT_REQUEST_CODE = 2;
     private Toolbar mToolbar;
     private DrawerLayout mDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
     private NavigationView mNavigationView;
-    private boolean firstCall = false;
 
     /**
      * Inicijalizacija
@@ -95,17 +97,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        /*
-        if(!firstCall)
-            firstCall = true;
-        else
-            NavigationManager.getInstance().startMainModule();
-            */
     }
 
     /**
@@ -202,9 +193,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("REQUEST_CODE", Integer.toString(requestCode));
         if (requestCode == GPSLocation.REQUEST_CHECK_SETTINGS)
             NavigationManager.getInstance().locationResult(requestCode, resultCode, data);
+        else if(requestCode == PAYMENT_REQUEST_CODE){
+            if(resultCode == RESULT_OK){
+                restart = true;
+            }
+        }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(restart){
+            onBackPressed();
+            restart = false;
+        }
+    }
 }
 

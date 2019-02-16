@@ -36,6 +36,16 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
         <TextView
+            android:id="@+id/order_id"
+            style="@style/TextViewGroceryListItem"
+            tools:text="Store id" />
+
+        <TextView
+            style="@style/TextViewGroceryListItem"
+            android:id="@+id/order_date"
+            tools:text="Date: 27.01.1998"/>
+
+        <TextView
             style="@style/TextViewGroceryListItem"
             android:id="@+id/commision"
             tools:text="Commision: 25kn"

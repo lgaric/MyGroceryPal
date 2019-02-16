@@ -22,6 +22,8 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
     private TextView mStore;
     private TextView mPrice;
     private TextView mCommision;
+    private TextView mOrderID;
+    private TextView mOrderDate;
     private View view;
 
     //ONCLICKLISTENER -> ANDROID INTERFACE
@@ -46,6 +48,8 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
             mStore = itemView.findViewById(R.id.store_name);
             mPrice = itemView.findViewById(R.id.price);
             mCommision = itemView.findViewById(R.id.commision);
+            mOrderID = itemView.findViewById(R.id.order_id);
+            mOrderDate = itemView.findViewById(R.id.order_date);
 
             itemView.setOnClickListener(onclick);
         }
@@ -57,7 +61,10 @@ public class GroceryListHolder extends RecyclerView.ViewHolder {
      */
     public void bind(GroceryListsModel mGroceryListsModel, GroceryListClickListener mGroceryListClickListener){
             this.mGroceryListsModel = mGroceryListsModel;
+
             mStore.setText(mGroceryListsModel.getStore_name());
+            mOrderID.setText(view.getContext().getResources().getString(R.string.orderID) + "  " + mGroceryListsModel.getGrocerylist_key());
+            mOrderDate.setText(view.getContext().getResources().getString(R.string.date) + "  " + mGroceryListsModel.getStart_date());
             mPrice.setText(view.getContext().getResources().getString(R.string.totalCost) + " " + mGroceryListsModel.getTotal_price() + CURRENCY);
             mCommision.setText(view.getContext().getResources().getString(R.string.commisson) + " " + mGroceryListsModel.getCommision() + CURRENCY);
 

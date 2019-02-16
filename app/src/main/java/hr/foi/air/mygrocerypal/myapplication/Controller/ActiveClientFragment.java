@@ -51,7 +51,7 @@ public class ActiveClientFragment extends Fragment implements SecondNavigationIt
             mPastGroceryListHelper.loadGroceryLists(GroceryListStatus.ACCEPTED, CurrentUser.getCurrentUser.getUserUID());
         }
         else
-            setRecyclerView();
+            mPastGroceryListHelper.loadGroceryLists(GroceryListStatus.ACCEPTED, CurrentUser.getCurrentUser.getUserUID());
         return view;
     }
 
@@ -64,7 +64,7 @@ public class ActiveClientFragment extends Fragment implements SecondNavigationIt
 
     @Override
     public String getName(Context context) {
-        return context.getString(R.string.expiredCaps);
+        return context.getString(R.string.activeCaps);
     }
 
     @Override

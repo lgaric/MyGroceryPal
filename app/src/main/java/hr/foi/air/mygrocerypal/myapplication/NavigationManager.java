@@ -39,6 +39,10 @@ public class NavigationManager {
     private int dynamicGroupId;
 
     private NavigationManager(){
+        set();
+    }
+
+    private void set(){
         navigationItems = new ArrayList<>();
         navigationItems.add(new DelivererFragment());
         navigationItems.add(new ClientGroceryListFragment());
@@ -118,6 +122,7 @@ public class NavigationManager {
      */
     private void logout(){
         CurrentUser.getCurrentUser = null;
+        getInstance().set();
         activity.startActivity(new Intent(activity, LoginActivity.class));
         activity.finish();
     }

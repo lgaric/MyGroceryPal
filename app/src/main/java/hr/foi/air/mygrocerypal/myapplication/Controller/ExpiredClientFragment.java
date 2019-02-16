@@ -64,7 +64,7 @@ public class ExpiredClientFragment extends Fragment implements SecondNavigationI
 
     @Override
     public String getName(Context context) {
-        return context.getString(R.string.activeCaps);
+        return context.getString(R.string.expiredCaps);
     }
 
     @Override

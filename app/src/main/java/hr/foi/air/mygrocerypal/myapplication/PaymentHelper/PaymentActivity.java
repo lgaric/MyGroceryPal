@@ -35,7 +35,7 @@ import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
 public class PaymentActivity extends AppCompatActivity implements PaymentListener{
-
+    private static final int PAYMENT_REQUEST = 1111;
     private static final int REQUEST_CODE = 1234;
     private static final String CHECKOUT = "http://cortex.foi.hr/grocerypal/checkout.php";
     private Payment mPayment;
@@ -185,8 +185,10 @@ public class PaymentActivity extends AppCompatActivity implements PaymentListene
             GroceryChangeStatusHelper helper = new GroceryChangeStatusHelper(this);
             boolean mSuccess = helper.setStatusToFinished(mModel);
 
-            if(mSuccess)
+            if(mSuccess) {
+                setResult(RESULT_OK);
                 this.finish();
+            }
         }
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
         mWaiting.setVisibility(View.GONE);

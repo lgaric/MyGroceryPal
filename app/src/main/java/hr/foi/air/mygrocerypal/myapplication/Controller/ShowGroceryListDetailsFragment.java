@@ -29,6 +29,8 @@ import hr.foi.air.mygrocerypal.myapplication.Model.UserModel;
 import hr.foi.air.mygrocerypal.myapplication.PaymentHelper.PaymentActivity;
 import hr.foi.air.mygrocerypal.myapplication.R;
 
+import static android.app.Activity.RESULT_OK;
+
 public class ShowGroceryListDetailsFragment extends Fragment implements GroceryListDetailsListener {
     private static String CURRENCY = " kn";
     private GroceryListDetailsHelper mProductsController;
@@ -173,9 +175,9 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
      * Ako je na gumbu text Ponovi, ponavlja se GL
      * Inace izvrsi transakciju
      */
-    private void doOperation(){
+    private void doOperation() {
         String buttonText = btnAgainCommit.getText().toString();
-        if(buttonText.equals(getResources().getString(R.string.repeatCaps))) {
+        if (buttonText.equals(getResources().getString(R.string.repeatCaps))) {
             CreateNewGroceryListFragment createNewGroceryListFragment = new CreateNewGroceryListFragment();
             Bundle bundle = new Bundle();
             bundle.putSerializable("repeatGL", mGroceryListsModel);
@@ -184,15 +186,14 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
                     .replace(R.id.fragment_container, createNewGroceryListFragment)
                     .addToBackStack(null)
                     .commit();
-        }
-        else{
+        } else {
             Double totalPrice = Double.parseDouble(mGroceryListsModel.getCommision())
                     + Double.parseDouble(mGroceryListsModel.getTotal_price());
             Intent i = new Intent(getActivity(), PaymentActivity.class);
             i.putExtra("USER_MODEL", mDelivererModel);
             i.putExtra("TOTAL_PAYMENT", totalPrice);
             i.putExtra("MODEL_GL", mGroceryListsModel);
-            startActivity(i);
+            getActivity().startActivityForResult(i, ((MainActivity)getActivity()).PAYMENT_REQUEST_CODE);
         }
     }
 }
