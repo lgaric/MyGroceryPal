@@ -22,7 +22,9 @@ import hr.foi.air.mygrocerypal.myapplication.Core.Enumerators.GroceryListStatus;
 import hr.foi.air.mygrocerypal.myapplication.Core.Listeners.GroceryListClickListener;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.GroceryListHelper;
 import hr.foi.air.mygrocerypal.myapplication.FirebaseHelper.Listeners.GroceryListListener;
+import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.Model.GroceryListsModel;
+import hr.foi.air.mygrocerypal.myapplication.Model.ProductsModel;
 import hr.foi.air.mygrocerypal.myapplication.R;
 import hr.foi.air.mygrocerypal.myapplication.SecondNavigationItem;
 

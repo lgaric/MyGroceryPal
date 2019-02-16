@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -180,10 +181,11 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
         if (buttonText.equals(getResources().getString(R.string.repeatCaps))) {
             CreateNewGroceryListFragment createNewGroceryListFragment = new CreateNewGroceryListFragment();
             Bundle bundle = new Bundle();
-            bundle.putSerializable("repeatGL", mGroceryListsModel);
+            bundle.putSerializable("repeatGL", cleanGroceryList(mGroceryListsModel));
             createNewGroceryListFragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, createNewGroceryListFragment)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .addToBackStack(null)
                     .commit();
         } else {
@@ -195,5 +197,12 @@ public class ShowGroceryListDetailsFragment extends Fragment implements GroceryL
             i.putExtra("MODEL_GL", mGroceryListsModel);
             getActivity().startActivityForResult(i, ((MainActivity)getActivity()).PAYMENT_REQUEST_CODE);
         }
+    }
+
+    private GroceryListsModel cleanGroceryList(GroceryListsModel list){
+        for(GroceryListProductsModel model : list.getProductsModels()){
+            model.setBought(0);
+        }
+        return list;
     }
 }
