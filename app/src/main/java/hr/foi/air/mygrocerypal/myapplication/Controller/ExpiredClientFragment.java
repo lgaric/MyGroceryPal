@@ -14,7 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import hr.foi.air.mygrocerypal.myapplication.Core.Adapters.GroceryListAdapter;
 import hr.foi.air.mygrocerypal.myapplication.Core.CurrentUser;
@@ -33,9 +37,7 @@ public class ExpiredClientFragment extends Fragment implements SecondNavigationI
     private TextView mMessage;
     private GroceryListHelper mPastGroceryListHelper;
     private ArrayList<GroceryListsModel> mGroceryList;
-
-    //TODO
-    //Filtrirati da lista sadrzi samo GL-ove starije od 2 dana
+    private DateFormat mDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
     @Nullable
     @Override
@@ -75,9 +77,41 @@ public class ExpiredClientFragment extends Fragment implements SecondNavigationI
     @Override
     public void groceryListReceived(ArrayList<GroceryListsModel> mGroceryList, GroceryListStatus mGroceryListStatus) {
         if(mGroceryList != null){
-            this.mGroceryList = mGroceryList;
+            this.mGroceryList = getActiveLists(mGroceryList);
             setRecyclerView();
         }
+    }
+
+    public ArrayList<GroceryListsModel> getActiveLists(ArrayList<GroceryListsModel> list){
+        Date mCurrentDate = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(mCurrentDate);
+        cal.add(Calendar.DATE, -1);
+        mCurrentDate = cal.getTime();
+
+        ArrayList<GroceryListsModel> temp = new ArrayList<>();
+        for(GroceryListsModel model : list){
+            if(!groceryListDateValid(mCurrentDate, model.getEnd_date()))
+                temp.add(model);
+        }
+
+        return temp;
+    }
+
+    public boolean groceryListDateValid(Date currentDate, String mDate){
+        Date mGroceryListDate;
+
+        try {
+            mGroceryListDate = mDateFormat.parse(mDate);
+        }
+        catch (Exception e){
+            return false;
+        }
+
+        if(currentDate.before(mGroceryListDate))
+            return true;
+        else
+            return false;
     }
 
     public void setRecyclerView(){

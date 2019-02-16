@@ -11,6 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
     private GroceryListStatusListener mGroceryListStatusListener;
 
     DateFormat mDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    Date mCurrentDate = new Date();
+    Date mCurrentDate;
 
     /**
      * Konstruktor
@@ -34,6 +35,11 @@ public class DelivererGroceryListHelper extends FirebaseBaseHelper{
     public DelivererGroceryListHelper(GroceryListStatusListener mGroceryListStatusListener){
         this.mContext = ((Fragment)mGroceryListStatusListener).getContext();
         this.mGroceryListStatusListener = mGroceryListStatusListener;
+        mCurrentDate = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(mCurrentDate);
+        cal.add(Calendar.DATE, -1);
+        mCurrentDate = cal.getTime();
     }
 
     /**
